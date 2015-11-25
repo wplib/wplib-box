@@ -1,0 +1,23 @@
+.idea
+.vagrant
+/logs/*
+
+/puppet/*
+!/puppet/manifests/
+!/puppet/modules/
+
+# underscores
+/www/underscores4wplib/www/*
+!/www/underscores4wplib/www/index.php
+!/www/underscores4wplib/www/wp-config.php
+!/www/underscores4wplib/www/content/
+
+# underscores content
+/www/underscores4wplib/www/content/*
+!/www/underscores4wplib/www/content/object-cache.php
+
+# underscores mu-plugins
+!/www/underscores4wplib/www/content/mu-plugins/
+/www/underscores4wplib/www/content/mu-plugins/*
+!/www/underscores4wplib/www/content/mu-plugins/plugin-loader.php
+

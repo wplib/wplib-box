@@ -1,0 +1,51 @@
+{
+  "name": "newclarity/undescores4wplib-dev-website",
+  "description": "Underscores4WPLib Development website",
+  "license": "GPL-2.0+",
+  "type": "project",
+  "authors": [
+    {
+      "name": "NewClarity Consulting LLC",
+      "email": "info@newclarity.net",
+      "homepage": "http://newclarity.net",
+      "role": "Developer"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "http://wpackagist.org"
+    },
+    {
+      "type": "git",
+      "url": "http://github.org/wplib/installers"
+    },
+    {
+      "type": "git",
+      "url": "http://github.org/wplib/wplib"
+    }
+  ],
+  "require": {
+    "composer/installers": "dev-master",
+    "wplib/wplib": "0.6.*",
+    "wplib/wordpress": "@stable"
+  },
+  "extra": {
+    "wordpress-install-dir": "www/wp",
+    "installer-paths": {
+      "www/content/mu-plugins/{$name}": [
+        "type:wordpress-library",
+        "type:wordpress-muplugin"
+      ],
+      "www/content/plugins/{$name}": [
+        "type:wordpress-plugin"
+      ],
+      "www/content/themes/{$name}": [
+        "type:wordpress-theme"
+      ]
+    }
+  },
+  "config": {
+    "vendor-dir": "www/vendor"
+  }
+}
