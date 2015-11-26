@@ -22,13 +22,13 @@
 
 ##Sites
 ###Future
-- `wplib-box.dev`  <-- Default
+- `wplib.dev`  <-- Default
 	- Single Page w/Links
 - `docs.wplib.dev`  
 	- https://github.com/wplib/wplib-docs
-- `underscores4wplib.dev` 
+- `underscores.wplib.dev` 
 	- https://github.com/wplib/underscores4wplib
-- `lawpress.dev` 
+- `lawpress.wplib.dev` 
 	- https://github.com/wplib/lawpress
 
 
