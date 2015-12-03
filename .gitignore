@@ -5,6 +5,9 @@
 /puppet/*
 !/puppet/manifests/
 !/puppet/modules/
+/puppet/modules/*
+!/puppet/modules/wplibbox
+!/puppet/modules/underscores4wplib
 
 # underscores
 /www/underscores4wplib/www/*
