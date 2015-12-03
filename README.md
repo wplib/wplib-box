@@ -1,44 +1,21 @@
 #WPLib Box
 
-A pre-packaged virtual machine for developing your [WPLib](https://github.com/wplib/wplib) based WordPress project.
+##Services
 
-## Services
-
+###Current
 - PHP 5.5 (Pantheon)
-- PHP-FPM
-- CURL
-- XDebug
-- Composer
-- Nginx
-- MySQL
-- Redis
-- Varnish
-- Git
-- Puppet
-
-## Sites
-
-There are three websites hosted on this VM:
- 
- - [http://wplib-box.dev](http://wplib-box.dev): Contains documentation regarding the machine and WPLib in general.
- - [http://underscores4wplib.dev](http://underscores4wplib.dev): A site with WPLib and the 
- [Underscores-WPLib](https://github.com/wplib/underscores4wplib) port installed.
- - [http://novarnish.underscores4wplib.dev](http://cache.underscores4wplib.dev): The same site as the line above, 
- but without Varnish.
- 
-## Database
- 
-The WordPress website is served by the `wordpress` database in MySQL. The username and password are `wordpress`.
-
-## WordPress
-
-The username and password for WP are `wplib`.
-
+- nginx ?.? 
+- MySQL 5.5
+- Redis ?.?
+- XDEBUG ?.?
+- Composer ?.?
+- PHP-FPM ?.?
 
 ###Future, Definitely
 - [WPLib CLI](https://github.com/wplib/wplib-cli)
 - [WP CLI](http://wp-cli.org/)
 - [PHPUnit](https://phpunit.de/)
+- [Varnish](https://www.varnish-cache.org/)
 
 ###Future, Maybe
 - [Otto](https://ottoproject.io/)
@@ -47,8 +24,12 @@ The username and password for WP are `wplib`.
 
 ##Sites
 ###Future
-- `docs.wplib-box.dev`  
+- `wplib.dev`  <-- Default
+	- Single Page w/Links
+- `docs.wplib.dev`  
 	- https://github.com/wplib/wplib-docs
-- `lawpress.wplib-box.dev` 
+- `underscores.wplib.dev` 
+	- https://github.com/wplib/underscores4wplib
+- `lawpress.wplib.dev` 
 	- https://github.com/wplib/lawpress
 
