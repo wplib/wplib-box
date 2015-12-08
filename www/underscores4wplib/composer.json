@@ -28,7 +28,8 @@
   "require": {
     "composer/installers": "dev-master",
     "wplib/wplib": "0.6.*",
-    "wplib/wordpress": "@stable"
+    "wplib/wordpress": "@stable",
+    "wpackagist-plugin/wp-redis": "@stable"
   },
   "extra": {
     "wordpress-install-dir": "www/wp",

@@ -17,7 +17,6 @@
 
 # underscores content
 /www/underscores4wplib/www/content/*
-!/www/underscores4wplib/www/content/object-cache.php
 
 # underscores mu-plugins
 !/www/underscores4wplib/www/content/mu-plugins/

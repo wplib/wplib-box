@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "96f6164d6f17b76b13db3b162614cb03",
-    "content-hash": "483ece3f917f8f5a4069f932b5ad133f",
+    "hash": "841023b88efd50afef7facb623fdace0",
+    "content-hash": "f51535ba926eba0462a3f4b915b83856",
     "packages": [
         {
             "name": "composer/installers",
@@ -147,6 +147,26 @@
             "time": "2015-06-11 15:15:30"
         },
         {
+            "name": "wpackagist-plugin/wp-redis",
+            "version": "0.2.2",
+            "source": {
+                "type": "svn",
+                "url": "http://plugins.svn.wordpress.org/wp-redis/",
+                "reference": "tags/0.2.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-redis.0.2.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wp-redis/"
+        },
+        {
             "name": "wplib/wordpress",
             "version": "4.3.1",
             "source": {
@@ -212,7 +232,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "composer/installers": 20,
-        "wplib/wordpress": 0
+        "wplib/wordpress": 0,
+        "wpackagist-plugin/wp-redis": 0
     },
     "prefer-stable": false,
     "prefer-lowest": false,
