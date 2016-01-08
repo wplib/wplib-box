@@ -2,6 +2,7 @@
 
 .vagrant
 /logs/*
+!/logs/readme.txt
 
 # puppet
 /puppet/*
