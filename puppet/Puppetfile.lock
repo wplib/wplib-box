@@ -1,0 +1,29 @@
+FORGE
+  remote: https://forgeapi.puppetlabs.com
+  specs:
+    jfryman-nginx (0.2.7)
+      puppetlabs-apt (< 3.0.0, >= 1.8.0)
+      puppetlabs-concat (< 2.0.0, >= 1.1.1)
+      puppetlabs-stdlib (< 5.0.0, >= 4.2.0)
+    nanliu-staging (1.0.3)
+    nodes-php (0.9.0)
+      puppetlabs-apt (> 0.0.0)
+      puppetlabs-inifile (> 0.0.0)
+      puppetlabs-stdlib (> 0.0.0)
+    puppetlabs-apt (2.2.1)
+      puppetlabs-stdlib (< 5.0.0, >= 4.5.0)
+    puppetlabs-concat (1.2.5)
+      puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
+    puppetlabs-inifile (1.4.3)
+    puppetlabs-mysql (3.6.2)
+      nanliu-staging (< 2.0.0, >= 1.0.1)
+      puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
+    puppetlabs-stdlib (4.10.0)
+    puppetlabs-vcsrepo (1.3.2)
+
+DEPENDENCIES
+  jfryman-nginx (>= 0)
+  nodes-php (>= 0)
+  puppetlabs-mysql (>= 0)
+  puppetlabs-vcsrepo (>= 0)
+

@@ -1,11 +1,16 @@
 .idea
+
 .vagrant
 /logs/*
 
+# puppet
 /puppet/*
+!/puppet/Puppetfile
+!/puppet/Puppetfile.lock
 !/puppet/manifests/
-!/puppet/modules/
+!/puppet/modules
 /puppet/modules/*
+!/puppet/modules/php
 !/puppet/modules/wplibbox
 !/puppet/modules/underscores4wplib
 
