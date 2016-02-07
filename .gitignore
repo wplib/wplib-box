@@ -4,28 +4,21 @@
 /logs/*
 !/logs/readme.txt
 
-# puppet
-/puppet/*
-!/puppet/Puppetfile
-!/puppet/Puppetfile.lock
-!/puppet/manifests/
-!/puppet/modules
-/puppet/modules/*
-!/puppet/modules/php
-!/puppet/modules/wplibbox
-!/puppet/modules/underscores4wplib
+/www/underscores4wplib.dev/www/wp/
 
 # underscores
-/www/underscores4wplib/www/*
-!/www/underscores4wplib/www/index.php
-!/www/underscores4wplib/www/wp-config.php
-!/www/underscores4wplib/www/content/
+/www/underscores4wplib.dev/www/*
+!/www/underscores4wplib.dev/www/index.php
+!/www/underscores4wplib.dev/www/wp-config.php
+!/www/underscores4wplib.dev/www/content/
 
 # underscores content
-/www/underscores4wplib/www/content/*
+/www/underscores4wplib.dev/www/content/*
 
 # underscores mu-plugins
-!/www/underscores4wplib/www/content/mu-plugins/
-/www/underscores4wplib/www/content/mu-plugins/*
-!/www/underscores4wplib/www/content/mu-plugins/plugin-loader.php
+!/www/underscores4wplib.dev/www/content/mu-plugins/
+/www/underscores4wplib.dev/www/content/mu-plugins/*
+!/www/underscores4wplib.dev/www/content/mu-plugins/plugin-loader.php
 
+/www/underscores4wplib.dev/www/content/plugins/*
+/www/underscores4wplib.dev/www/content/themes/*

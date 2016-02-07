@@ -18,6 +18,14 @@
  * @package WordPress
  */
 
+require __DIR__ . '/vendor/wplib/wplib/defines.php';
+wplib_define( 'WPLib_Runmode', 'DEVELOPMENT' );
+wplib_define( 'WPLib_Stability', 'EXPERIMENTAL' );
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
+error_reporting(E_ALL);
+
 if( isset( $_SERVER['HTTP_HOST'] ) ) {
 	define( 'APP_DOMAIN', $_SERVER['HTTP_HOST' ] );
 }
@@ -40,7 +48,7 @@ $redis_server = array(
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'underscores4wplib');
+define('DB_NAME', 'wordpress');
 
 /** MySQL database username */
 define('DB_USER', 'wordpress');
@@ -97,7 +105,7 @@ $table_prefix  = 'wp_';
  *
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
-define('WP_DEBUG', false);
+define('WP_DEBUG', true);
 
 /* That's all, stop editing! Happy blogging. */
 

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "841023b88efd50afef7facb623fdace0",
-    "content-hash": "f51535ba926eba0462a3f4b915b83856",
+    "hash": "be789db2f5d95ee7f93e6288fa005e3c",
+    "content-hash": "d9c7e5a17c15e67c23a19b615b024936",
     "packages": [
         {
             "name": "composer/installers",
@@ -99,6 +99,43 @@
             "time": "2015-11-12 16:19:08"
         },
         {
+            "name": "johnpbloch/wordpress",
+            "version": "4.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/johnpbloch/wordpress.git",
+                "reference": "fe9320de0793602084c600e22c0c5e0bb601a264"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/fe9320de0793602084c600e22c0c5e0bb601a264",
+                "reference": "fe9320de0793602084c600e22c0c5e0bb601a264",
+                "shasum": ""
+            },
+            "require": {
+                "johnpbloch/wordpress-core-installer": "~0.2",
+                "php": ">=5.3.2"
+            },
+            "type": "wordpress-core",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "WordPress Community",
+                    "homepage": "http://wordpress.org/about/"
+                }
+            ],
+            "description": "WordPress is web software you can use to create a beautiful website or blog.",
+            "homepage": "http://wordpress.org/",
+            "keywords": [
+                "blog",
+                "cms"
+            ],
+            "time": "2016-02-02 17:16:14"
+        },
+        {
             "name": "johnpbloch/wordpress-core-installer",
             "version": "0.2.1",
             "source": {
@@ -147,6 +184,46 @@
             "time": "2015-06-11 15:15:30"
         },
         {
+            "name": "wpackagist-plugin/helpful-information",
+            "version": "1.0.2",
+            "source": {
+                "type": "svn",
+                "url": "http://plugins.svn.wordpress.org/helpful-information/",
+                "reference": "tags/1.0.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/helpful-information.1.0.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/helpful-information/"
+        },
+        {
+            "name": "wpackagist-plugin/query-monitor",
+            "version": "2.8.1",
+            "source": {
+                "type": "svn",
+                "url": "http://plugins.svn.wordpress.org/query-monitor/",
+                "reference": "tags/2.8.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/query-monitor.2.8.1.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/query-monitor/"
+        },
+        {
             "name": "wpackagist-plugin/wp-redis",
             "version": "0.2.2",
             "source": {
@@ -167,73 +244,102 @@
             "homepage": "https://wordpress.org/plugins/wp-redis/"
         },
         {
-            "name": "wplib/wordpress",
-            "version": "4.3.1",
+            "name": "wpackagist-theme/twentysixteen",
+            "version": "1.1",
             "source": {
-                "type": "git",
-                "url": "https://github.com/wplib/wordpress.git",
-                "reference": "cfcf25eb42baeb7316a61c7a64e9a1ab3e291f2f"
+                "type": "svn",
+                "url": "http://themes.svn.wordpress.org/twentysixteen/",
+                "reference": "1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wplib/wordpress/zipball/cfcf25eb42baeb7316a61c7a64e9a1ab3e291f2f",
-                "reference": "cfcf25eb42baeb7316a61c7a64e9a1ab3e291f2f",
-                "shasum": ""
+                "url": "https://downloads.wordpress.org/theme/twentysixteen.1.1.zip",
+                "reference": null,
+                "shasum": null
             },
             "require": {
-                "johnpbloch/wordpress-core-installer": "~0.2",
-                "php": ">=5.3.2"
+                "composer/installers": "~1.0"
             },
-            "type": "wordpress-core",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "WordPress Community",
-                    "homepage": "http://wordpress.org/about/"
-                }
-            ],
-            "description": "WordPress is web software you can use to create a beautiful website or blog.",
-            "homepage": "http://wordpress.org/",
-            "keywords": [
-                "blog",
-                "cms"
-            ],
-            "time": "2015-09-15 15:01:23"
+            "type": "wordpress-theme",
+            "homepage": "https://wordpress.org/themes/twentysixteen/"
         },
         {
             "name": "wplib/wplib",
-            "version": "0.6.6",
+            "version": "0.12.1",
             "source": {
                 "type": "git",
                 "url": "http://github.org/wplib/wplib",
-                "reference": "f1ada5c6d5bf7017f3f511a3395ed4a0e868b2ea"
+                "reference": "1e26e2cf6fb5862fb7a7c43d762302c6f3c86332"
             },
-            "type": "wordpress-library",
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "suggest": {
+                "wplib/lawpress": "A sample WPLib App for developing with Law Firm websites",
+                "wplib/underscores4wplib": "A port of the Underscores theme to demo WPLib",
+                "wplib/wplib-box": "A Vagrant box for WPLib-specific WordPress development",
+                "wplib/wplib-cli": "A command-line scaffolding tool for WPLib"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "WPLib_": "includes/"
+                }
+            },
             "license": [
                 "GPL-2.0+"
             ],
             "authors": [
                 {
                     "name": "The WPLib Team",
-                    "email": "wplib@newclarity.net",
+                    "email": "team@wplib.org",
                     "homepage": "http://wplib.org",
-                    "role": "WordPress Developer and Architect"
+                    "role": "Supporting Organization"
+                },
+                {
+                    "name": "Mike Schinkel",
+                    "email": "mike@newclarity.net",
+                    "homepage": "http://about.me/mikeschinkel",
+                    "role": "Architect and Developer"
+                },
+                {
+                    "name": "Micah Wood",
+                    "email": "micah@wpscholar.com",
+                    "homepage": "http://wpscholar.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Daryl Lozupone",
+                    "email": "daryl@newclarity.net",
+                    "homepage": "https://www.linkedin.com/in/daryllozupone",
+                    "role": "DevOp and Developer"
                 }
             ],
-            "description": "WPLib is a Foundation Library for building custom WordPress Sites.",
-            "time": "2015-11-16 02:23:49"
+            "description": "An MV* Foundation Library for Building Custom WordPress Sites",
+            "homepage": "http://github.com/wplib/wplib",
+            "keywords": [
+                "cli",
+                "console",
+                "php",
+                "scaffolding",
+                "wordpress",
+                "wplib"
+            ],
+            "support": {
+                "email": "support@wplib.org",
+                "issues": "https://github.com/wplib/wplib/issues",
+                "forum": "https://wplib.slack.com/",
+                "source": "https://github.com/wplib/wplib",
+                "docs": "http://wplib.prg"
+            },
+            "time": "2016-01-20 10:04:09"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "composer/installers": 20,
-        "wplib/wordpress": 0,
-        "wpackagist-plugin/wp-redis": 0
+        "composer/installers": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
