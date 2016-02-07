@@ -27,9 +27,12 @@
   ],
   "require": {
     "composer/installers": "dev-master",
-    "wplib/wplib": "0.6.*",
-    "wplib/wordpress": "@stable",
-    "wpackagist-plugin/wp-redis": "@stable"
+    "wplib/wplib": "0.12.1",
+    "johnpbloch/wordpress": "4.4.2",
+    "wpackagist-theme/twentysixteen": "1.1",
+    "wpackagist-plugin/wp-redis": "0.2.2",
+    "wpackagist-plugin/query-monitor": "2.8.1",
+    "wpackagist-plugin/helpful-information": "1.0.2"
   },
   "extra": {
     "wordpress-install-dir": "www/wp",

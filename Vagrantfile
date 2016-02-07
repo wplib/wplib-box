@@ -10,16 +10,20 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder "www", "/var/www"
   config.vm.synced_folder "logs", "/var/log/nginx"
   config.ssh.forward_agent = true
+  config.ssh.private_key_path = "id_rsa"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "wplib-box"
+  end
+
+  config.vm.provider "vmware" do |vmw|
+      vmw.name = "wplib-box"
+  end
 
   config.vm.provision "shell", inline: <<-SHELL
-    cd /vagrant/puppet
-    librarian-puppet install
+    sudo rsync -arv /srv/sites/* /var/www/
+    sudo chown -R vagrant:vagrant /var/www
+    sudo service nginx restart
   SHELL
-
-  config.vm.provision "puppet" do |puppet|
-    puppet.module_path = "puppet/modules"
-    puppet.manifests_path = "puppet/manifests"
-    puppet.manifest_file = "site.pp"
-  end
 
 end
