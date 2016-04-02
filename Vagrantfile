@@ -10,7 +10,7 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder "www", "/var/www"
   config.vm.synced_folder "logs", "/var/log/nginx"
   config.ssh.forward_agent = true
-  config.ssh.private_key_path = "id_rsa"
+  config.ssh.insert_key = true
 
   config.vm.provider "virtualbox" do |vb|
     vb.name = "wplib-box"
@@ -21,8 +21,10 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision "shell", inline: <<-SHELL
-    sudo rsync -arv /srv/sites/* /var/www/
-    sudo chown -R vagrant:vagrant /var/www
+    echo "Configuring websites..."
+    sudo rsync -arv /srv/sites/* /var/www/ >/dev/null
+    sudo chown -R vagrant:vagrant /var/www >/dev/null
+    echo "Websites configured."
     sudo service nginx restart
   SHELL
 
