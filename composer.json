@@ -1,0 +1,67 @@
+{
+  "name": "newclarity/wplib-website",
+  "description": "WPLib website template",
+  "license": "GPL-2.0+",
+  "type": "project",
+  "authors": [
+    {
+      "name": "NewClarity Consulting LLC",
+      "email": "info@newclarity.net",
+      "homepage": "http://newclarity.net",
+      "role": "Architect and Developer"
+    },
+    {
+      "name": "The WPLib Team",
+      "email": "team@wplib.org",
+      "homepage": "http://wplib.org",
+      "role": "WPLib Library Author"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "http://wpackagist.org"
+    },
+    {
+      "type": "git",
+      "url": "http://github.org/wplib/wplib"
+    }
+  ],
+  "require": {
+    "composer/installers": "dev-master",
+    "wpackagist-theme/twentysixteen": "*",
+    "wplib/wplib": "0.12.2",
+    "johnpbloch/wordpress": "4.4",
+    "wpackagist-plugin/wp-redis": "0.2.2",
+    "wpackagist-plugin/query-monitor": "2.10.0",
+    "wpackagist-plugin/helpful-information": "1.0.2"
+  },
+  "extra": {
+    "wordpress-install-dir": "www/wp",
+    "installer-paths": {
+      "www/content/mu-plugins/{$name}": [
+        "type:wordpress-library",
+        "type:wordpress-muplugin",
+        "wpackagist-plugin/wp-redis"
+      ],
+      "www/content/plugins/{$name}": [
+        "type:wordpress-plugin"
+      ],
+      "www/content/themes/{$name}": [
+        "type:wordpress-theme"
+      ]
+    }
+  },
+  "config": {
+    "vendor-dir": "www/vendor",
+    "secure-http": false
+  },
+  "scripts": {
+    "post-install-cmd": "php composer/scripts/sanitize-wp.php",
+    "post-update-cmd": "php composer/scripts/sanitize-wp.php",
+    "generate-salts": [
+      "echo 'Creating salt.php file...'",
+      "echo '<?php' > www/salt.php && curl -L https://api.wordpress.org/secret-key/1.1/salt/ >> www/salt.php"
+    ]
+  }
+}
