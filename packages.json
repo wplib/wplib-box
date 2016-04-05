@@ -1,0 +1,26 @@
+{
+  "packages": {
+    "wplib/wplib-box": {
+      "dev-master": {
+        "name": "wpllib/wplib-box",
+        "source": {
+          "reference": "baab22f6e453bc7ce891a56aa9c880677cc77dd5",
+          "type": "git",
+          "url": "git@github.com:wplib/wplib-box"
+        },
+        "type": "project",
+        "version": "dev-master"
+      },
+      "0.0.6": {
+        "name": "wpllib/wplib-box",
+        "source": {
+          "reference": "96a8812bdf9ca348482e0f49ae236e8e43859b55",
+          "type": "git",
+          "url": "git@github.com:wplib/wplib-box"
+        },
+        "type": "project",
+        "version": "0.0.6"
+      }
+    }
+  }
+}
