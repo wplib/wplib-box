@@ -1,24 +1,10 @@
 .idea
 
 .vagrant
-/logs/*
-!/logs/readme.txt
+/www/*
+!/www/content/
+/www/content/*
+!/www/content/mu-plugins
+/www/content/mu-plugins/*
 
-/www/underscores4wplib.dev/www/wp/
-
-# underscores
-/www/underscores4wplib.dev/www/*
-!/www/underscores4wplib.dev/www/index.php
-!/www/underscores4wplib.dev/www/wp-config.php
-!/www/underscores4wplib.dev/www/content/
-
-# underscores content
-/www/underscores4wplib.dev/www/content/*
-
-# underscores mu-plugins
-!/www/underscores4wplib.dev/www/content/mu-plugins/
-/www/underscores4wplib.dev/www/content/mu-plugins/*
-!/www/underscores4wplib.dev/www/content/mu-plugins/plugin-loader.php
-
-/www/underscores4wplib.dev/www/content/plugins/*
-/www/underscores4wplib.dev/www/content/themes/*
+/wp-tests/

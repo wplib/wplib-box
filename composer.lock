@@ -4,19 +4,25 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "be789db2f5d95ee7f93e6288fa005e3c",
-    "content-hash": "d9c7e5a17c15e67c23a19b615b024936",
+    "hash": "b61e3b53fa6249eba9c3b55175183ae4",
+    "content-hash": "04f2b73195acab5eda5345356044ecff",
     "packages": [
         {
             "name": "composer/installers",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "http://github.org/wplib/installers",
-                "reference": "297a9c25c44996d37ce710c87c62e3f13fc5f3c7"
+                "url": "https://github.com/composer/installers.git",
+                "reference": "8eb240460b9297793084b957f97dddff119247c7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/installers/zipball/8eb240460b9297793084b957f97dddff119247c7",
+                "reference": "8eb240460b9297793084b957f97dddff119247c7",
+                "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "1.0.0"
+                "composer-plugin-api": "^1.0"
             },
             "replace": {
                 "roundcube/plugin-installer": "*",
@@ -34,10 +40,11 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Composer\\Installers\\": "src/"
+                "psr-4": {
+                    "Composer\\Installers\\": "src/Composer/Installers"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -49,67 +56,68 @@
                 }
             ],
             "description": "A multi-framework Composer library installer",
-            "homepage": "http://composer.github.com/installers/",
+            "homepage": "https://composer.github.io/installers/",
             "keywords": [
-                "AGL",
-                "Aimeos",
-                "AnnotateCms",
-                "Bitrix",
-                "CakePHP",
-                "Chef",
-                "CodeIgniter",
                 "Craft",
-                "Croogo",
-                "DokuWiki",
                 "Dolibarr",
-                "Drupal",
-                "Elgg",
-                "FuelPHP",
-                "Grav",
                 "Hurad",
-                "Joomla",
-                "Kohana",
-                "Laravel",
-                "Lithium",
-                "MODULEWork",
                 "MODX Evo",
-                "Magento",
-                "Mako",
-                "MediaWiki",
-                "Moodle",
+                "Mautic",
                 "OXID",
-                "PPI",
-                "Piwik",
-                "Puppet",
-                "Roundcube",
                 "SMF",
-                "SilverStripe",
-                "TYPO3",
                 "Thelia",
                 "WolfCMS",
-                "WordPress",
-                "Zend",
-                "Zikula",
+                "agl",
+                "aimeos",
+                "annotatecms",
+                "bitrix",
+                "cakephp",
+                "chef",
+                "codeigniter",
                 "concrete5",
+                "croogo",
+                "dokuwiki",
+                "drupal",
+                "elgg",
+                "fuelphp",
+                "grav",
                 "installer",
-                "phpBB",
+                "joomla",
+                "kohana",
+                "laravel",
+                "lithium",
+                "magento",
+                "mako",
+                "mediawiki",
+                "modulework",
+                "moodle",
+                "phpbb",
+                "piwik",
+                "ppi",
+                "puppet",
+                "roundcube",
                 "shopware",
-                "symfony"
+                "silverstripe",
+                "symfony",
+                "typo3",
+                "wordpress",
+                "zend",
+                "zikula"
             ],
-            "time": "2015-11-12 16:19:08"
+            "time": "2016-04-04 15:57:46"
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "4.4.2",
+            "version": "4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "fe9320de0793602084c600e22c0c5e0bb601a264"
+                "reference": "ad70e5cf518b697eed94f558ca6c88e5cc87e65b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/fe9320de0793602084c600e22c0c5e0bb601a264",
-                "reference": "fe9320de0793602084c600e22c0c5e0bb601a264",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/ad70e5cf518b697eed94f558ca6c88e5cc87e65b",
+                "reference": "ad70e5cf518b697eed94f558ca6c88e5cc87e65b",
                 "shasum": ""
             },
             "require": {
@@ -133,7 +141,7 @@
                 "blog",
                 "cms"
             ],
-            "time": "2016-02-02 17:16:14"
+            "time": "2015-12-08 23:46:14"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -188,7 +196,7 @@
             "version": "1.0.2",
             "source": {
                 "type": "svn",
-                "url": "http://plugins.svn.wordpress.org/helpful-information/",
+                "url": "https://plugins.svn.wordpress.org/helpful-information/",
                 "reference": "tags/1.0.2"
             },
             "dist": {
@@ -205,15 +213,15 @@
         },
         {
             "name": "wpackagist-plugin/query-monitor",
-            "version": "2.8.1",
+            "version": "2.10.0",
             "source": {
                 "type": "svn",
-                "url": "http://plugins.svn.wordpress.org/query-monitor/",
-                "reference": "tags/2.8.1"
+                "url": "https://plugins.svn.wordpress.org/query-monitor/",
+                "reference": "tags/2.10.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/query-monitor.2.8.1.zip",
+                "url": "https://downloads.wordpress.org/plugin/query-monitor.2.10.0.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -228,7 +236,7 @@
             "version": "0.2.2",
             "source": {
                 "type": "svn",
-                "url": "http://plugins.svn.wordpress.org/wp-redis/",
+                "url": "https://plugins.svn.wordpress.org/wp-redis/",
                 "reference": "tags/0.2.2"
             },
             "dist": {
@@ -248,7 +256,7 @@
             "version": "1.1",
             "source": {
                 "type": "svn",
-                "url": "http://themes.svn.wordpress.org/twentysixteen/",
+                "url": "https://themes.svn.wordpress.org/twentysixteen/",
                 "reference": "1.1"
             },
             "dist": {
@@ -265,11 +273,11 @@
         },
         {
             "name": "wplib/wplib",
-            "version": "0.12.1",
+            "version": "0.12.2",
             "source": {
                 "type": "git",
                 "url": "http://github.org/wplib/wplib",
-                "reference": "1e26e2cf6fb5862fb7a7c43d762302c6f3c86332"
+                "reference": "175f79bfc7c51f3bccb1bd887c23997ee1360a08"
             },
             "require": {
                 "php": ">=5.4.0"
@@ -332,7 +340,7 @@
                 "source": "https://github.com/wplib/wplib",
                 "docs": "http://wplib.prg"
             },
-            "time": "2016-01-20 10:04:09"
+            "time": "2016-02-09 23:57:22"
         }
     ],
     "packages-dev": [],
