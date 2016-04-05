@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/wplib/wplib-box.png?label=ready&title=Ready)](https://waffle.io/wplib/wplib-box)
 #WPLib Box
 
 A pre-packaged virtual machine for developing your [WPLib](https://github.com/wplib/wplib) based WordPress project.
