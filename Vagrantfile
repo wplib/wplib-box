@@ -11,14 +11,6 @@ Vagrant.configure(2) do |config|
     config.ssh.forward_agent = true
     config.ssh.insert_key = false
 
-    config.vm.provider "virtualbox" do |vb|
-        vb.name = "wplib-box"
-    end
-
-    config.vm.provider "vmware" do |vmw|
-        vmw.name = "wplib-box"
-    end
-
     config.vm.provision "shell",
         inline: "sudo ln -s /usr/share/html/content/mu-plugins/wp-redis/object-cache.php /usr/share/nginx/html/content/object-cache.php"
 
