@@ -64,7 +64,17 @@ if ( ! isset( $table_prefix ) ) {
 // https://api.wordpress.org/secret-key/1.1/salt/
 if ( file_exists( __DIR__ . '/salt.php' ) ) {
 	require( __DIR__ . '/salt.php' );
+} else {
+	define('AUTH_KEY',         '~-hipd7(}dmj`QUW/_)7>0};$oI]F,[g}TnwSlMNC|zg&2<|/19M-pPcns>:fCdj');
+	define('SECURE_AUTH_KEY',  'S_xbE6Sw}@1646+fZe4Gh1]9@>Ij@Sh+2ng{6 G/j3(3F #t+z+BUYwwY>.@[j~.');
+	define('LOGGED_IN_KEY',    'JGD sHt8R%vK>Q#i3uR<)?oD7$kwx+TuMxSF1XA^[+8H)%rEh{Jv(d-^W{sl3@6p');
+	define('NONCE_KEY',        '>5b)un/!Mq)/M(F+ziihL!&mXz+LH5s0 #yi^VLC)r&/u7Uw6E~pz.6c@8TE!Gua');
+	define('AUTH_SALT',        '~/m+x1w:VGn?Z#4sw|(L?Ld^hr!;*nq,gN<#p}xHYf<Z(9uc]Vt8V}AOQ|@VZ{%0');
+	define('SECURE_AUTH_SALT', ')QlZJ$Ur^4]BR($y9!]gM=zY7Hh1x.i i0_Wp?kcE+<_F6FI`sUcwZXzP<0|5bU4');
+	define('LOGGED_IN_SALT',   '}jQ]F|h0Su0l4Nh^:9C3>$kLI__9!Sc&M9X+=vA`kicXZ4x?Cb!2qDzdC(w@/pG|');
+	define('NONCE_SALT',       'O%afYX;J`-8v1G<y5Cge?}VmPH*,7#GaA53D*Cd^TH~0qUi<4wRTrI_b:xG`{.T,');
 }
+
 
 if ( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', dirname( __FILE__ ) . '/wp/' );

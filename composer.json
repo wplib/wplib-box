@@ -58,10 +58,6 @@
   },
   "scripts": {
     "post-install-cmd": "php composer/scripts/sanitize-wp.php",
-    "post-update-cmd": "php composer/scripts/sanitize-wp.php",
-    "generate-salts": [
-      "echo 'Creating salt.php file...'",
-      "echo '<?php' > www/salt.php && curl -L https://api.wordpress.org/secret-key/1.1/salt/ >> www/salt.php"
-    ]
+    "post-update-cmd": "php composer/scripts/sanitize-wp.php"
   }
 }
