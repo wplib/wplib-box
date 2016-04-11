@@ -1,4 +1,7 @@
 <?php
+if ( defined( 'WP_CLI' ) && WP_CLI ) {
+	$_SERVER['HTTP_HOST'] = 'wplib.box';
+}
 
 // Autoload any non-WordPress dependencies
 if ( is_file( __DIR__ . '/vendor/autoload.php' ) ) {
