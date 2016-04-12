@@ -160,7 +160,7 @@ How have we been able to make **WPLib Box** the:
 
 Because **we took the blinders off**.  We ignored the lead of everyone else who has created a Vagrant box for WordPress development and we rethought how a Vagrant box should be designed, using a blank canvas.  
 
-Instead of starting with a standard Linux distribution image as a base box &mdash; such as [provided by Ubuntu](https://vagrantcloud.com/ubuntu) &mdash; and then using Puppet, Chef or Ansible to provision the box inside of a running `Vagrantfile` **we provision and test the box in advance**. 
+Instead of starting with a standard Linux distribution image as a base box &mdash; such as [provided by Ubuntu](https://vagrantcloud.com/ubuntu) &mdash; and then using Puppet, Chef or Ansible to provision the box _**on your computer while running inside**_ of your `Vagrantfile` **we provision and test the box IN ADVANCE**. 
 
 What this means for you is that the only thing your `Vagrantfile` needs to do is: 
 
