@@ -175,10 +175,6 @@ Badda-bing, badda-bang; as Steve Jobs would say: **It Just Works!**
 
 Give it a try and see if you don't agree.
 
-We started with the idea that 
-
-Story to come...
-
 ##Status of Issues
 We are using Waffle.io to help us manage our GitHub issue queue:
 
