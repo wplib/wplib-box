@@ -156,9 +156,7 @@ How have we been able to make **WPLib Box** the:
 
 1. **Easiest**, 
 2. **Fastest** and 
-3. **Least Problematic** 
-
-Vagrant box for local WordPress development?  
+3. **Least Problematic** Vagrant box for local WordPress development?  
 
 Because **we took the blinders off**.  We ignored the lead of everyone else who has created a Vagrant box for WordPress development and we rethought how a Vagrant box should be designed, using a blank canvas.  
 
