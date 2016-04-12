@@ -14,7 +14,7 @@ Our **GOAL** is to be:
 2. The **Fastest Vagrant Box to `up`** 
 3. The **Least Problematic in Day-to-Day Usage**; especially when re-provisioning,
  
-We think that once you try WPLib Box you will agree that we have succeeded.  Want to know how?
+We think that once you try WPLib Box you will agree that we have succeeded.  [Want to know how](#why-is-wplib-box-easiestfastestleast-problematic) we did it?
 
 ## Services
 
@@ -148,6 +148,7 @@ Instructions to come...
 
 ##Why is WPLib Box Easiest/Fastest/Least Problematic?
 
+Story to come...
 
 ##Future 
 
