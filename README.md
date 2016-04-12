@@ -16,9 +16,9 @@ Our **GOAL** is to be:
  
 We think that once you try WPLib Box you will agree that we have succeeded.  [Want to know how](#why-is-wplib-box-easiestfastestleast-problematic) we did it?
 
-## Services
+## Services & Software Included
 
-Service|Version
+Service/Software|Version
 -------|----------
 PHP/PHP5-FPM|5.6.20
 MySQL|5.5
