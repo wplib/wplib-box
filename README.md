@@ -75,7 +75,7 @@ To something else that is compatible with your network, i.e. maybe:
 
 We will probably change to a different default IP address in the future.
 
-## WordPress Admin
+## Logging into the WordPress Admin
 
 To login to [wplib.box/wp-admin/](http://wplib.box/wp-admin) use the following credentials:
 
@@ -84,7 +84,7 @@ To login to [wplib.box/wp-admin/](http://wplib.box/wp-admin) use the following c
 
 We will probably change to using different username and password in the future.
 
-## MySQL Database
+## The MySQL Database Credentials
  
 If you want to access the database using a tool such as Sequel Pro the MySQL database name, username and password are all `wordpress`.
 
@@ -96,7 +96,7 @@ In other words:
 
 We may change to using different MySQL credentials in the future.
 
-### Connecting a MySQL Client with an SSH Tunnel	
+### Connecting a MySQL Client via an SSH Tunnel	
 
 You must use an [SSH Tunnel](https://gielberkers.com/how-to-connect-to-mysql-in-vagrant-from-your-host-machine/) to connect into the VM when using an MySQL Client running on your host machine.
 
