@@ -57,9 +57,12 @@ In other words:
 
 	DB_NAME === DB_USER === DB_PASSWORD === 'wordpress'
 
-## WordPress
+## WordPress Admin
 
-The username and password for WP are `wplib`.
+To login to [wplib.box/wp-admin/](http://wplib.box/wp-admin) use the following credentials:
+
+- Username: `admin`
+- Password: `admin`
 
 ##Future 
 
