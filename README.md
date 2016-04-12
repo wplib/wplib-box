@@ -34,13 +34,15 @@ After making sure you have the necessary software, run the following commands:
 
 After this you should have a running WPLib Box via Vagrant and VirtualBox and a website loaded at the local wplib.box domain.
 
-##Configuring Develop Domain
+##Setting the Domain
 
-Edit your `Vagrantfile` and replace `wplib.box` 
+To use this Vagrant box for a domain other than `wplib.box` edit the `Vagrantfile` and replace `wplib.box` with your own domain _(we recommend `dev.yourproductiondomain.ext`):_
+
+In other words, change this:
 
 	config.vm.hostname = "wplib.box"
 
-With your own domain (we recommend `dev.yourproductiondomain.ext`):_
+To _(something like)_ this:
 
 	config.vm.hostname = "dev.example.com"
 
