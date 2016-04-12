@@ -116,7 +116,7 @@ Port                          | `3306`
 Username                      | `wordpress`
 Password                      | `wordpress`
 
-#### 1. The SSH Tunnel Credentials
+#### 2. The SSH Tunnel Credentials
 
 Here are the credentials you can use for the SSH tunnel:
 
