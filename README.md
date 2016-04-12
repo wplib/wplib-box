@@ -49,13 +49,15 @@ Save that and run the following commands _(replacing the domain in the 2nd comma
 	vagrant reload
 	open "http://dev.example.com"
 
-## Database
+## MySQL Database
  
 The WordPress website is served by the `wordpress` database in MySQL. The username and password are `wordpress`.
 
 In other words:
 
-	DB_NAME === DB_USER === DB_PASSWORD === 'wordpress'
+	define( 'DB_NAME', 'wordpress' );
+	define( 'DB_USER', 'wordpress' );
+	define( 'DB_PASSWORD', 'wordpress' );
 
 ## WordPress Admin
 
