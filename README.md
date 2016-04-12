@@ -1,5 +1,3 @@
-[![Stories in Ready](https://badge.waffle.io/wplib/wplib-box.png?label=ready&title=Ready)](https://waffle.io/wplib/wplib-box)
-[![Stories In Progress](https://badge.waffle.io/wplib/wplib-box.svg?label=in+progress&title=In+Progress)](http://waffle.io/wplib/wplib-box)
 #WPLib Box
 
 A pre-packaged virtual machine for developing your [WPLib](https://github.com/wplib/wplib) based WordPress project.
@@ -14,7 +12,7 @@ Our **GOAL** is to be:
 2. The **Fastest Vagrant Box to** `vagrant up`
 3. The **Least Problematic in Day-to-Day Usage**; especially when re-provisioning,
  
-We think that once you try WPLib Box you will agree that we have succeeded.  [Want to know how](#why-is-wplib-box-easiestfastestleast-problematic) we did it?
+We think that once you try WPLib Box you will agree that we have succeeded.  [Want to know how](#how) we did it?
 
 ## Services & Software Included
 
@@ -152,9 +150,38 @@ Using these two sets of credentials with your SQL client you should be able to a
 
 Instructions to come...
 
-##Why is WPLib Box Easiest/Fastest/Least Problematic?
+##How?
+
+How have we been able to make **WPLib Box** the:
+
+1. **Easiest**, 
+2. **Fastest** and 
+3. **Least Problematic** 
+
+Vagrant box for local WordPress development?  
+
+Because **we took the blinders off**.  We ignored the lead of everyone else who has created a Vagrant box for WordPress development and we rethought how a Vagrant box should be designed, using a blank canvas.  
+
+Instead of starting with a standard Linux distribution image as a base box &mdash; such as [provided by Ubuntu](https://vagrantcloud.com/ubuntu) &mdash; and then using Puppet, Chef or Ansible to provision the box inside of a running `Vagrantfile` as all the other Vagrant boxes for WordPress do **we provision and test the box in advance**. What this means to you is that the only thing your `Vagrantfile` needs to do is: 
+
+1. Specify our base box, 
+2. Set your local domain name and local IP address, 
+3. Mount your source code directory into the VM, and  
+4. Extract WordPress core files from a ZIP file _(but this step pnly on (re-)provisioning.)_ 
+
+Badda-bing, badda-bang; as Steve Jobs would say: **It Just Works!**
+
+Give it a try and see if you don't agree.
+
+We started with the idea that 
 
 Story to come...
+
+##Status of Issues
+We are using Waffle.io to help us manage our GitHub issue queue:
+
+[![Stories in Ready](https://badge.waffle.io/wplib/wplib-box.png?label=ready&title=Ready)](https://waffle.io/wplib/wplib-box)
+[![Stories In Progress](https://badge.waffle.io/wplib/wplib-box.svg?label=in+progress&title=In+Progress)](http://waffle.io/wplib/wplib-box)
 
 ##Future 
 
