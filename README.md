@@ -164,12 +164,12 @@ Instead of starting with a standard Linux distribution image as a base box &mdas
 
 Our **Provision-in-Advance** approach practically eliminates all the hair-pulling and infuriatingly unproductive time you frequently have to spend to solve an obscure provisioning issue in a script that you did not develop and thus know almost nothing about when you use one of the other boxes for local WordPress development. WPLib Box bypasses all those headaches for you and saves you tons of time!
 
-What this means for you is that the only thing your `Vagrantfile` needs to do is: 
+What this means for you is that the only thing your `Vagrantfile` must do is: 
 
 1. Specify [**our base box**](https://atlas.hashicorp.com/wplib/boxes/wplib-box/), 
 2. Set your local domain name and local IP address, 
 3. Mount your source code directory into the VM, and  
-4. Extract WordPress core files from a ZIP file _(but this step pnly on (re-)provisioning.)_ 
+4. Extract WordPress core files from a ZIP file _(but we only run this step on (re-)provisioning.)_ 
 
 Badda-bing, badda-bang; as Steve Jobs would say: **It Just Works!**
 
