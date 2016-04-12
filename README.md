@@ -12,6 +12,15 @@ A pre-packaged virtual machine for developing your [WPLib](https://github.com/wp
 - XDEBUG 2.3.3
 - Redis 2.8.4
 
+## Supported Host/Development Computers
+This box was developed using Mac OS/X and tested using Linux and Windows with (https://git-for-windows.github.io/). Thus we believe it currently works with:
+
+- Mac OS X - Latest 3 releases of OS X, at least
+- Linux - Most (all?) versions of Linux 
+- Windows 7 thru 10 with [git-bash](https://git-for-windows.github.io/)
+
+We assume this will work on all these platforms but we have not tested it throughly yet so we welcome your bug reports if you have issues with it.
+
 ## Required Software
 To run WPLib Box requires the following software be installed:
 
@@ -46,12 +55,11 @@ To _(something like)_ this:
 
 	config.vm.hostname = "dev.example.com"
 
-Save the changes to `Vagantfile` and then run the following commands to reload the Vagrant configuration, and then open in your browser:
+Save the changes to `Vagantfile` and then run the following commands to reload the Vagrant configuration, and then open in your browser. _(Be sure you replaced the domain name in the 2nd command with your own local domain name):_
 
 	vagrant reload
 	open "http://dev.example.com"
-	
-Be sure you replaced the domain name in the 2nd command with your own local domain name.
+
 
 ## IP Address 
 
@@ -87,6 +95,11 @@ In other words:
 	define( 'DB_PASSWORD', 'wordpress' );
 
 We may change to using different MySQL credentials in the future.
+
+
+##Debugging PHP with XDEBUG and PhpStorm
+
+Instructions to come...
 
 ##Future 
 
