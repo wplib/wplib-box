@@ -162,7 +162,7 @@ Because **we took the blinders off**.  We ignored the lead of everyone else who 
 
 Instead of starting with a standard Linux distribution image as a base box &mdash; such as [provided by Ubuntu](https://vagrantcloud.com/ubuntu) &mdash; and then using Puppet, Chef or Ansible to provision the box _**on your computer while running inside**_ of your `Vagrantfile` **we provision and test the box IN ADVANCE**.  
 
-Our **Provision-in-Advance** approach practically eliminates all the hair-pulling and infuriatingly unproductive time trying to solve an obscure provisioning issue for a process you did not build! It bypasses all those headaches and saving you tons of time!
+Our **Provision-in-Advance** approach practically eliminates all the hair-pulling and infuriatingly unproductive time trying to solve an obscure provisioning issue in a script that you did not develop and thus know almost nothing about! WPLib Box bypasses all those headaches for you and saves you tons of time!
 
 What this means for you is that the only thing your `Vagrantfile` needs to do is: 
 
