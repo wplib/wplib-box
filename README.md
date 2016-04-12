@@ -32,11 +32,11 @@ After making sure you have the necessary software, run the following commands:
 	vagrant up
 	open "http://wplib.box"
 
-After this you should have a running WPLib Box via Vagrant and VirtualBox and a website loaded at the local wplib.box domain.
+After this you should have a running WPLib Box via Vagrant and VirtualBox and a website loaded at the local `wplib.box` domain.
 
-##Setting the Domain
+##Setting the Domain Name
 
-To use this Vagrant box for a domain other than `wplib.box` edit the `Vagrantfile` and replace `wplib.box` with your own domain _(we recommend `dev.yourproductiondomain.ext`):_
+To use WPLib Box for a local domain name other than `wplib.box` edit the `Vagrantfile` and replace the text `"wplib.box"` with your preferred local domain name _(we recommend `"dev.your-production-domain.tld"`):_
 
 In other words, change this:
 
@@ -46,20 +46,26 @@ To _(something like)_ this:
 
 	config.vm.hostname = "dev.example.com"
 
-Save that and run the following commands _(replacing the domain in the 2nd command with your own):_
+Save the changes to `Vagantfile` and then run the following commands to reload the Vagrant configuration, and then open in your browser:
 
 	vagrant reload
 	open "http://dev.example.com"
+	
+Be sure you replaced the domain name in the 2nd command with your own local domain name.
 
-## MySQL Database
- 
-The WordPress website is served by the `wordpress` database in MySQL. The username and password are `wordpress`.
+## IP Address 
 
-In other words:
+The default IP address used by this box is `192.168.33.10`.  
 
-	define( 'DB_NAME', 'wordpress' );
-	define( 'DB_USER', 'wordpress' );
-	define( 'DB_PASSWORD', 'wordpress' );
+If you need to change that for any reason simply edit the `Vagrantfile`; change the following:
+
+	config.vm.network "private_network", ip: "192.168.33.10"
+
+To something else that is compatible with your network, i.e. maybe:
+
+	config.vm.network "private_network", ip: "10.10.10.10"
+
+We will probably change to a different default IP address in the future.
 
 ## WordPress Admin
 
@@ -67,6 +73,20 @@ To login to [wplib.box/wp-admin/](http://wplib.box/wp-admin) use the following c
 
 - Username: `admin`
 - Password: `admin`
+
+We will probably change to using different username and password in the future.
+
+## MySQL Database
+ 
+If you want to access the database using a tool such as Sequel Pro the MySQL database name, username and password are all `wordpress`.
+
+In other words:
+
+	define( 'DB_NAME', 'wordpress' );
+	define( 'DB_USER', 'wordpress' );
+	define( 'DB_PASSWORD', 'wordpress' );
+
+We may change to using different MySQL credentials in the future.
 
 ##Future 
 
