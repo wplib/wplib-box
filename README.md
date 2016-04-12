@@ -4,6 +4,18 @@
 
 A pre-packaged virtual machine for developing your [WPLib](https://github.com/wplib/wplib) based WordPress project.
 
+##Why Use WPLib Box?
+
+Why Use WPLib Box for WordPress local development instead of one of the other Vagrant boxes for WordPress such as [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV), [VIP QuickStart](https://github.com/Automattic/vip-quickstart), [Trellis](https://github.com/roots/trellis) or [one of the others](http://wptavern.com/13-vagrant-resources-for-wordpress-development)?
+
+Our **GOAL** is to be:
+
+1. The **Easiest to Get Working Initially**, 
+2. The **Fastest Vagrant Box to `up`** 
+3. The **Least Problematic in Day-to-Day Usage**; especially when re-provisioning,
+ 
+We think that once you try WPLib Box you will agree that we have succeeded.  Want to know how?
+
 ## Services
 
 - PHP/PHP5-FPM 5.6.20
@@ -16,7 +28,7 @@ A pre-packaged virtual machine for developing your [WPLib](https://github.com/wp
 This box was developed using Mac OS/X and tested using Linux and Windows with [git-bash](https://git-for-windows.github.io/). Thus we believe it currently works with:
 
 - Mac OS X - Latest 3 releases of OS X, at least
-- Linux - Most (all?) versions of Linux 
+- Linux - Most (all?) distros of Linux 
 - Windows 7 thru 10 with [git-bash](https://git-for-windows.github.io/)
 
 We assume this will work on all these platforms but we have not tested it throughly yet so we welcome your bug reports if you have issues with it.
@@ -133,6 +145,9 @@ Using these two sets of credentials with your SQL client you should be able to a
 ##Debugging PHP with XDEBUG and PhpStorm
 
 Instructions to come...
+
+##Why is WPLib Box Easiest/Fastest/Least Problematic?
+
 
 ##Future 
 
