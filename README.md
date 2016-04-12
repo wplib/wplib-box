@@ -63,4 +63,4 @@ The username and password for WP are `wplib`.
 
 ##Future 
 
-We have many plans the WPLib platform.  This is just a start.  Watch this repo to keep up to date.
+We have many plans for the WPLib platform.  This is just a start.  Watch this repo to keep up to date.
