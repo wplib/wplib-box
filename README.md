@@ -1,6 +1,6 @@
 #WPLib Box
 
-A pre-packaged virtual machine for developing your [WPLib](https://github.com/wplib/wplib) based WordPress project.
+A pre-packaged virtual machine for local WordPress development.
 
 ##Why Use WPLib Box?
 
