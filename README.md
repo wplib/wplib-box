@@ -8,9 +8,9 @@ Why Use WPLib Box for WordPress local development instead of one of the other Va
 
 Our **GOAL** is to be:
 
-1. The **Easiest to Get Working Initially**, 
-2. The **Fastest Vagrant Box to** `vagrant up`
-3. The **Least Problematic in Day-to-Day Usage**; especially when re-provisioning,
+1. The **Easiest Box to Get Working Initially**, 
+2. The **Fastest Box to** `vagrant up`
+3. The **Least Problematic Box in Day-to-Day Usage**; especially when re-provisioning,
  
 We think that once you try WPLib Box you will agree that we have succeeded.  Want to know [**how**](#how) we did it?
 
