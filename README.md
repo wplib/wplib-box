@@ -13,7 +13,7 @@ A pre-packaged virtual machine for developing your [WPLib](https://github.com/wp
 - Redis 2.8.4
 
 ## Supported Host/Development Computers
-This box was developed using Mac OS/X and tested using Linux and Windows with (https://git-for-windows.github.io/). Thus we believe it currently works with:
+This box was developed using Mac OS/X and tested using Linux and Windows with [git-bash](https://git-for-windows.github.io/). Thus we believe it currently works with:
 
 - Mac OS X - Latest 3 releases of OS X, at least
 - Linux - Most (all?) versions of Linux 
