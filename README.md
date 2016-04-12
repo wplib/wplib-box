@@ -61,9 +61,9 @@ Save the changes to `Vagantfile` and then run the following commands to reload t
 	open "http://dev.example.com"
 
 
-## IP Address 
+## Changing the Local IP Address 
 
-The default IP address used by this box is `192.168.33.10`.  
+The default local IP address used by this box is `192.168.33.10`.  
 
 If you need to change that for any reason simply edit the `Vagrantfile`; change the following:
 
