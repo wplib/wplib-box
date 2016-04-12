@@ -11,25 +11,29 @@ Why Use WPLib Box for WordPress local development instead of one of the other Va
 Our **GOAL** is to be:
 
 1. The **Easiest to Get Working Initially**, 
-2. The **Fastest Vagrant Box to `up`** 
+2. The **Fastest Vagrant Box to** `vagrant up`
 3. The **Least Problematic in Day-to-Day Usage**; especially when re-provisioning,
  
 We think that once you try WPLib Box you will agree that we have succeeded.  [Want to know how](#why-is-wplib-box-easiestfastestleast-problematic) we did it?
 
 ## Services
 
-- PHP/PHP5-FPM 5.6.20
-- MySQL 5.5
-- nginx 1.4
-- XDEBUG 2.3.3
-- Redis 2.8.4
+Service|Version
+-------|----------
+PHP/PHP5-FPM|5.6.20
+MySQL|5.5
+nginx|1.4
+XDEBUG|2.3.3
+Redis|2.8.4
 
 ## Supported Host/Development Computers
 This box was developed using Mac OS/X and tested using Linux and Windows with [git-bash](https://git-for-windows.github.io/). Thus we believe it currently works with:
 
-- Mac OS X - Latest 3 releases of OS X, at least
-- Linux - Most (all?) distros of Linux 
-- Windows 7 thru 10 with [git-bash](https://git-for-windows.github.io/)
+O/S|Notes
+---|-----
+Mac OS X|Latest 3 releases of OS X, at least
+Linux|Most (all?) distros of Linux 
+Windows 7 thru 10|With [git-bash](https://git-for-windows.github.io/)
 
 We assume this will work on all these platforms but we have not tested it throughly yet so we welcome your bug reports if you have issues with it.
 
@@ -91,8 +95,10 @@ We will probably change to a different default IP address in the future.
 
 To login to [wplib.box/wp-admin/](http://wplib.box/wp-admin) use the following credentials:
 
-- Username: `admin`
-- Password: `admin`
+Credential|Value
+---------|------
+Username:|`admin`
+Password:| `admin`
 
 We will probably change to using different username and password in the future.
 
