@@ -120,8 +120,8 @@ You must use an [SSH Tunnel](https://gielberkers.com/how-to-connect-to-mysql-in-
 
 What this means is you will generally need to have two sets of credentials: 
 
-1. The Database Credentials
-2. The SSH Tunnel Credentials
+1. **The Database Credentials**
+2. **The SSH Tunnel Credentials**
 
 #### 1. The Database Credentials
 
