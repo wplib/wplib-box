@@ -31,7 +31,7 @@ O/S|Notes
 ---|-----
 Mac OS X|Latest 3 releases of OS X, at least
 Linux|Most (all?) distros of Linux 
-Windows 7 thru 10|With [git-bash](https://git-for-windows.github.io/)
+Windows 7 thru 10|With PowerShell or [git-bash](https://git-for-windows.github.io/) 
 
 We assume this will work on all these platforms but we have not tested it throughly yet so we welcome your bug reports if you have issues with it.
 
