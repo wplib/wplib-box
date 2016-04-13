@@ -25,6 +25,7 @@ MySQL|5.5
 nginx|1.4
 XDEBUG|2.3.3
 Redis|2.8.4
+WP CLI|0.23.0
 
 ## Supported Host/Development Computers
 This box was developed using Mac OS/X and tested using Linux and Windows with [git-bash](https://git-for-windows.github.io/). Thus we believe it currently works with:
