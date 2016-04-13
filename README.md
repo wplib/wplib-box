@@ -11,6 +11,8 @@ Our **GOAL** is to be:
 1. The **Easiest Box to Get Working Initially**, 
 2. The **Fastest Box to** `vagrant up`
 3. The **Least Problematic Box in Day-to-Day Usage**; especially when re-provisioning,
+
+And one more goal is that our box will support **PhpStorm+XDEBUG debugging** with the least effort required on your part.
  
 We think that once you try WPLib Box you will agree that we have succeeded.  Want to know [**how**](#how) we did it?
 
@@ -156,7 +158,8 @@ How have we been able to make **WPLib Box** the:
 
 1. **Easiest**, 
 2. **Fastest** and 
-3. **Least Problematic** Vagrant box for local WordPress development?  
+3. **Least Problematic** Vagrant box for local WordPress development
+4. Plus **No-Fuss PhpStorm+XDEBUG Debugging**?
 
 Because **we took the blinders off**.  We ignored the lead of everyone else who has created a Vagrant box for WordPress development and we rethought how a Vagrant box should be designed, using a blank canvas.  
 
