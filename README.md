@@ -130,7 +130,7 @@ Here are the credentials you can use for MySQL database:
 
 Credential|Value
 ----------|----------
-IP Address _**or**_ Host Name | `192.1688.33.10` _**or**_ `wplib.box` _(or` dev.example.com`)_ 
+IP Address _**or**_ Host Name | `192.168.33.10` _**or**_ `wplib.box` _(or` dev.example.com`)_ 
 Port                          | `3306`
 Username                      | `wordpress`
 Password                      | `wordpress`
@@ -141,7 +141,7 @@ Here are the credentials you can use for the SSH tunnel:
 
 Credential|Value
 ----------|----------
-IP Address _**or**_ Host Name | `192.1688.33.10` _**or**_ `wplib.box` _(or` dev.example.com`)_ 
+IP Address _**or**_ Host Name | `192.168.33.10` _**or**_ `wplib.box` _(or` dev.example.com`)_ 
 Port                          | `22`
 Authentication Method         | Password
 Username                      | `vagrant`
