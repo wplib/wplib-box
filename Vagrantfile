@@ -7,11 +7,11 @@ Vagrant.configure(2) do |config|
 
     config.vm.network "private_network", ip: "192.168.33.10"
     config.vm.hostname = "wplib.box"
-    config.vm.synced_folder "www", "/usr/share/nginx/html"
+    config.vm.synced_folder "www", "/var/www"
     config.ssh.forward_agent = true
     config.ssh.insert_key = false
 
     config.vm.provision "shell",
-        inline: "sudo ln -s /usr/share/html/content/mu-plugins/wp-redis/object-cache.php /usr/share/nginx/html/content/object-cache.php"
+        inline: "sudo ln -s /var/www/content/mu-plugins/wp-redis/object-cache.php /var/www/content/object-cache.php"
 
 end
