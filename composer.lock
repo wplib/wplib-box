@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b61e3b53fa6249eba9c3b55175183ae4",
-    "content-hash": "04f2b73195acab5eda5345356044ecff",
+    "hash": "8f5725115d07a12d18b16448eec4106c",
+    "content-hash": "46738f8cdaf344cdd7aad527900937fc",
     "packages": [
         {
             "name": "composer/installers",
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "8eb240460b9297793084b957f97dddff119247c7"
+                "reference": "eef05aa80320f7d563acee6a16dc526bb0d54b9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/8eb240460b9297793084b957f97dddff119247c7",
-                "reference": "8eb240460b9297793084b957f97dddff119247c7",
+                "url": "https://api.github.com/repos/composer/installers/zipball/eef05aa80320f7d563acee6a16dc526bb0d54b9c",
+                "reference": "eef05aa80320f7d563acee6a16dc526bb0d54b9c",
                 "shasum": ""
             },
             "require": {
@@ -61,9 +61,11 @@
                 "Craft",
                 "Dolibarr",
                 "Hurad",
+                "ImageCMS",
                 "MODX Evo",
                 "Mautic",
                 "OXID",
+                "RadPHP",
                 "SMF",
                 "Thelia",
                 "WolfCMS",
@@ -104,20 +106,20 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2016-04-04 15:57:46"
+            "time": "2016-04-15 21:04:42"
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "4.4",
+            "version": "4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "ad70e5cf518b697eed94f558ca6c88e5cc87e65b"
+                "reference": "a975896d0806f3dc1ccf3e170f91226440b267cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/ad70e5cf518b697eed94f558ca6c88e5cc87e65b",
-                "reference": "ad70e5cf518b697eed94f558ca6c88e5cc87e65b",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/a975896d0806f3dc1ccf3e170f91226440b267cb",
+                "reference": "a975896d0806f3dc1ccf3e170f91226440b267cb",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +143,7 @@
                 "blog",
                 "cms"
             ],
-            "time": "2015-12-08 23:46:14"
+            "time": "2016-04-12 17:46:20"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -253,15 +255,15 @@
         },
         {
             "name": "wpackagist-theme/twentysixteen",
-            "version": "1.1",
+            "version": "1.2",
             "source": {
                 "type": "svn",
                 "url": "https://themes.svn.wordpress.org/twentysixteen/",
-                "reference": "1.1"
+                "reference": "1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/theme/twentysixteen.1.1.zip",
+                "url": "https://downloads.wordpress.org/theme/twentysixteen.1.2.zip",
                 "reference": null,
                 "shasum": null
             },
