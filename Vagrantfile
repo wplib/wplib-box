@@ -13,7 +13,7 @@ Vagrant.configure(2) do |config|
 
     config.vm.provision "shell", inline: <<-SHELL
         sudo ln -s /var/www/content/mu-plugins/wp-redis/object-cache.php /var/www/content/object-cache.php
-        mysql -u root wordpress < /vagrant/sql/default.sql"
+        mysql -u root wordpress < /vagrant/sql/default.sql
     SHELL
 
 end
