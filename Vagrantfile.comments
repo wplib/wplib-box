@@ -8,8 +8,10 @@ Vagrant.configure(2) do |config|
 
     # Set up a private network with a specific IP address.
     #
-    # This NEEDS to be changed if you run multiple instances of the box concurrently.
-    config.vm.network "private_network", ip: "192.168.33.10"
+    # The first line generates an IP address starting with 10. and saves to file named IP
+    #
+    File.write('IP', "10.#{rand(254)}.#{rand(254)}.#{rand(254)}") if not File.exists?('IP')
+    config.vm.network 'private_network', ip: IO.readlines('IP')[0].strip
 
     # Set the hostname for the box.
     #
