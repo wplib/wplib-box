@@ -57,7 +57,7 @@
     "secure-http": false
   },
   "scripts": {
-    "post-install-cmd": "php composer/scripts/sanitize-wp.php",
-    "post-update-cmd": "php composer/scripts/sanitize-wp.php"
+    "post-install-cmd": "php scripts/after-composer.php",
+    "post-update-cmd": "php scripts/after-composer.php"
   }
 }
