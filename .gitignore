@@ -3,6 +3,7 @@
 .vagrant
 /www/*
 !/www/content/
+!/www/composer/
 /www/content/*
 !/www/content/mu-plugins
 /www/content/mu-plugins/*

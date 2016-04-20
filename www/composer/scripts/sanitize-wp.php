@@ -1,6 +1,6 @@
 <?php
 
-$www_root = dirname( dirname( __DIR__ ) ) . '/www';
+$www_root = dirname( dirname( __DIR__ ) );
 
 $actions = array(
     "delete" => array(
