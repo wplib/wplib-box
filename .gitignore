@@ -4,6 +4,8 @@
 /www/*
 !/www/content/
 !/www/composer/
+!/www/composer.json
+!/www/composer.lock
 /www/content/*
 !/www/content/mu-plugins
 /www/content/mu-plugins/*
