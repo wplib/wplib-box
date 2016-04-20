@@ -37,23 +37,23 @@
     "wpackagist-plugin/helpful-information": "1.0.2"
   },
   "extra": {
-    "wordpress-install-dir": "www/wp",
+    "wordpress-install-dir": "wp",
     "installer-paths": {
-      "www/content/mu-plugins/{$name}": [
+      "content/mu-plugins/{$name}": [
         "type:wordpress-library",
         "type:wordpress-muplugin",
         "wpackagist-plugin/wp-redis"
       ],
-      "www/content/plugins/{$name}": [
+      "content/plugins/{$name}": [
         "type:wordpress-plugin"
       ],
-      "www/content/themes/{$name}": [
+      "content/themes/{$name}": [
         "type:wordpress-theme"
       ]
     }
   },
   "config": {
-    "vendor-dir": "www/vendor",
+    "vendor-dir": "vendor",
     "secure-http": false
   },
   "scripts": {
