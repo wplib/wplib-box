@@ -1,6 +1,6 @@
 # WPLib Box FAQ
 
-## What is WPLib Box
+## What is WPLib Box?
 WPLib Box is designed the be the EASIEST to use professional solution for local WordPress 
 development. WPLib Box leverages the open-source tool Vagrant and either Oracle's open-source 
 VirtualBox or commercial products from VMware. 
