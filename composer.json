@@ -5,12 +5,6 @@
   "type": "project",
   "authors": [
     {
-      "name": "NewClarity Consulting LLC",
-      "email": "info@newclarity.net",
-      "homepage": "http://newclarity.net",
-      "role": "Architect and Developer"
-    },
-    {
       "name": "The WPLib Team",
       "email": "team@wplib.org",
       "homepage": "http://wplib.org",
