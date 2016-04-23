@@ -7,7 +7,7 @@
 #       The EASIEST Way to Setup a Local WordPress Development
 #        Environment, using Vagrant
 #
-#       Brought to you by The WPLib Team at;
+#       Brought to you by The WPLib Team:
 #
 #            - http://github/wplib
 #
