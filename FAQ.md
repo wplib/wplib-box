@@ -22,7 +22,7 @@ If any of those ideas intrigue you, reach out and [contact us](mailto:team@wplib
 
 ## Submit a Pull Request with a new FAQ Question & Answer
 If you have figured something out about WPLib that we have not documented, please help out your 
-fellow developers [Fork this repo](https://github.com/wplib/wplib-box/compare#fork-destination-box) then 
+fellow developers [Fork this repo](https://github.com/wplib/wplib-box) then 
 [Submit a pull request](https://github.com/wplib/wplib-box/compare).
 
 ## Don't See the Answer Here?
