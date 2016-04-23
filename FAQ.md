@@ -16,7 +16,7 @@ Do you think your company might benefit from:
 2. A **Customized Stack** in a Vagrant Box for your company's developers? 
 4. **Delivering Your Plugins or Theme** inside your own Vagrant Box?
 3. **Sponsoring a Named Version** of the WPLib box for public distribution?
-5. **Demos of your WordPress-based Web Apps** without prospect accessible to source code? 
+5. **Demos of your WordPress-based Web Apps** without exposing source code? 
 
 If any of those ideas intrigue you, reach out and [contact us](mailto:team@wplib.com).  
 
