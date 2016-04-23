@@ -1,6 +1,6 @@
 #WPLib Box
 
-A pre-packaged virtual machine for local WordPress development.
+The EASIEST way to get a Local WordPress Development environment, using Vagrant.
 
 ##Why Use WPLib Box?
 
