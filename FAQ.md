@@ -20,7 +20,7 @@ Do you think your company might benefit from:
 
 If any of those ideas intrigue you, reach out and [contact us](mailto:team@wplib.com).  
 
-## Submit a Pull Request with a new FAQ Question & Answer
+## Suggest a New FAQ Question & Answer
 If you have figured something out about WPLib that we have not documented, please help out your 
 fellow developers [**fork this repo**](https://github.com/wplib/wplib-box) then 
 [**submit a pull request**](https://github.com/wplib/wplib-box/compare).
