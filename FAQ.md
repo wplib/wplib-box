@@ -6,7 +6,7 @@ development. WPLib Box leverages the open-source tool Vagrant and either Oracle'
 VirtualBox or commercial products from VMware. 
 
 ## What is our Business Model?
-We are a consulting company that wants to transition to a company that offers state-of-the-art 
+We are a consulting company that is transitioning to a product company that offers state-of-the-art 
 professional development tools for PHP developers who have chosen to use WordPress as a platform. 
 
 ## What Services Can you Offer My Company?
