@@ -5,9 +5,11 @@ WPLib Box is designed the be the EASIEST to use professional solution for local 
 development. WPLib Box leverages the open-source tool Vagrant and either Oracle's open-source 
 VirtualBox or commercial products from VMware. 
 
+---
+
 ## What is our Business Model?
-We are a consulting company that is transitioning to a product company that offers state-of-the-art 
-professional development tools for PHP developers who have chosen to use WordPress as a platform. 
+We are a consulting company that is transitioning to a product company that offers products and services
+for improving Developer Experience for PHP developers who have chosen to use WordPress as a platform. 
 
 If you have idea ahout how we could help your development organization with workflow please [**contact
 us**](mailto:team@wplib.org) with your ideas and we'll see if we can help. 
