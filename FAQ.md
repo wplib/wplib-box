@@ -9,6 +9,9 @@ VirtualBox or commercial products from VMware.
 We are a consulting company that is transitioning to a product company that offers state-of-the-art 
 professional development tools for PHP developers who have chosen to use WordPress as a platform. 
 
+If you have idea ahout how we could help your development organization with workflow please [**contact
+us**](mailto:team@wplib.org) with your ideas and we'll see if we can help. 
+
 ## What Services Can We Offer Your Company?
 Do you think your company might benefit from:
 
