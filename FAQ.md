@@ -5,6 +5,13 @@ WPLib Box is designed the be the EASIEST to use professional solution for local 
 development. WPLib Box leverages the open-source tool Vagrant and either Oracle's open-source 
 VirtualBox or commercial products from VMware. 
 
+## How do I Run WP-CLI?
+[WP-CLI](http://wp-cli.org/) is installed in the WPLib Box virtual machine so to use it you first SSH into the 
+box and then run your wp-cli command, for example:
+
+    vagrant ssh
+    wp plugin install hello-dolly
+    
 ---
 
 ## What is our Business Model?
