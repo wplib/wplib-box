@@ -29,7 +29,21 @@ Otherwise, there they are:
     - Windows: `C:/Users/{username}/.vagrant.d/boxes`
 - **Project Box Image**: Although Vagrant maintains pristine copies of Box Images in the Local Box Image Cache it makes a copy of that box for each of your projects and stores that copy in `~/VirtualBox VMs` (on Mac & Linux) and in `???` (on Windows.) It also creates a `vagrant` directory in your project to maintain information about the copy of the Box Image used by the project. For example, if you `vagrant ssh` into a running Vagrant Box and make configuration changes those changes will be in the Project's Box Image, but not in the`
 pristine copies of Box Image nor in other projects that share the same named Box Image. 
+## Suggest a New FAQ Question & Answer
+If you have figured something out about WPLib that we have not documented, please help out your 
+fellow developers [**fork this repo**](https://github.com/wplib/wplib-box) then 
+[**submit a pull request**](https://github.com/wplib/wplib-box/compare).
 
+---
+
+## Don't See the Answer Here?
+Feel free to ask questions using our [GitHub issue tracker](https://github.com/wplib/wplib-box/issues/new). 
+When you do please assign your issue the "question" label, if you can remember to. 
+
+## Want to Try it But Need Help?
+Don't worry, if you can speak English or can type English we are happy to help you install and configure WPLib for as little as $35.
+
+We are using [**Fiverr**][1] to allow people to request help. [**Click Here**][1] to get started.
     
 ---
 
@@ -51,18 +65,7 @@ Do you think your company might benefit from:
 
 If any of those ideas intrigue you, reach out and [contact us](mailto:team@wplib.com).  
 
-## Suggest a New FAQ Question & Answer
-If you have figured something out about WPLib that we have not documented, please help out your 
-fellow developers [**fork this repo**](https://github.com/wplib/wplib-box) then 
-[**submit a pull request**](https://github.com/wplib/wplib-box/compare).
 
-## Don't See the Answer Here?
-Feel free to ask questions using our [GitHub issue tracker](https://github.com/wplib/wplib-box/issues/new). 
-When you do please assign your issue the "question" label, if you can remember to. 
-
-## Want to Try it But Need Help?
-Don't worry, if you can speak English or can type English we are happy to help you install and configure WPLib for as little as $35.
-
-We are using [**Fiverr**][1] to allow people to request help. [**Click Here**][1] to get started.
- 
  [1]: https://www.fiverr.com/mikeschinkel/walk-you-thru-installing-a-local-stack-for-wordpress-development-on-your-machine
+
+
