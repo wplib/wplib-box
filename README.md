@@ -115,27 +115,23 @@ In other words:
 
 We may change to using different MySQL credentials in the future.
 
-### Connecting a MySQL Client via an SSH Tunnel	
+### Connecting a MySQL Client
 
-You must use an [SSH Tunnel](https://gielberkers.com/how-to-connect-to-mysql-in-vagrant-from-your-host-machine/) to connect into the VM when using an MySQL Client running on your host machine.
+The MySQL server listens on all interfaces on port 3306. If you have the MySQL command-line client installed on your host machine, you can simply `mysql --host wplib.box -u wordpress -pwordpress` (assuming you are using the `wplib.box` hostname).
+Use the credentials below if you are using a GUI such as Sequel Pro, Navicat, et al.
 
-What this means is you will generally need to have two sets of credentials: 
-
-1. **The Database Credentials**
-2. **The SSH Tunnel Credentials**
-
-#### 1. The Database Credentials
+#### The Database Credentials
 
 Here are the credentials you can use for MySQL database:
 
 Credential|Value
 ----------|----------
-IP Address _**or**_ Host Name | `192.1688.33.10` _**or**_ `wplib.box` _(or` dev.example.com`)_ 
+IP Address _**or**_ Host Name | `192.168.33.10` _**or**_ `wplib.box` _(or `dev.example.com`)_ 
 Port                          | `3306`
 Username                      | `wordpress`
 Password                      | `wordpress`
 
-#### 2. The SSH Tunnel Credentials
+#### 2. The SSH Credentials
 
 Here are the credentials you can use for the SSH tunnel:
 
@@ -147,7 +143,6 @@ Authentication Method         | Password
 Username                      | `vagrant`
 Password                      | `vagrant`
 
-Using these two sets of credentials with your SQL client you should be able to access and run SQL commands on the WordPress database.
 
 ##Debugging PHP with XDEBUG and PhpStorm
 
