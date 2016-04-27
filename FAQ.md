@@ -29,11 +29,6 @@ Otherwise, there they are:
     - Windows: `C:/Users/{username}/.vagrant.d/boxes`
 - **Project Box Image**: Although Vagrant maintains pristine copies of Box Images in the Local Box Image Cache it makes a copy of that box for each of your projects and stores that copy in `~/VirtualBox VMs` (on Mac & Linux) and in `???` (on Windows.) It also creates a `vagrant` directory in your project to maintain information about the copy of the Box Image used by the project. For example, if you `vagrant ssh` into a running Vagrant Box and make configuration changes those changes will be in the Project's Box Image, but not in the`
 pristine copies of Box Image nor in other projects that share the same named Box Image. 
-- 
-- VirtualBox to copies the Box Inage your Vagrantfile specifies into a hidden directory  local cache to allow it to quickly copy the box to a project directory the first time `vagrant up` is run for a project, or after a `vagrant destroy` is run. Your Local Box Image Cache [is located at](http://stackoverflow.com/a/10226134/102699):
-    - Mac OS X and Linux: `~/.vagrant.d/boxes`
-    - Windows: `C:/Users/{username}/.vagrant.d/boxes`
-
 
     
 ---
