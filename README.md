@@ -174,6 +174,10 @@ Badda-bing, badda-bang; as Steve Jobs would say: **It Just Works!**
 
 Give it a try and see if you don't agree.
 
+## 3rd Party Projects Supporing WPLib Box
+
+- [**wplibbox-maker**](https://github.com/ArtOfWP/generator-wplibbox) from [ArtOfWP](https://github.com/ArtOfWP): _Generates a custom WPLib Box setup using Gulp._
+
 ##Status of Issues
 We are using Waffle.io to help us manage our GitHub issue queue:
 
