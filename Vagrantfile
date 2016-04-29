@@ -54,10 +54,10 @@
 #
 #   REFERENCE:
 #
-#       system('scripts/pre-vagrant.sh')
+#       system('scripts/before-vagrant.sh')
 #
-#           This line calls a `pre-vagrant.sh` script to be run before
-#           any other part of Vagrantfile is run.
+#           This line calls a `before-vagrant.sh` script to be run
+#           before any other part of `Vagrantfile` is run.
 #
 #           Currently this script generates a random non-routable IP
 #           address starting with 10 and randomly selects from 0..254
@@ -111,11 +111,11 @@
 #           WordPress but if you have the Vagrant hosts-updater plugin
 #           then it will handle updating the hosts file for you.
 #
-#       config.vm.network 'private_network', ip: IO.readlines('IP')[0].strip
+#       config.vm.network 'private_network', ip: IO.read('IP').strip
 #
 #           This line tells Vagrant what IP address to use for the VM.
 #           It loads the IP address from the file named "IP" that
-#           previously created by File.write().
+#           previously created by the script `/scripts/before-vagrant.sh`
 #
 #           The IP file can be found in in the project root after the
 #           first "vagrant up"; the project root is the same directory
@@ -255,12 +255,12 @@
 
 Vagrant.configure(2) do |config|
 
-    system('scripts/pre-vagrant.sh')
+    system('scripts/before-vagrant.sh')
 
     config.vm.box = "wplib/wplib"
     config.vm.hostname = "wplib.box"
 
-    config.vm.network 'private_network', ip: IO.readlines('IP')[0].strip
+    config.vm.network 'private_network', ip: IO.read('IP').strip
 
     config.vm.synced_folder "www", "/var/www"
 
