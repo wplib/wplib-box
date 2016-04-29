@@ -174,7 +174,7 @@ Badda-bing, badda-bang; as Steve Jobs would say: **It Just Works!**
 
 Give it a try and see if you don't agree.
 
-## 3rd Party Projects Supporing WPLib Box
+## 3rd Party WPLib Box Projects
 
 - [**wplibbox-maker**](https://github.com/ArtOfWP/generator-wplibbox) from [ArtOfWP](https://github.com/ArtOfWP): _Generates a custom WPLib Box setup using Gulp._
 
