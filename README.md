@@ -176,7 +176,7 @@ Give it a try and see if you don't agree.
 
 ## 3rd Party WPLib Box Projects
 
-- [**wplibbox-maker**](https://github.com/ArtOfWP/generator-wplibbox) from [ArtOfWP](https://github.com/ArtOfWP): _Generates a custom WPLib Box setup using [Yeoman](http://yeoman.io/)._
+- [**WPLib Box Maker**](https://github.com/ArtOfWP/generator-wplibbox) from [ArtOfWP](https://github.com/ArtOfWP): _Generates a custom WPLib Box setup using [Yeoman](http://yeoman.io/)._
 
 ##Status of Issues
 We are using Waffle.io to help us manage our GitHub issue queue:
