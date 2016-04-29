@@ -54,6 +54,34 @@
 #
 #   REFERENCE:
 #
+#       system('scripts/pre-vagrant.sh')
+#
+#           This line calls a `pre-vagrant.sh` script to be run before
+#           any other part of Vagrantfile is run.
+#
+#           Currently this script generates a random non-routable IP
+#           address starting with 10 and randomly selects from 0..254
+#           for the remaining three octets. It then writes the IP
+#           address to a file named 'IP' in the project's root folder
+#           which is the same folder where this Vagrantfile is found
+#           to ensure future runs of "vagrant up" or "vagrant reload"
+#           will use the same IP address.
+#
+#           The assumption here is that it is very unlikely that this
+#           randomly-generated IP address will conflict with anything
+#           that is already on the host computer's local network, or
+#           at least make it less likely to see a conflict than if we
+#           picked a well-known static IP address that every WPLib Box
+#           would start with.
+#
+#           Thus we believe that using a randomly-generated IP address
+#           will make it easier for more than 99% of developers who
+#           choose to at least evaluate WPLib Box, although someone
+#           may occasionally need to debug why it is not working.
+#
+#           If we can find a better approach, we will be happy to
+#           to switch to it later. Suggestions welcome.
+#
 #       config.vm.box = "wplib/wplib"
 #
 #           This line specifies the VM "box" image which is hosted for
@@ -82,32 +110,6 @@
 #           address used by the box for your browser to use it to load
 #           WordPress but if you have the Vagrant hosts-updater plugin
 #           then it will handle updating the hosts file for you.
-#
-#       File.write('IP', "10.#{rand(254)}.#{rand(254)}.#{rand(254)}")\
-#           if not File.exists?('IP')
-#
-#           This line creates a randomly-generated and non-routable IP
-#           address starting with 10 and randomly selects from 0..254
-#           for the remaining three octets. It then writes the IP
-#           address to a file named 'IP' in the project's root folder
-#           which is the same folder where this Vagrantfile is found
-#           to ensure future runs of "vagrant up" or "vagrand reload"
-#           will use the same IP address.
-#
-#           The assumption here is that it is very unlikely that this
-#           randomly-generated IP address will conflict with anything
-#           that is already on the host computer's local network, or
-#           at least make it less likely to see a conflict than if we
-#           picked a well-known static IP address that every WPLib Box
-#           would start with.
-#
-#           Thus we believe that using a randomly-generated IP address
-#           will make it easier for more than 99% of developers who
-#           choose to at least evaluate WPLib Box, although someone
-#           may occasionally need to debug why it is not working.
-#
-#           If we can find a better approach later, we will be happy
-#           to switch to it.
 #
 #       config.vm.network 'private_network', ip: IO.readlines('IP')[0].strip
 #
@@ -192,16 +194,6 @@
 #               - https://github.com/mitchellh/vagrant/tree/master/keys
 #               - https://twitter.com/mitchellh/status/525704721714012160
 #
-#       config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
-#
-#           This line is a TEMPORARY HACK that stops Vagrant from
-#           displaying an unimportant error. See this issue for more
-#           information:
-#
-#               - https://github.com/wplib/wplib-box/issues/49
-#
-#           This line will be removed as soon as issue 49 is resolved.
-#
 #       config.vm.provision "shell", path: "scripts/provision.sh"
 #
 #           This line tells Vagrant to run the bash script named
@@ -263,10 +255,11 @@
 
 Vagrant.configure(2) do |config|
 
+    system('scripts/pre-vagrant.sh')
+
     config.vm.box = "wplib/wplib"
     config.vm.hostname = "wplib.box"
 
-    File.write('IP', "10.#{rand(254)}.#{rand(254)}.#{rand(254)}") if not File.exists?('IP')
     config.vm.network 'private_network', ip: IO.readlines('IP')[0].strip
 
     config.vm.synced_folder "www", "/var/www"
@@ -274,7 +267,6 @@ Vagrant.configure(2) do |config|
     config.ssh.forward_agent = true
     config.ssh.insert_key = false
 
-    config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
     config.vm.provision "shell", path: "scripts/provision.sh"
 
 end
