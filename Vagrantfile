@@ -252,6 +252,7 @@
 #
 #           - https://github.com/wplib/wplib-box/blob/master/FAQ.md#troubleshooting
 #
+#
 
 Vagrant.configure(2) do |config|
 
@@ -260,7 +261,7 @@ Vagrant.configure(2) do |config|
     config.vm.box = "wplib/wplib"
     config.vm.hostname = "wplib.box"
 
-    config.vm.network 'private_network', ip: IO.read('IP').strip
+    config.vm.network 'private_network', ip: IO.readlines('IP')[0].strip
 
     config.vm.synced_folder "www", "/var/www"
 
@@ -269,5 +270,6 @@ Vagrant.configure(2) do |config|
 
     config.vm.provision "shell", path: "scripts/provision.sh"
 
-end
+    system('scripts/after-vagrant.sh')
 
+end
