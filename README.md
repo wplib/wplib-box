@@ -52,7 +52,7 @@ After making sure you have the necessary software, run the following commands:
 
 	# cd ~/Sites, or cd into whichever directory you store your website projects in
 	cd ~/Sites                
-	git clone git@github.com:wplib/wplib-box.git
+	git clone https://github.com/wplib/wplib-box.git
 	cd wplib-box
 	composer install
 	vagrant up
