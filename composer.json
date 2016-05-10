@@ -47,7 +47,8 @@
     }
   },
   "config": {
-    "vendor-dir": "www/vendor"
+    "vendor-dir": "www/vendor",
+    "secure-http": false
   },
   "scripts": {
     "post-install-cmd": "php scripts/after-composer.php",

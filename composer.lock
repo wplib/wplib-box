@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "15641afc8ac3543c3d4a5646f1268e3e",
-    "content-hash": "46738f8cdaf344cdd7aad527900937fc",
+    "hash": "7b69211f43046935ae058541d2f2dce1",
+    "content-hash": "4ffead056725a6ea61bbeb123a5dca21",
     "packages": [
         {
             "name": "composer/installers",
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "eef05aa80320f7d563acee6a16dc526bb0d54b9c"
+                "reference": "21a8c06dd5fe0a22b776797cc552e51d17d7e7dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/eef05aa80320f7d563acee6a16dc526bb0d54b9c",
-                "reference": "eef05aa80320f7d563acee6a16dc526bb0d54b9c",
+                "url": "https://api.github.com/repos/composer/installers/zipball/21a8c06dd5fe0a22b776797cc552e51d17d7e7dd",
+                "reference": "21a8c06dd5fe0a22b776797cc552e51d17d7e7dd",
                 "shasum": ""
             },
             "require": {
@@ -106,7 +106,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2016-04-15 21:04:42"
+            "time": "2016-04-24 13:17:36"
         },
         {
             "name": "johnpbloch/wordpress",
@@ -278,7 +278,7 @@
             "version": "0.12.2",
             "source": {
                 "type": "git",
-                "url": "http://github.org/wplib/wplib",
+                "url": "https://github.com/wplib/wplib.git",
                 "reference": "175f79bfc7c51f3bccb1bd887c23997ee1360a08"
             },
             "require": {
