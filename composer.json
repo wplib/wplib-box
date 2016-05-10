@@ -14,11 +14,11 @@
   "repositories": [
     {
       "type": "composer",
-      "url": "http://wpackagist.org"
+      "url": "https://wpackagist.org"
     },
     {
       "type": "git",
-      "url": "https://github.org/wplib/wplib.git"
+      "url": "https://github.com/wplib/wplib.git"
     }
   ],
   "require": {
@@ -47,8 +47,7 @@
     }
   },
   "config": {
-    "vendor-dir": "www/vendor",
-    "secure-http": false
+    "vendor-dir": "www/vendor"
   },
   "scripts": {
     "post-install-cmd": "php scripts/after-composer.php",
