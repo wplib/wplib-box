@@ -46,13 +46,13 @@ To use for an existing project, you follow the same instructions as for new proj
 this repository to your new project, change the domain name to the local domain name for your project and move your website root into a `www/` 
 directory that is a sibling to `Vagrantfile` and to `scripts/` and then `vagrant up`.
 
-If you cannot put your code into a `www/` directory for some reason you can put the `Vagrantfile` in your web root and change the line that 
+If you cannot put your code into a `www/` subdirectory for some reason you can put the `Vagrantfile` in your web root and change the line that 
 starts with `config.vm.synced_folder` to be:
  
      config.vm.synced_folder ".", "/var/www" 
 
-If you cannot create a `scripts/` in the same directory as your `Vagrantfile` you can name the directory something else &mdash; such as 
-`wplib-scripts` &mdash; and then search for `scripts/` in your `Vagrantfile` and replace them with whatever you named your directory, e.g. 
+If you cannot create a `scripts/` directory in the same directory as your `Vagrantfile` you can name that directory something else &mdash; such as 
+`wplib-scripts/` &mdash; and then search for `scripts/` in your `Vagrantfile` and replace it with whatever you named your directory, e.g. 
 with `wplib-scripts/` as in our example.
 
 ##Glossary: What Do They All These Terms Mean?
