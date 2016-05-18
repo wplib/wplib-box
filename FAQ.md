@@ -12,6 +12,48 @@ box and then run your wp-cli command, for example:
     vagrant ssh
     wp plugin install hello-dolly
     
+## Why is the Box Caching things?
+WPLib Box installs Redis for persistent object caching. To disable this simply rename `www/content/object-cache.php` to something like `object-cache.disabled.php`.
+ 
+If you need to clear the cache the easiest way at the moment is to run `vagrant reload` from your development (host) computer.  
+
+## How do I Deploy Code from the Box?
+Deployment is extremely simple. Simply:
+
+1. Copy the entire contents of the `www/` directory to the website root of the server where you are hosting your site.
+2. Using a SQL client tool such as [Sequel Pro](http://www.sequelpro.com/) or [Navicat](https://www.navicat.com) export of _"dump"_ your 
+database to a `.sql` file.
+3. Import your `.sql` file into your webhost's [MySQL](https://www.mysql.com/) or [MariaDB](https://mariadb.com) server which may be referred to as _"Executing the SQL file"_.
+4. Change `www/wp-config-local.php` on your webhost to use the webhosts
+
+
+**NOTE:** You will need to run whatever process you normally run to change the URLs from your local URLs to your production or staging URLs. 
+There are many solutions to this although not one ideal solution that explaining how to do that is out of the scope of this FAQ. But let us 
+[Google it for you](https://www.google.com/#q=changing%20urls%20when%20moving%20wordpress%20site%20-codex).
+
+
+## How do I Use WPLib Box on New Projects? 
+To use WPLib Box on new projects just copy the `Vagrantfile` and the `scripts/` directory from this repository to your new project and change 
+the domain name to the local domain name for your project.  The only _”constraint” (that we are currently aware of)__ is you will need to have 
+your website root in a `www/` directory that is a sibling to `Vagrantfile` and to `scripts/` but otherwise it should all just work using `vagrant up`.
+
+**NOTE:**: You do not have to organize the WordPress directory structures like we have with `/www/content` and `/www/wp`; you can easily use the 
+standard directory layout used by WordPress core e.g. `www/wp-content/` and `www/`, respectively.
+
+## How do I Use WPLib Box on Pre-Existing Projects?
+To use for an existing project, you follow the same instructions as for new projects; copy the `Vagrantfile` and the `scripts/` directory from 
+this repository to your new project, change the domain name to the local domain name for your project and move your website root into a `www/` 
+directory that is a sibling to `Vagrantfile` and to `scripts/` and then `vagrant up`.
+
+If you cannot put your code into a `www/` directory for some reason you can put the `Vagrantfile` in your web root and change the line that 
+starts with `config.vm.synced_folder` to be:
+ 
+     config.vm.synced_folder ".", "/var/www" 
+
+If you cannot create a `scripts/` in the same directory as your `Vagrantfile` you can name the directory something else &mdash; such as 
+`wplib-scripts` &mdash; and then search for `scripts/` in your `Vagrantfile` and replace them with whatever you named your directory, e.g. 
+with `wplib-scripts/` as in our example.
+
 ##Glossary: What Do They All These Terms Mean?
 The following are terms we have decide to use in our FAQ and in other documents.  If any of these terms conflict with broader industry terms please submit a pull request with any suggested corrects. 
 
