@@ -17,19 +17,20 @@ WPLib Box installs Redis for persistent object caching. To disable this simply r
  
 If you need to clear the cache the easiest way at the moment is to run `vagrant reload` from your development (host) computer.  
 
-## How do I Deploy Code from the Box?
-Deployment is extremely simple. Simply:
+## How do I Deploy My Site from the Box?
+Deployment to a production or staging server is extremely simple. Just:
 
 1. Copy the entire contents of the `www/` directory to the website root of the server where you are hosting your site.
-2. Using a SQL client tool such as [Sequel Pro](http://www.sequelpro.com/) or [Navicat](https://www.navicat.com) export of _"dump"_ your 
-database to a `.sql` file.
-3. Import your `.sql` file into your webhost's [MySQL](https://www.mysql.com/) or [MariaDB](https://mariadb.com) server which may be referred to as _"Executing the SQL file"_.
-4. Change `www/wp-config-local.php` on your webhost to use the webhosts
+2. Using a SQL client tool such as [Sequel Pro](http://www.sequelpro.com/) or [Navicat](https://www.navicat.com) export aka _"dump"_ your database to a `.sql` file.
+3. Import your `.sql` file into your web host's [MySQL](https://www.mysql.com/) or [MariaDB](https://mariadb.com) server which may be referred to as _"executing"_ your SQL file.
+4. Modify `www/wp-config-local.php` on your web host to use your web host's database credentials and any other configuration options that differ on your production or staging server.
+5. In future deployments be sure not to overwrite your web host specific `www/wp-config-local.php` file.
 
+And except for the following NOTE, that is it.
 
 **NOTE:** You will need to run whatever process you normally run to change the URLs from your local URLs to your production or staging URLs. 
-There are many solutions to this although not one ideal solution that explaining how to do that is out of the scope of this FAQ. But let us 
-[Google it for you](https://www.google.com/#q=changing%20urls%20when%20moving%20wordpress%20site%20-codex).
+There are many solutions to this although not one ideal solution thus explaining how to do this is out of the scope of this FAQ. But 
+[let us google it for you](https://www.google.com/#q=changing%20urls%20when%20moving%20wordpress%20site%20-codex).
 
 
 ## How do I Use WPLib Box on New Projects? 
