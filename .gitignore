@@ -1,5 +1,8 @@
 .idea
 
+/sql/*
+!/sql/default.sql
+
 IP
 .vagrant
 /www/*
@@ -7,5 +10,4 @@ IP
 /www/content/*
 !/www/content/mu-plugins
 /www/content/mu-plugins/*
-
 /wp-tests/
