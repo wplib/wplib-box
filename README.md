@@ -148,6 +148,10 @@ Password                      | `vagrant`
 
 Instructions to come...
 
+## Internet Sharing
+
+Internet sharing is implemented with [localtunnel.me](https://localtunnel.me), which is pre-installed in the box image.
+
 ##How?
 
 How have we been able to make **WPLib Box** the:
