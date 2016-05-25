@@ -4,12 +4,6 @@
 #
 
 #
-# Import default database from /sql/default.sql
-#
-
-mysql -u root wordpress < /vagrant/sql/default.sql
-
-#
 # Symlink the Object Cache Drop-in for Redis, if not already symlinked
 #
 content_dir="/var/www/content"
