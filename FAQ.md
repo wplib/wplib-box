@@ -1,23 +1,65 @@
 # WPLib Box FAQ
 
-## What is WPLib Box?
-WPLib Box is designed the be the EASIEST to use professional solution for local WordPress 
-development. WPLib Box leverages the open-source tool Vagrant and either Oracle's open-source 
-VirtualBox or commercial products from VMware. 
+##Table of Contents
+###Overview
+- [What is WPLib Box?](#what-is)
+- [How is WPLib Box Better?](#how-better)
 
-## How do I Run WP-CLI?
+###Technical
+- [How do I Run WP-CLI?](#wp-cli)
+- [Why is WPLib Box Caching Things?](#caching)
+- [How do I Deploy My Site from WPLib Box?](#deploy)
+- [How do I Use WPLib Box on New Projects?](#new-projects)
+- [How do I Use WPLib Box on Pre-Existing Projects?](#existing-projects)
+- [How do I Configure Composer to Work with WPLib Box?](#composer)
+
+###Glossary
+- [What Do They All These Terms Mean?](#caching)
+
+###Support
+- [Don't See the Answer Here?](#no-answer)
+- [Want to try WPLib Box but Need Help?](#need-help)
+
+###Business
+- [What is our Business Model?](#biz-model)
+- [What Services can The WPLib Team Offer?](#services)
+
+###Future
+- [What Are the Plans/Roadmap for WPLib Box?](#plans)
+
+---
+
+## Overview
+<a id="what-is"></a>
+###What is WPLib Box?
+WPLib Box is designed the be the EASIEST to use professional solution for local WordPress development. WPLib Box leverages the open-source tool Vagrant and either Oracle's open-source VirtualBox or commercial products from VMware. 
+
+<a id="how-better"></a>
+###How is WPLib Box Better?
+All other Vagrant boxes for WordPress _(that we are aware of)_ start with a base Linux and then build the box _"from ground up"_ during the provision cycle installing Nginx or Apache, PHP, MySQL, etc.  Examples of this include [VVV](https://varyingvagrantvagrants.org/), [VIP QuckStart](https://vip.wordpress.com/documentation/vip/quickstart/) and [Trellis](https://roots.io/trellis/). This is both time consuming for provisioning, which you may need to do more than once, and also problematic if anything has changed that may break the provisioning process.
+
+Instead WPLib Box _**pre-provisions**_ our box so you can `vagrant up` or `vagrant reload --provision` in around 30 seconds _(after the box is first downloaded)_, and almost eliminates the chance of our provisioning process breaking, unlike the other available solutions _(that we know of)_.
+
+So WPLib Box does not view our `Vagrantfile` and related provisioning scripts as our product, our scripts are just _**examples**_ of how you can use our Box Image. Instead **we treat our Box Image as our product**, and our goal is to make it bulletproof and feature-rich with a goal that you will be able to get the web server stack you need with only configuration, and not with provisioning.
+
+
+## Technical
+<a id="wp-cli"></a>
+### How do I Run WP-CLI?
 [WP-CLI](http://wp-cli.org/) is installed in the WPLib Box virtual machine so to use it you first SSH into the 
 box and then run your wp-cli command, for example:
 
     vagrant ssh
     wp plugin install hello-dolly
     
-## Why is the Box Caching things?
-WPLib Box installs Redis for persistent object caching. To disable this simply rename `www/content/object-cache.php` to something like `object-cache.disabled.php`.
+<a id="caching"></a>
+### Why is WPLib Box Caching Things?
+WPLib Box installs Redis for persistent object caching. To disable this simply rename `www/content/object-cache.php` to something like `object-cache.disabled.php`.  But we do [**have plans**](#plans) to add numerous ways to do this.
  
 If you need to clear the cache the easiest way at the moment is to run `vagrant reload` from your development (host) computer.  
 
-## How do I Deploy My Site from the Box?
+<a id="deploy"></a>
+### How do I Deploy My Site from WPLib Box?
 Deployment to a production or staging server is extremely simple. Just:
 
 1. Copy the entire contents of the `www/` directory to the website root of the server where you are hosting your site.
@@ -33,7 +75,8 @@ There are many solutions to this although not one ideal solution thus explaining
 [let us google it for you](https://www.google.com/#q=changing%20urls%20when%20moving%20wordpress%20site%20-codex).
 
 
-## How do I Use WPLib Box on New Projects? 
+<a id="new-projects"></a>
+### How do I Use WPLib Box on New Projects? 
 To use WPLib Box on new projects just copy the `Vagrantfile` and the `scripts/` directory from this repository to your new project and change 
 the domain name to the local domain name for your project.  The only _”constraint” (that we are currently aware of)__ is you will need to have 
 your website root in a `www/` directory that is a sibling to `Vagrantfile` and to `scripts/` but otherwise it should all just work using `vagrant up`.
@@ -41,7 +84,8 @@ your website root in a `www/` directory that is a sibling to `Vagrantfile` and t
 **NOTE:**: You do not have to organize the WordPress directory structures like we have with `/www/content` and `/www/wp`; you can easily use the 
 standard directory layout used by WordPress core e.g. `www/wp-content/` and `www/`, respectively.
 
-## How do I Use WPLib Box on Pre-Existing Projects?
+<a id="existing-projects"></a>
+### How do I Use WPLib Box on Pre-Existing Projects?
 To use for an existing project, you follow the same instructions as for new projects; copy the `Vagrantfile` and the `scripts/` directory from 
 this repository to your new project, change the domain name to the local domain name for your project and move your website root into a `www/` 
 directory that is a sibling to `Vagrantfile` and to `scripts/` and then `vagrant up`.
@@ -55,7 +99,17 @@ If you cannot create a `scripts/` directory in the same directory as your `Vagra
 `wplib-scripts/` &mdash; and then search for `scripts/` in your `Vagrantfile` and replace it with whatever you named your directory, e.g. 
 with `wplib-scripts/` as in our example.
 
-##Glossary: What Do They All These Terms Mean?
+<a id="existing-projects"></a>
+### How do I Configure Composer to Work with WPLib Box?
+Configure `composer.json` however you like; WPLib Box is agnostic with respect to Composer. 
+
+Yes, we do include a `composer.json` with our WPLib Box repository but only so that WPLib Box will just work, **out-of-the-box** _(yeah, sorry for the pun!)_
+
+
+##Glossary 
+<a id="glossary"></a>
+
+###What Do They All These Terms Mean?
 The following are terms we have decide to use in our FAQ and in other documents.  If any of these terms conflict with broader industry terms please submit a pull request with any suggested corrects. 
 
 Otherwise, there they are:
@@ -72,32 +126,32 @@ Otherwise, there they are:
     - Windows: `C:/Users/{username}/.vagrant.d/boxes`
 - **Project Box Image**: Although Vagrant maintains pristine copies of Box Images in the Local Box Image Cache it makes a copy of that box for each of your projects and stores that copy in `~/VirtualBox VMs` (on Mac & Linux) and in `???` (on Windows.) It also creates a `vagrant` directory in your project to maintain information about the copy of the Box Image used by the project. For example, if you `vagrant ssh` into a running Vagrant Box and make configuration changes those changes will be in the Project's Box Image, but not in the`
 pristine copies of Box Image nor in other projects that share the same named Box Image. 
-## Suggest a New FAQ Question & Answer
+### Suggest a New FAQ Question & Answer
 If you have figured something out about WPLib that we have not documented, please help out your 
 fellow developers [**fork this repo**](https://github.com/wplib/wplib-box) then 
 [**submit a pull request**](https://github.com/wplib/wplib-box/compare).
 
----
-
-## Don't See the Answer Here?
+##Support
+<a id="no-answer"></a>
+### Don't See the Answer Here?
 Feel free to ask questions using our [GitHub issue tracker](https://github.com/wplib/wplib-box/issues/new). 
-When you do please assign your issue the "question" label, if you can remember to. 
+When you do please assign your issue the _"question"_ label. 
 
-## Want to Try it But Need Help?
-Don't worry, if you can speak English or can type English we are happy to help you install and configure WPLib for as little as $35.
-
-We are using [**Fiverr**][1] to allow people to request help. [**Click Here**][1] to get started.
+<a id="need-help"></a>
+### Want to Try WPLib Box But Need Help?
+Don't worry, contact us as we are happy to help you get it set up for your environment. We will be happy to send you an invite to connect with on on [ScreenHero](http://screenhero.com) and we can walk you through setup on your machine. [**Email us**][1] to get started.
     
----
-
-## What is our Business Model?
+##Business
+<a id="biz-model"></a>
+### What is our Business Model?
 We are a consulting company that is transitioning to a product company that offers products and services
 for improving Developer Experience for PHP developers who have chosen to use WordPress as a platform. 
 
 If you have idea ahout how we could help your development organization with workflow please [**contact
-us**](mailto:team@wplib.org) with your ideas and we'll see if we can help. 
+us**][1] with your ideas and we'll see if we can help. 
 
-## What Services Can We Offer Your Company?
+<a id="services"></a>
+### What Services Can The WPLib Team Offer Your Company?
 Do you think your company might benefit from:
 
 1. A **Hosting-company Specific** Vagrant Box for your Customers?
@@ -106,9 +160,18 @@ Do you think your company might benefit from:
 3. **Sponsoring a Named Version** of the WPLib box for public distribution?
 5. **Demos of your WordPress-based Web Apps, Plugins or Themes** without exposing source code? 
 
-If any of those ideas intrigue you, reach out and [contact us](mailto:team@wplib.com).  
+If any of those ideas intrigue you, reach out and [contact us][1].
+
+##Future 
+<a id="plans"></a>
+### What Are the Plans/Roadmap for WPLib Box?
+We have a lot of ideas and some plans but do not yet have enough feedback to determine an appropriate roadmap.  What we can say is that we plan to make many of the manual configuration processes be adjustable via:
+
+1. Command Line Interface (CLI)
+2. Admin Console at [wplib.box](http://wplib.box)
+3. Via the WordPress Debug Bar
+4. Via an RESTful API that will enable #1-#3 above
 
 
- [1]: https://www.fiverr.com/mikeschinkel/walk-you-thru-installing-a-local-stack-for-wordpress-development-on-your-machine
-
+ [1]: mailto:team@wplib.org
 
