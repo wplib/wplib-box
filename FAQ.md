@@ -2,30 +2,30 @@
 
 ##Table of Contents
 ###Overview
-- [What is WPLib Box?](#what-is)
-- [How is WPLib Box Better?](#how-better)
+- [What is WPLib Box?](#what-is-wplib-box)
+- [How is WPLib Box Better?](#how-is-wplib-box-better)
 
 ###Technical
-- [How do I Run WP-CLI?](#wp-cli)
-- [Why is WPLib Box Caching Things?](#caching)
-- [How do I Deploy My Site from WPLib Box?](#deploy)
-- [How do I Use WPLib Box on New Projects?](#new-projects)
-- [How do I Use WPLib Box on Pre-Existing Projects?](#existing-projects)
-- [How do I Configure Composer to Work with WPLib Box?](#composer)
+- [How do I Run WP-CLI?](#how-do-i-run-wp-cli)
+- [Why is WPLib Box Caching Things?](#why-is-wplib-box-caching-things)
+- [How do I Deploy My Site from WPLib Box?](#how-do-i-deploy-my-site-from-wplib-box)
+- [How do I Use WPLib Box on New Projects?](#how-do-i-use-wplib-box-on-new-projects)
+- [How do I Use WPLib Box on Pre-Existing Projects?](#how-do-i-use-wplib-box-on-pre-existing-projects)
+- [How do I Configure Composer to Work with WPLib Box?](#how-do-i-configure-composer-to-work-with-wplib-box)
 
 ###Glossary
-- [What Do They All These Terms Mean?](#caching)
+- [What Do They All These Terms Mean?](#what-do-they-all-these-terms-mean)
 
 ###Support
-- [Don't See the Answer Here?](#no-answer)
-- [Want to try WPLib Box but Need Help?](#need-help)
+- [Don't See the Answer Here?](#dont-see-the-answer-here)
+- [Want to try WPLib Box but Need Help?](#want-to-try-wplib-box-but-need-help)
 
 ###Business
-- [What is our Business Model?](#biz-model)
-- [What Services can The WPLib Team Offer?](#services)
+- [What is our Business Model?](#what-is-our-business-model)
+- [What Services can The WPLib Team Offer?](#what-services-can-the-wplib-team-offer-your-company)
 
 ###Future
-- [What Are the Plans/Roadmap for WPLib Box?](#plans)
+- [What Are the Plans/Roadmap for WPLib Box?](#what-are-the-plansroadmap-for-wplib-box)
 
 ---
 
