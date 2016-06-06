@@ -39,6 +39,12 @@ Windows 7 thru 10|With PowerShell or [git-bash](https://git-for-windows.github.i
 We assume this will work on all these platforms but we have not tested it thoroughly yet so we welcome your bug reports if you have issues with it.
 
 ## Required Software
+###For Windows Users
+
+Coming soon...
+
+###For Mac & Linux Users
+
 To run WPLib Box requires the following software be installed:
 
 - Install [VirtualBox](https://www.virtualbox.org/)
