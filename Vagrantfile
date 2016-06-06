@@ -54,17 +54,14 @@
 #
 #   REFERENCE:
 #
-#       system('scripts/before-vagrant.sh')
+#       File.write('IP', "10.10.10.#{rand(10..250)}") if not File.exists?('IP')
 #
-#           This line calls a `before-vagrant.sh` script to be run
-#           before any other part of `Vagrantfile` is run.
-#
-#           Currently this script generates a random non-routable IP
-#           address starting with 10 and randomly selects from 0..254
-#           for the remaining three octets. It then writes the IP
+#           This line creates a randomly-generated and non-routable IP
+#           address starting with 10.10.10. and randomly selects the
+#           final octet between 10 and 250. It then writes the IP
 #           address to a file named 'IP' in the project's root folder
 #           which is the same folder where this Vagrantfile is found
-#           to ensure future runs of "vagrant up" or "vagrant reload"
+#           to ensure future runs of "vagrant up" or "vagrand reload"
 #           will use the same IP address.
 #
 #           The assumption here is that it is very unlikely that this
@@ -79,8 +76,8 @@
 #           choose to at least evaluate WPLib Box, although someone
 #           may occasionally need to debug why it is not working.
 #
-#           If we can find a better approach, we will be happy to
-#           to switch to it later. Suggestions welcome.
+#           If we can find a better approach later, we will be happy
+#           to switch to it.
 #
 #       config.vm.box = "wplib/wplib"
 #
@@ -255,7 +252,7 @@
 
 Vagrant.configure(2) do |config|
 
-    system('scripts/before-vagrant.sh')
+    File.write('IP', "10.10.10.#{rand(10..250)}") if not File.exists?('IP')
 
     config.vm.box = "wplib/wplib"
     config.vm.hostname = "wplib.box"
