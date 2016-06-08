@@ -249,6 +249,7 @@
 #
 #           - https://github.com/wplib/wplib-box/blob/master/FAQ.md#troubleshooting
 #
+vagrant_dir = File.expand_path(File.dirname(__FILE__))
 
 Vagrant.configure(2) do |config|
 
@@ -264,7 +265,25 @@ Vagrant.configure(2) do |config|
     config.ssh.forward_agent = true
     config.ssh.insert_key = false
 
+    # Provisioning
+    #
+    # Process one or more provisioning scripts depending on the existence of custom files.
+    #
+    # before-provison.sh acts as a pre-hook to our default provisioning script. Anything that
+    # should run before the shell commands laid out in provision.sh should go in this script.
+    # If it does not exist, no extra provisioning will run.
+    if File.exists?(File.join(vagrant_dir, 'custom-scripts','before-provision.sh')) then
+      config.vm.provision :shell, :path => File.join( "custom-scripts", "before-provision.sh" )
+    end
+
     config.vm.provision "shell", path: "scripts/provision.sh"
 
+    # after-provision.sh acts as a post-hook to the default provisioning. Anything that should
+    # run after the shell commands laid out in provision.sh should be put into this file. This
+    # provides a good opportunity to install additional packages without having to replace the
+    # entire default provisioning script.
+    if File.exists?(File.join(vagrant_dir,'custom-scripts','after-provision.sh')) then
+      config.vm.provision :shell, :path => File.join( "custom-scripts", "after-provision.sh" )
+    end
 end
 
