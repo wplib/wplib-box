@@ -39,6 +39,9 @@ Windows 7 thru 10|With PowerShell or [git-bash](https://git-for-windows.github.i
 We assume this will work on all these platforms but we have not tested it thoroughly yet so we welcome your bug reports if you have issues with it.
 
 ## Required Software
+
+###For Mac & Linux Users
+
 To run WPLib Box requires the following software be installed:
 
 - Install [VirtualBox](https://www.virtualbox.org/)
@@ -47,8 +50,16 @@ To run WPLib Box requires the following software be installed:
 - Install the [Vagrant Triggers](https://github.com/emyl/vagrant-triggers) plugin by running `vagrant plugin install vagrant-triggers`
 - Install [Composer](https://getcomposer.org/download/)
 
+###For Windows Users
+
+- Install everything from the Mac & Linux Users list above
+- Install [Git](https://git-scm.com/downloads) version 2 or greater.
+- Install [PHP](http://windows.php.net/download) version 5.6 or greater.
+
 ##Quickstart
-After making sure you have the necessary software, run the following commands:
+After making sure you have the necessary software, run the following commands 
+
+###For Mac or Linux users:
 
 	# cd ~/Sites, or cd into whichever directory you store your website projects in
 	cd ~/Sites                
@@ -58,6 +69,18 @@ After making sure you have the necessary software, run the following commands:
 	vagrant up
 	open "http://wplib.box"
 
+###For Windows users:
+
+        # cd into whichever directory you store your website projects in. 
+        # For example, your user profile: C:\Users\{current user}\Sites
+        c:
+        cd %userprofile%\Sites  
+        git clone https://github.com/wplib/wplib-box.git
+        cd wplib-box
+        composer install
+        vagrant up
+        explorer "http://wplib.box"
+        
 After this you should have a running WPLib Box via Vagrant and VirtualBox and a website loaded at the local `wplib.box` domain.
 
 ##Setting the Domain Name
