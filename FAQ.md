@@ -99,6 +99,7 @@ If you cannot create a `scripts/` directory in the same directory as your `Vagra
 `wplib-scripts/` &mdash; and then search for `scripts/` in your `Vagrantfile` and replace it with whatever you named your directory, e.g. 
 with `wplib-scripts/` as in our example.
 
+<<<<<<< HEAD
 <a id="existing-projects"></a>
 ### How do I Configure Composer to Work with WPLib Box?
 Configure `composer.json` however you like; WPLib Box is agnostic with respect to Composer. 
@@ -118,11 +119,17 @@ This can be accomplished by connecting to the guest machine via ssh:
 Change the pertinent line. Press `CTRL-X` to exit the program. When prompted to save the buffer, press `ENTER`. The filename will appear. Press `ENTER` again. Then enter the command `sudo service nginx restart`.
 Visit [http://wplib.box/phpinfo.php](http://wplib.box/phpinfo.php) (or whatever domain name you have configured for the box) to verify.
 
+## How do I share my work with the outside world?
+
+The box image has [localtunnel.me](https://localtunnel.me) pre-installed in the box. You can simply `ssh` into the guest and run: `lt --port 80`.
+This will provide you with a URL to share the local site until you exit the command by either terminating the program or shutting down the machine.
+
+You can also use [Vagrant Share](https://www.vagrantup.com/docs/share).
+
 ##Glossary 
 <a id="glossary"></a>
 
 ###What Do All These Terms Mean?
-=======
 
 The following are terms we have decide to use in our FAQ and in other documents.  If any of these terms conflict with broader industry terms please submit a pull request with any suggested corrects. 
 

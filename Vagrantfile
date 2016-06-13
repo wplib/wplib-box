@@ -266,5 +266,9 @@ Vagrant.configure(2) do |config|
 
     config.vm.provision "shell", path: "scripts/provision.sh"
 
+    config.trigger.before :halt do
+        run_remote "mkdir -p /vagrant/sql && mysqldump -u wordpress -pwordpress wordpress > /vagrant/sql/current.sql"
+    end
+
 end
 

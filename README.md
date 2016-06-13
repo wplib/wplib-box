@@ -20,12 +20,15 @@ We think that once you try WPLib Box you will agree that we have succeeded.  Wan
 
 Service/Software|Version
 -------|----------
-PHP-FPM|5.6.20 && 7.0
+PHP/PHP-FPM|5.6.20 & 7.0
 MySQL|5.5
 nginx|1.4
 XDEBUG|2.3.3
 Redis|2.8.4
 WP CLI|0.23.0
+Nodejs|
+Gearman
+localtunnel.me
 
 ## Supported Host/Development Computers
 This box was developed using Mac OS/X and tested using Linux and Windows with [git-bash](https://git-for-windows.github.io/). Thus we believe it currently works with:
@@ -175,6 +178,10 @@ Password                      | `vagrant`
 ##Debugging PHP with XDEBUG and PhpStorm
 
 Instructions to come...
+
+## Internet Sharing
+
+Internet sharing is implemented with [localtunnel.me](https://localtunnel.me), which is pre-installed in the box image.
 
 ##How?
 
