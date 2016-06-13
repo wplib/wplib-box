@@ -20,7 +20,7 @@ We think that once you try WPLib Box you will agree that we have succeeded.  Wan
 
 Service/Software|Version
 -------|----------
-PHP/PHP5-FPM|5.6.20
+PHP-FPM|5.6.20 && 7.0
 MySQL|5.5
 nginx|1.4
 XDEBUG|2.3.3
@@ -114,6 +114,11 @@ To something else that is compatible with your network, i.e. maybe:
 	config.vm.network "private_network", ip: "10.10.10.10"
 
 We will probably change to a different default IP address in the future.
+
+## Switching PHP Versions
+
+The box has both PHP-FPM 5.6 and 7.0 running concurrently. They are implemented as separate processes with
+individual sockets. Instructions on how to select which version to use can be found in the [FAQ](https://github.com/wplib/wplib-box/blob/master/FAQ.md).
 
 ## Logging into the WordPress Admin
 

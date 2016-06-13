@@ -105,11 +105,25 @@ Configure `composer.json` however you like; WPLib Box is agnostic with respect t
 
 Yes, we do include a `composer.json` with our WPLib Box repository but only so that WPLib Box will just work, **out-of-the-box** _(yeah, sorry for the pun!)_
 
+## How do I switch PHP versions?
+The PHP version in use by the site is set in the Nginx vhost configuration. Our intention is to provide a control panel to simplify this process, but currently
+you must edit this file manually. This file is located at `/etc/nginx/sites-available/default`.
+To change to PHP 7, you must change the line `set $sock php5.6-fpm.sock;` to `set $sock php7.0-fpm.sock;`.
+This can be accomplished by connecting to the guest machine via ssh:
+
+    cd project-directory
+    vagrant ssh
+    sudo nano /etc/nginx/sites-available/default
+    
+Change the pertinent line. Press `CTRL-X` to exit the program. When prompted to save the buffer, press `ENTER`. The filename will appear. Press `ENTER` again. Then enter the command `sudo service nginx restart`.
+Visit [http://wplib.box/phpinfo.php](http://wplib.box/phpinfo.php) (or whatever domain name you have configured for the box) to verify.
 
 ##Glossary 
 <a id="glossary"></a>
 
-###What Do They All These Terms Mean?
+###What Do All These Terms Mean?
+=======
+
 The following are terms we have decide to use in our FAQ and in other documents.  If any of these terms conflict with broader industry terms please submit a pull request with any suggested corrects. 
 
 Otherwise, there they are:
