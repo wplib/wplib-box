@@ -12,6 +12,9 @@
 - [How do I Use WPLib Box on New Projects?](#how-do-i-use-wplib-box-on-new-projects)
 - [How do I Use WPLib Box on Pre-Existing Projects?](#how-do-i-use-wplib-box-on-pre-existing-projects)
 - [How do I Configure Composer to Work with WPLib Box?](#how-do-i-configure-composer-to-work-with-wplib-box)
+- [How do I import a database?](#import-db)
+- [How do I switch PHP versions?](#php-versions)
+- [How do I share my work with the outside world?](#share)
 
 ###Glossary
 - [What Do They All These Terms Mean?](#what-do-they-all-these-terms-mean)
@@ -99,13 +102,19 @@ If you cannot create a `scripts/` directory in the same directory as your `Vagra
 `wplib-scripts/` &mdash; and then search for `scripts/` in your `Vagrantfile` and replace it with whatever you named your directory, e.g. 
 with `wplib-scripts/` as in our example.
 
-<<<<<<< HEAD
 <a id="existing-projects"></a>
 ### How do I Configure Composer to Work with WPLib Box?
 Configure `composer.json` however you like; WPLib Box is agnostic with respect to Composer. 
 
 Yes, we do include a `composer.json` with our WPLib Box repository but only so that WPLib Box will just work, **out-of-the-box** _(yeah, sorry for the pun!)_
 
+<a id="import-db"></a>
+## How do I import a databse?
+When the box is created, a default WordPress database is installed. If you need to import a different dataset or restore a backup of the data, you can simply `ssh` into the guest and perform a MySQL import.
+
+To do this, simply enter your working directory and do the following: `mysql -u wordpress -pwordpress wordpress < /path/to/sql/file`.
+
+<a id="php-version"></a>
 ## How do I switch PHP versions?
 The PHP version in use by the site is set in the Nginx vhost configuration. Our intention is to provide a control panel to simplify this process, but currently
 you must edit this file manually. This file is located at `/etc/nginx/sites-available/default`.
@@ -119,6 +128,7 @@ This can be accomplished by connecting to the guest machine via ssh:
 Change the pertinent line. Press `CTRL-X` to exit the program. When prompted to save the buffer, press `ENTER`. The filename will appear. Press `ENTER` again. Then enter the command `sudo service nginx restart`.
 Visit [http://wplib.box/phpinfo.php](http://wplib.box/phpinfo.php) (or whatever domain name you have configured for the box) to verify.
 
+<a id="share"></a>
 ## How do I share my work with the outside world?
 
 The box image has [localtunnel.me](https://localtunnel.me) pre-installed in the box. You can simply `ssh` into the guest and run: `lt --port 80`.
