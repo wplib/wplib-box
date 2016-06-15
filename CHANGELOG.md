@@ -1,5 +1,18 @@
 # WPLib Box ChangeLog
 
+## 0.10.7.1
++ Fixed issue with xDebug configuration
++ Fixed issue with certain PHP modules not loading in PHP 5.6
++ Added PHP-Memcached extension
++ Fixed regression issue with nginx `sendfile` property being set to 'on'
++ Fixed issue with being unable to connect to MySQL server from host
++ Add [Adminer](https://www.adminer.org)
+
+## 0.10.7
++ Added PHP 5.6 and 7.0
++ Added Gearman Job Server with PHP support
++ Added automatic hourly database export
+
 ## 0.10.6.2
 + Add default web page
 + Fix VMWare tools Installation
