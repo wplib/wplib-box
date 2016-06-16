@@ -15,6 +15,7 @@
 - [How do I import a database?](#import-db)
 - [How do I switch PHP versions?](#php-versions)
 - [How do I share my work with the outside world?](#share)
+- [How do I debug with Visual Studio Code?](#vscode-debug)
 
 ###Glossary
 - [What Do They All These Terms Mean?](#what-do-they-all-these-terms-mean)
@@ -136,6 +137,10 @@ This will provide you with a URL to share the local site until you exit the comm
 
 You can also use [Vagrant Share](https://www.vagrantup.com/docs/share).
 
+<a id="vscode-debug"></a>
+## How do I debug with Visual Studio Code?
+
+The configuration file for Visual Studio Code is already included in the respository. Ensure that you have installed the [PHP Debug](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug) extension for Visual Studio Code.
 ##Glossary 
 <a id="glossary"></a>
 
