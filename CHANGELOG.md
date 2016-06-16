@@ -1,5 +1,9 @@
 # WPLib Box ChangeLog
 
+## 0.10.7.2
++ Fixed Xdebug configuration for PHP 5.6
++ Added Xdebug configuration for remote debugging with Visual Studio Code
+
 ## 0.10.7.1
 + Fixed issue with xDebug configuration
 + Fixed issue with certain PHP modules not loading in PHP 5.6
