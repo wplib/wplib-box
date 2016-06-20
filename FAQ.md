@@ -29,7 +29,7 @@
 - [What Services can The WPLib Team Offer?](#what-services)
 
 ###Future
-- [What Are the Plans/Roadmap for WPLib Box?](#sroadmap)
+- [What Are the Plans/Roadmap for WPLib Box?](#roadmap)
 
 ---
 
