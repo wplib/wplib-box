@@ -12,7 +12,7 @@
 - [How do I Use WPLib Box on New Projects?](#how-do-i-use-wplib-box-on-new-projects)
 - [How do I Use WPLib Box on Pre-Existing Projects?](#how-do-i-use-wplib-box-on-pre-existing-projects)
 - [How do I Configure Composer to Work with WPLib Box?](#how-do-i-configure-composer-to-work-with-wplib-box)
-- [How do I import a database?](#import-db)
+- [How do I Import a MySQL Database?](#import-db)
 - [How do I switch PHP versions?](#php-versions)
 - [How do I share my work with the outside world?](#share)
 - [How do I debug with Visual Studio Code?](#vscode-debug)
@@ -110,7 +110,7 @@ Configure `composer.json` however you like; WPLib Box is agnostic with respect t
 Yes, we do include a `composer.json` with our WPLib Box repository but only so that WPLib Box will just work, **out-of-the-box** _(yeah, sorry for the pun!)_
 
 <a id="import-db"></a>
-## How do I import a databse?
+## How do I Import a MySQL Database?
 When the box is created, a default WordPress database is installed. If you need to import a different dataset or restore a backup of the data, you can simply `ssh` into the guest and perform a MySQL import.
 
 To do this, simply enter your working directory and do the following: `mysql -u wordpress -pwordpress wordpress < /path/to/sql/file`.
