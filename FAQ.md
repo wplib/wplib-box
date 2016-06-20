@@ -2,34 +2,34 @@
 
 ##Table of Contents
 ###Overview
-- [What is WPLib Box?](#what-is-wplib-box)
-- [How is WPLib Box Better?](#how-is-wplib-box-better)
+- [What is WPLib Box?](#what-is)
+- [How is WPLib Box Better?](#how-better)
 
 ###Technical
-- [How do I Run WP-CLI?](#how-do-i-run-wp-cli)
-- [Why is WPLib Box Caching Things?](#why-is-wplib-box-caching-things)
-- [How do I Deploy My Site from WPLib Box?](#how-do-i-deploy-my-site-from-wplib-box)
-- [How do I Use WPLib Box on New Projects?](#how-do-i-use-wplib-box-on-new-projects)
-- [How do I Use WPLib Box on Pre-Existing Projects?](#how-do-i-use-wplib-box-on-pre-existing-projects)
-- [How do I Configure Composer to Work with WPLib Box?](#how-do-i-configure-composer-to-work-with-wplib-box)
+- [How do I Run WP-CLI?](#wp-cli)
+- [Why is WPLib Box Caching Things?](#caching)
+- [How do I Deploy My Site from WPLib Box?](#deploy)
+- [How do I Use WPLib Box on New Projects?](#new-projects)
+- [How do I Use WPLib Box on Pre-Existing Projects?](#existing-projects)
+- [How do I Configure Composer to Work with WPLib Box?](#composer)
 - [How do I Import a MySQL Database?](#import-db)
-- [How do I switch PHP versions?](#php-versions)
-- [How do I share my work with the outside world?](#share)
-- [How do I debug with Visual Studio Code?](#vscode-debug)
+- [How do I Switch PHP Versions?](#php-versions)
+- [How do I Get a URL to Provide Access to My Box's Site From the Internet?](#access)
+- [How do I Debug with Visual Studio Code?](#vscode-debug)
 
 ###Glossary
-- [What Do They All These Terms Mean?](#what-do-they-all-these-terms-mean)
+- [What Do They All These Terms Mean?](#glossary)
 
 ###Support
 - [Don't See the Answer Here?](#dont-see-the-answer-here)
-- [Want to try WPLib Box but Need Help?](#want-to-try-wplib-box-but-need-help)
+- [Want to try WPLib Box but Need Help?](#need-help)
 
 ###Business
-- [What is our Business Model?](#what-is-our-business-model)
-- [What Services can The WPLib Team Offer?](#what-services-can-the-wplib-team-offer-your-company)
+- [What is our Business Model?](#biz-model)
+- [What Services can The WPLib Team Offer?](#what-services)
 
 ###Future
-- [What Are the Plans/Roadmap for WPLib Box?](#what-are-the-plansroadmap-for-wplib-box)
+- [What Are the Plans/Roadmap for WPLib Box?](#sroadmap)
 
 ---
 
@@ -103,7 +103,7 @@ If you cannot create a `scripts/` directory in the same directory as your `Vagra
 `wplib-scripts/` &mdash; and then search for `scripts/` in your `Vagrantfile` and replace it with whatever you named your directory, e.g. 
 with `wplib-scripts/` as in our example.
 
-<a id="existing-projects"></a>
+<a id="composer"></a>
 ### How do I Configure Composer to Work with WPLib Box?
 Configure `composer.json` however you like; WPLib Box is agnostic with respect to Composer. 
 
@@ -111,12 +111,20 @@ Yes, we do include a `composer.json` with our WPLib Box repository but only so t
 
 <a id="import-db"></a>
 ## How do I Import a MySQL Database?
-When the box is created, a default WordPress database is installed. If you need to import a different dataset or restore a backup of the data, you can simply `ssh` into the guest and perform a MySQL import.
+When the box is created, a default WordPress database is installed. If you need to import a different dataset or restore a backup of the data, you can simply `vagrant ssh` into the guest and perform a MySQL import.
 
-To do this, simply enter your working directory and do the following: `mysql -u wordpress -pwordpress wordpress < /path/to/sql/file`.
+To do this, simply enter your working directory and do the following: 
+
+    mysql -u wordpress -pwordpress wordpress < /path/to/sql/file
+    
+For this we use the convention that the `default.sql` file is the file used to initialize the MySQL database. To initialize the DB use the following command:
+
+    mysql -u wordpress -pwordpress wordpress < /vagrant/sql/default.sql
+
+If you have a live database you may want to dump the database to the `/sql/` directory in your project root `default.sql` and then the above command run within `vagrant ssh` will support importing your default database.
 
 <a id="php-version"></a>
-## How do I switch PHP versions?
+## How do I Switch PHP Versions?
 The PHP version in use by the site is set in the Nginx vhost configuration. Our intention is to provide a control panel to simplify this process, but currently
 you must edit this file manually. This file is located at `/etc/nginx/sites-available/default`.
 To change to PHP 7, you must change the line `set $sock php5.6-fpm.sock;` to `set $sock php7.0-fpm.sock;`.
@@ -129,10 +137,13 @@ This can be accomplished by connecting to the guest machine via ssh:
 Change the pertinent line. Press `CTRL-X` to exit the program. When prompted to save the buffer, press `ENTER`. The filename will appear. Press `ENTER` again. Then enter the command `sudo service nginx restart`.
 Visit [http://wplib.box/phpinfo.php](http://wplib.box/phpinfo.php) (or whatever domain name you have configured for the box) to verify.
 
-<a id="share"></a>
-## How do I share my work with the outside world?
+<a id="access"></a>
+## How do I Get a URL to Provide Access to My Box's Site From the Internet?
 
-The box image has [localtunnel.me](https://localtunnel.me) pre-installed in the box. You can simply `ssh` into the guest and run: `lt --port 80`.
+The WPLib Box image has [localtunnel.me](https://localtunnel.me) pre-installed in the box. Simply `vagrant ssh` into the guest and run:
+
+    lt --port 80
+    
 This will provide you with a URL to share the local site until you exit the command by either terminating the program or shutting down the machine.
 
 You can also use [Vagrant Share](https://www.vagrantup.com/docs/share).
@@ -142,9 +153,9 @@ You can also use [Vagrant Share](https://www.vagrantup.com/docs/share).
 
 The configuration file for Visual Studio Code is already included in the respository. Ensure that you have installed the [PHP Debug](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug) extension for Visual Studio Code.
 ##Glossary 
-<a id="glossary"></a>
 
-###What Do All These Terms Mean?
+<a id="glossary"></a>
+### What Do All These Terms Mean?
 
 The following are terms we have decide to use in our FAQ and in other documents.  If any of these terms conflict with broader industry terms please submit a pull request with any suggested corrects. 
 
@@ -199,7 +210,7 @@ Do you think your company might benefit from:
 If any of those ideas intrigue you, reach out and [contact us][1].
 
 ##Future 
-<a id="plans"></a>
+<a id="roadmap"></a>
 ### What Are the Plans/Roadmap for WPLib Box?
 We have a lot of ideas and some plans but do not yet have enough feedback to determine an appropriate roadmap.  What we can say is that we plan to make many of the manual configuration processes be adjustable via:
 
