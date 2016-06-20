@@ -8,6 +8,7 @@
 ###Technical
 - [How do I Run WP-CLI?](#wp-cli)
 - [Why is WPLib Box Caching Things?](#caching)
+- [How do I Flush the Redis Persistent Object Cache?](#flush-cache)
 - [How do I Deploy My Site from WPLib Box?](#deploy)
 - [How do I Use WPLib Box on New Projects?](#new-projects)
 - [How do I Use WPLib Box on Pre-Existing Projects?](#existing-projects)
@@ -62,6 +63,15 @@ WPLib Box installs Redis for persistent object caching. To disable this simply r
  
 If you need to clear the cache the easiest way at the moment is to run `vagrant reload` from your development (host) computer.  
 
+<a id="flush-cache"></a>
+### How do I Flush the Redis Persistent Object Cache?
+If you need to test with the persistent object cache, but you are running into the need to flush a corrupted cache can simply run the following command from your host's command line:
+
+    vagrant ssh
+    redis-cli
+    flushall
+    exit
+
 <a id="deploy"></a>
 ### How do I Deploy My Site from WPLib Box?
 Deployment to a production or staging server is extremely simple. Just:
@@ -113,12 +123,14 @@ Yes, we do include a `composer.json` with our WPLib Box repository but only so t
 ### How do I Import a MySQL Database?
 When the box is created, a default WordPress database is installed. If you need to import a different dataset or restore a backup of the data, you can simply `vagrant ssh` into the guest and perform a MySQL import.
 
-To do this, simply enter your working directory and do the following: 
+To do this, simply do the following from your host's command line: 
 
+    vagrant ssh
     mysql -u wordpress -pwordpress wordpress < /path/to/sql/file
     
-For this we use the convention that the `default.sql` file is the file used to initialize the MySQL database. To initialize the DB use the following command:
+For this we use the convention that the `default.sql` file is the file used to initialize the MySQL database. To initialize the DB use the following commands:
 
+    vagrant ssh
     mysql -u wordpress -pwordpress wordpress < /vagrant/sql/default.sql
 
 If you have a live database you may want to dump the database to the `/sql/` directory in your project root `default.sql` and then the above command run within `vagrant ssh` will support importing your default database.
@@ -140,8 +152,9 @@ Visit [http://wplib.box/phpinfo.php](http://wplib.box/phpinfo.php) (or whatever 
 <a id="access"></a>
 ### How do I Get a URL to Provide Access to My Box's Site From the Internet?
 
-The WPLib Box image has [localtunnel.me](https://localtunnel.me) pre-installed in the box. Simply `vagrant ssh` into the guest and run:
+The WPLib Box image has [localtunnel.me](https://localtunnel.me) pre-installed in the box. Simply run these commands from your host's command line:
 
+    vagrant ssh
     lt --port 80
     
 This will provide you with a URL to share the local site until you exit the command by either terminating the program or shutting down the machine.
