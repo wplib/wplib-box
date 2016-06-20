@@ -65,7 +65,7 @@ If you need to clear the cache the easiest way at the moment is to run `vagrant 
 
 <a id="flush-cache"></a>
 ### How do I Flush the Redis Persistent Object Cache?
-If you need to test with the persistent object cache, but you are running into the need to flush a corrupted cache can simply run the following command from your host's command line:
+If you need to test with the persistent object cache, but you are running into the need to flush a corrupted cache you can simply run the following command from your host's command line:
 
     vagrant ssh
     redis-cli
