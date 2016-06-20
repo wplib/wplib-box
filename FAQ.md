@@ -110,7 +110,7 @@ Configure `composer.json` however you like; WPLib Box is agnostic with respect t
 Yes, we do include a `composer.json` with our WPLib Box repository but only so that WPLib Box will just work, **out-of-the-box** _(yeah, sorry for the pun!)_
 
 <a id="import-db"></a>
-## How do I Import a MySQL Database?
+### How do I Import a MySQL Database?
 When the box is created, a default WordPress database is installed. If you need to import a different dataset or restore a backup of the data, you can simply `vagrant ssh` into the guest and perform a MySQL import.
 
 To do this, simply enter your working directory and do the following: 
@@ -124,7 +124,7 @@ For this we use the convention that the `default.sql` file is the file used to i
 If you have a live database you may want to dump the database to the `/sql/` directory in your project root `default.sql` and then the above command run within `vagrant ssh` will support importing your default database.
 
 <a id="php-version"></a>
-## How do I Switch PHP Versions?
+### How do I Switch PHP Versions?
 The PHP version in use by the site is set in the Nginx vhost configuration. Our intention is to provide a control panel to simplify this process, but currently
 you must edit this file manually. This file is located at `/etc/nginx/sites-available/default`.
 To change to PHP 7, you must change the line `set $sock php5.6-fpm.sock;` to `set $sock php7.0-fpm.sock;`.
@@ -138,7 +138,7 @@ Change the pertinent line. Press `CTRL-X` to exit the program. When prompted to 
 Visit [http://wplib.box/phpinfo.php](http://wplib.box/phpinfo.php) (or whatever domain name you have configured for the box) to verify.
 
 <a id="access"></a>
-## How do I Get a URL to Provide Access to My Box's Site From the Internet?
+### How do I Get a URL to Provide Access to My Box's Site From the Internet?
 
 The WPLib Box image has [localtunnel.me](https://localtunnel.me) pre-installed in the box. Simply `vagrant ssh` into the guest and run:
 
@@ -149,7 +149,7 @@ This will provide you with a URL to share the local site until you exit the comm
 You can also use [Vagrant Share](https://www.vagrantup.com/docs/share).
 
 <a id="vscode-debug"></a>
-## How do I debug with Visual Studio Code?
+### How do I debug with Visual Studio Code?
 
 The configuration file for Visual Studio Code is already included in the respository. Ensure that you have installed the [PHP Debug](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug) extension for Visual Studio Code.
 ##Glossary 
