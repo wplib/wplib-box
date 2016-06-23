@@ -130,7 +130,7 @@ To login to [wplib.box/wp-admin/](http://wplib.box/wp-admin) use the following c
 Credential|Value
 ---------|------
 Username:|`admin`
-Password:| `admin`
+Password:|`password`
 
 We will probably change to using different username and password in the future.
 
