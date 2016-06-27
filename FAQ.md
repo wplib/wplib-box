@@ -135,7 +135,7 @@ For this we use the convention that the `default.sql` file is the file used to i
 
 If you have a live database you may want to dump the database to the `/sql/` directory in your project root `default.sql` and then the above command run within `vagrant ssh` will support importing your default database.
 
-<a id="php-version"></a>
+<a id="php-versions"></a>
 ### How do I Switch PHP Versions?
 The PHP version in use by the site is set in the Nginx vhost configuration. Our intention is to provide a control panel to simplify this process, but currently
 you must edit this file manually. This file is located at `/etc/nginx/sites-available/default`.
