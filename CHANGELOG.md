@@ -1,5 +1,10 @@
 # WPLib Box ChangeLog
 
+## 0.10.7.3
++ Added Nginx proxy for Mailhog
++ Added PHP `mbstring` extension
++ Increased Nginx client_max_body_size to `100M`
+
 ## 0.10.7.2
 + Fixed Xdebug configuration for PHP 5.6
 + Added Xdebug configuration for remote debugging with Visual Studio Code
