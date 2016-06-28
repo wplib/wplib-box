@@ -256,6 +256,10 @@ Vagrant.configure(2) do |config|
 
     config.vm.box = "wplib/wplib"
     config.vm.hostname = "wplib.box"
+    config.hostsupdater.aliases = [
+        "adminer.wplib.box",
+        "mailhog.wplib.box"
+    ]
 
     config.vm.network 'private_network', ip: IO.read('IP').strip
 

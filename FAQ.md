@@ -18,6 +18,7 @@
 - [How do I Get a URL to Provide Access to My Box's Site From the Internet?](#access)
 - [How do I Debug with Visual Studio Code?](#vscode-debug)
 - [How do I access Adminer?](#adminer)
+- [How do I access MailHog?](#mailhog)
 
 ###Glossary
 - [What Do They All These Terms Mean?](#glossary)
@@ -172,7 +173,10 @@ The configuration file for Visual Studio Code is already included in the resposi
 
 [Adminer](https://www.adminer.org/) is a web front end to administer the MySQL server. End users can access Adminer at [http://adminer.wplib.box](http://adminer.wplib.box).
 
+<a id="mailhog"></a>
+### How do I access MailHog?
 
+[MailHog](https://github.com/mailhog/MailHog) is an email testing tool for development purposes. In WPLib Box, all outgoing emails are captured and available for inspection via the MailHog interface: [http://mailhog.wplib.box](http://mailhog.wplib.box).
 ##Glossary 
 
 <a id="glossary"></a>
