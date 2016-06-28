@@ -17,6 +17,7 @@
 - [How do I Switch PHP Versions?](#php-versions)
 - [How do I Get a URL to Provide Access to My Box's Site From the Internet?](#access)
 - [How do I Debug with Visual Studio Code?](#vscode-debug)
+- [How do I access Adminer?](#adminer)
 
 ###Glossary
 - [What Do They All These Terms Mean?](#glossary)
@@ -165,6 +166,13 @@ You can also use [Vagrant Share](https://www.vagrantup.com/docs/share).
 ### How do I debug with Visual Studio Code?
 
 The configuration file for Visual Studio Code is already included in the respository. Ensure that you have installed the [PHP Debug](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug) extension for Visual Studio Code.
+
+<a id="adminer"></a>
+### How do I access Adminer?
+
+[Adminer](https://www.adminer.org/) is a web front end to administer the MySQL server. End users can access Adminer at [http://adminer.wplib.box](http://adminer.wplib.box).
+
+
 ##Glossary 
 
 <a id="glossary"></a>
