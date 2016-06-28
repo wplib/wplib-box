@@ -28,8 +28,7 @@ Redis|2.8.4
 WP CLI|0.23.0
 Nodejs|4.4.5
 Gearman|1.0.6
-
-localtunnel.me
+localtunnel.me|
 
 ## Supported Host/Development Computers
 This box was developed using Mac OS/X and tested using Linux and Windows with [git-bash](https://git-for-windows.github.io/). Thus we believe it currently works with:
