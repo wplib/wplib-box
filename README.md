@@ -26,8 +26,9 @@ nginx|1.4
 XDEBUG|2.3.3
 Redis|2.8.4
 WP CLI|0.23.0
-Nodejs|
-Gearman
+Nodejs|4.4.5
+Gearman|1.0.6
+
 localtunnel.me
 
 ## Supported Host/Development Computers
@@ -130,7 +131,7 @@ To login to [wplib.box/wp-admin/](http://wplib.box/wp-admin) use the following c
 Credential|Value
 ---------|------
 Username:|`admin`
-Password:|`password`
+Password:| `admin`
 
 We will probably change to using different username and password in the future.
 
