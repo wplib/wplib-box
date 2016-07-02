@@ -15,6 +15,7 @@
 - [How do I Configure Composer to Work with WPLib Box?](#composer)
 - [How do I Import a MySQL Database?](#import-db)
 - [How do I Switch PHP Versions?](#php-versions)
+- [How do I Install PhpMyAdmin?](#phpmyadmin)
 - [How do I Get a URL to Provide Access to My Box's Site From the Internet?](#access)
 - [How do I Debug with Visual Studio Code?](#vscode-debug)
 - [How do I access Adminer?](#adminer)
@@ -150,6 +151,12 @@ This can be accomplished by connecting to the guest machine via ssh:
     
 Change the pertinent line. Press `CTRL-X` to exit the program. When prompted to save the buffer, press `ENTER`. The filename will appear. Press `ENTER` again. Then enter the command `sudo service nginx restart`.
 Visit [http://wplib.box/phpinfo.php](http://wplib.box/phpinfo.php) (or whatever domain name you have configured for the box) to verify.
+
+<a id="phpmyadmin"></a>
+### How do I Install PhpMyAdmin?
+We decided not to include phpMyAdmin in the core box image because it installs files for Apache that we don't need so we decided to make it optional. 
+
+To install phpMyAdmin look for the instructions [**here**](https://github.com/wplib/wplib-box/issues/117#issuecomment-230113032).
 
 <a id="access"></a>
 ### How do I Get a URL to Provide Access to My Box's Site From the Internet?
