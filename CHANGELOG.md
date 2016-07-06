@@ -2,8 +2,6 @@
 
 ## 0.10.8
 + Add PHP `gettext`, `imagick`, `mcrypt`,`xml`, and `zip` extensions
-+ Add [Laravel](https://laravel.com) installer
-+ Add [Spark](https://spark.laravel.com) installer
 + Add [Composer](https://getcomposer.org)
 
 ## 0.10.7.3
