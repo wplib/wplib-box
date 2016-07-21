@@ -14,6 +14,7 @@
 - [How do I Use WPLib Box on Pre-Existing Projects?](#existing-projects)
 - [How do I Configure Composer to Work with WPLib Box?](#composer)
 - [How do I Import a MySQL Database?](#import-db)
+- [What PHP versions are available?](#php)
 - [How do I Switch PHP Versions?](#php-versions)
 - [How do I Install PhpMyAdmin?](#phpmyadmin)
 - [How do I Get a URL to Provide Access to My Box's Site From the Internet?](#access)
@@ -138,11 +139,30 @@ For this we use the convention that the `default.sql` file is the file used to i
 
 If you have a live database you may want to dump the database to the `/sql/` directory in your project root `default.sql` and then the above command run within `vagrant ssh` will support importing your default database.
 
+<a href="php"></a>
+### Which PHP Versions are Available?
+Currently, the box has PHP 5.6, PHP 7.0, and HHVM. The PHP is installed from the `ondrej/php` [repository](https://launchpad.net/~ondrej/+archive/ubuntu/php). _(Please note: most answers one might find on the internet regarding `How do I install X module on Ubuntu` are based on previous versions of this repository which only installed one version of PHP on the OS. As such, they will be of no use in this use case.)_ 
+This results in both php5.6-fpm and php7.0-fpm services running concurrently, as well as making three versions of each PHP executable available: e.g. `php` (a symlink to `php7.0`), `php7.0`, and `php5.6`. This is true for `phpize` as well.
+  
+The configuration directory structure is as follows:
+- /etc
+    - /php
+        - /5.6
+            - /cli
+            - /fpm
+            - /mods-available
+        - /7.0
+            - /cli
+            - /fpm
+            - /mods-available
+ 
+ All modules installed are configured for both versions of PHP.
+
 <a id="php-versions"></a>
 ### How do I Switch PHP Versions?
-The PHP version in use by the site is set in the Nginx vhost configuration. Our intention is to provide a control panel to simplify this process, but currently
-you must edit this file manually. This file is located at `/etc/nginx/sites-available/default`.
-To change to PHP 7, you must change the line `set $sock php5.6-fpm.sock;` to `set $sock php7.0-fpm.sock;`.
+The PHP version in use by the site is set in the Nginx vhost configuration. Our intention is to provide a control panel to simplify this process, but currently you must edit this file manually. This file is located at `/etc/nginx/sites-available/default`.
+To change to PHP 7, you must change the line `set $sock php/php5.6-fpm.sock;` to `set $sock php/php7.0-fpm.sock;`. To use HHVM, change it to `set $sock hhvm/sock`.
+
 This can be accomplished by connecting to the guest machine via ssh:
 
     cd project-directory
