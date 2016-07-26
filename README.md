@@ -1,4 +1,4 @@
-|[![Codewake](https://www.codewake.com/badges/codewake2.svg)](https://www.codewake.com/p/wplib-box)|
+[![Codewake](https://www.codewake.com/badges/codewake2.svg)](https://www.codewake.com/p/wplib-box)
 
 
 #WPLib Box
