@@ -1,3 +1,6 @@
+|[![Codewake](https://www.codewake.com/badges/codewake2.svg)](https://www.codewake.com/p/wplib-box)|
+
+
 #WPLib Box
 
 The EASIEST way to get a Local WordPress Development environment, using Vagrant.
