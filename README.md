@@ -20,10 +20,11 @@ We think that once you try WPLib Box you will agree that we have succeeded.  Wan
 
 Service/Software|Version
 -------|----------
-PHP/PHP-FPM|5.6.20 & 7.0
+PHP/PHP-FPM|5.6.20 & 7.0.9
+HipHop VM|3.14.3
 MySQL|5.5
 nginx|1.4
-XDEBUG|2.3.3
+XDEBUG|2.4.0
 Redis|2.8.4
 WP CLI|0.23.0
 Nodejs|4.4.5

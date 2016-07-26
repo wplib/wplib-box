@@ -1,5 +1,11 @@
 # WPLib Box ChangeLog
 
+## 0.10.9
++ Add `HHVM`
++ Add `bcmath` and `pspell` PHP extensions
++ Add `php-dev` and `php5.6-dev` packages
++ Add MySQL configuration for vagrant user
+
 ## 0.10.8
 + Add PHP `gettext`, `imagick`, `mcrypt`,`xml`, and `zip` extensions
 + Add [Composer](https://getcomposer.org)
