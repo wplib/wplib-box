@@ -100,12 +100,12 @@ In other words, change this:
 
 To _(something like)_ this:
 
-	config.vm.hostname = "dev.example.com"
+	config.vm.hostname = "example.dev"
 
 Save the changes to `Vagantfile` and then run the following commands to reload the Vagrant configuration, and then open in your browser. _(Be sure you replaced the domain name in the 2nd command with your own local domain name):_
 
 	vagrant reload
-	open "http://dev.example.com"
+	open "http://example.dev"
 
 
 ## Changing the Local IP Address 
@@ -161,7 +161,7 @@ Here are the credentials you can use for MySQL database:
 
 Credential|Value
 ----------|----------
-IP Address _**or**_ Host Name | `192.168.33.10` _**or**_ `wplib.box` _(or `dev.example.com`)_ 
+IP Address _**or**_ Host Name | `192.168.33.10` _**or**_ `wplib.box` _(or `example.dev`)_ 
 Port                          | `3306`
 Username                      | `wordpress`
 Password                      | `wordpress`
@@ -172,7 +172,7 @@ Here are the credentials you can use for the SSH tunnel:
 
 Credential|Value
 ----------|----------
-IP Address _**or**_ Host Name | `192.1688.33.10` _**or**_ `wplib.box` _(or` dev.example.com`)_ 
+IP Address _**or**_ Host Name | `192.1688.33.10` _**or**_ `wplib.box` _(or` example.dev`)_ 
 Port                          | `22`
 Authentication Method         | Password
 Username                      | `vagrant`
