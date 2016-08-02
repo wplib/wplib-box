@@ -38,6 +38,10 @@ Windows 7 thru 10|With PowerShell or [git-bash](https://git-for-windows.github.i
 
 We assume this will work on all these platforms but we have not tested it thoroughly yet so we welcome your bug reports if you have issues with it.
 
+## Required Hardware
+
+Since WPLib Box is distributed as a virtual machine image of a 64-bit distribution of Ubuntu Linux, a 64-bit Intel or AMD CPU is required, along with support for either Intel or AMD virtualization technologies: VT-x or AMD-v. You will need to enable VT-x/AMD-v in the host PC BIOS.
+
 ## Required Software
 
 ###For Mac & Linux Users
@@ -53,6 +57,7 @@ To run WPLib Box requires the following software be installed:
 ###For Windows Users
 
 - Install everything from the Mac & Linux Users list above
+- Ensure that no other VM platform is running (either VMware or Hyper-V) as they will prevent VirtualBox from operating.
 - Install [Git](https://git-scm.com/downloads) version 2 or greater.
 - Install [PHP](http://windows.php.net/download) version 5.6 or greater.
 
