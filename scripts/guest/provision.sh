@@ -18,7 +18,7 @@ box disassociate-box-git-repo no-errors
 #
 #  Check to see if WordPress is installed
 #
-exit_if_wp_not_installed "complete provisioning."
+box verify-wp-install "complete provisioning."
 
 #
 #  Enable Object Caching
