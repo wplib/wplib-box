@@ -13,9 +13,12 @@ sh ./install-box-cli.sh
 #
 #  Disassociate the cloned Git repo and initialize a new repo.
 #
-box disassociate-git-repo no-errors
+box disassociate-git-repo no-errors 2> /dev/null
 
 #
 #  Enable Object Caching
 #
-box enable-object-caching --force
+box enable-object-caching --force 2> /dev/null
+
+echo "Congratulations! WPLib Box is now installed!"
+
