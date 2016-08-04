@@ -16,11 +16,6 @@ sh ./install-box-cli.sh
 box disassociate-git-repo no-errors
 
 #
-#  Check to see if WordPress is installed
-#
-box verify-wp-installed "complete provisioning."
-
-#
 #  Enable Object Caching
 #
 box enable-object-caching --force
