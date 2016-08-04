@@ -13,7 +13,7 @@ sh ./install-box-cli.sh
 #
 #  Disassociate the cloned Git repo and initialize a new repo.
 #
-box disassociate-box-git-repo no-errors
+box disassociate-git-repo no-errors
 
 #
 #  Check to see if WordPress is installed
