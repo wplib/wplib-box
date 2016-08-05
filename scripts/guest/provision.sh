@@ -2,7 +2,6 @@
 #
 # WPLib Box Provision Script
 #
-exit
 
 #
 # Install the Box CLI for use inside the Guest, e.g. after `vagrant ssh`
