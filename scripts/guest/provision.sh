@@ -23,12 +23,11 @@ box disassociate-git-repo --quiet
 echo "Enabling Redis-based Object Caching... (IF WordPress is installed)"
 box enable-object-caching --force --quiet
 
-
 #
 #  Ignoring Composed Files
 #
 echo "Adding files found in composer.json to .gitignore..."
-box ignore-composed-files
+box ignore-composed-files --quiet
 
 #
 #  Enable File Watchers
