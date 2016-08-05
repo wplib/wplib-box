@@ -6,7 +6,7 @@
 #
 # Install the Box CLI for use inside the Guest, e.g. after `vagrant ssh`
 #
-echo "Installing Box CLI... (try: 'box help')"
+echo "Installing Box CLI... (try: 'vagrant ssh' then 'box help')"
 git clone https://github.com/wplib/box-cli.git /vagrant/scripts/guest/cli  2>/dev/null
 cd /vagrant/scripts/guest/cli
 ./install-box-cli --quiet
