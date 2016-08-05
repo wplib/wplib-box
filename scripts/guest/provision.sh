@@ -23,6 +23,13 @@ box disassociate-git-repo --quiet
 echo "Enable Redis-based Object Caching..."
 box enable-object-caching --force --quiet
 
+
+#
+#  Enable File Watchers
+#
+#echo "Enable File Watchers..."
+#box enable-file-watchers --quiet
+
 echo
 echo "Congratulations! WPLib Box is now installed!"
 
