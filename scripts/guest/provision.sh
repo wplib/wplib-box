@@ -20,12 +20,14 @@ box disassociate-git-repo --quiet
 #
 #  Enable Object Caching
 #
-echo "Enabling Redis-based Object Caching..."
+echo "Enabling Redis-based Object Caching... (IF WordPress is installed)"
 box enable-object-caching --force --quiet
 
 
 #
 #  Enable File Watchers
+#
+#   Uncomment these after issues #147 and #150 are done.
 #
 #echo "Enable File Watchers..."
 #box enable-file-watchers --quiet
