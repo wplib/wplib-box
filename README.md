@@ -59,7 +59,6 @@ To run WPLib Box requires the following software be installed:
 - Install [Vagrant](https://www.vagrantup.com/)
 - Install the [Vagrant Hosts Updater](https://github.com/cogitatio/vagrant-hostsupdater) plugin by running `vagrant plugin install vagrant-hostsupdater`
 - Install the [Vagrant Triggers](https://github.com/emyl/vagrant-triggers) plugin by running `vagrant plugin install vagrant-triggers`
-- Install [Composer](https://getcomposer.org/download/)
 
 ###For Windows Users
 
@@ -77,7 +76,6 @@ After making sure you have the necessary software, run the following commands
 	cd ~/Sites                
 	git clone https://github.com/wplib/wplib-box.git
 	cd wplib-box
-	composer install
 	vagrant up
 	open "http://wplib.box"
 
@@ -89,7 +87,6 @@ After making sure you have the necessary software, run the following commands
         cd %userprofile%\Sites  
         git clone https://github.com/wplib/wplib-box.git
         cd wplib-box
-        composer install
         vagrant up
         explorer "http://wplib.box"
         
