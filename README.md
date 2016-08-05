@@ -64,31 +64,33 @@ To run WPLib Box requires the following software be installed:
 
 - Install everything from the Mac & Linux Users list above
 - Ensure that no other VM platform is running (either VMware or Hyper-V) as they will prevent VirtualBox from operating.
-- Install [Git](https://git-scm.com/downloads) version 2 or greater.
-- Install [PHP](http://windows.php.net/download) version 5.6 or greater.
+- Install [Git](https://git-scm.com/downloads) version 2 or greater **OR** download the `.ZIP` file and unzip instead.
 
 ##Quickstart
 After making sure you have the necessary software, run the following commands 
 
 ###For Mac or Linux users:
 
-	# cd ~/Sites, or cd into whichever directory you store your website projects in
-	cd ~/Sites                
-	git clone https://github.com/wplib/wplib-box.git
-	cd wplib-box
-	vagrant up
-	open "http://wplib.box"
+    # cd ~/Sites, or cd into whichever directory you store your website projects in
+    cd ~/Sites                
+    git clone https://github.com/wplib/wplib-box.git
+    cd wplib-box
+    vagrant up
+    open "http://wplib.box"
 
 ###For Windows users:
 
-        # cd into whichever directory you store your website projects in. 
-        # For example, your user profile: C:\Users\{current user}\Sites
-        c:
-        cd %userprofile%\Sites  
-        git clone https://github.com/wplib/wplib-box.git
-        cd wplib-box
-        vagrant up
-        explorer "http://wplib.box"
+    # cd into whichever directory you store your website projects in. 
+    # For example, your user profile: C:\Users\{current user}\Sites
+    c:
+    cd %userprofile%\Sites  
+    #
+    # You can run the next command, or just download from the web and unzip into the wplib-box directory
+    #
+    git clone https://github.com/wplib/wplib-box.git
+    cd wplib-box
+    vagrant up
+    explorer "http://wplib.box"
         
 After this you should have a running WPLib Box via Vagrant and VirtualBox and a website loaded at the local `wplib.box` domain.
 
