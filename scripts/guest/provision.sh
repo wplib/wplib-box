@@ -25,6 +25,12 @@ box enable-object-caching --force --quiet
 
 
 #
+#  Ignoring Composed Files
+#
+echo "Adding files found in composer.json to .gitignore..."
+box ignore-composed-files
+
+#
 #  Enable File Watchers
 #
 #   Uncomment these after issues #147 and #150 are done.

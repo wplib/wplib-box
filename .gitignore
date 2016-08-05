@@ -2,12 +2,5 @@
 
 /sql/*
 !/sql/default.sql
-
 IP
 .vagrant
-/www/*
-!/www/content/
-/www/content/*
-!/www/content/mu-plugins
-/www/content/mu-plugins/*
-/wp-tests/

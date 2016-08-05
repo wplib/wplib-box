@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7b69211f43046935ae058541d2f2dce1",
-    "content-hash": "4ffead056725a6ea61bbeb123a5dca21",
+    "hash": "65b285a554daa9129064a1de73b1cc39",
+    "content-hash": "3834e90a8a0d15cab18b6fbebf8146ac",
     "packages": [
         {
             "name": "composer/installers",
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "21a8c06dd5fe0a22b776797cc552e51d17d7e7dd"
+                "reference": "99e6aa7cea46b0d4e7b5bf0ae8f1a69662c7ea3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/21a8c06dd5fe0a22b776797cc552e51d17d7e7dd",
-                "reference": "21a8c06dd5fe0a22b776797cc552e51d17d7e7dd",
+                "url": "https://api.github.com/repos/composer/installers/zipball/99e6aa7cea46b0d4e7b5bf0ae8f1a69662c7ea3f",
+                "reference": "99e6aa7cea46b0d4e7b5bf0ae8f1a69662c7ea3f",
                 "shasum": ""
             },
             "require": {
@@ -72,15 +72,18 @@
                 "agl",
                 "aimeos",
                 "annotatecms",
+                "attogram",
                 "bitrix",
                 "cakephp",
                 "chef",
+                "cockpit",
                 "codeigniter",
                 "concrete5",
                 "croogo",
                 "dokuwiki",
                 "drupal",
                 "elgg",
+                "expressionengine",
                 "fuelphp",
                 "grav",
                 "installer",
@@ -97,6 +100,7 @@
                 "piwik",
                 "ppi",
                 "puppet",
+                "reindex",
                 "roundcube",
                 "shopware",
                 "silverstripe",
@@ -106,7 +110,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2016-04-24 13:17:36"
+            "time": "2016-07-28 21:20:57"
         },
         {
             "name": "johnpbloch/wordpress",
@@ -275,20 +279,17 @@
         },
         {
             "name": "wplib/wplib",
-            "version": "0.12.2",
+            "version": "0.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wplib/wplib.git",
-                "reference": "175f79bfc7c51f3bccb1bd887c23997ee1360a08"
+                "reference": "7e90759786617f07335dcf915c377bc761baac90"
             },
             "require": {
                 "php": ">=5.4.0"
             },
             "suggest": {
-                "wplib/lawpress": "A sample WPLib App for developing with Law Firm websites",
-                "wplib/underscores4wplib": "A port of the Underscores theme to demo WPLib",
-                "wplib/wplib-box": "A Vagrant box for WPLib-specific WordPress development",
-                "wplib/wplib-cli": "A command-line scaffolding tool for WPLib"
+                "wplib/wplib-box": "The Easiest Local Development Solution for WordPress Developers"
             },
             "type": "library",
             "autoload": {
@@ -313,25 +314,19 @@
                     "role": "Architect and Developer"
                 },
                 {
-                    "name": "Micah Wood",
-                    "email": "micah@wpscholar.com",
-                    "homepage": "http://wpscholar.com",
-                    "role": "Developer"
-                },
-                {
                     "name": "Daryl Lozupone",
                     "email": "daryl@newclarity.net",
                     "homepage": "https://www.linkedin.com/in/daryllozupone",
                     "role": "DevOp and Developer"
                 }
             ],
-            "description": "An MV* Foundation Library for Building Custom WordPress Sites",
+            "description": "A PHP Library that Adds Modules and Applications to WordPress",
             "homepage": "http://github.com/wplib/wplib",
             "keywords": [
-                "cli",
-                "console",
+                "library",
+                "modules",
+                "mvc",
                 "php",
-                "scaffolding",
                 "wordpress",
                 "wplib"
             ],
@@ -340,9 +335,9 @@
                 "issues": "https://github.com/wplib/wplib/issues",
                 "forum": "https://wplib.slack.com/",
                 "source": "https://github.com/wplib/wplib",
-                "docs": "http://wplib.prg"
+                "docs": "http://wplib.org"
             },
-            "time": "2016-02-09 23:57:22"
+            "time": "2016-06-20 08:26:17"
         }
     ],
     "packages-dev": [],
