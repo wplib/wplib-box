@@ -116,7 +116,7 @@ Save the changes to `Vagantfile` and then run the following commands to reload t
 
 The default local IP address used by this box is `10.10.10.{octet}` where `{octet}` is a number between 10 to 250.
 
-If you need to change that for any reason simply edit the `IP` file that is created during `vagrant up` and change the IP address it contains.
+If you need to change that for any reason simply edit the file named just `IP` _(with no extension)_ found in the project root. It is created during `vagrant up` and a random `{octet}` is generated. Just edit this file and change the IP address it contains.
 
 ## Switching PHP Versions
 
