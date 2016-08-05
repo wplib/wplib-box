@@ -8,7 +8,7 @@
 #
 git clone https://github.com/wplib/box-cli.git /vagrant/scripts/guest/cli  2>/dev/null
 cd /vagrant/scripts/guest/cli
-sh ./install-box-cli.sh --quiet
+./install-box-cli.sh --quiet
 
 #
 #  Disassociate the cloned Git repo and initialize a new repo.
