@@ -20,7 +20,7 @@ box disassociate-git-repo --quiet
 #
 #  Enable Object Caching
 #
-echo "Enabling Redis-based Object Caching... (IF WordPress is installed)"
+echo "Enabling Redis-based Object Caching..."
 box enable-object-caching --force --quiet
 
 #
