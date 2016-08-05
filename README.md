@@ -114,17 +114,9 @@ Save the changes to `Vagantfile` and then run the following commands to reload t
 
 ## Changing the Local IP Address 
 
-The default local IP address used by this box is `192.168.33.10`.  
+The default local IP address used by this box is `10.10.10.{octet}` where `{octet}` is a number between 10 to 250.
 
-If you need to change that for any reason simply edit the `Vagrantfile`; change the following:
-
-	config.vm.network "private_network", ip: "192.168.33.10"
-
-To something else that is compatible with your network, i.e. maybe:
-
-	config.vm.network "private_network", ip: "10.10.10.10"
-
-We will probably change to a different default IP address in the future.
+If you need to change that for any reason simply edit the `IP` file that is created during `vagrant up` and change the IP address it contains.
 
 ## Switching PHP Versions
 
