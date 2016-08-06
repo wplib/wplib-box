@@ -95,8 +95,8 @@ There are many solutions to this although not one ideal solution thus explaining
 
 <a id="new-projects"></a>
 ### How do I Use WPLib Box on New Projects? 
-To use WPLib Box on new projects just copy the `Vagrantfile` and the `scripts/` directory from this repository to your new project and change 
-the domain name to the local domain name for your project.  The only _”constraint” (that we are currently aware of)__ is you will need to have 
+To use WPLib Box on new projects just copy the `Vagrantfile` and the `scripts/` directory from this repository to your new project and [change 
+the domain name](https://github.com/wplib/wplib-box#setting-the-domain-name) to the local domain name for your project.  The only _”constraint” (that we are currently aware of)_ is you will need to have 
 your website root in a `www/` directory that is a sibling to `Vagrantfile` and to `scripts/` but otherwise it should all just work using `vagrant up`.
 
 **NOTE:**: You do not have to organize the WordPress directory structures like we have with `/www/content` and `/www/wp`; you can easily use the 
@@ -105,7 +105,7 @@ standard directory layout used by WordPress core e.g. `www/wp-content/` and `www
 <a id="existing-projects"></a>
 ### How do I Use WPLib Box on Pre-Existing Projects?
 To use for an existing project, you follow the same instructions as for new projects; copy the `Vagrantfile` and the `scripts/` directory from 
-this repository to your new project, change the domain name to the local domain name for your project and move your website root into a `www/` 
+this repository to your new project, [change the domain name](https://github.com/wplib/wplib-box#setting-the-domain-name) to the local domain name for your project and move your website root into a `www/` 
 directory that is a sibling to `Vagrantfile` and to `scripts/` and then `vagrant up`.
 
 If you cannot put your code into a `www/` subdirectory for some reason you can put the `Vagrantfile` in your web root and change the line that 
@@ -273,4 +273,3 @@ We have a lot of ideas and some plans but do not yet have enough feedback to det
 
 
  [1]: mailto:team@wplib.org
-
