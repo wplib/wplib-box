@@ -119,13 +119,13 @@ To use the Standard WordPress directory layout open up Mac Finder or Windows Exp
 
 1. Delete the `/www/wp/wp-content` directory; you don't need it. _(Uh, after checking you did not store anything in `/www/wp/wp-content` by accident. If you did, move it out then delete the directorty.)_
 
-2. Move all the remaining files and directories in `/www/wp` into the `/www`.
+2. Move all the remaining files and directories up one level in the directort hierarchy; from `/www/wp` to `/www`.
 
 3. Rename `/www/content` to `/www/wp-content`
 
 4. Delete `/www/wp`
 
-5. In your IDE/text editor open `www/index.php` and then change the code from `'/wp/wp-blog-header.php'` to `'/wp-blog-header.php'`
+5. In your IDE/text editor open `www/index.php` and then change the code from `'/wp/wp-blog-header.php'` to `'/wp-blog-header.php'` _(e.g. remove the leading `/wp` from the filepath.)_
 
 6. Rename `/www/../composer.json` to `/www/../composer.json.save` and delete `/www/../composer.lock` _(since you can no longer use Composer with this directory layout structure. Note: `composer.*` is in the project root directory.)_ 
 
