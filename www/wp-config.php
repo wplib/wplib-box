@@ -17,21 +17,25 @@ if ( file_exists( __DIR__ . '/wp-config-local.php' ) ) {
 }
 
 if ( ! defined( 'WPLIB_BOX_DIRECTORY_LAYOUT' ) ) {
-	define( 'WPLIB_BOX_DIRECTORY_LAYOUT', 'skeleton' );
+	if ( is_dir( __DIR__ . '/wp-content' ) ) {
+		define( 'WPLIB_BOX_DIRECTORY_LAYOUT', 'standard' );
+	} else {
+		define( 'WPLIB_BOX_DIRECTORY_LAYOUT', 'skeleton' );
+	}
 }
 if ( ! defined( 'APP_DOMAIN' ) ) {
 	define( 'APP_DOMAIN', $_SERVER['HTTP_HOST'] );
 }
 
+define( 'WP_HOME', 'http://' . APP_DOMAIN );
+
 if ( 'standard' === WPLIB_BOX_DIRECTORY_LAYOUT ) {
-	define( 'WP_HOME', 'http://' . APP_DOMAIN );
+	define( 'WP_SITEURL', 'http://' . APP_DOMAIN );
+} else {
 	define( 'WP_SITEURL', 'http://' . APP_DOMAIN . '/wp' );
 
 	define( 'WP_CONTENT_DIR', __DIR__ . '/content' );
 	define( 'WP_CONTENT_URL', 'http://' . APP_DOMAIN . '/content' );
-} else {
-	define( 'WP_HOME', 'http://' . APP_DOMAIN );
-	define( 'WP_SITEURL', 'http://' . APP_DOMAIN );
 }
 
 if ( ! defined( 'DB_NAME' ) ) {
