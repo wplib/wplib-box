@@ -10,12 +10,14 @@
 - [Why is WPLib Box Caching Things?](#caching)
 - [How do I Flush the Redis Persistent Object Cache?](#flush-cache)
 - [How do I Deploy My Site from WPLib Box?](#deploy)
+- [Why is the Directory Layout used Not _"Standard?"_](#why-non-standard-layout)
+- [Can I use the Standard WordPress Directory Layout?](#changing-directory-layouts)
 - [How do I Use WPLib Box on New Projects?](#new-projects)
 - [How do I Use WPLib Box on Pre-Existing Projects?](#existing-projects)
 - [How do I Configure Composer to Work with WPLib Box?](#composer)
 - [How do I Import a MySQL Database?](#import-db)
-- [What PHP versions are available?](#php)
-- [How do I Switch PHP Versions?](#php-versions)
+- [What PHP versions are available?](#php-versions)
+- [How do I Switch PHP Versions?](#switch-php)
 - [How do I Install PhpMyAdmin?](#phpmyadmin)
 - [How do I Get a URL to Provide Access to My Box's Site From the Internet?](#access)
 - [How do I Debug with Visual Studio Code?](#vscode-debug)
@@ -92,6 +94,69 @@ And except for the following NOTE, that is it.
 There are many solutions to this although not one ideal solution thus explaining how to do this is out of the scope of this FAQ. But 
 [let us google it for you](https://www.google.com/#q=changing%20urls%20when%20moving%20wordpress%20site%20-codex).
 
+<a id="why-non-standard-layout"></a>
+### Why is the Directory Layout used Not _"Standard?"_
+
+By default WPLib Box uses the [WordPress Skeleton](https://markjaquith.wordpress.com/2012/05/26/wordpress-skeleton/) layout published by Mark Jaquith in 2011. We choise it because unlike the standard WordPress directory layout it is [Composer](https://getcomposer.org/)-friendly which is almost a requirement these days for professional-level  PHP development. 
+
+But if you are not yet using Composer or don't feel you have the need for it you can you the _"Standard"_ WordPress Skeleton instead. See the three (3) simple approaches that follow in the next FAQ.
+
+<a id="changing-directory-layouts"></a>
+### Can I use the Standard WordPress Directory Layout?
+
+Absolutely. 
+
+To be clear we assume you mean the directory layout that has the following subdirectories:
+
+    /wp-admin/
+    /wp-content/
+    /wp-includes/
+    
+_(Those directories are the exact layout you'll see in a download of WordPress from WordPress.org.)_
+
+#### The Manual Approach
+To use the Standard WordPress directory layout open up Mac Finder or Windows Explorer and navigate to your project's `/www` directory _(the project directory is the one containing `Vagrantfile` and the `/scripts` folder.)_ Then do the following:
+
+1. Delete the `/www/wp/wp-content` directory; you don't need it. _(Uh, after checking you did not store anything in `/www/wp/wp-content` by accident. If you did, move it out then delete the directorty.)_
+
+2. Move all the remaining files and directories in `/www/wp` into the `/www`.
+
+3. Rename `/www/content` to `/www/wp-content`
+
+4. Delete `/www/wp`
+
+5. In your IDE/text editor open `www/index.php` and then change the code from `'/wp/wp-blog-header.php'` to `'/wp/wp-blog-header.php'`
+
+6. Rename `/www/../composer.json` to `/www/../composer.json.save` and delete `/www/../composer.lock` _(since you can no longer use Composer with this directory layout structure. Note: `composer.*` is in the project root directory.)_ 
+
+7. That's it, you are done! WPLib Box now in _"Standard"_ WordPress directory layout.
+
+#### The Script Approach
+
+Or you can run this script, if you feel confident in doing so. First `vagrant ssh` to enter the box and then run the following commands:
+    
+    cd /var/www
+    mv wp/*.* .
+    
+    mv wp/wp-admin/ .
+    mv wp/wp-includes/ .
+    mv content/ wp-content/
+    
+    rm -rf wp/
+    
+    sed -i "s#/wp/wp-blog-header.php#/wp-blog-header.php#" index.php
+ 
+#### The CLI Approach _(Experimental)_ 
+
+Or lastly you can try our experimental/alpha _"Inside-the-Box"_ [**Box CLI**](https://github.com/wplib/box-cli). After you make sure you have the latest version of WPLib Box just run:
+
+	vagrant ssh
+	box set-directory-layout-standard
+	
+Even better, if you want to switch back to _"Skeleton"_ layout, we have a command for that too:
+
+	vagrant ssh
+	box set-directory-layout-skeleton
 
 <a id="new-projects"></a>
 ### How do I Use WPLib Box on New Projects? 
@@ -139,7 +204,7 @@ For this we use the convention that the `default.sql` file is the file used to i
 
 If you have a live database you may want to dump the database to the `/sql/` directory in your project root `default.sql` and then the above command run within `vagrant ssh` will support importing your default database.
 
-<a href="php"></a>
+<a id="php-versions"></a>
 ### Which PHP Versions are Available?
 Currently, the box has PHP 5.6, PHP 7.0, and HHVM. The PHP is installed from the `ondrej/php` [repository](https://launchpad.net/~ondrej/+archive/ubuntu/php). _(Please note: most answers one might find on the internet regarding `How do I install X module on Ubuntu` are based on previous versions of this repository which only installed one version of PHP on the OS. As such, they will be of no use in this use case.)_ 
 This results in both php5.6-fpm and php7.0-fpm services running concurrently, as well as making three versions of each PHP executable available: e.g. `php` (a symlink to `php7.0`), `php7.0`, and `php5.6`. This is true for `phpize` as well.
@@ -158,7 +223,7 @@ The configuration directory structure is as follows:
  
  All modules installed are configured for both versions of PHP.
 
-<a id="php-versions"></a>
+<a id="switch-php"></a>
 ### How do I Switch PHP Versions?
 The PHP version in use by the site is set in the Nginx vhost configuration. Our intention is to provide a control panel to simplify this process, but currently you must edit this file manually. This file is located at `/etc/nginx/sites-available/default`.
 To change to PHP 7, you must change the line `set $sock php/php5.6-fpm.sock;` to `set $sock php/php7.0-fpm.sock;`. To use HHVM, change it to `set $sock hhvm/sock`.
