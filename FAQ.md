@@ -99,7 +99,7 @@ There are many solutions to this although not one ideal solution thus explaining
 
 By default WPLib Box uses the [WordPress Skeleton](https://markjaquith.wordpress.com/2012/05/26/wordpress-skeleton/) layout published by Mark Jaquith in 2011. We chose it because unlike the standard WordPress directory layout it is [Composer](https://getcomposer.org/)-friendly which is almost a requirement these days for professional-level  PHP development. 
 
-But if you are not yet using Composer or don't feel you have the need for it you can you the _"Standard"_ WordPress Skeleton instead. See the three (3) simple approaches that follow in the next FAQ.
+But if you are not yet using Composer or don't feel you have the need for it you can you the _"Standard"_ WordPress directory layout instead. See the three (3) simple approaches that follow in the next FAQ.
 
 <a id="changing-directory-layouts"></a>
 ### Can I use the Standard WordPress Directory Layout?
