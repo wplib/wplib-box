@@ -1,4 +1,5 @@
 <?php
+
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	$_SERVER['HTTP_HOST'] = 'wplib.box';
 }
@@ -15,15 +16,23 @@ if ( file_exists( __DIR__ . '/wp-config-local.php' ) ) {
 	require( dirname( __DIR__ ) . '/wp-config-local.php' );
 }
 
+if ( ! defined( 'WPLIB_BOX_DIRECTORY_LAYOUT' ) ) {
+	define( 'WPLIB_BOX_DIRECTORY_LAYOUT', 'skeleton' );
+}
 if ( ! defined( 'APP_DOMAIN' ) ) {
 	define( 'APP_DOMAIN', $_SERVER['HTTP_HOST'] );
 }
 
-define( 'WP_HOME', 'http://' . APP_DOMAIN );
-define( 'WP_SITEURL', 'http://' . APP_DOMAIN . '/wp' );
+if ( 'standard' === WPLIB_BOX_DIRECTORY_LAYOUT ) {
+	define( 'WP_HOME', 'http://' . APP_DOMAIN );
+	define( 'WP_SITEURL', 'http://' . APP_DOMAIN . '/wp' );
 
-define( 'WP_CONTENT_DIR', __DIR__ . '/content' );
-define( 'WP_CONTENT_URL', 'http://' . APP_DOMAIN . '/content' );
+	define( 'WP_CONTENT_DIR', __DIR__ . '/content' );
+	define( 'WP_CONTENT_URL', 'http://' . APP_DOMAIN . '/content' );
+} else {
+	define( 'WP_HOME', 'http://' . APP_DOMAIN );
+	define( 'WP_SITEURL', 'http://' . APP_DOMAIN );
+}
 
 if ( ! defined( 'DB_NAME' ) ) {
 	define( 'DB_NAME', 'wordpress' );
@@ -77,7 +86,11 @@ if ( file_exists( __DIR__ . '/salt.php' ) ) {
 
 
 if ( ! defined( 'ABSPATH' ) ) {
-	define( 'ABSPATH', dirname( __FILE__ ) . '/wp/' );
+	if ( 'standard' === WPLIB_BOX_DIRECTORY_LAYOUT ) {
+		define( 'ABSPATH', dirname( __FILE__ ) . '/' );
+	} else {
+		define( 'ABSPATH', dirname( __FILE__ ) . '/wp/' );
+	}
 }
 
 require_once( ABSPATH . 'wp-settings.php' );
