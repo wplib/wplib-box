@@ -6,8 +6,7 @@
 /.vscode
 /logs
 /scripts
-/www/wp
-/www/vendor
+/www/*
 !/www/content/
 /www/content/mu-plugins/wp-redis
 /www/content/plugins/helpful-information
