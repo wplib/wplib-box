@@ -272,9 +272,9 @@ Vagrant.configure(2) do |config|
 if [ -f "/vagrant/scripts/provision.sh" ]; then
     bash /vagrant/scripts/provision.sh --force
 else
-    rm -rf /tmp/wplib-box-scripts  2>/dev/null
-    git clone https://github.com/wplib/box-scripts.git /tmp/wplib-box-scripts  2>/dev/null
-    bash /tmp/wplib-box-scripts/bootstrap.sh
+    rm -rf /tmp/box-scripts  2>/dev/null
+    git clone https://github.com/wplib/box-scripts.git /tmp/box-scripts  2>/dev/null
+    bash /tmp/box-scripts/provision.sh
 fi
 PROVISION
 
