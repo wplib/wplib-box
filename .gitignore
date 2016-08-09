@@ -1,8 +1,10 @@
-.idea
+/.idea
 /sql/*
 !/sql/default.sql
-IP
-.vagrant
+/IP
+/.vagrant
+/.vscode
+/logs
 /scripts
 /www/wp
 /www/vendor
