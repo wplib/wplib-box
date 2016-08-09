@@ -2602,7 +2602,7 @@ function wp_ajax_send_attachment_to_editor() {
 		$rel = $rel ? ' rel="attachment wp-att-' . $id . '"' : ''; // Hard-coded string, $id is already sanitized
 
 		if ( ! empty( $url ) ) {
-			$html = '<a href="' . esc_url( $url ) . '"' . $rel . '">' . $html . '</a>';
+			$html = '<a href="' . esc_url( $url ) . '"' . $rel . '>' . $html . '</a>';
 		}
 	}
 
@@ -2761,7 +2761,7 @@ function wp_ajax_get_revision_diffs() {
 	if ( ! $post = get_post( (int) $_REQUEST['post_id'] ) )
 		wp_send_json_error();
 
-	if ( ! current_user_can( 'read_post', $post->ID ) )
+	if ( ! current_user_can( 'edit_post', $post->ID ) )
 		wp_send_json_error();
 
 	// Really just pre-loading the cache here.

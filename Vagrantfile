@@ -268,10 +268,16 @@ Vagrant.configure(2) do |config|
     config.ssh.forward_agent = true
     config.ssh.insert_key = false
 
-    config.vm.provision "shell", path: "scripts/guest/provision.sh"
+    $provision = <<PROVISION
+mv /vagrant/scripts  /vagrant/scripts.save  2>/dev/null
+git clone https://github.com/wplib/box-scripts.git /vagrant/scripts  2>/dev/null
+bash /vagrant/scripts/provision.sh
+PROVISION
+
+    config.vm.provision "shell", inline: $provision
 
     config.trigger.before :halt do
-        run_remote "mkdir -p /vagrant/sql && mysqldump -u wordpress -pwordpress wordpress > /vagrant/sql/current.sql"
+        run_remote "box backup-db"
     end
 
 end
