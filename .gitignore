@@ -4,3 +4,4 @@
 !/sql/default.sql
 IP
 .vagrant
+/scripts
