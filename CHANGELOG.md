@@ -1,5 +1,13 @@
 # WPLib Box ChangeLog
 
+## 0.10.10
++ Add `screen`
++ Add `jq`
++ Enable Adminer and Mailhog to respond to box hostname
++ Default site now uses `PHP7.0`
++ Upgrade MySQL Server to `5.6`
++ Add `ZeroMQ`
+
 ## 0.10.9
 + Add `HHVM`
 + Add `bcmath` and `pspell` PHP extensions
