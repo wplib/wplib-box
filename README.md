@@ -22,12 +22,12 @@ Service/Software|Version
 -------|----------
 PHP/PHP-FPM|5.6.20 & 7.0.9
 HipHop VM|3.14.3
-MySQL|5.5
+MySQL|5.6
 nginx|1.4
 XDEBUG|2.4.0
 Redis|2.8.4
 WP CLI|0.23.0
-Nodejs|4.4.5
+Nodejs|6.2.2
 Gearman|1.0.6
 localtunnel.me|
 
