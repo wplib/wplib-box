@@ -96,7 +96,7 @@ After this you should have a running WPLib Box via Vagrant and VirtualBox and a 
 
 ##Setting the Domain Name
 
-To use WPLib Box for a local domain name other than `wplib.box` edit the `Vagrantfile` and replace the text `"wplib.box"` with your preferred local domain name _(we recommend `"dev.your-production-domain.tld"`):_
+To use WPLib Box for a local domain name other than `wplib.box` edit the `Vagrantfile` and replace the text `"wplib.box"` with your preferred local domain name _(we recommend `"your-production-domain.dev"`):_
 
 In other words, change this:
 
