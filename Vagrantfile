@@ -255,7 +255,6 @@ Vagrant.configure(2) do |config|
     File.write('IP', "10.10.10.#{rand(10..250)}") if not File.exists?('IP')
 
     config.vm.box = "wplib/wplib"
-    config.vm.box_version = "0.10.9"
     config.vm.hostname = "wplib.box"
     config.hostsupdater.aliases = [
         "adminer.wplib.box",
