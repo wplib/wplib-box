@@ -1,5 +1,9 @@
 # WPLib Box ChangeLog
 
+## 0.11.0
++ Fix incorrect installation of `screen` and `jq`
++ Remove `HHVM`, `gearman`, and `ZeroMQ`
+
 ## 0.10.10
 + Add `screen`
 + Add `jq`
