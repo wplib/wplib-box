@@ -16,6 +16,7 @@
 - [How do I Use WPLib Box on Pre-Existing Projects?](#existing-projects)
 - [How do I Configure Composer to Work with WPLib Box?](#composer)
 - [How do I Import a MySQL Database?](#import-db)
+- [How do I backup the MySQL database in the box?](#backup-db)
 - [What PHP versions are available?](#php-versions)
 - [How do I Switch PHP Versions?](#switch-php)
 - [How do I Install PhpMyAdmin?](#phpmyadmin)
@@ -192,18 +193,23 @@ Yes, we do include a `composer.json` with our WPLib Box repository but only so t
 ### How do I Import a MySQL Database?
 When the box is created, a default WordPress database is installed. If you need to import a different dataset or restore a backup of the data, you can simply `vagrant ssh` into the guest and perform a MySQL import.
 
-To do this, simply do the following from your host's command line: 
+To do this, first copy your MySQL database dump to a `/sql` sub directory in your project directory _(your `Vagrantfile` is in your project directory.)_  Assuming you called your database dump `my-db.sql` then run the following commands in your host computer's command line/terminal window when in your project directory:
 
+    cd /your/project/directory
     vagrant ssh
-    mysql -u wordpress -pwordpress wordpress < /path/to/sql/file
+    box import-db my-db.sql
+Be sure to [backup your database](#backup-db) **BEFORE** you run the `import-db` command.
     
-For this we use the convention that the `default.sql` file is the file used to initialize the MySQL database. To initialize the DB use the following commands:
+<a id="backup-db"></a>
+### How do I backup the MySQL database in the box?
+If you have a live database inside of WPLib Box you may want to backup the database to the `/sql/` directory in your project root.  You can do that like so:
 
+    cd /your/project/directory
     vagrant ssh
-    mysql -u wordpress -pwordpress wordpress < /vagrant/sql/default.sql
-
-If you have a live database you may want to dump the database to the `/sql/` directory in your project root `default.sql` and then the above command run within `vagrant ssh` will support importing your default database.
-
+    box backup-db
+    
+The above commands will backup your database to `/your/project/directory/sql/current.sql`.  If there already was a `current.sql` it will be renmed to `previous1.sql` and `1` will be incremented each time there is a new backup.
+    
 <a id="php-versions"></a>
 ### Which PHP Versions are Available?
 Currently, the box has PHP 5.6, PHP 7.0, and HHVM. The PHP is installed from the `ondrej/php` [repository](https://launchpad.net/~ondrej/+archive/ubuntu/php). _(Please note: most answers one might find on the internet regarding `How do I install X module on Ubuntu` are based on previous versions of this repository which only installed one version of PHP on the OS. As such, they will be of no use in this use case.)_ 
