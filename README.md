@@ -5,6 +5,12 @@
 
 The EASIEST way to get a Local WordPress Development environment, using Vagrant.
 
+----
+<a id="vagrant-1.8.6-bug"></a>
+**IMPORTANT**: If you are using Vagrant version `1.8.6` _(run `vagrant -v` to see)_ then [there _appears_ to be a bug](https://github.com/mitchellh/vagrant/issues/7964) that stops WPLib Box from providing a network connection to your host computer. Until this is fixed by Vagrant we have a workaround that you can apply **_after_** you run `vagrant up`.  It is not difficult to do; just read our FAQ for [how to fix the Vagrant version `1.8.6` bug](FAQ.md#vagrant-1.8.6-bug).
+
+----
+
 ##Why Use WPLib Box?
 
 Why Use WPLib Box for WordPress local development instead of one of the other Vagrant boxes for WordPress such as [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV), [VIP QuickStart](https://github.com/Automattic/vip-quickstart), [Trellis](https://github.com/roots/trellis) or [one of the others](http://wptavern.com/13-vagrant-resources-for-wordpress-development)?
@@ -111,7 +117,7 @@ Save the changes to `Vagantfile` and then run the following commands to reload t
 	vagrant reload
 	open "http://example.dev"
 
-
+<a id="change-ip"></a>
 ## Changing the Local IP Address 
 
 The default local IP address used by this box is `10.10.10.{octet}` where `{octet}` is a number between 10 to 250.
