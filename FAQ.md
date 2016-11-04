@@ -24,6 +24,7 @@
 - [How do I Debug with Visual Studio Code?](#vscode-debug)
 - [How do I access Adminer?](#adminer)
 - [How do I access MailHog?](#mailhog)
+- [How do I fix the Vagrant 1.8.6 Bug?](#vagrant-1.8.6-bug)
 
 ###Glossary
 - [What Do They All These Terms Mean?](#glossary)
@@ -48,7 +49,8 @@ WPLib Box is designed the be the EASIEST to use professional solution for local 
 
 <a id="how-better"></a>
 ###How is WPLib Box Better?
-All other Vagrant boxes for WordPress _(that we are aware of)_ start with a base Linux and then build the box _"from ground up"_ during the provision cycle installing Nginx or Apache, PHP, MySQL, etc.  Examples of this include [VVV](https://varyingvagrantvagrants.org/), [VIP QuckStart](https://vip.wordpress.com/documentation/vip/quickstart/) and [Trellis](https://roots.io/trellis/). This is both time consuming for provisioning, which you may need to do more than once, and also problematic if anything has changed that may break the provisioning process.
+All other Vagrant boxes for WordPress _(that we are aware of)_ start with a base Linux and then build the box _"from ground up"_ during the provision cycle installing Nginx or Apache, PHP, MySQL, etc.  Examples of this include [VVV](https://varyingvagrantvagrants.org/), [V
+QuckStart](https://vip.wordpress.com/documentation/vip/quickstart/) and [Trellis](https://roots.io/trellis/). This is both time consuming for provisioning, which you may need to do more than once, and also problematic if anything has changed that may break the provisioning process.
 
 Instead WPLib Box _**pre-provisions**_ our box so you can `vagrant up` or `vagrant reload --provision` in around 30 seconds _(after the box is first downloaded)_, and almost eliminates the chance of our provisioning process breaking, unlike the other available solutions _(that we know of)_.
 
@@ -275,6 +277,38 @@ The configuration file for Visual Studio Code is already included in the resposi
 ### How do I access MailHog?
 
 [MailHog](https://github.com/mailhog/MailHog) is an email testing tool for development purposes. In WPLib Box, all outgoing emails are captured and available for inspection via the MailHog interface: [http://mailhog.wplib.box](http://mailhog.wplib.box). If you have changed the box domain, you can use http://mailhog.{your-domain}.
+
+<a id="vagrant-1.8.6-bug"></a>
+### How do I fix the Vagrant 1.8.6 Bug?
+
+Vagrant `1.8.6` appears to have an issue with auto-configuring its network. Until this is fixed by Vagrant there is a workaround which requires you to SSH into the box after `vagrant up`. It is not difficult &mdash; the instructions appear longer than the task itself &mdash; just follow these steps:
+
+1. Once your box is running _(after a `vagrant up`)_ run `vagrant ssh`.
+2. Once _"inside"_ WPLib Box type `sudo nano /etc/network/interfaces` to load the network config into the Nano editor.
+3. Look for the second _(2nd)_ occurence of `auth eth0` and change it to `auth eth1`.
+
+4. Also change the `eth0` in the next line _(`iface eth0 inet static`)_ to be `eth1`. The result should be `iface eth1 inet static`.
+5. Delete both lines that begin with `#VAGRANT-` by moving your cursor to those lines and pressing `Ctrl-K` once for each line.
+6. Save the file by pressing `Ctrl-O` then pressing `[Enter]`.
+
+7. Exit the editor with `Ctrl-X`.
+8. Exit _"inside"_ WPLib Box _(the SSH session)_ by typing the `exit` command.
+
+If you somehow mess up while editing you can exit Nano and start over by pressing `Ctrl-X` then pressing `N` _(for "No")_ when it asks you if you want to _"Save the buffer?"_.
+
+In addition you need to make a simple change to `Vagrantfile` using whatever editor you normally use to edit code. Find the following line in `Vagrantfile` around line `264`:
+
+    config.vm.network 'private_network', ip: IO.read('IP').strip
+
+And add `, auto_config: false` to the end, like so:
+
+    config.vm.network 'private_network', ip: IO.read('IP').strip, auto_config: false
+
+Then run `vagrant reload`.  This should fix it.  
+
+Also you should not need to revert that after upgrading to a new version of Vagrant **_unless_** you need to [change the box's IP address](README.md#change-ip).
+
+
 
 ##Glossary 
 
