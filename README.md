@@ -206,7 +206,7 @@ Our **Provision-in-Advance** approach practically eliminates all the hair-pullin
 
 What this means for you is that the only thing your `Vagrantfile` must do is: 
 
-1. Specify [**our base box**](https://atlas.hashicorp.com/wplib/boxes/wplib-box/), 
+1. Specify [**our base box**](https://atlas.hashicorp.com/wplib/boxes/wplib/), 
 2. Set your local domain name and local IP address, 
 3. Mount your source code directory into the VM, and  
 4. Extract WordPress core files from a ZIP file _(but we only run this step on (re-)provisioning.)_ 
