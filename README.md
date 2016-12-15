@@ -1,6 +1,6 @@
 #WPLib Box
 
-The EASIEST way to get a Local WordPress Development environment, using Vagrant.
+**The EASIEST way to get a local WordPress development environment**, using Vagrant.
 
 ##[CLICK HERE](https://slackpass.io/wplib) to **join our Slack account** at [wplib.slack.com](https://wplib.slack.com) 
 
