@@ -2,7 +2,7 @@
 
 **The EASIEST way to get a local WordPress development environment**, using Vagrant.
 
-##[CLICK HERE](https://slackpass.io/wplib) for **quick help** at [wplib.slack.com](https://wplib.slack.com) 
+##[CLICK HERE](https://slackpass.io/wplib) for **quick help** via [wplib.slack.com](https://wplib.slack.com) 
 
 Use our Slack account to ask questions about or get quick help on installing or using WPLib Box via chat and/or [ScreenHero](https://screenhero.com/) _(we know that you cannot sign up for ScreenHero any more, but we can send you an invite; just direct message @mike via Slack and request a ScreenHero invite.)_
 
