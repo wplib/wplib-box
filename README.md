@@ -173,7 +173,7 @@ Port                          | `3306`
 Username                      | `wordpress`
 Password                      | `wordpress`
 
-#### 2. The SSH Credentials
+#### The SSH Credentials
 
 Here are the credentials you can use for the SSH tunnel:
 
@@ -185,8 +185,13 @@ Authentication Method         | Password
 Username                      | `vagrant`
 Password                      | `vagrant`
 
+## Logging into SSH as root
 
-##Debugging PHP with XDEBUG and PhpStorm
+There is no `root` user _per-se_ in WPLib Box, only the `vagrant` user. You have to use either `sudo` for one-off commands, or you can [use the following command to switch to root](https://www.server-world.info/en/note?os=Ubuntu_14.04&p=initial_conf&f=2):
+
+    sudo -s
+
+## Debugging PHP with XDEBUG and PhpStorm
 
 Instructions to come...
 
