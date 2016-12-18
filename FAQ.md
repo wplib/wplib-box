@@ -1,11 +1,25 @@
 # WPLib Box FAQ
 
-##Table of Contents
-###Overview
+## Table of Contents
+### Overview
 - [What is WPLib Box?](#what-is)
 - [How is WPLib Box Better?](#how-better)
 
-###Technical
+### Support
+- [Quick Help via Slack Chat](#slack)
+- [Scheduled Help via Screen Sharing](#screenhero)
+- [Less Urgent Help via GitHub issues](#github-issues)
+
+### Troubleshooting
+- [VirtualBox will not install](#virtualbox-wont-install)
+- [Vagrant will not install](#vagrant-wont-install)
+- [The required Vagrant plugins are not found or installing.](#vagrant-plugins-fail)
+- [`vagrant up` is failing](#vagrant-up-fail)
+- [`wplib.box` will not load in the browser / pinging _wplib.box_ times out](#wont-load)
+- [No Answer Here](#no-answer)
+
+### Technical Issues
+- [WPLib Box is not working](#troubleshooting)
 - [How do I Run WP-CLI?](#wp-cli)
 - [Why is WPLib Box Caching Things?](#caching)
 - [How do I Flush the Redis Persistent Object Cache?](#flush-cache)
@@ -26,18 +40,14 @@
 - [How do I access MailHog?](#mailhog)
 - [How do I fix the Vagrant 1.8.6 Bug?](#vagrant-1.8.6-bug)
 
-###Glossary
+### Glossary
 - [What Do They All These Terms Mean?](#glossary)
 
-###Support
-- [Don't See the Answer Here?](#dont-see-the-answer-here)
-- [Want to try WPLib Box but Need Help?](#need-help)
-
-###Business
+### Business
 - [What is our Business Model?](#biz-model)
 - [What Services can The WPLib Team Offer?](#what-services)
 
-###Future
+### Future
 - [What Are the Plans/Roadmap for WPLib Box?](#roadmap)
 
 ---
@@ -56,8 +66,83 @@ Instead WPLib Box _**pre-provisions**_ our box so you can `vagrant up` or `vagra
 
 So WPLib Box does not view our `Vagrantfile` and related provisioning scripts as our product, our scripts are just _**examples**_ of how you can use our Box Image. Instead **we treat our Box Image as our product**, and our goal is to make it bulletproof and feature-rich with a goal that you will be able to get the web server stack you need with only configuration, and not with provisioning.
 
+<a id="support"></a>
+## Support
 
-## Technical
+<a id="need-help"></a>
+<a id="slack"></a>
+### Quick Help via Slack
+[CLICK HERE](https://slackpass.io/wplib) to add yourself to our Slack account at [wplib.slack.com#box](https://wplib.slack.com/messages/box/). Then use the [**#box**](https://wplib.slack.com/messages/box/) channel in our Slack account to ask questions  or get quick help on installing or using WPLib Box or WP-related workflow via chat and/or [ScreenHero](https://screenhero.com/) _(we know that you cannot sign up for ScreenHero any more, but we can send you an invite; just direct message @mike via Slack and request a ScreenHero invite.)_
+
+> _**PLEASE ask your questions in the #box channel.**_
+
+But we still encourage you to submit bugs and feature requests via [GitHub issues](#github-issues) though you can first chat with us to verify the bug or flesh out the feature request via Slack if you want to. 
+
+<a id="screenhero"></a>
+### Scheduled Help via Screen Sharing 
+We can also schedule a time with you to screen share using [**ScreenHero**](https://screenhero.com/) to help you get WPLib Box up and running successfully and/or about WP-related workflow. _(We know that you cannot sign up for ScreenHero any more, but we can send you an invite; just direct message @mike [via Slack](#slack) and request a ScreenHero invite.)_
+
+<a id="github-issues"></a>
+### Less Urgent Help via GitHub issues
+Finally you can submit a GitHub issue with bugs and/or feature requests. Feel free to [submit any issue](/wplib/wplib-box/issues/new) about WPLib Box, especially feature requests or to discuss integrating other open-source software with the box. When you do please assign your issue the _"question"_ label. 
+
+<a id="troubleshooting"></a>
+## Troubleshooting/WPLib Box is not working
+
+<a id="not-working"></a>
+### WPLib Box is not working
+There are several reasons for this, and depending on what steps are failing there are different solutions:
+
+<a id="virtualbox-wont-install"></a>
+### VirtualBox will not install
+ 
+Please first try Googling the error messages you get when trying to install. 
+
+VirtualBox is independent of WPLib Box and you will ofter find solutions from their support before you find solutions from us. But if you are still stuck after then please do [contact us for support](#support).
+
+<a id="vagrant-wont-install"></a>
+### Vagrant will not install
+
+Please first try Googling the error messages you get when trying to install. 
+
+VirtualBox is independent of WPLib Box and you will ofter find solutions from their support before you find solutions from us. But if you are still stuck after then please do [contact us for support](#support).
+
+<a id="vagrant-plugins-fail"></a>
+### The [required Vagrant plugins](https://github.com/wplib/wplib-box#required-software) are not found or installing.
+
+Please first try Googling the error messages you get when trying to install. 
+
+These Vagrant plugins are independent of WPLib Box and you will ofter find solutions from their support before you find solutions from us. But if you are still stuck after then please do [contact us for support](#support).
+
+<a id="vagrant-up-fail"></a>
+### _vagrant up_ is failing
+ 
+Try running `vagrant up --debug` to see if it can reveal any issues with your system that you are able to correct.  You may want to redirect to a debug log so you can read the output in your text editor:
+<a id="vagrant-debug"></a>
+       
+    vagrant up --debug > vagrant.log 2>&1
+
+If you can't find discover the problem and determine the solution using the `--debug` switch please provide your `vagrant.log` when [requesting support](#support).
+
+<a id="wont-load"></a>
+### _wplib.box_ will not load in the browser / pinging _wplib.box_ times out**
+
+First check to see what version of Vagrant you are running by running the following in your terminal/command line:
+
+    vagrant -v
+
+If you are running Vagrant 1.8.6 upgrade your Vagrant; see [Vagrant-1.8.6-bug](#vagrant-1.8.6-bug) to understand why.  If not please run [`vagrant reload --debug`](#vagrant-debug) and provide your `vagrant.log` when [requesting support](#support).
+
+<a id="no-answer"></a>
+### No Answer Here
+ 
+If none of the items listed above nor any of the FAQs listed below or in the general [README](README.md) solve your problem please contact us for help either via [**Slack**](#slack) or by [**posting an issue**](#github-issues) here on GitHub.  We really do want to make sure everyone can be successful with WPLib Box and are more than happy to help.
+
+   When [requesting support](#support) please provide any information you can such as a [debug log](#vagrant-debug) and/or anything else you can tell us about your computer setup.
+		
+<a id="tech-issues"></a>
+## Technical Issues
+
 <a id="wp-cli"></a>
 ### How do I Run WP-CLI?
 [WP-CLI](http://wp-cli.org/) is installed in the WPLib Box virtual machine so to use it you first SSH into the 
@@ -80,6 +165,9 @@ If you need to test with the persistent object cache, but you are running into t
     redis-cli
     flushall
     exit
+
+<a id="tech-issues"></a>
+## Technical Issues
 
 <a id="deploy"></a>
 ### How do I Deploy My Site from WPLib Box?
@@ -336,16 +424,6 @@ If you have figured something out about WPLib that we have not documented, pleas
 fellow developers [**fork this repo**](https://github.com/wplib/wplib-box) then 
 [**submit a pull request**](https://github.com/wplib/wplib-box/compare).
 
-##Support
-<a id="no-answer"></a>
-### Don't See the Answer Here?
-Feel free to ask questions using our [GitHub issue tracker](https://github.com/wplib/wplib-box/issues/new). 
-When you do please assign your issue the _"question"_ label. 
-
-<a id="need-help"></a>
-### Want to Try WPLib Box But Need Help?
-Don't worry, contact us as we are happy to help you get it set up for your environment. We will be happy to send you an invite to connect with on on [ScreenHero](http://screenhero.com) and we can walk you through setup on your machine. [**Email us**][1] to get started.
-    
 ##Business
 <a id="biz-model"></a>
 ### What is our Business Model?
