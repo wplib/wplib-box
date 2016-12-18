@@ -11,10 +11,6 @@ Use our Slack account to ask questions about or get quick help on installing or 
 But we still encourage you to submit bugs and feature requests via [GitHub issues](https://github.com/wplib/wplib-box/issues) though you can first chat with us to verify the bug or flesh out the feature request via Slack if you want to. 
 
 ----
-<a id="vagrant-1.8.6-bug"></a>
-**IMPORTANT**: If you are using Vagrant version `1.8.6` _(run `vagrant -v` to see)_ then [there _appears_ to be a bug](https://github.com/mitchellh/vagrant/issues/7964) that stops WPLib Box from providing a network connection to your host computer. Until this is fixed by Vagrant we have a workaround that you can apply **_after_** you run `vagrant up`.  It is not difficult to do; just read our FAQ for [how to fix the Vagrant version `1.8.6` bug](FAQ.md#vagrant-1.8.6-bug).
-
-----
 
 ##Why Use WPLib Box?
 
