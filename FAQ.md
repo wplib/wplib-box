@@ -72,9 +72,9 @@ So WPLib Box does not view our `Vagrantfile` and related provisioning scripts as
 <a id="need-help"></a>
 <a id="slack"></a>
 ### Quick Help via Slack
-[CLICK HERE](https://slackpass.io/wplib) to add yourself to our Slack account at [wplib.slack.com#box](https://wplib.slack.com/messages/box/). Then use the [**#box**](https://wplib.slack.com/messages/box/) channel in our Slack account to ask questions  or get quick help on installing or using WPLib Box or WP-related workflow via chat and/or [ScreenHero](https://screenhero.com/) _(we know that you cannot sign up for ScreenHero any more, but we can send you an invite; just direct message @mike via Slack and request a ScreenHero invite.)_
-
 > _**PLEASE ask your questions in the #box channel.**_
+
+[CLICK HERE](https://slackpass.io/wplib) to add yourself to our Slack account at [wplib.slack.com#box](https://wplib.slack.com/messages/box/). Then use the [**#box**](https://wplib.slack.com/messages/box/) channel in our Slack account to ask questions  or get quick help on installing or using WPLib Box or WP-related workflow via chat and/or [ScreenHero](https://screenhero.com/) _(we know that you cannot sign up for ScreenHero any more, but we can send you an invite; just direct message @mike via Slack and request a ScreenHero invite.)_
 
 But we still encourage you to submit bugs and feature requests via [GitHub issues](#github-issues) though you can first chat with us to verify the bug or flesh out the feature request via Slack if you want to. 
 
