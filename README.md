@@ -4,7 +4,7 @@
 
 ----
 
-## [CLICK HERE](FAQ.md#slack) for **quick help** via `wplib.slack.com#box`.
+## [CLICK HERE](https://slackpass.io/wplib) for **quick help** via [`wplib.slack.com#box`](FAQ.md#slack).
 ## [CLICK HERE](FAQ.md#troubleshooting) for **troubleshooting** and other [FAQs](FAQ.md).
 
 ----
