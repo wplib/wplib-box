@@ -13,7 +13,7 @@
 ### Troubleshooting
 - [VirtualBox will not install](#virtualbox-wont-install)
 - [Vagrant will not install](#vagrant-wont-install)
-- [The required Vagrant plugins are not found or installing.](#vagrant-plugins-fail)
+- [The required Vagrant plugins are not found or installing](#vagrant-plugins-fail)
 - [`vagrant up` is failing](#vagrant-up-fail)
 - [`wplib.box` will not load in the browser / pinging _wplib.box_ times out](#wont-load)
 - [No Answer Here](#no-answer)
@@ -125,7 +125,7 @@ Try running `vagrant up --debug` to see if it can reveal any issues with your sy
 If you can't find discover the problem and determine the solution using the `--debug` switch please provide your `vagrant.log` when [requesting support](#support).
 
 <a id="wont-load"></a>
-### _wplib.box_ will not load in the browser / pinging _wplib.box_ times out**
+### _wplib.box_ will not load in the browser / pinging _wplib.box_ times out
 
 First check to see what version of Vagrant you are running by running the following in your terminal/command line:
 
