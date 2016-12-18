@@ -18,7 +18,7 @@ Our **GOAL** is to be:
 2. The **Fastest Box to** `vagrant up`
 3. The **Least Problematic Box in Day-to-Day Usage**; especially when re-provisioning, which you rarely need to do with WPLib Box.
 
-And one more goal is that our box will support **PhpStorm+XDEBUG debugging** with the least effort required on your part.
+And one more goal we achieved is that our box support **PhpStorm+XDEBUG debugging** with the least effort required on your part.
  
 We think that once you try WPLib Box you will agree that we have succeeded.  Want to know [**how**](#how) we did it?
 
