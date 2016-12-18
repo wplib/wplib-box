@@ -2,16 +2,12 @@
 
 **The EASIEST way to get a local WordPress development environment**, using Vagrant.
 
-## [CLICK HERE](https://slackpass.io/wplib) for **quick help** via [wplib.slack.com#box](https://wplib.slack.com/messages/box/) 
-
-Use our Slack account to ask questions about or get quick help on installing or using WPLib Box via chat and/or [ScreenHero](https://screenhero.com/) _(we know that you cannot sign up for ScreenHero any more, but we can send you an invite; just direct message @mike via Slack and request a ScreenHero invite.)_
-
-**Ask your questions in the #box channel.**
-
-But we still encourage you to submit bugs and feature requests via [GitHub issues](https://github.com/wplib/wplib-box/issues) though you can first chat with us to verify the bug or flesh out the feature request via Slack if you want to. 
-
 ----
 
+## [CLICK HERE](FAQ.md#slack) for **quick help** via [wplib.slack.com#box](https://wplib.slack.com/messages/box/).
+## [CLICK HERE](FAQ.md#troubleshooting) for **troubleshooting** and other [FAQs](FAQ.md).
+
+----
 ##Why Use WPLib Box?
 
 Why Use WPLib Box for WordPress local development instead of one of the other Vagrant boxes for WordPress such as [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV), [VIP QuickStart](https://github.com/Automattic/vip-quickstart), [Trellis](https://github.com/roots/trellis) or [one of the others](http://wptavern.com/13-vagrant-resources-for-wordpress-development)?
