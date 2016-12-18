@@ -2,7 +2,7 @@
 
 **The EASIEST way to get a local WordPress development environment**, using Vagrant.
 
-##[CLICK HERE](https://slackpass.io/wplib) for **quick help** via [wplib.slack.com#box](https://wplib.slack.com/messages/box/) 
+## [CLICK HERE](https://slackpass.io/wplib) for **quick help** via [wplib.slack.com#box](https://wplib.slack.com/messages/box/) 
 
 Use our Slack account to ask questions about or get quick help on installing or using WPLib Box via chat and/or [ScreenHero](https://screenhero.com/) _(we know that you cannot sign up for ScreenHero any more, but we can send you an invite; just direct message @mike via Slack and request a ScreenHero invite.)_
 
@@ -198,6 +198,10 @@ Instructions to come...
 ## Internet Sharing
 
 Internet sharing is implemented with [localtunnel.me](https://localtunnel.me), which is pre-installed in the box image.
+
+## Troubleshooting
+
+If you are having trouble with WPLib Box you can check out our [**FAQ**](FAQ.md) and/or you can [reach out to our support team](https://slackpass.io/wplib) for **quick help** on Slack. But **PLEASE** post your questions in the [wplib.slack.com**_#box_**](https://wplib.slack.com/messages/box/) channel and **NOT** in the #general channel.
 
 ##How?
 
