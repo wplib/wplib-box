@@ -148,8 +148,8 @@ Password:| `password`
 
 We will probably change to using different username and password in the future.
 
-<a id="mysql-db"></a>
-## The MySQL Database Credentials
+<a id="wpdb"></a>
+## The WordPress Database Credentials
  
 If you want to access the database using a tool such as Sequel Pro the MySQL database name, username and password are all `wordpress`.
 
@@ -161,16 +161,10 @@ In other words:
 
 We may change to using different MySQL credentials in the future.
 
-<a id="mysql-client"></a>
-### Connecting a MySQL Client
+<a id="mysql-credentials"></a>
+## The MySQL Credentials
 
-The MySQL server listens on all interfaces on port 3306. If you have the MySQL command-line client installed on your host machine, you can simply `mysql --host wplib.box -u wordpress -pwordpress` (assuming you are using the `wplib.box` hostname).
-Use the credentials below if you are using a GUI such as Sequel Pro, Navicat, et al.
-
-<a id="db-credentials"></a>
-#### The Database Credentials
-
-Here are the credentials you can use for MySQL database:
+Here are the credentials you can use for accessing the MySQL database using a GUI such as Sequel Pro, Navicat, et al:
 
 Credential|Value
 ----------|----------
@@ -179,18 +173,23 @@ Port        | `3306`
 Username    | `wordpress`
 Password    | `wordpress`
 
+<a id="mysql-terminal"></a>
+## Connecting to MySQL in Terminal
+
+The MySQL server listens on all interfaces on port 3306. If you have the MySQL command-line client installed on your host machine, you can simply `mysql --host wplib.box -u wordpress -pwordpress` (assuming you are using the `wplib.box` hostname).
+
 <a id="ssh-credentials"></a>
-#### The SSH Credentials
+## The SSH Credentials
 
 Here are the credentials you can use for the SSH tunnel:
 
 Credential|Value
 ----------|----------
-IP Address _**or**_ Host Name | `192.1688.33.10` _**or**_ `wplib.box` _(or` example.dev`)_ 
-Port                          | `22`
-Authentication Method         | Password
-Username                      | `vagrant`
-Password                      | `vagrant`
+Host Name 		| `wplib.box` _(or` example.dev`)_ 
+Port                    | `22`
+Authentication Method   | Password
+Username                | `vagrant`
+Password                | `vagrant`
 
 <a id="ssh-root"></a>
 ## Logging into SSH as root
