@@ -8,6 +8,31 @@
 ## [CLICK HERE](FAQ.md#troubleshooting) for **troubleshooting** and other [FAQs](FAQ.md).
 
 ----
+
+- [Why Use WPLib Box?](#why-wplib-box)
+- [Services & Software Included](#whats-included)
+- [Required Hardware](#required-hw)
+- [Required Software](#required-sw)
+- [Quickstart](#quickstart)
+- [Setting the Domain Name](#setting-domain)
+- [Changing the Local IP Address](#change-ip)
+- [Switching PHP Versions](#switching-php)
+- [Logging into the WordPress Admin](#wp-admin)
+- [The WordPress Database Credentials](#wpdb)
+- [The MySQL Credentials](#mysql-credentials)
+- [Connecting to MySQL in Terminal](#mysql-terminal)
+- [The SSH Credentials](#ssh-credentials)
+- [Logging into SSH as root](#ssh-root)
+- [Debugging PHP with XDEBUG and PhpStorm](#xdebug)
+- [Internet Sharing](#internet-sharing)
+- [Troubleshooting](#troubleshooting)
+- [How are we the Best?](#how-best)
+- [3rd Party WPLib Box Projects](#3rd-party)
+- [Status of Issues](#issues-status)
+- [Future Plans](#future-plans)
+
+---
+
 <a id="why-wplib-box"></a>
 ##Why Use WPLib Box?
 
@@ -246,14 +271,14 @@ Give it a try and see if you don't agree.
 
 - [**WPLib Box Maker**](https://github.com/ArtOfWP/generator-wplibbox) from [ArtOfWP](https://github.com/ArtOfWP): _Generates a custom WPLib Box setup using [Yeoman](http://yeoman.io/)._
 
-<a id="status-issue"></a>
+<a id="issues-status"></a>
 ##Status of Issues
 We are using Waffle.io to help us manage our GitHub issue queue:
 
 [![Stories in Ready](https://badge.waffle.io/wplib/wplib-box.png?label=ready&title=Ready)](https://waffle.io/wplib/wplib-box)
 [![Stories In Progress](https://badge.waffle.io/wplib/wplib-box.svg?label=in+progress&title=In+Progress)](http://waffle.io/wplib/wplib-box)
 
-<a id="future"></a>
-##Future 
+<a id="future-plans"></a>
+##Future Plans 
 
 We have many plans for the WPLib platform.  This is just a start.  Watch this repo to keep up to date.
