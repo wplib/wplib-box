@@ -8,6 +8,7 @@
 ## [CLICK HERE](FAQ.md#troubleshooting) for **troubleshooting** and other [FAQs](FAQ.md).
 
 ----
+<a id="why-wplib-box"></a>
 ##Why Use WPLib Box?
 
 Why Use WPLib Box for WordPress local development instead of one of the other Vagrant boxes for WordPress such as [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV), [VIP QuickStart](https://github.com/Automattic/vip-quickstart), [Trellis](https://github.com/roots/trellis) or [one of the others](http://wptavern.com/13-vagrant-resources-for-wordpress-development)?
@@ -22,6 +23,7 @@ And one more goal we achieved is that our box supports **PhpStorm+XDEBUG debuggi
  
 We think that once you try WPLib Box you will agree that we have succeeded.  Want to know [**how**](#how) we did it?
 
+<a id="whats-included"></a>
 ## Services & Software Included
 
 Service/Software|Version
@@ -48,12 +50,16 @@ Windows 7 thru 10|With PowerShell or [git-bash](https://git-for-windows.github.i
 
 We assume this will work on all these platforms but we have not tested it thoroughly yet so we welcome your bug reports if you have issues with it.
 
+<a id="required-hw"></a>
 ## Required Hardware
 
 Since WPLib Box is distributed as a virtual machine image of a 64-bit distribution of Ubuntu Linux, a 64-bit Intel or AMD CPU is required, along with support for either Intel or AMD virtualization technologies: VT-x or AMD-v. You will need to enable VT-x/AMD-v in the host PC BIOS.
 
+<a id="required-sw"></a>
 ## Required Software
 
+<a id="for-mac"></a>
+<a id="for-linux"></a>
 ###For Mac & Linux Users
 
 To run WPLib Box requires the following software be installed:
@@ -63,12 +69,14 @@ To run WPLib Box requires the following software be installed:
 - Install the [Vagrant Hosts Updater](https://github.com/cogitatio/vagrant-hostsupdater) plugin by running `vagrant plugin install vagrant-hostsupdater`
 - Install the [Vagrant Triggers](https://github.com/emyl/vagrant-triggers) plugin by running `vagrant plugin install vagrant-triggers`
 
+<a id="for-windows"></a>
 ###For Windows Users
 
 - Install everything from the Mac & Linux Users list above
 - Ensure that no other VM platform is running (either VMware or Hyper-V) as they will prevent VirtualBox from operating.
 - Install [Git](https://git-scm.com/downloads) version 2 or greater **OR** download the `.ZIP` file and unzip instead.
 
+<a id="quickstart"></a>
 ##Quickstart
 After making sure you have the necessary software, run the following commands 
 
@@ -97,6 +105,7 @@ After making sure you have the necessary software, run the following commands
         
 After this you should have a running WPLib Box via Vagrant and VirtualBox and a website loaded at the local `wplib.box` domain.
 
+<a id="setting-domain"></a>
 ##Setting the Domain Name
 
 To use WPLib Box for a local domain name other than `wplib.box` edit the `Vagrantfile` and replace the text `"wplib.box"` with your preferred local domain name _(we recommend `"your-production-domain.dev"`):_
@@ -121,11 +130,13 @@ The default local IP address used by this box is `10.10.10.{octet}` where `{octe
 
 If you need to change that for any reason simply edit the file named just `IP` _(with no extension)_ found in the project root. It is created during `vagrant up` and a random `{octet}` is generated. Just edit this file and change the IP address it contains.
 
+<a id="switching-php"></a>
 ## Switching PHP Versions
 
 The box has both PHP-FPM 5.6 and 7.0 running concurrently. They are implemented as separate processes with
 individual sockets. Instructions on how to select which version to use can be found in the [FAQ](https://github.com/wplib/wplib-box/blob/master/FAQ.md).
 
+<a id="wp-admin"></a>
 ## Logging into the WordPress Admin
 
 To login to [wplib.box/wp-admin/](http://wplib.box/wp-admin) use the following credentials:
@@ -137,6 +148,7 @@ Password:| `password`
 
 We will probably change to using different username and password in the future.
 
+<a id="mysql-db"></a>
 ## The MySQL Database Credentials
  
 If you want to access the database using a tool such as Sequel Pro the MySQL database name, username and password are all `wordpress`.
@@ -149,22 +161,25 @@ In other words:
 
 We may change to using different MySQL credentials in the future.
 
+<a id="mysql-client"></a>
 ### Connecting a MySQL Client
 
 The MySQL server listens on all interfaces on port 3306. If you have the MySQL command-line client installed on your host machine, you can simply `mysql --host wplib.box -u wordpress -pwordpress` (assuming you are using the `wplib.box` hostname).
 Use the credentials below if you are using a GUI such as Sequel Pro, Navicat, et al.
 
+<a id="db-credentials"></a>
 #### The Database Credentials
 
 Here are the credentials you can use for MySQL database:
 
 Credential|Value
 ----------|----------
-IP Address _**or**_ Host Name | `192.168.33.10` _**or**_ `wplib.box` _(or `example.dev`)_ 
-Port                          | `3306`
-Username                      | `wordpress`
-Password                      | `wordpress`
+Host Name   | `wplib.box` _(or `example.dev`)_ 
+Port        | `3306`
+Username    | `wordpress`
+Password    | `wordpress`
 
+<a id="ssh-credentials"></a>
 #### The SSH Credentials
 
 Here are the credentials you can use for the SSH tunnel:
@@ -177,25 +192,31 @@ Authentication Method         | Password
 Username                      | `vagrant`
 Password                      | `vagrant`
 
+<a id="ssh-root"></a>
 ## Logging into SSH as root
 
 There is no `root` user _per-se_ in WPLib Box, only the `vagrant` user. You have to use either `sudo` for one-off commands, or you can [use the following command to switch to root](https://www.server-world.info/en/note?os=Ubuntu_14.04&p=initial_conf&f=2):
 
     sudo -s
 
+<a id="xdebug"></a>
 ## Debugging PHP with XDEBUG and PhpStorm
 
-Instructions to come...
+See instructions [**here**](/wplib/connect.tech-atlanta-2016/blob/master/debugging-with-phpstorm-xdebug.md#debugging-with-phpstorm-and-xdebug).
 
+<a id="internet-sharing"></a>
 ## Internet Sharing
 
 Internet sharing is implemented with [localtunnel.me](https://localtunnel.me), which is pre-installed in the box image.
 
+<a id="troubleshooting"></a>
 ## Troubleshooting
 
-If you are having trouble with WPLib Box you can check out our [**FAQ**](FAQ.md) and/or you can [reach out to our support team](https://slackpass.io/wplib) for **quick help** on Slack. But **PLEASE** post your questions in the [wplib.slack.com**_#box_**](https://wplib.slack.com/messages/box/) channel and **NOT** in the #general channel.
+If you are having trouble with WPLib Box please check out our Troubleshooting section of our [**FAQ**](FAQ.md#troubleshooting) and/or you can also [reach out to our support team](FAQ.md#support) for **quick help** on Slack and via other channels. 
 
-##How?
+
+<a id="how-best"></a>
+##How are we the Best?
 
 How have we been able to make **WPLib Box** the:
 
@@ -221,16 +242,19 @@ Badda-bing, badda-bang; as Steve Jobs would say: **It Just Works!**
 
 Give it a try and see if you don't agree.
 
+<a id="3rd-party"></a>
 ## 3rd Party WPLib Box Projects
 
 - [**WPLib Box Maker**](https://github.com/ArtOfWP/generator-wplibbox) from [ArtOfWP](https://github.com/ArtOfWP): _Generates a custom WPLib Box setup using [Yeoman](http://yeoman.io/)._
 
+<a id="status-issue"></a>
 ##Status of Issues
 We are using Waffle.io to help us manage our GitHub issue queue:
 
 [![Stories in Ready](https://badge.waffle.io/wplib/wplib-box.png?label=ready&title=Ready)](https://waffle.io/wplib/wplib-box)
 [![Stories In Progress](https://badge.waffle.io/wplib/wplib-box.svg?label=in+progress&title=In+Progress)](http://waffle.io/wplib/wplib-box)
 
+<a id="future"></a>
 ##Future 
 
 We have many plans for the WPLib platform.  This is just a start.  Watch this repo to keep up to date.
