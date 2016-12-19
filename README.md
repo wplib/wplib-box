@@ -16,6 +16,7 @@
 - [Quickstart](#quickstart)
 - [Setting the Domain Name](#setting-domain)
 - [Changing the Local IP Address](#change-ip)
+- [Default PHP Version for the Web](#web-php)
 - [Switching PHP Versions](#switching-php)
 - [Logging into the WordPress Admin](#wp-admin)
 - [The WordPress Database Credentials](#wpdb)
@@ -53,7 +54,7 @@ We think that once you try WPLib Box you will agree that we have succeeded.  Wan
 
 Service/Software|Version
 -------|----------
-PHP/PHP-FPM|5.6.20 & 7.0.9
+PHP/PHP-FPM|7.0.9 & 5.6.20
 HipHop VM|3.14.3
 MySQL|5.6
 nginx|1.4
@@ -154,6 +155,11 @@ Save the changes to `Vagantfile` and then run the following commands to reload t
 The default local IP address used by this box is `10.10.10.{octet}` where `{octet}` is a number between 10 to 250.
 
 If you need to change that for any reason simply edit the file named just `IP` _(with no extension)_ found in the project root. It is created during `vagrant up` and a random `{octet}` is generated. Just edit this file and change the IP address it contains.
+
+
+<a id="web-php"></a>
+## Default PHP Version for the Web
+The default version fot the web is `7.0.x`.  Instructions to [switch to PHP 5.6](FAQ.md#switch-php) are on our FAQ.
 
 <a id="switching-php"></a>
 ## Switching PHP Versions
