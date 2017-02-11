@@ -25,7 +25,7 @@
     "composer/installers": "dev-master",
     "wpackagist-theme/twentysixteen": "*",
     "wplib/wplib": "0.13.1",
-    "johnpbloch/wordpress": "4.5",
+    "johnpbloch/wordpress": "4.7.2",
     "wpackagist-plugin/wp-redis": "0.2.2",
     "wpackagist-plugin/query-monitor": "2.10.0",
     "wpackagist-plugin/helpful-information": "1.0.2"
