@@ -21,14 +21,16 @@
       "url": "https://github.com/wplib/wplib.git"
     }
   ],
+  "require-dev": {
+    "wpackagist-plugin/query-monitor": "*",
+    "wpackagist-plugin/helpful-information": "*"
+  },
   "require": {
     "composer/installers": "dev-master",
     "wpackagist-theme/twentysixteen": "*",
     "wplib/wplib": "0.13.1",
     "johnpbloch/wordpress": "4.7.2",
     "wpackagist-plugin/wp-redis": "0.2.2",
-    "wpackagist-plugin/query-monitor": "2.10.0",
-    "wpackagist-plugin/helpful-information": "1.0.2"
   },
   "extra": {
     "wordpress-install-dir": "www/wp",
