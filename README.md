@@ -134,17 +134,18 @@ After this you should have a running WPLib Box via Vagrant and VirtualBox and a 
 <a id="setting-domain"></a>
 ##Setting the Domain Name
 
-To use WPLib Box for a local domain name other than `wplib.box` edit the `Vagrantfile` and replace the text `"wplib.box"` with your preferred local domain name _(we recommend `"your-production-domain.dev"`):_
+To use WPLib Box for a local domain name other than `wplib.box` edit the `HOSTNAME` file  _(with no extension)_
+and replace the text `"wplib.box"` with your preferred local domain name _(we recommend `"your-production-2nd-level-domain.dev"` e.g. if `google.com` then use `google.dev`):_
 
-In other words, change this:
+In other words, change the **entire contents** of the `HOSTNAME` file from this:
 
-	config.vm.hostname = "wplib.box"
+	wplib.box
 
 To _(something like)_ this:
 
-	config.vm.hostname = "example.dev"
+	example.dev
 
-Save the changes to `Vagantfile` and then run the following commands to reload the Vagrant configuration, and then open in your browser. _(Be sure you replaced the domain name in the 2nd command with your own local domain name):_
+Save the changes to `HOSTNAME` and then run the following commands to reload the Vagrant configuration, and then open in your browser. _(Be sure you replaced the domain name in the 2nd command with your own local domain name):_
 
 	vagrant reload
 	open "http://example.dev"
@@ -154,7 +155,7 @@ Save the changes to `Vagantfile` and then run the following commands to reload t
 
 The default local IP address used by this box is `10.10.10.{octet}` where `{octet}` is a number between 10 to 250.
 
-If you need to change that for any reason simply edit the file named just `IP` _(with no extension)_ found in the project root. It is created during `vagrant up` and a random `{octet}` is generated. Just edit this file and change the IP address it contains.
+If you need to change that for any reason simply **edit the file named just `IP`** _(with no extension)_ found in the project root. It is created during `vagrant up` and a random `{octet}` is generated. Just edit this file and change the IP address it contains.
 
 
 <a id="web-php"></a>

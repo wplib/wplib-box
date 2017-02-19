@@ -54,6 +54,20 @@
 #
 #   REFERENCE:
 #
+#       config.vm.box = "wplib/wplib"
+#
+#           This line specifies the VM "box" image which is hosted for
+#           download on Hashicorp's Atlas Vagrant Box Repository here:
+#
+#               https://atlas.hashicorp.com/wplib/boxes/wplib
+#
+#           This box image is a pre-provisioned Ubuntu Linux 14.04 LTS
+#           with nginx, MySQL, PHP7.0/5.6 and more; everything a good
+#           a Linux server needs to be able to serve WordPress pages.
+#
+#           In many ways -- compared to Vagrant boxes like VVV and VIP
+#           Quickstart -- this is WPLib's "secret sauce."
+#
 #       File.write('IP', "10.10.10.#{rand(10..250)}") if not File.exists?('IP')
 #
 #           This line creates a randomly-generated and non-routable IP
@@ -79,34 +93,86 @@
 #           If we can find a better approach later, we will be happy
 #           to switch to it.
 #
-#       config.vm.box = "wplib/wplib"
+#       File.write('HOSTNAME', "wplib.box") if not File.exists?('HOSTNAME')
 #
-#           This line specifies the VM "box" image which is hosted for
-#           download on Hashicorp's Atlas Vagrant Box Repository here:
+#           This line writes the host name of 'wplib.box' to a file
+#           named 'HOSTNAME' in the project's root folder, the same
+#           folder in which this Vagrantfile is found to ensure future
+#           runs of "vagrant up" or "vagrant reload" use the same host
+#           name, unless of course you change it, which we expect.
 #
-#               https://atlas.hashicorp.com/wplib/boxes/wplib
+#           The host name in this context is a domain name local to
+#           your computer which you can access via your browser by
+#           prefixing the host name with 'http://', for example
+#           http://wplib.box or http://example.dev.
 #
-#           This box image is a pre-provisioned Ubuntu Linux 14.04 LTS
-#           with nginx, MySQL, PHP5.6 and more; essentially everything
-#           a Linux server needs to be able to serve WordPress pages.
+#           To change the host name of your WPLib Box simple update
+#           the `HOSTNAME` file to include only your preferred host
+#           name, e.g. `example.dev` or similar (but without the
+#           quotes).
 #
-#           In many ways -- compared to Vagrant boxes like VVV and VIP
-#           Quickstart -- this is WPLib's "secret sauce."
+#       hostname = IO.read('HOSTNAME').strip;
 #
-#       config.vm.hostname = "wplib.box"
+#           This line reads the value in the file named 'HOSTNAME',
+#           strips off any leading or trailing whitespace and then
+#           assignes it to a variable named 'hostname' which is
+#           local to this Vagrantfile.
+#
+#           If the previous line wrote the file then it will load
+#           'wplib.box' otherwise it will load a host name that
+#           you have updated the 'HOSTNAME' file to include, such
+#           as 'example.dev' or similar (but without the quotes).
+#
+#       config.vm.hostname = hostname
 #
 #           This line specifies the domain name your browser should be
 #           able to load the WordPress site running inside this box.
 #
+#           This value comes from the file named 'HOSTNAME' which was
+#           created and/or read into the variable 'hostname' in the
+#           previous two lines.
+#
 #           To CHANGE the domain name to use to when loading the box's
-#           website in your browser you only need to change this line;
-#           change "wplib.box" to your preferred local domain name and
-#           then run "vagrant reload" in your terminal.
+#           website in your browser you only need to update the file
+#           named 'HOSTNAME', or create one if it does not already
+#           exist. It should be a text file than only contains the
+#           local domain name that you want to use to access the
+#           website(s) on your WPLib Box.
 #
 #           Of course your computer's hosts file must contain the IP
 #           address used by the box for your browser to use it to load
 #           WordPress but if you have the Vagrant hosts-updater plugin
 #           then it will handle updating the hosts file for you.
+#
+#           Assuming you have that plugin, once you've updated the
+#           'HOSTNAME' file run "vagrant up" or "vagrant reload" in
+#           your terminal to update your computer's 'hosts' file to
+#           recognize this domain name when typed into your browser.
+#
+#       config.hostsupdater.aliases = [
+#           "www.#{hostname}",
+#           "adminer.#{hostname}",
+#           "mailhog.#{hostname}"
+#       ]
+#
+#           These lines specify addition domains that WPLib Box will
+#           add to your hosts file (assuming you have the Vagrant
+#           hosts-updater plugin) and thus WPLib Box will be able to
+#           recognize when you request them from your browser.
+#
+#           You'll note the use the same (base) host name as the
+#           prior line so look to its description for further details
+#           on the 'hostname' variable.
+#
+#           These lines add a 'www.' alias, domains for Adminer (which
+#           is like phpMyAdmin, only better) and for Mailhog (that
+#           captures outgoing email into a web email interface, great
+#           for accessing the password change request emails that are
+#           normally so hard to track down during development,
+#           especially if sent to someone else's email address!)
+#
+#           You can add other domains here that you might need, such
+#           as subdomains of your domain, if you have that need.
 #
 #       config.vm.network 'private_network', ip: IO.read('IP').strip
 #
@@ -191,11 +257,31 @@
 #               - https://github.com/mitchellh/vagrant/tree/master/keys
 #               - https://twitter.com/mitchellh/status/525704721714012160
 #
-#       config.vm.provision "shell", path: "scripts/provision.sh"
+#       $provision = <<PROVISION
+#    if [ -f "/vagrant/scripts/provision.sh" ]; then
+#        bash /vagrant/scripts/provision.sh --force
+#    else
+#        rm -rf /tmp/box-scripts  2>/dev/null
+#        git clone https://github.com/wplib/box-scripts.git /tmp/box-scripts  2>/dev/null
+#        bash /tmp/box-scripts/provision.sh
+#    fi
+#    PROVISION
 #
-#           This line tells Vagrant to run the bash script named
-#           "provision.sh" found in the "scripts" folder which is in
-#           the same folder where Vagrantfile is located.
+#           These lines create an "inline" provisioning script to be
+#           run on the FIRST "vagrant up" or on any "vagrant up" or
+#           "vagrant reload" that has the "--provision" switch.
+#
+#           This inline script checks for a provision script on disk
+#           named '/vagrant/scripts/provision.sh' and if there it
+#           runs it. If not there it pulls it down from GitHub by
+#           cloning the script, and then it runs it.
+#
+#       config.vm.provision "shell", inline: $provision
+#
+#           This line tells Vagrant to run the "inline" bash script
+#           described above, which ultimately runs the "provision.sh"
+#           found in the "scripts" folder which is in the same folder
+#           where Vagrantfile is located.
 #
 #           This provision script runs a few quick commands, such as
 #           importing "/sql/default.sql" which is the default MySQL
@@ -209,16 +295,17 @@
 #
 #   REUSE:
 #
-#       When you cloning the WPLib Box repository you are getting an
+#       When you clone the WPLib Box repository you are getting an
 #       "appliance" for WordPress local development that is designed
-#       to "just work" if at all possible.
+#       to "just work," if at all possible.
 #
-#       However once comfortable with WPLib Box few developers will
-#       want to start a problem by first using "git clone" on the
-#       github.com/wplib/wplib-box repository. In point of fact, we
-#       don't even use WPLib Box in that manner.
+#       However once comfortable with WPLib Box most developers will
+#       probably not want to start with a "git clone" of the
+#       github.com/wplib/wplib-box repository but instead maintain
+#       their own Vagrantfile which is based off this one. In point
+#       of fact, this is how we use WPLib Box ourselves.
 #
-#       Instead developers will want a recipe for how to use WPLib
+#       But we believe developers want a recipe for how to use WPLib
 #       Box in their projects with the least effort required. And
 #       that is exactly how WPLib Box is intended to be used once
 #       a developer becomes familiar with it.
@@ -228,9 +315,9 @@
 #
 #           1. Copy this file into a new Vagrantfile in your project.
 #
-#           2. Change config.vm.hostname = "wplib.box" to replace the
-#              value of "wplib.box" with the local development domain
-#              of your project, e.g. "dev.example.com"
+#           2. Create a/update the HOSTNAME file and replace 'wplib.box'
+#              with a local domain name relevant to your project, for
+#              examples: 'acme.dev' or 'example.dev'.
 #
 #           3. Either delete the link with config.vm.provision "shell"
 #              or copy "scripts/provision.sh" and modify it to run
@@ -252,13 +339,18 @@
 
 Vagrant.configure(2) do |config|
 
-    File.write('IP', "10.10.10.#{rand(10..250)}") if not File.exists?('IP')
-
     config.vm.box = "wplib/wplib"
-    config.vm.hostname = "wplib.box"
+
+    File.write('IP', "10.10.10.#{rand(10..250)}") if not File.exists?('IP')
+    File.write('HOSTNAME', "wplib.box") if not File.exists?('HOSTNAME')
+
+    hostname = IO.read('HOSTNAME').strip;
+
+    config.vm.hostname = hostname
     config.hostsupdater.aliases = [
-        "adminer.wplib.box",
-        "mailhog.wplib.box"
+        "www.#{hostname}",
+        "adminer.#{hostname}",
+        "mailhog.#{hostname}"
     ]
 
     config.vm.network 'private_network', ip: IO.read('IP').strip
