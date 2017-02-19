@@ -61,7 +61,7 @@
 #           final octet between 10 and 250. It then writes the IP
 #           address to a file named 'IP' in the project's root folder
 #           which is the same folder where this Vagrantfile is found
-#           to ensure future runs of "vagrant up" or "vagrand reload"
+#           to ensure future runs of "vagrant up" or "vagrant reload"
 #           will use the same IP address.
 #
 #           The assumption here is that it is very unlikely that this
