@@ -29,8 +29,8 @@
     "composer/installers": "dev-master",
     "wpackagist-theme/twentysixteen": "*",
     "wplib/wplib": "0.13.1",
-    "johnpbloch/wordpress": "4.7.2",
     "wpackagist-plugin/wp-redis": "0.2.2",
+    "johnpbloch/wordpress": "*",
   },
   "extra": {
     "wordpress-install-dir": "www/wp",
