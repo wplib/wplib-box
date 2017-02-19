@@ -27,6 +27,7 @@ class QM_Collector_Hooks extends QM_Collector {
 		global $wp_actions, $wp_filter;
 
 		$this->hide_qm = ( defined( 'QM_HIDE_SELF' ) and QM_HIDE_SELF );
+		$this->hide_core = ( defined( 'QM_HIDE_CORE_HOOKS' ) and QM_HIDE_CORE_HOOKS );
 
 		if ( is_admin() and ( $admin = QM_Collectors::get( 'admin' ) ) ) {
 			$this->data['screen'] = $admin->data['base'];
@@ -40,7 +41,15 @@ class QM_Collector_Hooks extends QM_Collector {
 			$hooks['all'] = $this->process_action( 'all', $wp_filter );
 		}
 
-		foreach ( $wp_actions as $name => $count ) {
+		if ( defined( 'QM_SHOW_ALL_HOOKS' ) && QM_SHOW_ALL_HOOKS ) {
+			// Show all hooks
+			$hook_names = array_keys( $wp_filter );
+		} else {
+			// Only show action hooks that have been called at least once
+			$hook_names = array_keys( $wp_actions );
+		}
+
+		foreach ( $hook_names as $name ) {
 
 			$hooks[$name] = $this->process_action( $name, $wp_filter );
 
@@ -71,7 +80,10 @@ class QM_Collector_Hooks extends QM_Collector {
 					$callback = QM_Util::populate_callback( $callback );
 
 					if ( isset( $callback['component'] ) ) {
-						if ( $this->hide_qm and ( 'query-monitor' === $callback['component']->context ) ) {
+						if (
+							( $this->hide_qm and 'query-monitor' === $callback['component']->context )
+							or ( $this->hide_core and 'core' === $callback['component']->context ) 
+						) {
 							continue;
 						}
 

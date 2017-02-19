@@ -32,6 +32,8 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 		add_action( 'admin_footer',               array( $this, 'action_footer' ) );
 		add_action( 'login_footer',               array( $this, 'action_footer' ) );
 		add_action( 'embed_footer',               array( $this, 'action_footer' ) );
+		add_action( 'amp_post_template_footer',   array( $this, 'action_footer' ) );
+		add_action( 'gp_footer',                  array( $this, 'action_footer' ) );
 
 		parent::__construct( $qm );
 
@@ -95,17 +97,14 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 		$wp_admin_bar->add_menu( array(
 			'id'    => 'query-monitor',
 			'title' => esc_html( $title ),
-			'href'  => '#qm-overview',
-			'meta'  => array(
-				'classname' => 'hide-if-js',
-			),
+			'href'  => '#qm',
 		) );
 
 		$wp_admin_bar->add_menu( array(
 			'parent' => 'query-monitor',
 			'id'     => 'query-monitor-placeholder',
 			'title'  => esc_html( $title ),
-			'href'   => '#qm-overview',
+			'href'   => '#qm',
 		) );
 
 	}
@@ -126,6 +125,20 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 		add_action( 'enqueue_embed_scripts', array( $this, 'enqueue_assets' ) );
 		add_action( 'send_headers',          'nocache_headers' );
 
+		add_action( 'amp_post_template_head', array( $this, 'enqueue_assets' ) );
+		add_action( 'amp_post_template_head', array( $this, 'manually_print_assets' ), 11 );
+
+		add_action( 'gp_head',                array( $this, 'manually_print_assets' ), 11 );
+
+	}
+
+	public function manually_print_assets() {
+		wp_print_scripts( array(
+			'query-monitor',
+		) );
+		wp_print_styles( array(
+			'query-monitor',
+		) );
 	}
 
 	public function enqueue_assets() {
@@ -205,7 +218,7 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 		);
 
 		if ( did_action( 'wp_head' ) ) {
-			$absolute = function_exists( 'twentyfifteen_setup' );
+			$absolute = function_exists( 'twentyfifteen_setup' ) || function_exists( 'twentyseventeen_setup' );
 			if ( apply_filters( 'qm/output/absolute_position', $absolute ) ) {
 				$class[] = 'qm-absolute';
 			}
@@ -215,18 +228,18 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 		}
 
 		if ( !is_admin_bar_showing() ) {
-			$class[] = 'qm-show';
+			$class[] = 'qm-peek';
 		}
 
 		echo '<div id="qm" class="' . implode( ' ', array_map( 'esc_attr', $class ) ) . '">';
 		echo '<div id="qm-wrapper">';
+		echo '<div id="qm-title">';
 		echo '<p>' . esc_html__( 'Query Monitor', 'query-monitor' ) . '</p>';
+		echo '</div>';
 
 	}
 
 	protected function after_output() {
-
-		$collectors = QM_Collectors::init();
 
 		echo '<div class="qm qm-half qm-clear" id="qm-authentication">';
 		echo '<table cellspacing="0">';
@@ -272,8 +285,10 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 		echo '<script type="text/javascript">' . "\n\n";
 		echo 'var qm = ' . json_encode( $json ) . ';' . "\n\n";
 		?>
-		if ( 'undefined' === typeof QM_i18n ) {
+		if ( ( 'undefined' === typeof QM_i18n ) || ( 'undefined' === typeof jQuery ) || ! jQuery ) {
 			document.getElementById( 'qm' ).style.display = 'block';
+		} else if ( ! document.getElementById( 'wpadminbar' ) ) {
+			document.getElementById( 'qm' ).className += ' qm-peek';
 		}
 		<?php
 		echo '</script>' . "\n\n";
@@ -283,6 +298,11 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 	public function js_admin_bar_menu() {
 
 		$class = implode( ' ', apply_filters( 'qm/output/menu_class', array() ) );
+
+		if ( false === strpos( $class, 'qm-' ) ) {
+			$class .= ' qm-all-clear';
+		}
+
 		$title = implode( '&nbsp;&nbsp;&nbsp;', apply_filters( 'qm/output/title', array() ) );
 
 		if ( empty( $title ) ) {
@@ -315,7 +335,8 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 			return false;
 		}
 
-		if ( QM_Util::is_async() ) {
+		// If this is an async request and not a customizer preview:
+		if ( QM_Util::is_async() && ( ! function_exists( 'is_customize_preview' ) || ! is_customize_preview() ) ) {
 			return false;
 		}
 
@@ -325,7 +346,7 @@ class QM_Dispatcher_Html extends QM_Dispatcher {
 				return false;
 			}
 		} else {
-			if ( ! ( did_action( 'wp' ) || did_action( 'login_init' ) ) ) {
+			if ( ! ( did_action( 'wp' ) || did_action( 'login_init' ) || did_action( 'gp_head' ) ) ) {
 				return false;
 			}
 		}

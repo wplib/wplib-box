@@ -27,6 +27,13 @@ class QM_Output_Html_Request extends QM_Output_Html {
 
 		echo '<div class="qm qm-half" id="' . esc_attr( $this->collector->id() ) . '">';
 		echo '<table cellspacing="0">';
+		echo '<caption class="screen-reader-text">' . esc_html( $this->collector->name() ) . '</caption>';
+		echo '<thead class="screen-reader-text">';
+		echo '<tr>';
+		echo '<th scope="col">' . esc_html__( 'Property', 'query-monitor' ) . '</th>';
+		echo '<th scope="col" colspan="2">' . esc_html__( 'Value', 'query-monitor' ) . '</th>';
+		echo '</tr>';
+		echo '</thead>';
 		echo '<tbody>';
 
 		foreach ( array(
@@ -51,7 +58,7 @@ class QM_Output_Html_Request extends QM_Output_Html {
 			}
 
 			echo '<tr>';
-			echo '<td>' . esc_html( $name ) . '</td>';
+			echo '<th>' . esc_html( $name ) . '</th>';
 			echo '<td colspan="2">' . $value . '</td>'; // WPCS: XSS ok.
 			echo '</tr>';
 		}
@@ -59,7 +66,7 @@ class QM_Output_Html_Request extends QM_Output_Html {
 		$rowspan = isset( $data['qvars'] ) ? count( $data['qvars'] ) : 1;
 
 		echo '<tr>';
-		echo '<td rowspan="' . absint( $rowspan ) . '">' . esc_html__( 'Query Vars', 'query-monitor' ) . '</td>';
+		echo '<th rowspan="' . absint( $rowspan ) . '">' . esc_html__( 'Query Vars', 'query-monitor' ) . '</th>';
 
 		if ( !empty( $data['qvars'] ) ) {
 
@@ -101,11 +108,11 @@ class QM_Output_Html_Request extends QM_Output_Html {
 		if ( ! empty( $data['queried_object'] ) ) {
 
 			echo '<tr>';
-			echo '<td>' . esc_html__( 'Queried Object', 'query-monitor' ) . '</td>';
+			echo '<th>' . esc_html__( 'Queried Object', 'query-monitor' ) . '</th>';
 			echo '<td colspan="2" class="qm-has-inner qm-has-toggle"><div class="qm-toggler">';
 
 			printf(
-				'<div class="qm-inner-toggle">%1$s (%2$s) <a href="#" class="qm-toggle" data-on="+" data-off="-">+</a></div>',
+				'<div class="qm-inner-toggle">%1$s (%2$s) <button class="qm-toggle" data-on="+" data-off="-">+</button></div>',
 				esc_html( $data['queried_object']['title'] ),
 				esc_html( get_class( $data['queried_object']['data'] ) )
 			);
@@ -124,7 +131,7 @@ class QM_Output_Html_Request extends QM_Output_Html {
 			$rowspan = count( $data['multisite'] );
 
 			echo '<tr>';
-			echo '<td rowspan="' . absint( $rowspan ) . '">' . esc_html__( 'Multisite', 'query-monitor' ) . '</td>';
+			echo '<th rowspan="' . absint( $rowspan ) . '">' . esc_html__( 'Multisite', 'query-monitor' ) . '</th>';
 
 			$first = true;
 
@@ -137,7 +144,7 @@ class QM_Output_Html_Request extends QM_Output_Html {
 				echo '<td colspan="2" class="qm-has-inner qm-has-toggle"><div class="qm-toggler">';
 
 				printf(
-					'<div class="qm-inner-toggle">%1$s <a href="#" class="qm-toggle" data-on="+" data-off="-">+</a></div>',
+					'<div class="qm-inner-toggle">%1$s <button class="qm-toggle" data-on="+" data-off="-">+</button></div>',
 					esc_html( $value['title'] )
 				);
 
@@ -165,6 +172,7 @@ class QM_Output_Html_Request extends QM_Output_Html {
 
 		$title = ( empty( $count ) )
 			? __( 'Request', 'query-monitor' )
+			/* translators: %s: Number of additional query variables */
 			: __( 'Request (+%s)', 'query-monitor' );
 
 		$menu[] = $this->menu( array(

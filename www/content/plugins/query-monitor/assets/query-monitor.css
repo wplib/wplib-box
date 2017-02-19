@@ -22,15 +22,11 @@ GNU General Public License for more details.
 	color: #4a4 !important;
 }
 
-#wp-admin-bar-query-monitor-notices {
-	background-color: #740 !important;
+#wpadminbar .qm-alert {
+	background-color: #f60;
 }
 
-#wpadminbar .qm-notice {
-	background-color: #740;
-}
-
-#wp-admin-bar-query-monitor-deprecated,
+#wp-admin-bar-query-monitor-deprecateds,
 #wp-admin-bar-query-monitor-stricts {
 	background-color: #555 !important;
 }
@@ -38,6 +34,14 @@ GNU General Public License for more details.
 #wpadminbar .qm-deprecated,
 #wpadminbar .qm-strict {
 	background-color: #3c3c3c;
+}
+
+#wp-admin-bar-query-monitor-notices {
+	background-color: #740 !important;
+}
+
+#wpadminbar .qm-notice {
+	background-color: #740;
 }
 
 #wp-admin-bar-query-monitor-expensive {
@@ -68,11 +72,13 @@ GNU General Public License for more details.
 	background-color: #c00 !important;
 }
 
-#wpadminbar .qm-error > a {
+#wpadminbar .qm-error > a,
+#wpadminbar .qm-alert > a {
 	color: #fff !important;
 }
 
-#wp-admin-bar-query-monitor-deprecated a,
+body.admin-color-light #wp-admin-bar-query-monitor:not(.qm-all-clear):not(:hover):not(.hover) .ab-label,
+#wp-admin-bar-query-monitor-deprecateds a,
 #wp-admin-bar-query-monitor-stricts a,
 #wp-admin-bar-query-monitor-notices a,
 #wp-admin-bar-query-monitor-expensive a,
@@ -83,6 +89,7 @@ GNU General Public License for more details.
 
 #wp-admin-bar-query-monitor small {
 	font-size: 11px !important;
+	text-transform: uppercase !important;
 }
 
 #wp-admin-bar-query-monitor.hover a small,
@@ -121,6 +128,7 @@ GNU General Public License for more details.
 	border-top: 1px solid #ccc !important;
 	padding: 0 0 35px !important;
 	text-align: left !important;
+	min-width: 800px !important;
 	display: none;
 }
 
@@ -130,9 +138,14 @@ GNU General Public License for more details.
 }
 
 #qm.qm-show,
+#qm.qm-peek,
 .no-js #qm,
 .nojs #qm {
 	display: block;
+}
+
+#qm.qm-peek .qm {
+	display: none;
 }
 
 #qm:after {
@@ -168,11 +181,43 @@ body.wp-admin.folded #qm {
 	margin: 0 auto 60px !important;
 }
 
-#qm-wrapper > p {
-	color: #777 !important;
+#qm.qm-peek #qm-wrapper {
+	margin: 0 auto !important;
+}
+
+#qm-title {
+	color: #555d66 !important;
 	font: 13px/15px 'Open Sans', Arial !important;
-	margin: 20px 20px -15px !important;
+	margin: 35px 0 -15px !important;
+}
+
+#qm-title p {
 	font-style: italic !important;
+	margin: 0 20px !important;
+}
+
+#qm-title ul {
+	margin: 10px 10px 0 !important;
+	font-family: Menlo, Monaco, Consolas, monospace !important;
+	font-size: 11px !important;
+	font-weight: normal !important;
+	font-style: normal !important;
+	line-height: 16px !important;
+	list-style: none !important;
+	padding: 0 !important;
+}
+
+#qm-title li {
+	display: inline-block !important;
+	width: 24em !important;
+	background: #fff !important;
+	border: 1px solid #e8e8e8 !important;
+	margin: 0 5px 5px 0 !important;
+}
+
+#qm-title li a {
+	display: block !important;
+	padding: 4px 7px !important;
 }
 
 .qm {
@@ -194,6 +239,12 @@ body.wp-admin.folded #qm {
 	clear: none !important;
 }
 
+.qm-two-thirds {
+	float: left !important;
+	width: 66.66% !important;
+	clear: none !important;
+}
+
 .qm:focus {
 	outline: 0 !important;
 }
@@ -203,12 +254,13 @@ body.wp-admin.folded #qm {
 	margin-bottom: -45px !important;
 }
 
-#qm.qm-theme-twentysixteen #qm-wrapper > p {
+#qm.qm-theme-twentysixteen #qm-title {
 	margin-bottom: -45px !important;
 }
 
 @media all and (max-width: 900px) {
 	.qm-third,
+	.qm-two-thirds,
 	.qm-half {
 		float: none !important;
 		width: 100% !important;
@@ -221,7 +273,7 @@ body.wp-admin.folded #qm {
 }
 
 .qm table {
-	color: #444 !important;
+	color: #333 !important;
 	border-collapse: collapse !important;
 	box-shadow: none !important;
 	width: 100% !important;
@@ -229,8 +281,14 @@ body.wp-admin.folded #qm {
 	margin: 0 !important;
 }
 
+#qm-conditionals table,
+#qm-overview table {
+	table-layout: fixed !important;
+}
+
 .qm td,
-.qm th {
+.qm th,
+.qm caption {
 	background: #fff !important;
 	box-sizing: border-box !important;
 	text-align: left !important;
@@ -247,11 +305,9 @@ body.wp-admin.folded #qm {
 	-webkit-font-smoothing: auto !important;
 }
 
-.qm .qm-totally-legit-spacer td {
-	background-color: #f1f1f1 !important;
-	border-right-color: #f1f1f1 !important;
-	border-left-color: #f1f1f1 !important;
-	height: 20px !important;
+.qm caption,
+.qm th[scope=col] {
+	border-bottom-width: 0 !important;
 }
 
 .qm tbody tr:hover th,
@@ -270,7 +326,7 @@ body.wp-admin.folded #qm {
 }
 
 .qm th {
-	color: #444 !important;
+	color: #333 !important;
 }
 
 .qm th.qm-num {
@@ -303,7 +359,7 @@ body.wp-admin.folded #qm {
 	border-collapse: collapse !important;
 	margin: 0 !important;
 	background: #fff !important;
-	color: #444 !important;
+	color: #333 !important;
 	border-style: hidden !important;
 	width: 100% !important;
 }
@@ -313,20 +369,21 @@ body.wp-admin.folded #qm {
 	padding: 0 !important;
 }
 
-.qm ol {
-	margin: 0 !important;
-	padding: 0 0 0 30px !important;
-	list-style: decimal !important;
-}
-
+.qm ol,
 .qm ul {
 	margin: 0 !important;
-	padding: 0 0 0 10px !important;
+	padding: 0 !important;
 	list-style: none !important;
 }
 
 .qm li {
-	margin-bottom: 2px !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	display: list-item !important;
+}
+
+.qm li::before {
+	content: '' !important;
 }
 
 .qm pre {
@@ -382,45 +439,55 @@ body.wp-admin.folded #qm {
 }
 
 .qm .qm-info {
-	color: #999 !important;
+	color: #777 !important;
 }
 
 .qm td .qm-toggled {
 	display: none;
 }
 
+#qm-title a,
 .qm a {
-	color: #00a0d2 !important;
+	color: #0073aa !important;
 	text-decoration: none !important;
 	text-shadow: none !important;
 	font-weight: normal !important;
 }
+
+#qm-title a:focus,
+#qm-title a:hover,
 .qm a:focus,
 .qm a:hover {
 	text-decoration: underline !important;
-	color: #00a0d2 !important;
+	color: #0073aa !important;
 }
 
 .qm a.qm-warn {
 	text-decoration: underline !important;
 }
 
-.qm a.qm-toggle {
-	color: #00a0d2 !important;
-	padding: 4px 8px 3px !important;
+.qm .qm-toggle {
+	color: #0073aa !important;
+	padding: 5px 8px !important;
+	border-top: none !important;
+	border-right: none !important;
 	border-left: 1px solid #e8e8e8 !important;
 	border-bottom: 1px solid #e8e8e8 !important;
+	font-family: Menlo, Monaco, Consolas, monospace !important;
+	font-weight: normal !important;
+	font-size: 11px !important;
 	position: absolute !important;
 	top: 0 !important;
 	right: 0 !important;
 	background: #fff !important;
+	cursor: pointer !important;
 }
 
-.qm a.qm-toggle:focus,
-.qm a.qm-toggle:hover {
+.qm .qm-toggle:focus,
+.qm .qm-toggle:hover {
 	text-decoration: none !important;
 	border-color: #e8e8e8 !important;
-	color: #00a0d2 !important;
+	color: #0073aa !important;
 	background: #eee !important;
 }
 
@@ -445,6 +512,14 @@ body.wp-admin.folded #qm {
 
 /* Filters */
 
+.qm label {
+	cursor: pointer !important;
+	color: #333 !important;
+	font-weight: normal !important;
+	font-size: 11px !important;
+	margin: 0 !important;
+}
+
 select.qm-filter {
 	display: block !important;
 	font-family: Menlo, Monaco, Consolas, monospace !important;
@@ -454,7 +529,7 @@ select.qm-filter {
 	border: 1px solid #e6e6e6 !important;
 	padding: 1px !important;
 	background: #fff !important;
-	color: #444 !important;
+	color: #333 !important;
 	height: 2em !important;
 	width: auto !important;
 	border-radius: 0 !important;
@@ -481,20 +556,67 @@ select.qm-filter {
 	text-align: center !important;
 }
 
-.qm .qm-sort {
-	color: #ccc !important;
-	display: block !important;
-	font-size: 14px !important;
-	line-height: 11px !important;
-	text-decoration: none !important;
+.qm button,
+.qm a,
+.qm select {
+	outline: none !important;
 }
 
-.qm .qm-sort:hover,
-.qm .qm-sort:focus,
-.qm .qm-sorted-asc .qm-sort-asc,
-.qm .qm-sorted-desc .qm-sort-desc {
-	color: #444 !important;
-	text-decoration: none !important;
+.qm button:focus,
+.qm a:focus,
+.qm select:focus {
+	box-shadow: 0 0 0 1px #5b9dd9, 0 0 2px 1px rgba(30, 140, 190, .8) !important;
+}
+
+.qm .qm-sort {
+	color: #767676 !important;
+	display: block !important;
+	font-size: 15px !important;
+	font-family: Menlo, Monaco, Consolas, monospace !important;
+	line-height: 11px !important;
+	border: 0 !important;
+	padding: 0 !important;
+	width: 30px !important;
+	background-color: transparent !important;
+	cursor: pointer !important;
+	margin: 0 auto !important;
+}
+
+.qm .qm-sort-asc {
+	margin-bottom: 1px !important;
+}
+.qm .qm-sort-asc:before {
+	content: "\25b3" !important;
+}
+.qm .qm-sort-asc:hover:before,
+.qm .qm-sort-asc:focus:before,
+.qm .qm-sorted-asc .qm-sort-asc:before {
+	color: #333 !important;
+	content: "\25b2" !important;
+}
+
+.qm .qm-sort-desc {
+	margin-top: 1px !important;
+}
+.qm .qm-sort-desc:before {
+	content: "\25bd" !important;
+}
+.qm .qm-sort-desc:hover:before,
+.qm .qm-sort-desc:focus:before,
+.qm .qm-sorted-desc .qm-sort-desc:before {
+	color: #333 !important;
+	content: "\25bc" !important;
+}
+
+.qm .screen-reader-text {
+	position: absolute !important;
+	margin: -1px !important;
+	padding: 0 !important;
+	height: 1px !important;
+	width: 1px !important;
+	overflow: hidden !important;
+	clip: rect(0 0 0 0) !important;
+	border: 0 !important;
 }
 
 /* RTL */
@@ -537,9 +659,11 @@ html[dir="rtl"] .qm th {
 	text-align: right !important;
 }
 
-html[dir="rtl"] .qm a.qm-toggle {
-	border-left: none !important;
+html[dir="rtl"] .qm .qm-toggle {
+	border-top: none !important;
 	border-right: 1px solid #e8e8e8 !important;
+	border-bottom: 1px solid #e8e8e8 !important;
+	border-left: none !important;
 	right: auto !important;
 	left: 1px !important;
 }
@@ -548,7 +672,7 @@ html[dir="rtl"] .qm a.qm-toggle {
 
 .qm-no-js #qm-authentication,
 .qm-no-js .qm-sort-controls,
-.qm-no-js a.qm-toggle,
+.qm-no-js .qm-toggle,
 .qm-no-js select.qm-filter {
 	display: none !important;
 }

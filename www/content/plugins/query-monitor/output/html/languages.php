@@ -33,19 +33,21 @@ class QM_Output_Html_Languages extends QM_Output_Html {
 
 		echo '<div class="qm" id="' . esc_attr( $this->collector->id() ) . '">';
 		echo '<table cellspacing="0">';
+		echo '<caption>' . esc_html( sprintf(
+			/* translators: %s: Name of current language */
+			__( 'Language Setting: %s', 'query-monitor' ),
+			$data['locale']
+		) ) . '</caption>';
 		echo '<thead>';
 		echo '<tr>';
-		echo '<th colspan="4">' . esc_html__( 'Language Setting:', 'query-monitor' ) . ' ' . esc_html( $data['locale'] ) . '</th>';
-		echo '</tr>';
-		echo '<tr>';
-		echo '<td>' . esc_html__( 'Text Domain', 'query-monitor' ) . '</td>';
-		echo '<td>' . esc_html__( 'Caller', 'query-monitor' ) . '</td>';
-		echo '<td colspan="2">' . esc_html__( 'MO File', 'query-monitor' ) . '</td>';
+		echo '<th>' . esc_html__( 'Text Domain', 'query-monitor' ) . '</th>';
+		echo '<th>' . esc_html__( 'Caller', 'query-monitor' ) . '</th>';
+		echo '<th colspan="2">' . esc_html__( 'MO File', 'query-monitor' ) . '</th>';
 		echo '</tr>';
 		echo '</thead>';
 		echo '<tbody>';
 
-		$not_found_class = ( 'en_US' === $data['locale'] ) ? '' : 'qm-warn';
+		$not_found_class = ( substr( $data['locale'], 0, 3 ) === "en_" ) ? '' : 'qm-warn';
 
 		foreach ( $data['languages'] as $mofile ) {
 

@@ -30,14 +30,22 @@ class QM_Collector_Request extends QM_Collector {
 
 		if ( is_multisite() ) {
 			$this->data['multisite']['current_blog'] = array(
-				'title' => sprintf( 'Current blog: #%d', $current_blog->blog_id ),
+				'title' => sprintf(
+					/* translators: 1: Blog ID */
+					__( 'Current blog: #%d', 'query-monitor' ),
+					$current_blog->blog_id
+				),
 				'data'  => $current_blog,
 			);
 		}
 
 		if ( QM_Util::is_multi_network() ) {
 			$this->data['multisite']['current_site'] = array(
-				'title' => sprintf( 'Current site: #%d', $current_site->id ),
+				'title' => sprintf(
+					/* translators: 1: Site ID */
+					__( 'Current site: #%d', 'query-monitor' ),
+					$current_site->id
+				),
 				'data'  => $current_site,
 			);
 		}
@@ -94,7 +102,8 @@ class QM_Collector_Request extends QM_Collector {
 
 			case is_a( $qo, 'WP_Post' ):
 				// Single post
-				$this->data['queried_object']['title'] = sprintf( __( 'Single %s: #%d', 'query-monitor' ),
+				/* translators: 1: Post type name, 2: Post ID */
+				$this->data['queried_object']['title'] = sprintf( __( 'Single %1$s: #%2$d', 'query-monitor' ),
 					get_post_type_object( $qo->post_type )->labels->singular_name,
 					$qo->ID
 				);
@@ -102,6 +111,7 @@ class QM_Collector_Request extends QM_Collector {
 
 			case is_a( $qo, 'WP_User' ):
 				// Author archive
+				/* translators: %s: Author name */
 				$this->data['queried_object']['title'] = sprintf( __( 'Author archive: %s', 'query-monitor' ),
 					$qo->user_nicename
 				);
@@ -110,13 +120,16 @@ class QM_Collector_Request extends QM_Collector {
 			case is_a( $qo, 'WP_Term' ):
 			case property_exists( $qo, 'term_id' ):
 				// Term archive
+				/* translators: %s: Taxonomy term name */
 				$this->data['queried_object']['title'] = sprintf( __( 'Term archive: %s', 'query-monitor' ),
 					$qo->slug
 				);
 				break;
 
+			case is_a( $qo, 'WP_Post_Type' ):
 			case property_exists( $qo, 'has_archive' ):
 				// Post type archive
+				/* translators: %s: Post type name */
 				$this->data['queried_object']['title'] = sprintf( __( 'Post type archive: %s', 'query-monitor' ),
 					$qo->name
 				);

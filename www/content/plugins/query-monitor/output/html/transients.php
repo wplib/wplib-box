@@ -27,21 +27,24 @@ class QM_Output_Html_Transients extends QM_Output_Html {
 
 		echo '<div class="qm" id="' . esc_attr( $this->collector->id() ) . '">';
 		echo '<table cellspacing="0">';
-		echo '<thead>';
-		echo '<tr>';
-		echo '<th>' . esc_html__( 'Transient Set', 'query-monitor' ) . '</th>';
-		if ( is_multisite() ) {
-			echo '<th>' . esc_html__( 'Type', 'query-monitor' ) . '</th>';
-		}
-		if ( !empty( $data['trans'] ) and isset( $data['trans'][0]['expiration'] ) ) {
-			echo '<th>' . esc_html__( 'Expiration', 'query-monitor' ) . '</th>';
-		}
-		echo '<th>' . esc_html__( 'Call Stack', 'query-monitor' ) . '</th>';
-		echo '<th>' . esc_html__( 'Component', 'query-monitor' ) . '</th>';
-		echo '</tr>';
-		echo '</thead>';
 
 		if ( !empty( $data['trans'] ) ) {
+
+			echo '<caption class="screen-reader-text">' . esc_html__( 'Transients', 'query-monitor' ) . '</caption>';
+
+			echo '<thead>';
+			echo '<tr>';
+			echo '<th scope="col">' . esc_html__( 'Transient Set', 'query-monitor' ) . '</th>';
+			if ( is_multisite() ) {
+				echo '<th>' . esc_html__( 'Type', 'query-monitor' ) . '</th>';
+			}
+			if ( !empty( $data['trans'] ) and isset( $data['trans'][0]['expiration'] ) ) {
+				echo '<th scope="col">' . esc_html__( 'Expiration', 'query-monitor' ) . '</th>';
+			}
+			echo '<th scope="col">' . esc_html__( 'Call Stack', 'query-monitor' ) . '</th>';
+			echo '<th scope="col">' . esc_html__( 'Component', 'query-monitor' ) . '</th>';
+			echo '</tr>';
+			echo '</thead>';
 
 			echo '<tbody>';
 
@@ -104,9 +107,15 @@ class QM_Output_Html_Transients extends QM_Output_Html {
 
 		} else {
 
+			echo '<thead>';
+			echo '<tr>';
+			echo '<th>' . esc_html__( 'Transients Set', 'query-monitor' ) . '</th>';
+			echo '</tr>';
+			echo '</thead>';
+
 			echo '<tbody>';
 			echo '<tr>';
-			echo '<td colspan="4" style="text-align:center !important"><em>' . esc_html__( 'none', 'query-monitor' ) . '</em></td>';
+			echo '<td style="text-align:center !important"><em>' . esc_html__( 'none', 'query-monitor' ) . '</em></td>';
 			echo '</tr>';
 			echo '</tbody>';
 
@@ -124,6 +133,7 @@ class QM_Output_Html_Transients extends QM_Output_Html {
 
 		$title = ( empty( $count ) )
 			? __( 'Transients Set', 'query-monitor' )
+			/* translators: %s: Number of transient values that were set */
 			: __( 'Transients Set (%s)', 'query-monitor' );
 
 		$menu[] = $this->menu( array(

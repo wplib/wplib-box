@@ -43,8 +43,8 @@ abstract class QM_Collector {
 	protected function maybe_log_dupe( $sql, $i ) {
 
 		$sql = str_replace( array( "\r\n", "\r", "\n" ), ' ', $sql );
-		$sql = str_replace( array( "\t" ), '', $sql );
-		$sql = preg_replace( '/[ ]+/', ' ', $sql );
+		$sql = str_replace( array( "\t", '`' ), '', $sql );
+		$sql = preg_replace( '/ +/', ' ', $sql );
 		$sql = trim( $sql );
 
 		$this->data['dupes'][ $sql ][] = $i;
@@ -80,7 +80,8 @@ abstract class QM_Collector {
 
 	public static function format_bool_constant( $constant ) {
 		if ( !defined( $constant ) ) {
-			return 'undefined';
+			/* translators: Undefined PHP constant */
+			return __( 'undefined', 'query-monitor' );
 		} else if ( !constant( $constant ) ) {
 			return 'false';
 		} else {
@@ -102,6 +103,17 @@ abstract class QM_Collector {
 		} else {
 			return ( $a['ltime'] > $b['ltime'] ) ? -1 : 1;
 		}
+	}
+
+	public static function format_user( WP_User $user_object ) {
+		$user = get_object_vars( $user_object->data );
+		unset(
+			$user['user_pass'],
+			$user['user_activation_key']
+		);
+		$user['roles'] = $user_object->roles;
+
+		return $user;
 	}
 
 	public function process() {}

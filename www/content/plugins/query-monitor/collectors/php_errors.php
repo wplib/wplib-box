@@ -30,7 +30,10 @@ if ( defined( 'E_USER_DEPRECATED' ) ) {
 class QM_Collector_PHP_Errors extends QM_Collector {
 
 	public $id = 'php_errors';
+	private $error_reporting = null;
 	private $display_errors = null;
+	private static $unexpected_error;
+	private static $wordpress_couldnt;
 
 	public function name() {
 		return __( 'PHP Errors', 'query-monitor' );
@@ -42,6 +45,7 @@ class QM_Collector_PHP_Errors extends QM_Collector {
 		set_error_handler( array( $this, 'error_handler' ) );
 		register_shutdown_function( array( $this, 'shutdown_handler' ) );
 
+		$this->error_reporting = error_reporting();
 		$this->display_errors = ini_get( 'display_errors' );
 		ini_set( 'display_errors', 0 );
 
@@ -77,6 +81,29 @@ class QM_Collector_PHP_Errors extends QM_Collector {
 		}
 
 		if ( ! class_exists( 'QM_Backtrace' ) ) {
+			return false;
+		}
+
+		if ( error_reporting() === 0 && $this->error_reporting !== 0 ) {
+			// This is most likely an @-suppressed error
+			$type .= '-suppressed';
+		}
+
+		if ( ! isset( self::$unexpected_error ) ) {
+			// These strings are from core. They're passed through `__()` as variables so they get translated at runtime
+			// but do not get seen by GlotPress when it populates its database of translatable strings for QM.
+			$unexpected_error  = 'An unexpected error occurred. Something may be wrong with WordPress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="https://wordpress.org/support/">support forums</a>.';
+			$wordpress_couldnt = '(WordPress could not establish a secure connection to WordPress.org. Please contact your server administrator.)';
+			self::$unexpected_error  = __( $unexpected_error );
+			self::$wordpress_couldnt = __( $wordpress_couldnt );
+		}
+
+		// Intentionally skip reporting these core warnings. They're a distraction when developing offline.
+		// The failed HTTP request will still appear in QM's output so it's not a big problem hiding these warnings.
+		if ( self::$unexpected_error === $message ) {
+			return false;
+		}
+		if ( self::$unexpected_error . ' ' . self::$wordpress_couldnt === $message ) {
 			return false;
 		}
 

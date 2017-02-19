@@ -24,11 +24,12 @@ class QM_Collector_Overview extends QM_Collector {
 
 	public function process() {
 
-		$this->data['time']       = self::timer_stop_float();
+		$this->data['time_taken'] = self::timer_stop_float();
 		$this->data['time_limit'] = ini_get( 'max_execution_time' );
+		$this->data['time_start'] = $GLOBALS['timestart'];
 
 		if ( !empty( $this->data['time_limit'] ) ) {
-			$this->data['time_usage'] = ( 100 / $this->data['time_limit'] ) * $this->data['time'];
+			$this->data['time_usage'] = ( 100 / $this->data['time_limit'] ) * $this->data['time_taken'];
 		} else {
 			$this->data['time_usage'] = 0;
 		}
@@ -39,6 +40,18 @@ class QM_Collector_Overview extends QM_Collector {
 			$this->data['memory'] = memory_get_usage();
 		} else {
 			$this->data['memory'] = 0;
+		}
+
+		if ( is_user_logged_in() ) {
+			$this->data['current_user'] = self::format_user( wp_get_current_user() );
+		} else {
+			$this->data['current_user'] = false;
+		}
+
+		if ( function_exists( 'current_user_switched' ) && current_user_switched() ) {
+			$this->data['switched_user'] = self::format_user( current_user_switched() );
+		} else {
+			$this->data['switched_user'] = false;
 		}
 
 		$this->data['memory_limit'] = QM_Util::convert_hr_to_bytes( ini_get( 'memory_limit' ) );

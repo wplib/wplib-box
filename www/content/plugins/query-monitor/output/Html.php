@@ -73,18 +73,22 @@ abstract class QM_Output_Html extends QM_Output {
 	 *
 	 * @param  string $name      The name for the `data-` attributes that get filtered by this control.
 	 * @param  array  $values    Possible values for this control.
+	 * @param  string $label     Label text for the filter control.
 	 * @param  string $highlight Optional. The name for the `data-` attributes that get highlighted by this control.
 	 * @return string            Markup for the table filter controls.
 	 */
-	protected function build_filter( $name, array $values, $highlight = '' ) {
+	protected function build_filter( $name, array $values, $label, $highlight = '' ) {
 
 		if ( empty( $values ) ) {
-			return '';
+			return esc_html( $label ); // Return label text, without being marked up as a label element.
 		}
 
 		usort( $values, 'strcasecmp' );
 
-		$out = '<select id="qm-filter-' . esc_attr( $this->collector->id . '-' . $name ) . '" class="qm-filter" data-filter="' . esc_attr( $name ) . '" data-highlight="' . esc_attr( $highlight ) . '">';
+		$filter_id = 'qm-filter-' . $this->collector->id . '-' . $name;
+
+		$out = '<label for="' . esc_attr( $filter_id ) .'">' . esc_html( $label ) . '</label>';
+		$out .= '<select id="' . esc_attr( $filter_id ) . '" class="qm-filter" data-filter="' . esc_attr( $name ) . '" data-highlight="' . esc_attr( $highlight ) . '">';
 		$out .= '<option value="">' . esc_html_x( 'All', '"All" option for filters', 'query-monitor' ) . '</option>';
 
 		foreach ( $values as $value ) {
@@ -104,8 +108,10 @@ abstract class QM_Output_Html extends QM_Output {
 	 */
 	protected function build_sorter() {
 		$out = '<span class="qm-sort-controls">';
-		$out .= '<a href="#" class="qm-sort qm-sort-asc">&#9650;</a>';
-		$out .= '<a href="#" class="qm-sort qm-sort-desc">&#9660;</a>';
+		/* translators: Button for sorting table columns in ascending order */
+		$out .= '<button class="qm-sort qm-sort-asc"><span class="screen-reader-text">' . esc_html__( 'Ascending', 'query-monitor' ) . '</span></button>';
+		/* translators: Button for sorting table columns in descending order */
+		$out .= '<button class="qm-sort qm-sort-desc"><span class="screen-reader-text">' . esc_html__( 'Descending', 'query-monitor' ) . '</span></button>';
 		$out .= '</span>';
 		return $out;
 	}
@@ -131,17 +137,8 @@ abstract class QM_Output_Html extends QM_Output {
 		$sql = esc_html( $sql );
 		$sql = trim( $sql );
 
-		foreach( array(
-			'ALTER', 'AND', 'COMMIT', 'CREATE', 'DESCRIBE', 'DELETE', 'DROP', 'ELSE', 'END', 'FROM', 'GROUP',
-			'HAVING', 'INNER', 'INSERT', 'LEFT', 'LIMIT', 'ON', 'OR', 'ORDER', 'OUTER', 'REPLACE', 'RIGHT', 'ROLLBACK', 'SELECT', 'SET',
-			'SHOW', 'START', 'THEN', 'TRUNCATE', 'UPDATE', 'VALUES', 'WHEN', 'WHERE'
-		) as $cmd ) {
-			// Why does this trim() every time?
-			$sql = trim( str_replace( " $cmd ", "<br>$cmd ", $sql ) );
-		}
-
-		# @TODO profile this as an alternative:
-		# $sql = preg_replace( '# (ALTER|AND|COMMIT|CREATE|DESCRIBE) #', '<br>$1 ', $sql );
+		$regex = 'ADD|AFTER|ALTER|AND|BEGIN|COMMIT|CREATE|DESCRIBE|DELETE|DROP|ELSE|END|EXCEPT|FROM|GROUP|HAVING|INNER|INSERT|INTERSECT|LEFT|LIMIT|ON|OR|ORDER|OUTER|REPLACE|RIGHT|ROLLBACK|SELECT|SET|SHOW|START|THEN|TRUNCATE|UNION|UPDATE|USING|VALUES|WHEN|WHERE|XOR';
+		$sql = preg_replace( '# (' . $regex . ') #', '<br>$1 ', $sql );
 
 		return $sql;
 
@@ -174,6 +171,10 @@ abstract class QM_Output_Html extends QM_Output {
 	 * @return string The fully formatted file link or file name, safe for output.
 	 */
 	public static function output_filename( $text, $file, $line = 0 ) {
+
+		if ( empty( $file ) ) {
+			return esc_html( $text );
+		}
 
 		# Further reading:
 		# http://simonwheatley.co.uk/2012/07/clickable-stack-traces/

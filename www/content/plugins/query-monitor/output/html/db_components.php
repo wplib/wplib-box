@@ -35,25 +35,27 @@ class QM_Output_Html_DB_Components extends QM_Output_Html {
 
 		echo '<div class="qm qm-half" id="' . esc_attr( $this->collector->id() ) . '">';
 		echo '<table cellspacing="0" class="qm-sortable">';
+		echo '<caption>' . esc_html( $this->collector->name() ) . '</caption>';
 		echo '<thead>';
-		echo '<tr>';
-		echo '<th colspan="' . esc_attr( $span ) . '">' . esc_html( $this->collector->name() ) . '</th>';
-		echo '</tr>';
-		echo '<tr>';
-		echo '<th>' . esc_html_x( 'Component', 'Query component', 'query-monitor' ) . '</th>';
 
-		foreach ( $data['types'] as $type_name => $type_count ) {
-			echo '<th class="qm-num">';
-			echo esc_html( $type_name );
+		if ( !empty( $data['times'] ) ) {
+			echo '<tr>';
+			echo '<th scope="col">' . esc_html__( 'Component', 'query-monitor' ) . '</th>';
+
+			foreach ( $data['types'] as $type_name => $type_count ) {
+				echo '<th scope="col" class="qm-num">';
+				echo esc_html( $type_name );
+				echo $this->build_sorter(); // WPCS: XSS ok;
+				echo '</th>';
+			}
+
+			echo '<th scope="col" class="qm-num qm-sorted-desc">';
+			esc_html_e( 'Time', 'query-monitor' );
 			echo $this->build_sorter(); // WPCS: XSS ok;
 			echo '</th>';
+			echo '</tr>';
 		}
 
-		echo '<th class="qm-num qm-sorted-desc">';
-		esc_html_e( 'Time', 'query-monitor' );
-		echo $this->build_sorter(); // WPCS: XSS ok;
-		echo '</th>';
-		echo '</tr>';
 		echo '</thead>';
 
 		if ( !empty( $data['times'] ) ) {
@@ -65,7 +67,7 @@ class QM_Output_Html_DB_Components extends QM_Output_Html {
 				$total_calls += $row['calls'];
 
 				echo '<tr>';
-				echo '<td><a href="#" class="qm-filter-trigger" data-qm-target="db_queries-wpdb" data-qm-filter="component" data-qm-value="' . esc_attr( $row['component'] ) . '">' . esc_html( $row['component'] ) . '</a></td>';
+				echo '<th scope="row"><a href="#" class="qm-filter-trigger" data-qm-target="db_queries-wpdb" data-qm-filter="component" data-qm-value="' . esc_attr( $row['component'] ) . '">' . esc_html( $row['component'] ) . '</a></th>';
 
 				foreach ( $data['types'] as $type_name => $type_count ) {
 					if ( isset( $row['types'][$type_name] ) ) {
@@ -75,7 +77,7 @@ class QM_Output_Html_DB_Components extends QM_Output_Html {
 					}
 				}
 
-				echo '<td class="qm-num">' . esc_html( number_format_i18n( $row['ltime'], 4 ) ) . '</td>';
+				echo '<td class="qm-num" data-qm-sort-weight="' . esc_attr( $row['ltime'] ) . '">' . esc_html( number_format_i18n( $row['ltime'], 4 ) ) . '</td>';
 				echo '</tr>';
 
 			}

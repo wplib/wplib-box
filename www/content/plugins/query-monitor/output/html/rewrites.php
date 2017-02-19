@@ -28,9 +28,11 @@ class QM_Output_Html_Rewrites extends QM_Output_Html {
 		echo '<div class="qm qm-half" id="' . esc_attr( $this->collector->id() ) . '">';
 		echo '<table cellspacing="0">';
 
-		echo '<thead>';
+		echo '<caption>' . esc_html__( 'Matching Rewrite Rules', 'query-monitor' ) . '</caption>';
+		echo '<thead class="screen-reader-text">';
 		echo '<tr>';
-		echo '<th valign="top" colspan="2">' . esc_html__( 'Matching Rewrite Rules', 'query-monitor' ) . '</th>';
+		echo '<th scope="col">' . esc_html__( 'Rule', 'query-monitor' ) . '</th>';
+		echo '<th scope="col">' . esc_html__( 'Query', 'query-monitor' ) . '</th>';
 		echo '</tr>';
 		echo '</thead>';
 
@@ -43,8 +45,8 @@ class QM_Output_Html_Rewrites extends QM_Output_Html {
 				$query = str_replace( 'index.php?', '', $query );
 
 				echo '<tr>';
-				echo '<td valign="top">' . esc_html( $rule ) . '</td>';
-				echo '<td valign="top">';
+				echo '<td>' . esc_html( $rule ) . '</td>';
+				echo '<td>';
 				echo self::format_url( $query ); // WPCS: XSS ok.
 				echo '</td>';
 				echo '</tr>';
@@ -54,7 +56,7 @@ class QM_Output_Html_Rewrites extends QM_Output_Html {
 		} else {
 
 			echo '<tr>';
-			echo '<td valign="top" colspan="2"><em>' . esc_html__( 'None', 'query-monitor' ) . '</em></td>';
+			echo '<td colspan="2"><em>' . esc_html__( 'None', 'query-monitor' ) . '</em></td>';
 			echo '</tr>';
 
 		}

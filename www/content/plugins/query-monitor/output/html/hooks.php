@@ -39,15 +39,14 @@ class QM_Output_Html_Hooks extends QM_Output_Html {
 
 		echo '<div class="qm" id="' . esc_attr( $this->collector->id() ) . '">';
 		echo '<table cellspacing="0">';
+		echo '<caption class="screen-reader-text">' . esc_html__( 'Hooks', 'query-monitor' ) . '</caption>';
 		echo '<thead>';
 		echo '<tr>';
-		echo '<th>';
-		esc_html_e( 'Hook', 'query-monitor' );
-		echo $this->build_filter( 'name', $data['parts'] ); // WPCS: XSS ok.
+		echo '<th scope="col">';
+		echo $this->build_filter( 'name', $data['parts'], __( 'Hook', 'query-monitor' ) ); // WPCS: XSS ok.
 		echo '</th>';
-		echo '<th colspan="3">';
-		esc_html_e( 'Actions', 'query-monitor' );
-		echo $this->build_filter( 'component', $data['components'], 'subject' ); // WPCS: XSS ok.
+		echo '<th  scope="col" colspan="3">';
+		echo $this->build_filter( 'component', $data['components'], __( 'Actions', 'query-monitor' ), 'subject' ); // WPCS: XSS ok.
 		echo '</th>';
 		echo '</tr>';
 		echo '</thead>';
@@ -103,11 +102,12 @@ class QM_Output_Html_Hooks extends QM_Output_Html {
 
 					if ( $first ) {
 
-						echo "<th rowspan='" . absint( $rowspan ) . "' class='qm-nowrap'>";
+						echo '<th scope="row" rowspan="' . absint( $rowspan ) . '" class="qm-nowrap">';
 						echo $hook_name; // WPCS: XSS ok.
 						if ( 'all' === $hook['name'] ) {
 							echo '<br><span class="qm-warn">';
 							printf(
+								/* translators: %s: Action name */
 								esc_html__( 'Warning: The %s action is extremely resource intensive. Try to avoid using it.', 'query-monitor' ),
 								'<code>all</code>'
 							);
@@ -129,6 +129,7 @@ class QM_Output_Html_Hooks extends QM_Output_Html {
 					if ( isset( $action['callback']['error'] ) ) {
 						echo '<br><span class="qm-warn">';
 						echo esc_html( sprintf(
+							/* translators: %s: Error message text */
 							__( 'Error: %s', 'query-monitor' ),
 							$action['callback']['error']->get_error_message()
 						) );
@@ -145,7 +146,7 @@ class QM_Output_Html_Hooks extends QM_Output_Html {
 
 			} else {
 				echo "<tr{$attr}>"; // WPCS: XSS ok.
-				echo '<th>';
+				echo '<th scope="row">';
 				echo $hook_name; // WPCS: XSS ok.
 				echo '</th>';
 				echo '<td colspan="3">&nbsp;</td>';
