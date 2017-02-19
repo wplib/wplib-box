@@ -115,6 +115,15 @@ class WP_Customize_Control {
 	public $input_attrs = array();
 
 	/**
+	 * Show UI for adding new content, currently only used for the dropdown-pages control.
+	 *
+	 * @since 4.7.0
+	 * @access public
+	 * @var bool
+	 */
+	public $allow_addition = false;
+
+	/**
 	 * @deprecated It is better to just call the json() method
 	 * @access public
 	 * @var array
@@ -175,7 +184,7 @@ class WP_Customize_Control {
 	 *                                                 attribute names are the keys and values are the values. Not
 	 *                                                 used for 'checkbox', 'radio', 'select', 'textarea', or
 	 *                                                 'dropdown-pages' control types. Default empty array.
-	 *     @type array                $json            Deprecated. Use {@see WP_Customize_Control->json()} instead.
+	 *     @type array                $json            Deprecated. Use WP_Customize_Control::json() instead.
 	 *     @type string               $type            Control type. Core controls include 'text', 'checkbox',
 	 *                                                 'textarea', 'radio', 'select', and 'dropdown-pages'. Additional
 	 *                                                 input types such as 'email', 'url', 'number', 'hidden', and
@@ -235,7 +244,7 @@ class WP_Customize_Control {
 		$active = call_user_func( $this->active_callback, $this );
 
 		/**
-		 * Filter response of WP_Customize_Control::active().
+		 * Filters response of WP_Customize_Control::active().
 		 *
 		 * @since 4.0.0
 		 *
@@ -296,6 +305,10 @@ class WP_Customize_Control {
 		$this->json['label'] = $this->label;
 		$this->json['description'] = $this->description;
 		$this->json['instanceNumber'] = $this->instance_number;
+
+		if ( 'dropdown-pages' === $this->type ) {
+			$this->json['allow_addition'] = $this->allow_addition;
+		}
 	}
 
 	/**
@@ -381,9 +394,9 @@ class WP_Customize_Control {
 		 *
 		 * @since 3.4.0
 		 *
-		 * @param WP_Customize_Control $this {@see WP_Customize_Control} instance.
+		 * @param WP_Customize_Control $this WP_Customize_Control instance.
 		 */
-		do_action( 'customize_render_control_' . $this->id, $this );
+		do_action( "customize_render_control_{$this->id}", $this );
 
 		$this->render();
 	}
@@ -444,12 +457,12 @@ class WP_Customize_Control {
 	/**
 	 * Render the control's content.
 	 *
-	 * Allows the content to be overriden without having to rewrite the wrapper in $this->render().
+	 * Allows the content to be overridden without having to rewrite the wrapper in `$this::render()`.
 	 *
 	 * Supports basic input types `text`, `checkbox`, `textarea`, `radio`, `select` and `dropdown-pages`.
 	 * Additional input types such as `email`, `url`, `number`, `hidden` and `date` are supported implicitly.
 	 *
-	 * Control content can alternately be rendered in JS. See {@see WP_Customize_Control::print_template()}.
+	 * Control content can alternately be rendered in JS. See WP_Customize_Control::print_template().
 	 *
 	 * @since 3.4.0
 	 */
@@ -519,7 +532,7 @@ class WP_Customize_Control {
 					if ( ! empty( $this->description ) ) : ?>
 						<span class="description customize-control-description"><?php echo $this->description; ?></span>
 					<?php endif; ?>
-					<textarea rows="5" <?php $this->link(); ?>><?php echo esc_textarea( $this->value() ); ?></textarea>
+					<textarea rows="5" <?php $this->input_attrs(); ?> <?php $this->link(); ?>><?php echo esc_textarea( $this->value() ); ?></textarea>
 				</label>
 				<?php
 				break;
@@ -533,22 +546,58 @@ class WP_Customize_Control {
 					<span class="description customize-control-description"><?php echo $this->description; ?></span>
 				<?php endif; ?>
 
-				<?php $dropdown = wp_dropdown_pages(
+				<?php
+				$dropdown_name = '_customize-dropdown-pages-' . $this->id;
+				$show_option_none = __( '&mdash; Select &mdash;' );
+				$option_none_value = '0';
+				$dropdown = wp_dropdown_pages(
 					array(
-						'name'              => '_customize-dropdown-pages-' . $this->id,
+						'name'              => $dropdown_name,
 						'echo'              => 0,
-						'show_option_none'  => __( '&mdash; Select &mdash;' ),
-						'option_none_value' => '0',
+						'show_option_none'  => $show_option_none,
+						'option_none_value' => $option_none_value,
 						'selected'          => $this->value(),
 					)
 				);
+				if ( empty( $dropdown ) ) {
+					$dropdown = sprintf( '<select id="%1$s" name="%1$s">', esc_attr( $dropdown_name ) );
+					$dropdown .= sprintf( '<option value="%1$s">%2$s</option>', esc_attr( $option_none_value ), esc_html( $show_option_none ) );
+					$dropdown .= '</select>';
+				}
 
 				// Hackily add in the data link parameter.
 				$dropdown = str_replace( '<select', '<select ' . $this->get_link(), $dropdown );
+
+				// Even more hacikly add auto-draft page stubs.
+				// @todo Eventually this should be removed in favor of the pages being injected into the underlying get_pages() call. See <https://github.com/xwp/wp-customize-posts/pull/250>.
+				$nav_menus_created_posts_setting = $this->manager->get_setting( 'nav_menus_created_posts' );
+				if ( $nav_menus_created_posts_setting && current_user_can( 'publish_pages' ) ) {
+					$auto_draft_page_options = '';
+					foreach ( $nav_menus_created_posts_setting->value() as $auto_draft_page_id ) {
+						$post = get_post( $auto_draft_page_id );
+						if ( $post && 'page' === $post->post_type ) {
+							$auto_draft_page_options .= sprintf( '<option value="%1$s">%2$s</option>', esc_attr( $post->ID ), esc_html( $post->post_title ) );
+						}
+					}
+					if ( $auto_draft_page_options ) {
+						$dropdown = str_replace( '</select>', $auto_draft_page_options . '</select>', $dropdown );
+					}
+				}
+
 				echo $dropdown;
 				?>
 				</label>
-				<?php
+				<?php if ( $this->allow_addition && current_user_can( 'publish_pages' ) && current_user_can( 'edit_theme_options' ) ) : // Currently tied to menus functionality. ?>
+					<button type="button" class="button-link add-new-toggle"><?php
+						/* translators: %s: add new page label */
+						printf( __( '+ %s' ), get_post_type_object( 'page' )->labels->add_new_item );
+					?></button>
+					<div class="new-content-item">
+						<label for="create-input-<?php echo $this->id; ?>"><span class="screen-reader-text"><?php _e( 'New page title' ); ?></span></label>
+						<input type="text" id="create-input-<?php echo $this->id; ?>" class="create-item-input" placeholder="<?php esc_attr_e( 'New page title&hellip;' ); ?>">
+						<button type="button" class="button add-content"><?php _e( 'Add' ); ?></button>
+					</div>
+				<?php endif;
 				break;
 			default:
 				?>
@@ -570,7 +619,7 @@ class WP_Customize_Control {
 	 * Render the control's JS template.
 	 *
 	 * This function is only run for control types that have been registered with
-	 * {@see WP_Customize_Manager::register_control_type()}.
+	 * WP_Customize_Manager::register_control_type().
 	 *
 	 * In the future, this will also print the template for the control's container
 	 * element and be override-able.
@@ -589,7 +638,7 @@ class WP_Customize_Control {
 	 * An Underscore (JS) template for this control's content (but not its container).
 	 *
 	 * Class variables for this control class are available in the `data` JS object;
-	 * export custom variables by overriding {@see WP_Customize_Control::to_json()}.
+	 * export custom variables by overriding WP_Customize_Control::to_json().
 	 *
 	 * @see WP_Customize_Control::print_template()
 	 *
@@ -613,6 +662,9 @@ require_once( ABSPATH . WPINC . '/customize/class-wp-customize-image-control.php
 
 /** WP_Customize_Background_Image_Control class */
 require_once( ABSPATH . WPINC . '/customize/class-wp-customize-background-image-control.php' );
+
+/** WP_Customize_Background_Position_Control class */
+require_once( ABSPATH . WPINC . '/customize/class-wp-customize-background-position-control.php' );
 
 /** WP_Customize_Cropped_Image_Control class */
 require_once( ABSPATH . WPINC . '/customize/class-wp-customize-cropped-image-control.php' );

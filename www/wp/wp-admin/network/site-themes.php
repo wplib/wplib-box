@@ -10,11 +10,8 @@
 /** Load WordPress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
-if ( ! is_multisite() )
-	wp_die( __( 'Multisite support is not enabled.' ) );
-
 if ( ! current_user_can( 'manage_sites' ) )
-	wp_die( __( 'You do not have sufficient permissions to manage themes for this site.' ) );
+	wp_die( __( 'Sorry, you are not allowed to manage themes for this site.' ) );
 
 get_current_screen()->add_help_tab( array(
 	'id'      => 'overview',
@@ -29,8 +26,8 @@ get_current_screen()->add_help_tab( array(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="https://codex.wordpress.org/Network_Admin_Sites_Screen" target="_blank">Documentation on Site Management</a>') . '</p>' .
-	'<p>' . __('<a href="https://wordpress.org/support/forum/multisite/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="https://codex.wordpress.org/Network_Admin_Sites_Screen">Documentation on Site Management</a>') . '</p>' .
+	'<p>' . __('<a href="https://wordpress.org/support/forum/multisite/">Support Forums</a>') . '</p>'
 );
 
 get_current_screen()->set_screen_reader_content( array(
@@ -61,13 +58,13 @@ if ( ! $id )
 
 $wp_list_table->prepare_items();
 
-$details = get_blog_details( $id );
+$details = get_site( $id );
 if ( ! $details ) {
 	wp_die( __( 'The requested site does not exist.' ) );
 }
 
 if ( !can_edit_network( $details->site_id ) )
-	wp_die( __( 'You do not have permission to access this page.' ), 403 );
+	wp_die( __( 'Sorry, you are not allowed to access this page.' ), 403 );
 
 $is_main_site = is_main_site( $id );
 
@@ -122,6 +119,29 @@ if ( $action ) {
 				$n = 'none';
 			}
 			break;
+		default:
+			if ( isset( $_POST['checked'] ) ) {
+				check_admin_referer( 'bulk-themes' );
+				$themes = (array) $_POST['checked'];
+				$n = count( $themes );
+				/**
+				 * Fires when a custom bulk action should be handled.
+				 *
+				 * The redirect link should be modified with success or failure feedback
+				 * from the action to be used to display feedback to the user.
+				 *
+				 * @since 4.7.0
+				 *
+				 * @param string $redirect_url The redirect URL.
+				 * @param string $action       The action being taken.
+				 * @param array  $items        The items to take the action on.
+				 * @param int    $site_id      The site id.
+				 */
+				$referer = apply_filters( 'handle_network_bulk_actions-' . get_current_screen()->id, $referer, $action, $themes, $id );
+			} else {
+				$action = 'error';
+				$n = 'none';
+			}
 	}
 
 	update_option( 'allowedthemes', $allowed_themes );
@@ -139,6 +159,7 @@ if ( isset( $_GET['action'] ) && 'update-site' == $_GET['action'] ) {
 add_thickbox();
 add_screen_option( 'per_page' );
 
+/* translators: %s: site name */
 $title = sprintf( __( 'Edit Site: %s' ), esc_html( $details->blogname ) );
 
 $parent_file = 'sites.php';
@@ -149,20 +170,12 @@ require( ABSPATH . 'wp-admin/admin-header.php' ); ?>
 <div class="wrap">
 <h1 id="edit-site"><?php echo $title; ?></h1>
 <p class="edit-site-actions"><a href="<?php echo esc_url( get_home_url( $id, '/' ) ); ?>"><?php _e( 'Visit' ); ?></a> | <a href="<?php echo esc_url( get_admin_url( $id ) ); ?>"><?php _e( 'Dashboard' ); ?></a></p>
-<h2 class="nav-tab-wrapper nav-tab-small wp-clearfix">
 <?php
-$tabs = array(
-	'site-info'     => array( 'label' => __( 'Info' ),     'url' => 'site-info.php'     ),
-	'site-users'    => array( 'label' => __( 'Users' ),    'url' => 'site-users.php'    ),
-	'site-themes'   => array( 'label' => __( 'Themes' ),   'url' => 'site-themes.php'   ),
-	'site-settings' => array( 'label' => __( 'Settings' ), 'url' => 'site-settings.php' ),
-);
-foreach ( $tabs as $tab_id => $tab ) {
-	$class = ( $tab['url'] == $pagenow ) ? ' nav-tab-active' : '';
-	echo '<a href="' . $tab['url'] . '?id=' . $id .'" class="nav-tab' . $class . '">' . esc_html( $tab['label'] ) . '</a>';
-}
-?>
-</h2><?php
+
+network_edit_site_nav( array(
+	'blog_id'  => $id,
+	'selected' => 'site-themes'
+) );
 
 if ( isset( $_GET['enabled'] ) ) {
 	$enabled = absint( $_GET['enabled'] );

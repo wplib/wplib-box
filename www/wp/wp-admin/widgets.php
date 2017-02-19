@@ -15,13 +15,15 @@ require_once(ABSPATH . 'wp-admin/includes/widgets.php');
 if ( ! current_user_can( 'edit_theme_options' ) ) {
 	wp_die(
 		'<h1>' . __( 'Cheatin&#8217; uh?' ) . '</h1>' .
-		'<p>' . __( 'You are not allowed to edit theme options on this site.' ) . '</p>',
+		'<p>' . __( 'Sorry, you are not allowed to edit theme options on this site.' ) . '</p>',
 		403
 	);
 }
 
 $widgets_access = get_user_setting( 'widgets_access' );
 if ( isset($_GET['widgets-access']) ) {
+	check_admin_referer( 'widgets-access' );
+
 	$widgets_access = 'on' == $_GET['widgets-access'] ? 'on' : 'off';
 	set_user_setting( 'widgets_access', $widgets_access );
 }
@@ -71,8 +73,8 @@ get_current_screen()->add_help_tab( array(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="https://codex.wordpress.org/Appearance_Widgets_Screen" target="_blank">Documentation on Widgets</a>') . '</p>' .
-	'<p>' . __('<a href="https://wordpress.org/support/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="https://codex.wordpress.org/Appearance_Widgets_Screen">Documentation on Widgets</a>') . '</p>' .
+	'<p>' . __('<a href="https://wordpress.org/support/">Support Forums</a>') . '</p>'
 );
 
 if ( ! current_theme_supports( 'widgets' ) ) {
@@ -315,9 +317,9 @@ if ( isset($_GET['editwidget']) && $_GET['editwidget'] ) {
 	<a href="widgets.php" class="button alignleft"><?php _e('Cancel'); ?></a>
 <?php
 	} else {
-		submit_button( __( 'Delete' ), 'button alignleft', 'removewidget', false );
+		submit_button( __( 'Delete' ), 'alignleft', 'removewidget', false );
 	}
-	submit_button( __( 'Save Widget' ), 'button-primary alignright', 'savewidget', false ); ?>
+	submit_button( __( 'Save Widget' ), 'primary alignright', 'savewidget', false ); ?>
 	<input type="hidden" name="widget-id" class="widget-id" value="<?php echo esc_attr($widget_id); ?>" />
 	<input type="hidden" name="id_base" class="id_base" value="<?php echo esc_attr($id_base); ?>" />
 	<input type="hidden" name="multi_number" class="multi_number" value="<?php echo esc_attr($multi_number); ?>" />
@@ -357,7 +359,7 @@ require_once( ABSPATH . 'wp-admin/admin-header.php' ); ?>
 				),
 				admin_url( 'customize.php' )
 			) ),
-			__( 'Manage in Customizer' )
+			__( 'Manage with Live Preview' )
 		);
 	}
 ?>
@@ -500,8 +502,8 @@ foreach ( $theme_sidebars as $sidebar => $registered_sidebar ) {
 <div class="widgets-chooser">
 	<ul class="widgets-chooser-sidebars"></ul>
 	<div class="widgets-chooser-actions">
-		<button class="button-secondary"><?php _e( 'Cancel' ); ?></button>
-		<button class="button-primary"><?php _e( 'Add Widget' ); ?></button>
+		<button class="button widgets-chooser-cancel"><?php _e( 'Cancel' ); ?></button>
+		<button class="button button-primary widgets-chooser-add"><?php _e( 'Add Widget' ); ?></button>
 	</div>
 </div>
 

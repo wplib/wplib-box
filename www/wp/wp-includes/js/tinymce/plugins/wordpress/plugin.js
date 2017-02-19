@@ -90,7 +90,6 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
         window.wpActiveEditor = editor.id;
     });
 
-	// Replace Read More/Next Page tags with images
 	editor.on( 'BeforeSetContent', function( event ) {
 		var title;
 
@@ -116,11 +115,25 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 				event.content = wp.editor.autop( event.content );
 			}
 
+			if ( event.content.indexOf( '<script' ) !== -1 || event.content.indexOf( '<style' ) !== -1 ) {
+				event.content = event.content.replace( /<(script|style)[^>]*>[\s\S]*?<\/\1>/g, function( match, tag ) {
+					return '<img ' +
+						'src="' + tinymce.Env.transparentSrc + '" ' +
+						'data-wp-preserve="' + encodeURIComponent( match ) + '" ' +
+						'data-mce-resize="false" ' +
+						'data-mce-placeholder="1" '+
+						'class="mce-object" ' +
+						'width="20" height="20" '+
+						'alt="&lt;' + tag + '&gt;" ' +
+						'title="&lt;' + tag + '&gt;" ' +
+					'/>';
+				} );
+			}
+
 			// Remove spaces from empty paragraphs.
-			// Avoid backtracking, can freeze the editor. See #35890.
-			// (This is also quite faster than using only one regex.)
+			// Try to avoid a lot of backtracking, can freeze the editor. See #35890 and #38294.
 			event.content = event.content.replace( /<p>([^<>]+)<\/p>/gi, function( tag, text ) {
-				if ( /^(&nbsp;|\s|\u00a0|\ufeff)+$/i.test( text ) ) {
+				if ( text === '&nbsp;' || ! /\S/.test( text ) ) {
 					return '<p><br /></p>';
 				}
 
@@ -129,23 +142,28 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 		}
 	});
 
-	// Replace images with tags
-	editor.on( 'PostProcess', function( e ) {
-		if ( e.get ) {
-			e.content = e.content.replace(/<img[^>]+>/g, function( image ) {
-				var match, moretext = '';
+	editor.on( 'PostProcess', function( event ) {
+		if ( event.get ) {
+			event.content = event.content.replace(/<img[^>]+>/g, function( image ) {
+				var match,
+					string,
+					moretext = '';
 
 				if ( image.indexOf( 'data-wp-more="more"' ) !== -1 ) {
 					if ( match = image.match( /data-wp-more-text="([^"]+)"/ ) ) {
 						moretext = match[1];
 					}
 
-					image = '<!--more' + moretext + '-->';
+					string = '<!--more' + moretext + '-->';
 				} else if ( image.indexOf( 'data-wp-more="nextpage"' ) !== -1 ) {
-					image = '<!--nextpage-->';
+					string = '<!--nextpage-->';
+				} else if ( image.indexOf( 'data-wp-preserve' ) !== -1 ) {
+					if ( match = image.match( / data-wp-preserve="([^"]+)"/ ) ) {
+						string = decodeURIComponent( match[1] );
+					}
 				}
 
-				return image;
+				return string || image;
 			});
 		}
 	});
@@ -212,46 +230,73 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 			meta = tinymce.Env.mac ? __( 'Cmd + letter:' ) : __( 'Ctrl + letter:' ),
 			table1 = [],
 			table2 = [],
+			row1 = {},
+			row2 = {},
+			i1 = 0,
+			i2 = 0,
+			labels = editor.settings.wp_shortcut_labels,
 			header, html, dialog, $wrap;
 
-		each( [
-			{ c: 'Copy',      x: 'Cut'              },
-			{ v: 'Paste',     a: 'Select all'       },
-			{ z: 'Undo',      y: 'Redo'             },
-			{ b: 'Bold',      i: 'Italic'           },
-			{ u: 'Underline', k: 'Insert/edit link' }
-		], function( row ) {
-			table1.push( tr( row ) );
-		} );
+		if ( ! labels ) {
+			return;
+		}
 
-		each( [
-			{ 1: 'Heading 1',             2: 'Heading 2'                     },
-			{ 3: 'Heading 3',             4: 'Heading 4'                     },
-			{ 5: 'Heading 5',             6: 'Heading 6'                     },
-			{ l: 'Align left',            c: 'Align center'                  },
-			{ r: 'Align right',           j: 'Justify'                       },
-			{ d: 'Strikethrough',         q: 'Blockquote'                    },
-			{ u: 'Bullet list',           o: 'Numbered list'                 },
-			{ a: 'Insert/edit link',      s: 'Remove link'                   },
-			{ m: 'Insert/edit image',     t: 'Insert Read More tag'          },
-			{ h: 'Keyboard Shortcuts',    x: 'Code'                          },
-			{ p: 'Insert Page Break tag', w: 'Distraction-free writing mode' }
-		], function( row ) {
-			table2.push( tr( row ) );
-		} );
-
-		function tr( row ) {
+		function tr( row, columns ) {
 			var out = '<tr>';
+			var i = 0;
+
+			columns = columns || 1;
 
 			each( row, function( text, key ) {
-				if ( ! text ) {
-					out += '<td></td><td></td>';
-				} else {
-					out += '<td><kbd>' + key + '</kbd></td><td>' + __( text ) + '</td>';
-				}
+				out += '<td><kbd>' + key + '</kbd></td><td>' + __( text ) + '</td>';
+				i++;
 			});
 
+			while ( i < columns ) {
+				out += '<td></td><td></td>';
+				i++;
+			}
+
 			return out + '</tr>';
+		}
+
+		each ( labels, function( label, name ) {
+			var letter;
+
+			if ( label.indexOf( 'meta' ) !== -1 ) {
+				i1++;
+				letter = label.replace( 'meta', '' ).toLowerCase();
+
+				if ( letter ) {
+					row1[ letter ] = name;
+
+					if ( i1 % 2 === 0 ) {
+						table1.push( tr( row1, 2 ) );
+						row1 = {};
+					}
+				}
+			} else if ( label.indexOf( 'access' ) !== -1 ) {
+				i2++;
+				letter = label.replace( 'access', '' ).toLowerCase();
+
+				if ( letter ) {
+					row2[ letter ] = name;
+
+					if ( i2 % 2 === 0 ) {
+						table2.push( tr( row2, 2 ) );
+						row2 = {};
+					}
+				}
+			}
+		} );
+
+		// Add remaining single entries.
+		if ( i1 % 2 > 0 ) {
+			table1.push( tr( row1, 2 ) );
+		}
+
+		if ( i2 % 2 > 0 ) {
+			table2.push( tr( row2, 2 ) );
 		}
 
 		header = [ __( 'Letter' ), __( 'Action' ), __( 'Letter' ), __( 'Action' ) ];
@@ -502,6 +547,41 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 				});
 			});
 		}
+
+		if ( editor.settings.wp_shortcut_labels && editor.theme.panel ) {
+			var labels = {};
+			var access = 'Shift+Alt+';
+			var meta = 'Ctrl+';
+
+			// For Mac: ctrl = \u2303, cmd = \u2318, alt = \u2325
+
+			if ( tinymce.Env.mac ) {
+				access = '\u2303\u2325';
+				meta = '\u2318';
+			}
+
+			each( editor.settings.wp_shortcut_labels, function( value, name ) {
+				labels[ name ] = value.replace( 'access', access ).replace( 'meta', meta );
+			} );
+
+			each( editor.theme.panel.find('button'), function( button ) {
+				if ( button && button.settings.tooltip && labels.hasOwnProperty( button.settings.tooltip ) ) {
+					// Need to translate now. We are changing the string so it won't match and cannot be translated later.
+					button.settings.tooltip = editor.translate( button.settings.tooltip ) + ' (' + labels[ button.settings.tooltip ] + ')';
+				}
+			} );
+
+			// listbox for the "blocks" drop-down
+			each( editor.theme.panel.find('listbox'), function( listbox ) {
+				if ( listbox && listbox.settings.text === 'Paragraph' ) {
+					each( listbox.settings.values, function( item ) {
+						if ( item.text && labels.hasOwnProperty( item.text ) ) {
+							item.shortcut = '(' + labels[ item.text ] + ')';
+						}
+					} );
+				}
+			} );
+		}
 	});
 
 	editor.on( 'SaveContent', function( event ) {
@@ -540,7 +620,6 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 			q: 'mceBlockQuote',
 			u: 'InsertUnorderedList',
 			o: 'InsertOrderedList',
-			s: 'unlink',
 			m: 'WP_Medialib',
 			z: 'WP_Adv',
 			t: 'WP_More',
@@ -560,6 +639,11 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 
 		if ( window.getUserSetting( 'editor_plain_text_paste_warning' ) > 1 ) {
 			editor.settings.paste_plaintext_inform = false;
+		}
+
+		// Change the editor iframe title on MacOS, add the correct help shortcut.
+		if ( tinymce.Env.mac ) {
+			tinymce.$( editor.iframeElement ).attr( 'title', __( 'Rich Text Area. Press Control-Option-H for help.' ) );
 		}
 	} );
 
@@ -745,12 +829,11 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 					},
 					toolbar = this.getEl(),
 					toolbarWidth = toolbar.offsetWidth,
-					toolbarHeight = toolbar.offsetHeight,
+					toolbarHeight = toolbar.clientHeight,
 					selection = currentSelection.getBoundingClientRect(),
 					selectionMiddle = ( selection.left + selection.right ) / 2,
 					buffer = 5,
-					margin = 8,
-					spaceNeeded = toolbarHeight + margin + buffer,
+					spaceNeeded = toolbarHeight + buffer,
 					wpAdminbarBottom = wpAdminbar ? wpAdminbar.getBoundingClientRect().bottom : 0,
 					mceToolbarBottom = mceToolbar ? mceToolbar.getBoundingClientRect().bottom : 0,
 					mceStatusbarTop = mceStatusbar ? windowHeight - mceStatusbar.getBoundingClientRect().top : 0,
@@ -784,12 +867,12 @@ tinymce.PluginManager.add( 'wordpress', function( editor ) {
 						top = selection.bottom + iframeRect.top + scrollY - iosOffsetBottom;
 					} else if ( spaceTop >= spaceNeeded ) {
 						className = ' mce-arrow-down';
-						top = selection.top + iframeRect.top + scrollY - toolbarHeight - margin + iosOffsetTop;
+						top = selection.top + iframeRect.top + scrollY - toolbarHeight + iosOffsetTop;
 					}
 				} else {
 					if ( spaceTop >= spaceNeeded ) {
 						className = ' mce-arrow-down';
-						top = selection.top + iframeRect.top + scrollY - toolbarHeight - margin + iosOffsetTop;
+						top = selection.top + iframeRect.top + scrollY - toolbarHeight + iosOffsetTop;
 					} else if ( spaceBottom >= spaceNeeded && editorHeight / 2 > selection.bottom + iframeRect.top - blockedTop ) {
 						className = ' mce-arrow-up';
 						top = selection.bottom + iframeRect.top + scrollY - iosOffsetBottom;

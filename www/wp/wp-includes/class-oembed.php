@@ -38,7 +38,7 @@ class WP_oEmbed {
 	public static $early_providers = array();
 
 	/**
-	 * A list of private/protected methods, used for backwards compatibility.
+	 * A list of private/protected methods, used for backward compatibility.
 	 *
 	 * @since 4.2.0
 	 * @access private
@@ -55,49 +55,59 @@ class WP_oEmbed {
 	public function __construct() {
 		$host = urlencode( home_url() );
 		$providers = array(
-			'#http://((m|www)\.)?youtube\.com/watch.*#i'          => array( 'http://www.youtube.com/oembed',                             true  ),
-			'#https://((m|www)\.)?youtube\.com/watch.*#i'         => array( 'http://www.youtube.com/oembed?scheme=https',                true  ),
-			'#http://((m|www)\.)?youtube\.com/playlist.*#i'       => array( 'http://www.youtube.com/oembed',                             true  ),
-			'#https://((m|www)\.)?youtube\.com/playlist.*#i'      => array( 'http://www.youtube.com/oembed?scheme=https',                true  ),
-			'#http://youtu\.be/.*#i'                              => array( 'http://www.youtube.com/oembed',                             true  ),
-			'#https://youtu\.be/.*#i'                             => array( 'http://www.youtube.com/oembed?scheme=https',                true  ),
-			'#https?://(.+\.)?vimeo\.com/.*#i'                    => array( 'http://vimeo.com/api/oembed.{format}',                      true  ),
-			'#https?://(www\.)?dailymotion\.com/.*#i'             => array( 'https://www.dailymotion.com/services/oembed',               true  ),
-			'#https?://dai.ly/.*#i'                               => array( 'https://www.dailymotion.com/services/oembed',               true  ),
-			'#https?://(www\.)?flickr\.com/.*#i'                  => array( 'https://www.flickr.com/services/oembed/',                   true  ),
-			'#https?://flic\.kr/.*#i'                             => array( 'https://www.flickr.com/services/oembed/',                   true  ),
-			'#https?://(.+\.)?smugmug\.com/.*#i'                  => array( 'http://api.smugmug.com/services/oembed/',                   true  ),
-			'#https?://(www\.)?hulu\.com/watch/.*#i'              => array( 'http://www.hulu.com/api/oembed.{format}',                   true  ),
-			'http://i*.photobucket.com/albums/*'                  => array( 'http://api.photobucket.com/oembed',                         false ),
-			'http://gi*.photobucket.com/groups/*'                 => array( 'http://api.photobucket.com/oembed',                         false ),
-			'#https?://(www\.)?scribd\.com/doc/.*#i'              => array( 'http://www.scribd.com/services/oembed',                     true  ),
-			'#https?://wordpress.tv/.*#i'                         => array( 'http://wordpress.tv/oembed/',                               true  ),
-			'#https?://(.+\.)?polldaddy\.com/.*#i'                => array( 'https://polldaddy.com/oembed/',                             true  ),
-			'#https?://poll\.fm/.*#i'                             => array( 'https://polldaddy.com/oembed/',                             true  ),
-			'#https?://(www\.)?funnyordie\.com/videos/.*#i'       => array( 'http://www.funnyordie.com/oembed',                          true  ),
-			'#https?://(www\.)?twitter\.com/.+?/status(es)?/.*#i' => array( 'https://publish.twitter.com/oembed',                        true  ),
-			'#https?://(www\.)?twitter\.com/.+?/timelines/.*#i'   => array( 'https://publish.twitter.com/oembed',                        true  ),
-			'#https?://(www\.)?twitter\.com/i/moments/.*#i'       => array( 'https://publish.twitter.com/oembed',                        true  ),
-			'#https?://vine.co/v/.*#i'                            => array( 'https://vine.co/oembed.{format}',                           true  ),
-			'#https?://(www\.)?soundcloud\.com/.*#i'              => array( 'http://soundcloud.com/oembed',                              true  ),
-			'#https?://(.+?\.)?slideshare\.net/.*#i'              => array( 'https://www.slideshare.net/api/oembed/2',                   true  ),
-			'#https?://(www\.)?instagr(\.am|am\.com)/p/.*#i'      => array( 'https://api.instagram.com/oembed',                          true  ),
-			'#https?://(open|play)\.spotify\.com/.*#i'            => array( 'https://embed.spotify.com/oembed/',                         true  ),
-			'#https?://(.+\.)?imgur\.com/.*#i'                    => array( 'http://api.imgur.com/oembed',                               true  ),
-			'#https?://(www\.)?meetu(\.ps|p\.com)/.*#i'           => array( 'http://api.meetup.com/oembed',                              true  ),
-			'#https?://(www\.)?issuu\.com/.+/docs/.+#i'           => array( 'http://issuu.com/oembed_wp',                                true  ),
-			'#https?://(www\.)?collegehumor\.com/video/.*#i'      => array( 'http://www.collegehumor.com/oembed.{format}',               true  ),
-			'#https?://(www\.)?mixcloud\.com/.*#i'                => array( 'http://www.mixcloud.com/oembed',                            true  ),
-			'#https?://(www\.|embed\.)?ted\.com/talks/.*#i'       => array( 'http://www.ted.com/talks/oembed.{format}',                  true  ),
-			'#https?://(www\.)?(animoto|video214)\.com/play/.*#i' => array( 'https://animoto.com/oembeds/create',                        true  ),
-			'#https?://(.+)\.tumblr\.com/post/.*#i'               => array( 'https://www.tumblr.com/oembed/1.0',                         true  ),
-			'#https?://(www\.)?kickstarter\.com/projects/.*#i'    => array( 'https://www.kickstarter.com/services/oembed',               true  ),
-			'#https?://kck\.st/.*#i'                              => array( 'https://www.kickstarter.com/services/oembed',               true  ),
-			'#https?://cloudup\.com/.*#i'                         => array( 'https://cloudup.com/oembed',                                true  ),
-			'#https?://(www\.)?reverbnation\.com/.*#i'            => array( 'https://www.reverbnation.com/oembed',                       true  ),
-			'#https?://videopress.com/v/.*#'                      => array( 'https://public-api.wordpress.com/oembed/1.0/?for=' . $host, true  ),
-			'#https?://(www\.)?reddit\.com/r/[^/]+/comments/.*#i' => array( 'https://www.reddit.com/oembed',                             true  ),
-			'#https?://(www\.)?speakerdeck\.com/.*#i'             => array( 'https://speakerdeck.com/oembed.{format}',                   true  ),
+			'#https?://((m|www)\.)?youtube\.com/watch.*#i'             => array( 'https://www.youtube.com/oembed',                            true  ),
+			'#https?://((m|www)\.)?youtube\.com/playlist.*#i'          => array( 'https://www.youtube.com/oembed',                            true  ),
+			'#https?://youtu\.be/.*#i'                                 => array( 'https://www.youtube.com/oembed',                            true  ),
+			'#https?://(.+\.)?vimeo\.com/.*#i'                         => array( 'https://vimeo.com/api/oembed.{format}',                     true  ),
+			'#https?://(www\.)?dailymotion\.com/.*#i'                  => array( 'https://www.dailymotion.com/services/oembed',               true  ),
+			'#https?://dai\.ly/.*#i'                                   => array( 'https://www.dailymotion.com/services/oembed',               true  ),
+			'#https?://(www\.)?flickr\.com/.*#i'                       => array( 'https://www.flickr.com/services/oembed/',                   true  ),
+			'#https?://flic\.kr/.*#i'                                  => array( 'https://www.flickr.com/services/oembed/',                   true  ),
+			'#https?://(.+\.)?smugmug\.com/.*#i'                       => array( 'https://api.smugmug.com/services/oembed/',                  true  ),
+			'#https?://(www\.)?hulu\.com/watch/.*#i'                   => array( 'http://www.hulu.com/api/oembed.{format}',                   true  ),
+			'http://i*.photobucket.com/albums/*'                       => array( 'http://api.photobucket.com/oembed',                         false ),
+			'http://gi*.photobucket.com/groups/*'                      => array( 'http://api.photobucket.com/oembed',                         false ),
+			'#https?://(www\.)?scribd\.com/doc/.*#i'                   => array( 'https://www.scribd.com/services/oembed',                    true  ),
+			'#https?://wordpress\.tv/.*#i'                             => array( 'https://wordpress.tv/oembed/',                              true  ),
+			'#https?://(.+\.)?polldaddy\.com/.*#i'                     => array( 'https://polldaddy.com/oembed/',                             true  ),
+			'#https?://poll\.fm/.*#i'                                  => array( 'https://polldaddy.com/oembed/',                             true  ),
+			'#https?://(www\.)?funnyordie\.com/videos/.*#i'            => array( 'http://www.funnyordie.com/oembed',                          true  ),
+			'#https?://(www\.)?twitter\.com/\w{1,15}/status(es)?/.*#i' => array( 'https://publish.twitter.com/oembed',                        true  ),
+			'#https?://(www\.)?twitter\.com/\w{1,15}$#i'               => array( 'https://publish.twitter.com/oembed',                        true  ),
+			'#https?://(www\.)?twitter\.com/\w{1,15}/likes$#i'         => array( 'https://publish.twitter.com/oembed',                        true  ),
+			'#https?://(www\.)?twitter\.com/\w{1,15}/lists/.*#i'       => array( 'https://publish.twitter.com/oembed',                        true  ),
+			'#https?://(www\.)?twitter\.com/\w{1,15}/timelines/.*#i'   => array( 'https://publish.twitter.com/oembed',                        true  ),
+			'#https?://(www\.)?twitter\.com/i/moments/.*#i'            => array( 'https://publish.twitter.com/oembed',                        true  ),
+			'#https?://vine\.co/v/.*#i'                                => array( 'https://vine.co/oembed.{format}',                           true  ),
+			'#https?://(www\.)?soundcloud\.com/.*#i'                   => array( 'https://soundcloud.com/oembed',                             true  ),
+			'#https?://(.+?\.)?slideshare\.net/.*#i'                   => array( 'https://www.slideshare.net/api/oembed/2',                   true  ),
+			'#https?://(www\.)?instagr(\.am|am\.com)/p/.*#i'           => array( 'https://api.instagram.com/oembed',                          true  ),
+			'#https?://(open|play)\.spotify\.com/.*#i'                 => array( 'https://embed.spotify.com/oembed/',                         true  ),
+			'#https?://(.+\.)?imgur\.com/.*#i'                         => array( 'http://api.imgur.com/oembed',                               true  ),
+			'#https?://(www\.)?meetu(\.ps|p\.com)/.*#i'                => array( 'https://api.meetup.com/oembed',                             true  ),
+			'#https?://(www\.)?issuu\.com/.+/docs/.+#i'                => array( 'https://issuu.com/oembed_wp',                               true  ),
+			'#https?://(www\.)?collegehumor\.com/video/.*#i'           => array( 'http://www.collegehumor.com/oembed.{format}',               true  ),
+			'#https?://(www\.)?mixcloud\.com/.*#i'                     => array( 'https://www.mixcloud.com/oembed',                           true  ),
+			'#https?://(www\.|embed\.)?ted\.com/talks/.*#i'            => array( 'https://www.ted.com/services/v1/oembed.{format}',           true  ),
+			'#https?://(www\.)?(animoto|video214)\.com/play/.*#i'      => array( 'https://animoto.com/oembeds/create',                        true  ),
+			'#https?://(.+)\.tumblr\.com/post/.*#i'                    => array( 'https://www.tumblr.com/oembed/1.0',                         true  ),
+			'#https?://(www\.)?kickstarter\.com/projects/.*#i'         => array( 'https://www.kickstarter.com/services/oembed',               true  ),
+			'#https?://kck\.st/.*#i'                                   => array( 'https://www.kickstarter.com/services/oembed',               true  ),
+			'#https?://cloudup\.com/.*#i'                              => array( 'https://cloudup.com/oembed',                                true  ),
+			'#https?://(www\.)?reverbnation\.com/.*#i'                 => array( 'https://www.reverbnation.com/oembed',                       true  ),
+			'#https?://videopress\.com/v/.*#'                          => array( 'https://public-api.wordpress.com/oembed/1.0/?for=' . $host, true  ),
+			'#https?://(www\.)?reddit\.com/r/[^/]+/comments/.*#i'      => array( 'https://www.reddit.com/oembed',                             true  ),
+			'#https?://(www\.)?speakerdeck\.com/.*#i'                  => array( 'https://speakerdeck.com/oembed.{format}',                   true  ),
+			'#https?://www\.facebook\.com/.*/posts/.*#i'               => array( 'https://www.facebook.com/plugins/post/oembed.json/',        true  ),
+			'#https?://www\.facebook\.com/.*/activity/.*#i'            => array( 'https://www.facebook.com/plugins/post/oembed.json/',        true  ),
+			'#https?://www\.facebook\.com/.*/photos/.*#i'              => array( 'https://www.facebook.com/plugins/post/oembed.json/',        true  ),
+			'#https?://www\.facebook\.com/photo(s/|\.php).*#i'         => array( 'https://www.facebook.com/plugins/post/oembed.json/',        true  ),
+			'#https?://www\.facebook\.com/permalink\.php.*#i'          => array( 'https://www.facebook.com/plugins/post/oembed.json/',        true  ),
+			'#https?://www\.facebook\.com/media/.*#i'                  => array( 'https://www.facebook.com/plugins/post/oembed.json/',        true  ),
+			'#https?://www\.facebook\.com/questions/.*#i'              => array( 'https://www.facebook.com/plugins/post/oembed.json/',        true  ),
+			'#https?://www\.facebook\.com/notes/.*#i'                  => array( 'https://www.facebook.com/plugins/post/oembed.json/',        true  ),
+			'#https?://www\.facebook\.com/.*/videos/.*#i'              => array( 'https://www.facebook.com/plugins/video/oembed.json/',       true  ),
+			'#https?://www\.facebook\.com/video\.php.*#i'              => array( 'https://www.facebook.com/plugins/video/oembed.json/',       true  ),
 		);
 
 		if ( ! empty( self::$early_providers['add'] ) ) {
@@ -115,7 +125,7 @@ class WP_oEmbed {
 		self::$early_providers = array();
 
 		/**
-		 * Filter the list of whitelisted oEmbed providers.
+		 * Filters the list of whitelisted oEmbed providers.
 		 *
 		 * Since WordPress 4.4, oEmbed discovery is enabled for all users and allows embedding of sanitized
 		 * iframes. The providers in this list are whitelisted, meaning they are trusted and allowed to
@@ -160,13 +170,17 @@ class WP_oEmbed {
 		 * | Tumblr       | tumblr.com            |      Yes       | 4.2.0     |
 		 * | Kickstarter  | kickstarter.com       |      Yes       | 4.2.0     |
 		 * | Kickstarter  | kck.st                |      Yes       | 4.2.0     |
-		 * | Cloudup      | cloudup.com           |      Yes       | 4.4.0     |
+		 * | Cloudup      | cloudup.com           |      Yes       | 4.3.0     |
 		 * | ReverbNation | reverbnation.com      |      Yes       | 4.4.0     |
 		 * | VideoPress   | videopress.com        |      Yes       | 4.4.0     |
 		 * | Reddit       | reddit.com            |      Yes       | 4.4.0     |
 		 * | Speaker Deck | speakerdeck.com       |      Yes       | 4.4.0     |
 		 * | Twitter      | twitter.com/timelines |      Yes       | 4.5.0     |
 		 * | Twitter      | twitter.com/moments   |      Yes       | 4.5.0     |
+		 * | Facebook     | facebook.com          |      Yes       | 4.7.0     |
+		 * | Twitter      | twitter.com/user      |      Yes       | 4.7.0     |
+		 * | Twitter      | twitter.com/likes     |      Yes       | 4.7.0     |
+		 * | Twitter      | twitter.com/lists     |      Yes       | 4.7.0     |
 		 *
 		 * No longer supported providers:
 		 *
@@ -192,7 +206,7 @@ class WP_oEmbed {
 	}
 
 	/**
-	 * Exposes private/protected methods for backwards compatibility.
+	 * Exposes private/protected methods for backward compatibility.
 	 *
 	 * @since 4.0.0
 	 * @access public
@@ -221,6 +235,7 @@ class WP_oEmbed {
 	 * @return false|string False on failure, otherwise the oEmbed provider URL.
 	 */
 	public function get_provider( $url, $args = '' ) {
+		$args = wp_parse_args( $args );
 
 		$provider = false;
 
@@ -251,7 +266,7 @@ class WP_oEmbed {
 	/**
 	 * Adds an oEmbed provider.
 	 *
-	 * The provider is removed just-in-time when wp_oembed_add_provider() is called before
+	 * The provider is added just-in-time when wp_oembed_add_provider() is called before
 	 * the {@see 'plugins_loaded'} hook.
 	 *
 	 * The just-in-time addition is for the benefit of the {@see 'oembed_providers'} filter.
@@ -315,6 +330,8 @@ class WP_oEmbed {
 	 * @return false|string False on failure, otherwise the UNSANITIZED (and potentially unsafe) HTML that should be used to embed.
 	 */
 	public function get_html( $url, $args = '' ) {
+		$args = wp_parse_args( $args );
+
 		/**
 		 * Filters the oEmbed result before any HTTP requests are made.
 		 *
@@ -343,7 +360,7 @@ class WP_oEmbed {
 		}
 
 		/**
-		 * Filter the HTML returned by the oEmbed provider.
+		 * Filters the HTML returned by the oEmbed provider.
 		 *
 		 * @since 2.9.0
 		 *
@@ -370,7 +387,7 @@ class WP_oEmbed {
 		);
 
 		/**
-		 * Filter oEmbed remote get arguments.
+		 * Filters oEmbed remote get arguments.
 		 *
 		 * @since 4.0.0
 		 *
@@ -386,7 +403,7 @@ class WP_oEmbed {
 		if ( $html = wp_remote_retrieve_body( $request ) ) {
 
 			/**
-			 * Filter the link types that contain oEmbed provider URLs.
+			 * Filters the link types that contain oEmbed provider URLs.
 			 *
 			 * @since 2.9.0
 			 *
@@ -457,7 +474,7 @@ class WP_oEmbed {
 		$provider = add_query_arg( 'url', urlencode($url), $provider );
 
 		/**
-		 * Filter the oEmbed URL to be fetched.
+		 * Filters the oEmbed URL to be fetched.
 		 *
 		 * @since 2.9.0
 		 *
@@ -546,7 +563,7 @@ class WP_oEmbed {
 	 * @access private
 	 *
 	 * @param string $response_body
-	 * @return object|false
+	 * @return stdClass|false
 	 */
 	private function _parse_xml_body( $response_body ) {
 		if ( ! function_exists( 'simplexml_import_dom' ) || ! class_exists( 'DOMDocument', false ) )
@@ -620,7 +637,7 @@ class WP_oEmbed {
 		}
 
 		/**
-		 * Filter the returned oEmbed HTML.
+		 * Filters the returned oEmbed HTML.
 		 *
 		 * Use this filter to add support for custom data types, or to filter the result.
 		 *
@@ -673,23 +690,4 @@ class WP_oEmbed {
 
 		return str_replace( $tokens, $pre, $stripped );
 	}
-}
-
-/**
- * Returns the initialized WP_oEmbed object.
- *
- * @since 2.9.0
- * @access private
- *
- * @staticvar WP_oEmbed $wp_oembed
- *
- * @return WP_oEmbed object.
- */
-function _wp_oembed_get_object() {
-	static $wp_oembed = null;
-
-	if ( is_null( $wp_oembed ) ) {
-		$wp_oembed = new WP_oEmbed();
-	}
-	return $wp_oembed;
 }

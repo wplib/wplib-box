@@ -357,7 +357,6 @@ wp.customize.widgetsPreview = wp.customize.WidgetCustomizerPreview = (function( 
 				widgetPartial = new self.WidgetPartial( partialId, {
 					params: {}
 				} );
-				api.selectiveRefresh.partial.add( widgetPartial.id, widgetPartial );
 			}
 
 			// Make sure that there is a container element for the widget in the sidebar, if at least a placeholder.
@@ -372,9 +371,14 @@ wp.customize.widgetsPreview = wp.customize.WidgetCustomizerPreview = (function( 
 				}
 
 				widgetContainerElement = $(
-					sidebarPartial.params.sidebarArgs.before_widget.replace( '%1$s', widgetId ).replace( '%2$s', 'widget' ) +
+					sidebarPartial.params.sidebarArgs.before_widget.replace( /%1\$s/g, widgetId ).replace( /%2\$s/g, 'widget' ) +
 					sidebarPartial.params.sidebarArgs.after_widget
 				);
+
+				// Handle rare case where before_widget and after_widget are empty.
+				if ( ! widgetContainerElement[0] ) {
+					return;
+				}
 
 				widgetContainerElement.attr( 'data-customize-partial-id', widgetPartial.id );
 				widgetContainerElement.attr( 'data-customize-partial-type', 'widget' );
@@ -394,6 +398,8 @@ wp.customize.widgetsPreview = wp.customize.WidgetCustomizerPreview = (function( 
 				sidebarPlacement.endNode.parentNode.insertBefore( widgetContainerElement[0], sidebarPlacement.endNode );
 				wasInserted = true;
 			} );
+
+			api.selectiveRefresh.partial.add( widgetPartial.id, widgetPartial );
 
 			if ( wasInserted ) {
 				sidebarPartial.reflowWidgets();
@@ -511,7 +517,7 @@ wp.customize.widgetsPreview = wp.customize.WidgetCustomizerPreview = (function( 
 
 		$.each( self.registeredSidebars, function( i, sidebar ) {
 			var widgetTpl = [
-					sidebar.before_widget.replace( '%1$s', '' ).replace( '%2$s', '' ),
+					sidebar.before_widget,
 					sidebar.before_title,
 					sidebar.after_title,
 					sidebar.after_widget
@@ -521,16 +527,17 @@ wp.customize.widgetsPreview = wp.customize.WidgetCustomizerPreview = (function( 
 				widgetClasses;
 
 			emptyWidget = $( widgetTpl );
-			widgetSelector = emptyWidget.prop( 'tagName' );
-			widgetClasses = emptyWidget.prop( 'className' );
+			widgetSelector = emptyWidget.prop( 'tagName' ) || '';
+			widgetClasses = emptyWidget.prop( 'className' ) || '';
 
 			// Prevent a rare case when before_widget, before_title, after_title and after_widget is empty.
 			if ( ! widgetClasses ) {
 				return;
 			}
 
+			// Remove class names that incorporate the string formatting placeholders %1$s and %2$s.
+			widgetClasses = widgetClasses.replace( /\S*%[12]\$s\S*/g, '' );
 			widgetClasses = widgetClasses.replace( /^\s+|\s+$/g, '' );
-
 			if ( widgetClasses ) {
 				widgetSelector += '.' + widgetClasses.split( /\s+/ ).join( '.' );
 			}
@@ -565,6 +572,11 @@ wp.customize.widgetsPreview = wp.customize.WidgetCustomizerPreview = (function( 
 	self.highlightControls = function() {
 		var self = this,
 			selector = this.widgetSelectors.join( ',' );
+
+		// Skip adding highlights if not in the customizer preview iframe.
+		if ( ! api.settings.channel ) {
+			return;
+		}
 
 		$( selector ).attr( 'title', this.l10n.widgetTooltip );
 

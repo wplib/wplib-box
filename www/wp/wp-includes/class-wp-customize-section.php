@@ -139,11 +139,23 @@ class WP_Customize_Section {
 	 * @see WP_Customize_Section::active()
 	 *
 	 * @var callable Callback is called with one argument, the instance of
-	 *               {@see WP_Customize_Section}, and returns bool to indicate
-	 *               whether the section is active (such as it relates to the URL
-	 *               currently being previewed).
+	 *               WP_Customize_Section, and returns bool to indicate whether
+	 *               the section is active (such as it relates to the URL currently
+	 *               being previewed).
 	 */
 	public $active_callback = '';
+
+	/**
+	 * Show the description or hide it behind the help icon.
+	 *
+	 * @since 4.7.0
+	 * @access public
+	 *
+	 * @var bool Indicates whether the Section's description should be
+	 *           hidden behind a help icon ("?") in the Section header,
+	 *           similar to how help icons are displayed on Panels.
+	 */
+	public $description_hidden = false;
 
 	/**
 	 * Constructor.
@@ -188,12 +200,12 @@ class WP_Customize_Section {
 		$active = call_user_func( $this->active_callback, $this );
 
 		/**
-		 * Filter response of {@see WP_Customize_Section::active()}.
+		 * Filters response of WP_Customize_Section::active().
 		 *
 		 * @since 4.1.0
 		 *
 		 * @param bool                 $active  Whether the Customizer section is active.
-		 * @param WP_Customize_Section $section {@see WP_Customize_Section} instance.
+		 * @param WP_Customize_Section $section WP_Customize_Section instance.
 		 */
 		$active = apply_filters( 'customize_section_active', $active, $section );
 
@@ -201,7 +213,7 @@ class WP_Customize_Section {
 	}
 
 	/**
-	 * Default callback used when invoking {@see WP_Customize_Section::active()}.
+	 * Default callback used when invoking WP_Customize_Section::active().
 	 *
 	 * Subclasses can override this with their specific logic, or they may provide
 	 * an 'active_callback' argument to the constructor.
@@ -223,7 +235,7 @@ class WP_Customize_Section {
 	 * @return array The array to be exported to the client as JSON.
 	 */
 	public function json() {
-		$array = wp_array_slice_assoc( (array) $this, array( 'id', 'description', 'priority', 'panel', 'type' ) );
+		$array = wp_array_slice_assoc( (array) $this, array( 'id', 'description', 'priority', 'panel', 'type', 'description_hidden' ) );
 		$array['title'] = html_entity_decode( $this->title, ENT_QUOTES, get_bloginfo( 'charset' ) );
 		$array['content'] = $this->get_content();
 		$array['active'] = $this->active();
@@ -306,7 +318,7 @@ class WP_Customize_Section {
 	/**
 	 * Render the section UI in a subclass.
 	 *
-	 * Sections are now rendered in JS by default, see {@see WP_Customize_Section::print_template()}.
+	 * Sections are now rendered in JS by default, see WP_Customize_Section::print_template().
 	 *
 	 * @since 3.4.0
 	 */
@@ -324,11 +336,11 @@ class WP_Customize_Section {
 	 * @see WP_Customize_Manager::render_template()
 	 */
 	public function print_template() {
-        ?>
+		?>
 		<script type="text/html" id="tmpl-customize-section-<?php echo $this->type; ?>">
 			<?php $this->render_template(); ?>
 		</script>
-        <?php
+		<?php
 	}
 
 	/**
@@ -350,7 +362,7 @@ class WP_Customize_Section {
 				<span class="screen-reader-text"><?php _e( 'Press return or enter to open this section' ); ?></span>
 			</h3>
 			<ul class="accordion-section-content">
-				<li class="customize-section-description-container">
+				<li class="customize-section-description-container section-meta <# if ( data.description_hidden ) { #>customize-info<# } #>">
 					<div class="customize-section-title">
 						<button class="customize-section-back" tabindex="-1">
 							<span class="screen-reader-text"><?php _e( 'Back' ); ?></span>
@@ -361,8 +373,15 @@ class WP_Customize_Section {
 							</span>
 							{{ data.title }}
 						</h3>
+						<# if ( data.description && data.description_hidden ) { #>
+							<button type="button" class="customize-help-toggle dashicons dashicons-editor-help" aria-expanded="false"><span class="screen-reader-text"><?php _e( 'Help' ); ?></span></button>
+							<div class="description customize-section-description">
+								{{{ data.description }}}
+							</div>
+						<# } #>
 					</div>
-					<# if ( data.description ) { #>
+
+					<# if ( data.description && ! data.description_hidden ) { #>
 						<div class="description customize-section-description">
 							{{{ data.description }}}
 						</div>

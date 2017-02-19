@@ -15,7 +15,7 @@ if ( is_multisite() && ! is_network_admin() ) {
 }
 
 if ( !current_user_can('edit_themes') )
-	wp_die('<p>'.__('You do not have sufficient permissions to edit templates for this site.').'</p>');
+	wp_die('<p>'.__('Sorry, you are not allowed to edit templates for this site.').'</p>');
 
 $title = __("Edit Themes");
 $parent_file = 'themes.php';
@@ -25,22 +25,22 @@ get_current_screen()->add_help_tab( array(
 'title'		=> __('Overview'),
 'content'	=>
 	'<p>' . __('You can use the Theme Editor to edit the individual CSS and PHP files which make up your theme.') . '</p>
-	<p>' . __("Begin by choosing a theme to edit from the dropdown menu and clicking Select. A list then appears of the theme's template files. Clicking once on any file name causes the file to appear in the large Editor box.") . '</p>
+	<p>' . __( 'Begin by choosing a theme to edit from the dropdown menu and clicking the Select button. A list then appears of the theme&#8217;s template files. Clicking once on any file name causes the file to appear in the large Editor box.' ) . '</p>
 	<p>' . __('For PHP files, you can use the Documentation dropdown to select from functions recognized in that file. Look Up takes you to a web page with reference material about that particular function.') . '</p>
 	<p id="newcontent-description">' . __( 'In the editing area the Tab key enters a tab character. To move below this area by pressing Tab, press the Esc key followed by the Tab key. In some cases the Esc key will need to be pressed twice before the Tab key will allow you to continue.' ) . '</p>
 	<p>' . __('After typing in your edits, click Update File.') . '</p>
 	<p>' . __('<strong>Advice:</strong> think very carefully about your site crashing if you are live-editing the theme currently in use.') . '</p>
-	<p>' . sprintf( __('Upgrading to a newer version of the same theme will override changes made here. To avoid this, consider creating a <a href="%s" target="_blank">child theme</a> instead.'), __('https://codex.wordpress.org/Child_Themes') ) . '</p>' .
+	<p>' . sprintf( __('Upgrading to a newer version of the same theme will override changes made here. To avoid this, consider creating a <a href="%s">child theme</a> instead.'), __('https://codex.wordpress.org/Child_Themes') ) . '</p>' .
 	( is_network_admin() ? '<p>' . __('Any edits to files from this screen will be reflected on all sites in the network.') . '</p>' : '' )
 ) );
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="https://codex.wordpress.org/Theme_Development" target="_blank">Documentation on Theme Development</a>') . '</p>' .
-	'<p>' . __('<a href="https://codex.wordpress.org/Using_Themes" target="_blank">Documentation on Using Themes</a>') . '</p>' .
-	'<p>' . __('<a href="https://codex.wordpress.org/Editing_Files" target="_blank">Documentation on Editing Files</a>') . '</p>' .
-	'<p>' . __('<a href="https://codex.wordpress.org/Template_Tags" target="_blank">Documentation on Template Tags</a>') . '</p>' .
-	'<p>' . __('<a href="https://wordpress.org/support/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="https://codex.wordpress.org/Theme_Development">Documentation on Theme Development</a>') . '</p>' .
+	'<p>' . __('<a href="https://codex.wordpress.org/Using_Themes">Documentation on Using Themes</a>') . '</p>' .
+	'<p>' . __('<a href="https://codex.wordpress.org/Editing_Files">Documentation on Editing Files</a>') . '</p>' .
+	'<p>' . __('<a href="https://codex.wordpress.org/Template_Tags">Documentation on Template Tags</a>') . '</p>' .
+	'<p>' . __('<a href="https://wordpress.org/support/">Support Forums</a>') . '</p>'
 );
 
 wp_reset_vars( array( 'action', 'error', 'file', 'theme' ) );
@@ -66,7 +66,7 @@ $has_templates = false;
 $default_types = array( 'php', 'css' );
 
 /**
- * Filter the list of file types allowed for editing in the Theme editor.
+ * Filters the list of file types allowed for editing in the Theme editor.
  *
  * @since 4.4.0
  *
@@ -112,7 +112,7 @@ case 'update':
 	$newcontent = wp_unslash( $_POST['newcontent'] );
 	$location = 'theme-editor.php?file=' . urlencode( $relative_file ) . '&theme=' . urlencode( $stylesheet ) . '&scrollto=' . $scrollto;
 	if ( is_writeable( $file ) ) {
-		// is_writable() not always reliable, check return value. see comments @ http://uk.php.net/is_writable
+		// is_writable() not always reliable, check return value. see comments @ https://secure.php.net/is_writable
 		$f = fopen( $file, 'w+' );
 		if ( $f !== false ) {
 			fwrite( $f, $newcontent );
@@ -182,7 +182,7 @@ foreach ( wp_get_themes( array( 'errors' => null ) ) as $a_stylesheet => $a_them
 }
 ?>
 		</select>
-		<?php submit_button( __( 'Select' ), 'button', 'Submit', false ); ?>
+		<?php submit_button( __( 'Select' ), '', 'Submit', false ); ?>
 	</form>
 </div>
 <br class="clear" />
@@ -229,7 +229,7 @@ if ( $allowed_files ) :
 
 			echo "\t<ul>\n";
 		}
-		
+
 		$file_description = get_file_description( $filename );
 		if ( $filename !== basename( $absolute_filename ) || $file_description !== $filename ) {
 			$file_description .= '<br /><span class="nonessential">(' . $filename . ')</span>';
@@ -263,7 +263,7 @@ else : ?>
 		<div id="documentation" class="hide-if-no-js">
 		<label for="docs-list"><?php _e('Documentation:') ?></label>
 		<?php echo $docs_select; ?>
-		<input type="button" class="button" value=" <?php esc_attr_e( 'Look Up' ); ?> " onclick="if ( '' != jQuery('#docs-list').val() ) { window.open( 'https://api.wordpress.org/core/handbook/1.0/?function=' + escape( jQuery( '#docs-list' ).val() ) + '&amp;locale=<?php echo urlencode( get_locale() ) ?>&amp;version=<?php echo urlencode( $wp_version ) ?>&amp;redirect=true'); }" />
+		<input type="button" class="button" value="<?php esc_attr_e( 'Look Up' ); ?>" onclick="if ( '' != jQuery('#docs-list').val() ) { window.open( 'https://api.wordpress.org/core/handbook/1.0/?function=' + escape( jQuery( '#docs-list' ).val() ) + '&amp;locale=<?php echo urlencode( get_user_locale() ) ?>&amp;version=<?php echo urlencode( get_bloginfo( 'version' ) ) ?>&amp;redirect=true'); }" />
 		</div>
 	<?php endif; ?>
 

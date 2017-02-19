@@ -2,7 +2,7 @@
 /**
  * Object Cache API
  *
- * @link https://codex.wordpress.org/Function_Reference/WP_Cache
+ * @link https://codex.wordpress.org/Class_Reference/WP_Object_Cache
  *
  * @package WordPress
  * @subpackage Cache
@@ -200,7 +200,7 @@ function wp_cache_set( $key, $data, $group = '', $expire = 0 ) {
 }
 
 /**
- * Switches the interal blog ID.
+ * Switches the internal blog ID.
  *
  * This changes the blog id used to create keys in blog specific groups.
  *
@@ -254,7 +254,7 @@ function wp_cache_add_non_persistent_groups( $groups ) {
  * This function is deprecated. Use wp_cache_switch_to_blog() instead of this
  * function when preparing the cache for a blog switch. For clearing the cache
  * during unit tests, consider using wp_cache_init(). wp_cache_init() is not
- * recommended outside of unit tests as the performance penality for using it is
+ * recommended outside of unit tests as the performance penalty for using it is
  * high.
  *
  * @since 2.6.0
@@ -264,7 +264,7 @@ function wp_cache_add_non_persistent_groups( $groups ) {
  * @global WP_Object_Cache $wp_object_cache Object cache global instance.
  */
 function wp_cache_reset() {
-	_deprecated_function( __FUNCTION__, '3.5' );
+	_deprecated_function( __FUNCTION__, '3.5.0' );
 
 	global $wp_object_cache;
 
@@ -302,10 +302,10 @@ class WP_Object_Cache {
 	 * The amount of times the cache data was already stored in the cache.
 	 *
 	 * @since 2.5.0
-	 * @access private
+	 * @access public
 	 * @var int
 	 */
-	private $cache_hits = 0;
+	public $cache_hits = 0;
 
 	/**
 	 * Amount of times the cache did not have the request in cache.
@@ -344,7 +344,7 @@ class WP_Object_Cache {
 	private $multisite;
 
 	/**
-	 * Makes private properties readable for backwards compatibility.
+	 * Makes private properties readable for backward compatibility.
 	 *
 	 * @since 4.0.0
 	 * @access public
@@ -357,7 +357,7 @@ class WP_Object_Cache {
 	}
 
 	/**
-	 * Makes private properties settable for backwards compatibility.
+	 * Makes private properties settable for backward compatibility.
 	 *
 	 * @since 4.0.0
 	 * @access public
@@ -371,7 +371,7 @@ class WP_Object_Cache {
 	}
 
 	/**
-	 * Makes private properties checkable for backwards compatibility.
+	 * Makes private properties checkable for backward compatibility.
 	 *
 	 * @since 4.0.0
 	 * @access public
@@ -384,7 +384,7 @@ class WP_Object_Cache {
 	}
 
 	/**
-	 * Makes private properties un-settable for backwards compatibility.
+	 * Makes private properties un-settable for backward compatibility.
 	 *
 	 * @since 4.0.0
 	 * @access public
@@ -631,7 +631,7 @@ class WP_Object_Cache {
 	 * @see switch_to_blog()
 	 */
 	public function reset() {
-		_deprecated_function( __FUNCTION__, '3.5', 'switch_to_blog()' );
+		_deprecated_function( __FUNCTION__, '3.5.0', 'switch_to_blog()' );
 
 		// Clear out non-global caches since the blog ID has changed.
 		foreach ( array_keys( $this->cache ) as $group ) {
@@ -697,7 +697,7 @@ class WP_Object_Cache {
 	}
 
 	/**
-	 * Switches the interal blog ID.
+	 * Switches the internal blog ID.
 	 *
 	 * This changes the blog ID used to create keys in blog specific groups.
 	 *
@@ -729,14 +729,10 @@ class WP_Object_Cache {
 	 * Sets up object properties; PHP 5 style constructor.
 	 *
 	 * @since 2.0.8
-	 *
-     * @global int $blog_id Global blog ID.
 	 */
 	public function __construct() {
-		global $blog_id;
-
 		$this->multisite = is_multisite();
-		$this->blog_prefix =  $this->multisite ? $blog_id . ':' : '';
+		$this->blog_prefix =  $this->multisite ? get_current_blog_id() . ':' : '';
 
 
 		/**

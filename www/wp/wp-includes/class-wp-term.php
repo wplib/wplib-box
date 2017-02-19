@@ -176,7 +176,7 @@ final class WP_Term {
 
 			// Don't return terms from invalid taxonomies.
 			if ( ! taxonomy_exists( $_term->taxonomy ) ) {
-				return new WP_Error( 'invalid_taxonomy', __( 'Invalid taxonomy' ) );
+				return new WP_Error( 'invalid_taxonomy', __( 'Invalid taxonomy.' ) );
 			}
 
 			$_term = sanitize_term( $_term, $_term->taxonomy, 'raw' );
@@ -250,7 +250,6 @@ final class WP_Term {
 				}
 
 				return sanitize_term( $data, $data->taxonomy, 'raw' );
-				break;
 		}
 	}
 }

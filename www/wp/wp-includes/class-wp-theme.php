@@ -48,15 +48,16 @@ final class WP_Theme implements ArrayAccess {
 	 * @var array
 	 */
 	private static $default_themes = array(
-		'classic'        => 'WordPress Classic',
-		'default'        => 'WordPress Default',
-		'twentyten'      => 'Twenty Ten',
-		'twentyeleven'   => 'Twenty Eleven',
-		'twentytwelve'   => 'Twenty Twelve',
-		'twentythirteen' => 'Twenty Thirteen',
-		'twentyfourteen' => 'Twenty Fourteen',
-		'twentyfifteen'  => 'Twenty Fifteen',
-		'twentysixteen'  => 'Twenty Sixteen',
+		'classic'         => 'WordPress Classic',
+		'default'         => 'WordPress Default',
+		'twentyten'       => 'Twenty Ten',
+		'twentyeleven'    => 'Twenty Eleven',
+		'twentytwelve'    => 'Twenty Twelve',
+		'twentythirteen'  => 'Twenty Thirteen',
+		'twentyfourteen'  => 'Twenty Fourteen',
+		'twentyfifteen'   => 'Twenty Fifteen',
+		'twentysixteen'   => 'Twenty Sixteen',
+		'twentyseventeen' => 'Twenty Seventeen',
 	);
 
 	/**
@@ -170,7 +171,7 @@ final class WP_Theme implements ArrayAccess {
 	/**
 	 * Flag for whether the themes cache bucket should be persistently cached.
 	 *
-	 * Default is false. Can be set with the wp_cache_themes_persistently filter.
+	 * Default is false. Can be set with the {@see 'wp_cache_themes_persistently'} filter.
 	 *
 	 * @static
 	 * @access private
@@ -437,7 +438,7 @@ final class WP_Theme implements ArrayAccess {
 	 * translated data. We are doing so now as it is safe to do. However, as
 	 * Name and Title could have been used as the key for get_themes(), both remain
 	 * untranslated for back compatibility. This means that ['Name'] is not ideal,
-	 * and care should be taken to use $theme->display('Name') to get a properly
+	 * and care should be taken to use `$theme::display( 'Name' )` to get a properly
 	 * translated header.
 	 *
 	 * @param mixed $offset
@@ -447,8 +448,10 @@ final class WP_Theme implements ArrayAccess {
 		switch ( $offset ) {
 			case 'Name' :
 			case 'Title' :
-				// See note above about using translated data. get() is not ideal.
-				// It is only for backwards compatibility. Use display().
+				/*
+				 * See note above about using translated data. get() is not ideal.
+				 * It is only for backward compatibility. Use display().
+				 */
 				return $this->get('Name');
 			case 'Author' :
 				return $this->display( 'Author');
@@ -535,7 +538,7 @@ final class WP_Theme implements ArrayAccess {
 	 * @since 3.4.0
 	 * @access private
 	 *
-	 * @param string $key Type of data to store (theme, screenshot, headers, page_templates)
+	 * @param string $key Type of data to store (theme, screenshot, headers, post_templates)
 	 * @param string $data Data to store
 	 * @return bool Return value from wp_cache_add()
 	 */
@@ -551,7 +554,7 @@ final class WP_Theme implements ArrayAccess {
 	 * @since 3.4.0
 	 * @access private
 	 *
-	 * @param string $key Type of data to retrieve (theme, screenshot, headers, page_templates)
+	 * @param string $key Type of data to retrieve (theme, screenshot, headers, post_templates)
 	 * @return mixed Retrieved data
 	 */
 	private function cache_get( $key ) {
@@ -565,7 +568,7 @@ final class WP_Theme implements ArrayAccess {
 	 * @access public
 	 */
 	public function cache_delete() {
-		foreach ( array( 'theme', 'screenshot', 'headers', 'page_templates' ) as $key )
+		foreach ( array( 'theme', 'screenshot', 'headers', 'post_templates' ) as $key )
 			wp_cache_delete( $key . '-' . $this->cache_hash, 'themes' );
 		$this->template = $this->textdomain_loaded = $this->theme_root_uri = $this->parent = $this->errors = $this->headers_sanitized = $this->name_translated = null;
 		$this->headers = array();
@@ -718,8 +721,9 @@ final class WP_Theme implements ArrayAccess {
 	private function markup_header( $header, $value, $translate ) {
 		switch ( $header ) {
 			case 'Name' :
-				if ( empty( $value ) )
-					$value = $this->get_stylesheet();
+				if ( empty( $value ) ) {
+					$value = esc_html( $this->get_stylesheet() );
+				}
 				break;
 			case 'Description' :
 				$value = wptexturize( $value );
@@ -769,15 +773,28 @@ final class WP_Theme implements ArrayAccess {
 				$this->name_translated = translate( $value, $this->get('TextDomain' ) );
 				return $this->name_translated;
 			case 'Tags' :
-				if ( empty( $value ) || ! function_exists( 'get_theme_feature_list' ) )
+				if ( empty( $value ) || ! function_exists( 'get_theme_feature_list' ) ) {
 					return $value;
+				}
 
 				static $tags_list;
 				if ( ! isset( $tags_list ) ) {
-					$tags_list = array();
+					$tags_list = array(
+						// As of 4.6, deprecated tags which are only used to provide translation for older themes.
+						'black' => __( 'Black' ), 'blue' => __( 'Blue' ), 'brown'  => __( 'Brown' ),
+						'gray' => __( 'Gray' ), 'green'  => __( 'Green' ), 'orange' => __( 'Orange' ),
+						'pink' => __( 'Pink' ), 'purple' => __( 'Purple' ), 'red' => __( 'Red' ),
+						'silver' => __( 'Silver' ), 'tan' => __( 'Tan' ), 'white' => __( 'White' ),
+						'yellow' => __( 'Yellow' ), 'dark' => __( 'Dark' ), 'light' => __( 'Light' ),
+						'fixed-layout' => __( 'Fixed Layout' ), 'fluid-layout' => __( 'Fluid Layout' ),
+						'responsive-layout' => __( 'Responsive Layout' ), 'blavatar' => __( 'Blavatar' ),
+						'photoblogging' => __( 'Photoblogging' ), 'seasonal' => __( 'Seasonal' ),
+					);
+
 					$feature_list = get_theme_feature_list( false ); // No API
-					foreach ( $feature_list as $tags )
+					foreach ( $feature_list as $tags ) {
 						$tags_list += $tags;
+					}
 				}
 
 				foreach ( $value as &$tag ) {
@@ -918,7 +935,7 @@ final class WP_Theme implements ArrayAccess {
 	 *
 	 * This is typically the absolute URL to wp-content/themes. This forms the basis
 	 * for all other URLs returned by WP_Theme, so we pass it to the public function
-	 * get_theme_root_uri() and allow it to run the theme_root_uri filter.
+	 * get_theme_root_uri() and allow it to run the {@see 'theme_root_uri'} filter.
 	 *
 	 * @since 3.4.0
 	 * @access public
@@ -990,56 +1007,101 @@ final class WP_Theme implements ArrayAccess {
 	}
 
 	/**
-	 * Returns the theme's page templates.
+	 * Returns the theme's post templates.
 	 *
-	 * @since 3.4.0
+	 * @since 4.7.0
 	 * @access public
 	 *
-	 * @param WP_Post|null $post Optional. The post being edited, provided for context.
-	 * @return array Array of page templates, keyed by filename, with the value of the translated header name.
+	 * @return array Array of page templates, keyed by filename and post type,
+	 *               with the value of the translated header name.
 	 */
-	public function get_page_templates( $post = null ) {
+	public function get_post_templates() {
 		// If you screw up your current theme and we invalidate your parent, most things still work. Let it slide.
-		if ( $this->errors() && $this->errors()->get_error_codes() !== array( 'theme_parent_invalid' ) )
+		if ( $this->errors() && $this->errors()->get_error_codes() !== array( 'theme_parent_invalid' ) ) {
 			return array();
+		}
 
-		$page_templates = $this->cache_get( 'page_templates' );
+		$post_templates = $this->cache_get( 'post_templates' );
 
-		if ( ! is_array( $page_templates ) ) {
-			$page_templates = array();
+		if ( ! is_array( $post_templates ) ) {
+			$post_templates = array();
 
 			$files = (array) $this->get_files( 'php', 1 );
 
 			foreach ( $files as $file => $full_path ) {
-				if ( ! preg_match( '|Template Name:(.*)$|mi', file_get_contents( $full_path ), $header ) )
+				if ( ! preg_match( '|Template Name:(.*)$|mi', file_get_contents( $full_path ), $header ) ) {
 					continue;
-				$page_templates[ $file ] = _cleanup_header_comment( $header[1] );
+				}
+
+				$types = array( 'page' );
+				if ( preg_match( '|Template Post Type:(.*)$|mi', file_get_contents( $full_path ), $type ) ) {
+					$types = explode( ',', _cleanup_header_comment( $type[1] ) );
+				}
+
+				foreach ( $types as $type ) {
+					$type = sanitize_key( $type );
+					if ( ! isset( $post_templates[ $type ] ) ) {
+						$post_templates[ $type ] = array();
+					}
+
+					$post_templates[ $type ][ $file ] = _cleanup_header_comment( $header[1] );
+				}
 			}
 
-			$this->cache_add( 'page_templates', $page_templates );
+			$this->cache_add( 'post_templates', $post_templates );
 		}
 
 		if ( $this->load_textdomain() ) {
-			foreach ( $page_templates as &$page_template ) {
-				$page_template = $this->translate_header( 'Template Name', $page_template );
+			foreach ( $post_templates as &$post_type ) {
+				foreach ( $post_type as &$post_template ) {
+					$post_template = $this->translate_header( 'Template Name', $post_template );
+				}
 			}
 		}
 
-		if ( $this->parent() )
-			$page_templates += $this->parent()->get_page_templates( $post );
+		return $post_templates;
+	}
+
+	/**
+	 * Returns the theme's post templates for a given post type.
+	 *
+	 * @since 3.4.0
+	 * @since 4.7.0 Added the `$post_type` parameter.
+	 * @access public
+	 *
+	 * @param WP_Post|null $post      Optional. The post being edited, provided for context.
+	 * @param string       $post_type Optional. Post type to get the templates for. Default 'page'.
+	 *                                If a post is provided, its post type is used.
+	 * @return array Array of page templates, keyed by filename, with the value of the translated header name.
+	 */
+	public function get_page_templates( $post = null, $post_type = 'page' ) {
+		if ( $post ) {
+			$post_type = get_post_type( $post );
+		}
+
+		$post_templates = $this->get_post_templates();
+		$post_templates = isset( $post_templates[ $post_type ] ) ? $post_templates[ $post_type ] : array();
+
+		if ( $this->parent() ) {
+			$post_templates += $this->parent()->get_page_templates( $post, $post_type );
+		}
 
 		/**
-		 * Filter list of page templates for a theme.
+		 * Filters list of page templates for a theme.
+		 *
+		 * The dynamic portion of the hook name, `$post_type`, refers to the post type.
 		 *
 		 * @since 3.9.0
 		 * @since 4.4.0 Converted to allow complete control over the `$page_templates` array.
+		 * @since 4.7.0 Added the `$post_type` parameter.
 		 *
-		 * @param array        $page_templates Array of page templates. Keys are filenames,
+		 * @param array        $post_templates Array of page templates. Keys are filenames,
 		 *                                     values are translated names.
 		 * @param WP_Theme     $this           The theme object.
 		 * @param WP_Post|null $post           The post being edited, provided for context, or null.
+		 * @param string       $post_type      Post type to get the templates for.
 		 */
-		return (array) apply_filters( 'theme_page_templates', $page_templates, $this, $post );
+		return (array) apply_filters( "theme_{$post_type}_templates", $post_templates, $this, $post, $post_type );
 	}
 
 	/**
@@ -1190,7 +1252,7 @@ final class WP_Theme implements ArrayAccess {
 	 */
 	public static function get_allowed( $blog_id = null ) {
 		/**
-		 * Filter the array of themes allowed on the network.
+		 * Filters the array of themes allowed on the network.
 		 *
 		 * Site is provided as context so that a list of network allowed themes can
 		 * be filtered further.
@@ -1223,7 +1285,7 @@ final class WP_Theme implements ArrayAccess {
 		}
 
 		/**
-		 * Filter the array of themes allowed on the network.
+		 * Filters the array of themes allowed on the network.
 		 *
 		 * @since MU
 		 *
@@ -1255,7 +1317,7 @@ final class WP_Theme implements ArrayAccess {
 
 		if ( isset( $allowed_themes[ $blog_id ] ) ) {
 			/**
-			 * Filter the array of themes allowed on the site.
+			 * Filters the array of themes allowed on the site.
 			 *
 			 * @since 4.5.0
 			 *
@@ -1316,6 +1378,60 @@ final class WP_Theme implements ArrayAccess {
 	}
 
 	/**
+	 * Enables a theme for all sites on the current network.
+	 *
+	 * @since 4.6.0
+	 * @access public
+	 * @static
+	 *
+	 * @param string|array $stylesheets Stylesheet name or array of stylesheet names.
+	 */
+	public static function network_enable_theme( $stylesheets ) {
+		if ( ! is_multisite() ) {
+			return;
+		}
+
+		if ( ! is_array( $stylesheets ) ) {
+			$stylesheets = array( $stylesheets );
+		}
+
+		$allowed_themes = get_site_option( 'allowedthemes' );
+		foreach ( $stylesheets as $stylesheet ) {
+			$allowed_themes[ $stylesheet ] = true;
+		}
+
+		update_site_option( 'allowedthemes', $allowed_themes );
+	}
+
+	/**
+	 * Disables a theme for all sites on the current network.
+	 *
+	 * @since 4.6.0
+	 * @access public
+	 * @static
+	 *
+	 * @param string|array $stylesheets Stylesheet name or array of stylesheet names.
+	 */
+	public static function network_disable_theme( $stylesheets ) {
+		if ( ! is_multisite() ) {
+			return;
+		}
+
+		if ( ! is_array( $stylesheets ) ) {
+			$stylesheets = array( $stylesheets );
+		}
+
+		$allowed_themes = get_site_option( 'allowedthemes' );
+		foreach ( $stylesheets as $stylesheet ) {
+			if ( isset( $allowed_themes[ $stylesheet ] ) ) {
+				unset( $allowed_themes[ $stylesheet ] );
+			}
+		}
+
+		update_site_option( 'allowedthemes', $allowed_themes );
+	}
+
+	/**
 	 * Sorts themes by name.
 	 *
 	 * @since 3.4.0
@@ -1326,7 +1442,7 @@ final class WP_Theme implements ArrayAccess {
 	 * @param array $themes Array of themes to sort, passed by reference.
 	 */
 	public static function sort_by_name( &$themes ) {
-		if ( 0 === strpos( get_locale(), 'en_' ) ) {
+		if ( 0 === strpos( get_user_locale(), 'en_' ) ) {
 			uasort( $themes, array( 'WP_Theme', '_name_sort' ) );
 		} else {
 			uasort( $themes, array( 'WP_Theme', '_name_sort_i18n' ) );

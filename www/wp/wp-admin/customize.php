@@ -15,10 +15,35 @@ require_once( dirname( __FILE__ ) . '/admin.php' );
 if ( ! current_user_can( 'customize' ) ) {
 	wp_die(
 		'<h1>' . __( 'Cheatin&#8217; uh?' ) . '</h1>' .
-		'<p>' . __( 'You are not allowed to customize the appearance of this site.' ) . '</p>',
+		'<p>' . __( 'Sorry, you are not allowed to customize this site.' ) . '</p>',
 		403
 	);
 }
+
+/**
+ * @global WP_Scripts           $wp_scripts
+ * @global WP_Customize_Manager $wp_customize
+ */
+global $wp_scripts, $wp_customize;
+
+if ( $wp_customize->changeset_post_id() ) {
+	if ( ! current_user_can( get_post_type_object( 'customize_changeset' )->cap->edit_post, $wp_customize->changeset_post_id() ) ) {
+		wp_die(
+			'<h1>' . __( 'Cheatin&#8217; uh?' ) . '</h1>' .
+			'<p>' . __( 'Sorry, you are not allowed to edit this changeset.' ) . '</p>',
+			403
+		);
+	}
+	if ( in_array( get_post_status( $wp_customize->changeset_post_id() ), array( 'publish', 'trash' ), true ) ) {
+		wp_die(
+			'<h1>' . __( 'Cheatin&#8217; uh?' ) . '</h1>' .
+			'<p>' . __( 'This changeset has already been published and cannot be further modified.' ) . '</p>' .
+			'<p><a href="' . esc_url( remove_query_arg( 'changeset_uuid' ) ) . '">' . __( 'Customize New Changes' ) . '</a></p>',
+			403
+		);
+	}
+}
+
 
 wp_reset_vars( array( 'url', 'return', 'autofocus' ) );
 if ( ! empty( $url ) ) {
@@ -30,12 +55,6 @@ if ( ! empty( $return ) ) {
 if ( ! empty( $autofocus ) && is_array( $autofocus ) ) {
 	$wp_customize->set_autofocus( wp_unslash( $autofocus ) );
 }
-
-/**
- * @global WP_Scripts           $wp_scripts
- * @global WP_Customize_Manager $wp_customize
- */
-global $wp_scripts, $wp_customize;
 
 $registered = $wp_scripts->registered;
 $wp_scripts = new WP_Scripts;
@@ -115,15 +134,19 @@ do_action( 'customize_controls_print_scripts' );
 		<div id="customize-header-actions" class="wp-full-overlay-header">
 			<?php
 			$save_text = $wp_customize->is_theme_active() ? __( 'Save &amp; Publish' ) : __( 'Save &amp; Activate' );
-			submit_button( $save_text, 'primary save', 'save', false );
+			$save_attrs = array();
+			if ( ! current_user_can( get_post_type_object( 'customize_changeset' )->cap->publish_posts ) ) {
+				$save_attrs['style'] = 'display: none';
+			}
+			submit_button( $save_text, 'primary save', 'save', false, $save_attrs );
 			?>
 			<span class="spinner"></span>
-			<a class="customize-controls-preview-toggle" href="#">
+			<button type="button" class="customize-controls-preview-toggle">
 				<span class="controls"><?php _e( 'Customize' ); ?></span>
 				<span class="preview"><?php _e( 'Preview' ); ?></span>
-			</a>
+			</button>
 			<a class="customize-controls-close" href="<?php echo esc_url( $wp_customize->get_return_url() ); ?>">
-				<span class="screen-reader-text"><?php _e( 'Cancel' ); ?></span>
+				<span class="screen-reader-text"><?php _e( 'Close the Customizer and go back to the previous page' ); ?></span>
 			</a>
 		</div>
 
@@ -134,15 +157,15 @@ do_action( 'customize_controls_print_scripts' );
 					<span class="preview-notice"><?php
 						echo sprintf( __( 'You are customizing %s' ), '<strong class="panel-title site-title">' . get_bloginfo( 'name' ) . '</strong>' );
 					?></span>
-					<button class="customize-help-toggle dashicons dashicons-editor-help" aria-expanded="false"><span class="screen-reader-text"><?php _e( 'Help' ); ?></span></button>
+					<button type="button" class="customize-help-toggle dashicons dashicons-editor-help" aria-expanded="false"><span class="screen-reader-text"><?php _e( 'Help' ); ?></span></button>
 				</div>
 				<div class="customize-panel-description"><?php
-					_e( 'The Customizer allows you to preview changes to your site before publishing them. You can also navigate to different pages on your site to preview them.' );
+					_e( 'The Customizer allows you to preview changes to your site before publishing them. You can navigate to different pages on your site within the preview. Edit shortcuts are shown for some editable elements.' );
 				?></div>
 			</div>
 
 			<div id="customize-theme-controls">
-				<ul><?php // Panels and sections are managed here via JavaScript ?></ul>
+				<ul class="customize-pane-parent"><?php // Panels and sections are managed here via JavaScript ?></ul>
 			</div>
 		</div>
 		</div>
@@ -168,9 +191,9 @@ do_action( 'customize_controls_print_scripts' );
 				<?php endforeach; ?>
 			</div>
 			<?php endif; ?>
-			<button type="button" class="collapse-sidebar button-secondary" aria-expanded="true" aria-label="<?php esc_attr_e( 'Collapse Sidebar' ); ?>">
+			<button type="button" class="collapse-sidebar button" aria-expanded="true" aria-label="<?php echo esc_attr( _x( 'Hide Controls', 'label for hide controls button without length constraints' ) ); ?>">
 				<span class="collapse-sidebar-arrow"></span>
-				<span class="collapse-sidebar-label"><?php _e( 'Collapse' ); ?></span>
+				<span class="collapse-sidebar-label"><?php _ex( 'Hide Controls', 'short (~12 characters) label for hide controls button' ); ?></span>
 			</button>
 		</div>
 	</form>
@@ -178,7 +201,7 @@ do_action( 'customize_controls_print_scripts' );
 	<?php
 
 	/**
-	 * Print templates, control scripts, and settings in the footer.
+	 * Prints templates, control scripts, and settings in the footer.
 	 *
 	 * @since 3.4.0
 	 */

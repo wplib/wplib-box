@@ -10,14 +10,14 @@
  * Retrieve list of category objects.
  *
  * If you change the type to 'link' in the arguments, then the link categories
- * will be returned instead. Also all categories will be updated to be backwards
+ * will be returned instead. Also all categories will be updated to be backward
  * compatible with pre-2.3 plugins and themes.
  *
  * @since 2.1.0
  * @see get_terms() Type of arguments that can be changed.
  *
  * @param string|array $args {
- *     Optional. Arguments to retrieve categories. See {@see get_terms()} for additional options.
+ *     Optional. Arguments to retrieve categories. See get_terms() for additional options.
  *
  *     @type string $taxonomy Taxonomy to retrieve terms for. In this case, default 'category'.
  * }
@@ -30,19 +30,19 @@ function get_categories( $args = '' ) {
 	$taxonomy = $args['taxonomy'];
 
 	/**
-	 * Filter the taxonomy used to retrieve terms when calling {@see get_categories()}.
+	 * Filters the taxonomy used to retrieve terms when calling get_categories().
 	 *
 	 * @since 2.7.0
 	 *
 	 * @param string $taxonomy Taxonomy to retrieve terms from.
-	 * @param array  $args     An array of arguments. See {@see get_terms()}.
+	 * @param array  $args     An array of arguments. See get_terms().
 	 */
 	$taxonomy = apply_filters( 'get_categories_taxonomy', $taxonomy, $args );
 
 	// Back compat
 	if ( isset($args['type']) && 'link' == $args['type'] ) {
 		/* translators: 1: "type => link", 2: "taxonomy => link_category" alternative */
-		_deprecated_argument( __FUNCTION__, '3.0',
+		_deprecated_argument( __FUNCTION__, '3.0.0',
 			sprintf( __( '%1$s is deprecated. Use %2$s instead.' ),
 				'<code>type => link</code>',
 				'<code>taxonomy => link_category</code>'
@@ -77,12 +77,13 @@ function get_categories( $args = '' ) {
  * If you look at get_term(), then both types will be passed through several
  * filters and finally sanitized based on the $filter parameter value.
  *
- * The category will converted to maintain backwards compatibility.
+ * The category will converted to maintain backward compatibility.
  *
  * @since 1.5.1
  *
  * @param int|object $category Category ID or Category row object
- * @param string $output Optional. Constant OBJECT, ARRAY_A, or ARRAY_N
+ * @param string $output Optional. The required return type. One of OBJECT, ARRAY_A, or ARRAY_N, which correspond to a
+ *                       WP_Term object, an associative array, or a numeric array, respectively. Default OBJECT.
  * @param string $filter Optional. Default is raw or no WordPress defined filter will applied.
  * @return object|array|WP_Error|null Category data in type defined by $output parameter.
  *                                    WP_Error if $category is empty, null if it does not exist.
@@ -113,9 +114,10 @@ function get_category( $category, $output = OBJECT, $filter = 'raw' ) {
  * @since 2.1.0
  *
  * @param string $category_path URL containing category slugs.
- * @param bool $full_match Optional. Whether full path should be matched.
- * @param string $output Optional. Constant OBJECT, ARRAY_A, or ARRAY_N
- * @return object|array|WP_Error|void Type is based on $output value.
+ * @param bool   $full_match    Optional. Whether full path should be matched.
+ * @param string $output        Optional. The required return type. One of OBJECT, ARRAY_A, or ARRAY_N, which correspond to
+ *                              a WP_Term object, an associative array, or a numeric array, respectively. Default OBJECT.
+ * @return WP_Term|array|WP_Error|null Type is based on $output value.
  */
 function get_category_by_path( $category_path, $full_match = true, $output = OBJECT ) {
 	$category_path = rawurlencode( urldecode( $category_path ) );
@@ -271,7 +273,7 @@ function get_tags( $args = '' ) {
 	}
 
 	/**
-	 * Filter the array of term objects returned for the 'post_tag' taxonomy.
+	 * Filters the array of term objects returned for the 'post_tag' taxonomy.
 	 *
 	 * @since 2.3.0
 	 *
@@ -296,10 +298,11 @@ function get_tags( $args = '' ) {
  *
  * @since 2.3.0
  *
- * @param int|object $tag
- * @param string $output Optional. Constant OBJECT, ARRAY_A, or ARRAY_N
- * @param string $filter Optional. Default is raw or no WordPress defined filter will applied.
- * @return object|array|WP_Error|null Tag data in type defined by $output parameter. WP_Error if $tag is empty, null if it does not exist.
+ * @param int|WP_Term|object $tag    A tag ID or object.
+ * @param string             $output Optional. The required return type. One of OBJECT, ARRAY_A, or ARRAY_N, which correspond to
+ *                                   a WP_Term object, an associative array, or a numeric array, respectively. Default OBJECT.
+ * @param string             $filter Optional. Default is raw or no WordPress defined filter will applied.
+ * @return WP_Term|array|WP_Error|null Tag data in type defined by $output parameter. WP_Error if $tag is empty, null if it does not exist.
  */
 function get_tag( $tag, $output = OBJECT, $filter = 'raw' ) {
 	return get_term( $tag, 'post_tag', $output, $filter );

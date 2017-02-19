@@ -10,7 +10,7 @@
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( !current_user_can('export') )
-	wp_die(__('You do not have sufficient permissions to export the content of this site.'));
+	wp_die(__('Sorry, you are not allowed to export the content of this site.'));
 
 /** Load WordPress export API */
 require_once( ABSPATH . 'wp-admin/includes/export.php' );
@@ -51,8 +51,8 @@ get_current_screen()->add_help_tab( array(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="https://codex.wordpress.org/Tools_Export_Screen" target="_blank">Documentation on Export</a>') . '</p>' .
-	'<p>' . __('<a href="https://wordpress.org/support/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="https://codex.wordpress.org/Tools_Export_Screen">Documentation on Export</a>') . '</p>' .
+	'<p>' . __('<a href="https://wordpress.org/support/">Support Forums</a>') . '</p>'
 );
 
 // If the 'download' URL parameter is set, a WXR export file is baked and returned.
@@ -103,7 +103,7 @@ if ( isset( $_GET['download'] ) ) {
 	}
 
 	/**
-	 * Filter the export args.
+	 * Filters the export args.
 	 *
 	 * @since 3.5.0
 	 *

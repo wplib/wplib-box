@@ -154,10 +154,10 @@ if ( !function_exists( 'wp_mail' ) ) :
  *
  * The default content type is 'text/plain' which does not allow using HTML.
  * However, you can set the content type of the email by using the
- * 'wp_mail_content_type' filter.
+ * {@see 'wp_mail_content_type'} filter.
  *
  * The default charset is based on the charset used on the blog. The charset can
- * be set using the 'wp_mail_charset' filter.
+ * be set using the {@see 'wp_mail_charset'} filter.
  *
  * @since 1.2.1
  *
@@ -174,7 +174,7 @@ function wp_mail( $to, $subject, $message, $headers = '', $attachments = array()
 	// Compact the input, apply the filters, and extract them back out
 
 	/**
-	 * Filter the wp_mail() arguments.
+	 * Filters the wp_mail() arguments.
 	 *
 	 * @since 2.2.0
 	 *
@@ -216,6 +216,8 @@ function wp_mail( $to, $subject, $message, $headers = '', $attachments = array()
 	}
 
 	// Headers
+	$cc = $bcc = $reply_to = array();
+
 	if ( empty( $headers ) ) {
 		$headers = array();
 	} else {
@@ -227,8 +229,6 @@ function wp_mail( $to, $subject, $message, $headers = '', $attachments = array()
 			$tempheaders = $headers;
 		}
 		$headers = array();
-		$cc = array();
-		$bcc = array();
 
 		// If it's actually got contents
 		if ( !empty( $tempheaders ) ) {
@@ -291,6 +291,9 @@ function wp_mail( $to, $subject, $message, $headers = '', $attachments = array()
 					case 'bcc':
 						$bcc = array_merge( (array) $bcc, explode( ',', $content ) );
 						break;
+					case 'reply-to':
+						$reply_to = array_merge( (array) $reply_to, explode( ',', $content ) );
+						break;
 					default:
 						// Add it to our grand headers array
 						$headers[trim( $name )] = trim( $content );
@@ -329,78 +332,67 @@ function wp_mail( $to, $subject, $message, $headers = '', $attachments = array()
 	}
 
 	/**
-	 * Filter the email address to send from.
+	 * Filters the email address to send from.
 	 *
 	 * @since 2.2.0
 	 *
 	 * @param string $from_email Email address to send from.
 	 */
-	$phpmailer->From = apply_filters( 'wp_mail_from', $from_email );
+	$from_email = apply_filters( 'wp_mail_from', $from_email );
 
 	/**
-	 * Filter the name to associate with the "from" email address.
+	 * Filters the name to associate with the "from" email address.
 	 *
 	 * @since 2.3.0
 	 *
 	 * @param string $from_name Name associated with the "from" email address.
 	 */
-	$phpmailer->FromName = apply_filters( 'wp_mail_from_name', $from_name );
+	$from_name = apply_filters( 'wp_mail_from_name', $from_name );
+
+	$phpmailer->setFrom( $from_email, $from_name, false );
 
 	// Set destination addresses
 	if ( !is_array( $to ) )
 		$to = explode( ',', $to );
 
-	foreach ( (array) $to as $recipient ) {
-		try {
-			// Break $recipient into name and address parts if in the format "Foo <bar@baz.com>"
-			$recipient_name = '';
-			if ( preg_match( '/(.*)<(.+)>/', $recipient, $matches ) ) {
-				if ( count( $matches ) == 3 ) {
-					$recipient_name = $matches[1];
-					$recipient = $matches[2];
-				}
-			}
-			$phpmailer->AddAddress( $recipient, $recipient_name);
-		} catch ( phpmailerException $e ) {
-			continue;
-		}
-	}
-
 	// Set mail's subject and body
 	$phpmailer->Subject = $subject;
 	$phpmailer->Body    = $message;
 
-	// Add any CC and BCC recipients
-	if ( !empty( $cc ) ) {
-		foreach ( (array) $cc as $recipient ) {
-			try {
-				// Break $recipient into name and address parts if in the format "Foo <bar@baz.com>"
-				$recipient_name = '';
-				if ( preg_match( '/(.*)<(.+)>/', $recipient, $matches ) ) {
-					if ( count( $matches ) == 3 ) {
-						$recipient_name = $matches[1];
-						$recipient = $matches[2];
-					}
-				}
-				$phpmailer->AddCc( $recipient, $recipient_name );
-			} catch ( phpmailerException $e ) {
-				continue;
-			}
-		}
-	}
+	// Use appropriate methods for handling addresses, rather than treating them as generic headers
+	$address_headers = compact( 'to', 'cc', 'bcc', 'reply_to' );
 
-	if ( !empty( $bcc ) ) {
-		foreach ( (array) $bcc as $recipient) {
+	foreach ( $address_headers as $address_header => $addresses ) {
+		if ( empty( $addresses ) ) {
+			continue;
+		}
+
+		foreach ( (array) $addresses as $address ) {
 			try {
 				// Break $recipient into name and address parts if in the format "Foo <bar@baz.com>"
 				$recipient_name = '';
-				if ( preg_match( '/(.*)<(.+)>/', $recipient, $matches ) ) {
+
+				if ( preg_match( '/(.*)<(.+)>/', $address, $matches ) ) {
 					if ( count( $matches ) == 3 ) {
 						$recipient_name = $matches[1];
-						$recipient = $matches[2];
+						$address        = $matches[2];
 					}
 				}
-				$phpmailer->AddBcc( $recipient, $recipient_name );
+
+				switch ( $address_header ) {
+					case 'to':
+						$phpmailer->addAddress( $address, $recipient_name );
+						break;
+					case 'cc':
+						$phpmailer->addCc( $address, $recipient_name );
+						break;
+					case 'bcc':
+						$phpmailer->addBcc( $address, $recipient_name );
+						break;
+					case 'reply_to':
+						$phpmailer->addReplyTo( $address, $recipient_name );
+						break;
+				}
 			} catch ( phpmailerException $e ) {
 				continue;
 			}
@@ -416,7 +408,7 @@ function wp_mail( $to, $subject, $message, $headers = '', $attachments = array()
 		$content_type = 'text/plain';
 
 	/**
-	 * Filter the wp_mail() content type.
+	 * Filters the wp_mail() content type.
 	 *
 	 * @since 2.3.0
 	 *
@@ -437,7 +429,7 @@ function wp_mail( $to, $subject, $message, $headers = '', $attachments = array()
 	// Set the content-type and charset
 
 	/**
-	 * Filter the default wp_mail() charset.
+	 * Filters the default wp_mail() charset.
 	 *
 	 * @since 2.3.0
 	 *
@@ -480,16 +472,17 @@ function wp_mail( $to, $subject, $message, $headers = '', $attachments = array()
 	} catch ( phpmailerException $e ) {
 
 		$mail_error_data = compact( 'to', 'subject', 'message', 'headers', 'attachments' );
+		$mail_error_data['phpmailer_exception_code'] = $e->getCode();
 
 		/**
 		 * Fires after a phpmailerException is caught.
 		 *
 		 * @since 4.4.0
 		 *
-		 * @param WP_Error $error A WP_Error object with the phpmailerException code, message, and an array
+		 * @param WP_Error $error A WP_Error object with the phpmailerException message, and an array
 		 *                        containing the mail recipient, subject, message, headers, and attachments.
 		 */
- 		do_action( 'wp_mail_failed', new WP_Error( $e->getCode(), $e->getMessage(), $mail_error_data ) );
+		do_action( 'wp_mail_failed', new WP_Error( 'wp_mail_failed', $e->getMessage(), $mail_error_data ) );
 
 		return false;
 	}
@@ -513,7 +506,7 @@ function wp_authenticate($username, $password) {
 	$password = trim($password);
 
 	/**
-	 * Filter whether a set of user login credentials are valid.
+	 * Filters whether a set of user login credentials are valid.
 	 *
 	 * A WP_User object is returned if the credentials authenticate a user.
 	 * WP_Error or null otherwise.
@@ -610,8 +603,8 @@ function wp_validate_auth_cookie($cookie = '', $scheme = '') {
 	$token = $cookie_elements['token'];
 	$expired = $expiration = $cookie_elements['expiration'];
 
-	// Allow a grace period for POST and AJAX requests
-	if ( defined('DOING_AJAX') || 'POST' == $_SERVER['REQUEST_METHOD'] ) {
+	// Allow a grace period for POST and Ajax requests
+	if ( wp_doing_ajax() || 'POST' == $_SERVER['REQUEST_METHOD'] ) {
 		$expired += HOUR_IN_SECONDS;
 	}
 
@@ -667,7 +660,7 @@ function wp_validate_auth_cookie($cookie = '', $scheme = '') {
 		return false;
 	}
 
-	// AJAX/POST grace period set above
+	// Ajax/POST grace period set above
 	if ( $expiration < time() ) {
 		$GLOBALS['login_grace_period'] = 1;
 	}
@@ -693,7 +686,7 @@ if ( !function_exists('wp_generate_auth_cookie') ) :
  * @since 2.5.0
  *
  * @param int    $user_id    User ID
- * @param int    $expiration Cookie expiration in seconds
+ * @param int    $expiration The time the cookie expires as a UNIX timestamp.
  * @param string $scheme     Optional. The cookie scheme to use: auth, secure_auth, or logged_in
  * @param string $token      User's session token to use for this cookie
  * @return string Authentication cookie contents. Empty string if user does not exist.
@@ -720,13 +713,13 @@ function wp_generate_auth_cookie( $user_id, $expiration, $scheme = 'auth', $toke
 	$cookie = $user->user_login . '|' . $expiration . '|' . $token . '|' . $hash;
 
 	/**
-	 * Filter the authentication cookie.
+	 * Filters the authentication cookie.
 	 *
 	 * @since 2.5.0
 	 *
 	 * @param string $cookie     Authentication cookie.
 	 * @param int    $user_id    User ID.
-	 * @param int    $expiration Authentication cookie expiration in seconds.
+	 * @param int    $expiration The time the cookie expires as a UNIX timestamp.
 	 * @param string $scheme     Cookie scheme used. Accepts 'auth', 'secure_auth', or 'logged_in'.
 	 * @param string $token      User's session token used.
 	 */
@@ -802,7 +795,7 @@ if ( !function_exists('wp_set_auth_cookie') ) :
 function wp_set_auth_cookie( $user_id, $remember = false, $secure = '', $token = '' ) {
 	if ( $remember ) {
 		/**
-		 * Filter the duration of the authentication cookie expiration period.
+		 * Filters the duration of the authentication cookie expiration period.
 		 *
 		 * @since 2.8.0
 		 *
@@ -831,7 +824,7 @@ function wp_set_auth_cookie( $user_id, $remember = false, $secure = '', $token =
 	$secure_logged_in_cookie = $secure && 'https' === parse_url( get_option( 'home' ), PHP_URL_SCHEME );
 
 	/**
-	 * Filter whether the connection is secure.
+	 * Filters whether the connection is secure.
 	 *
 	 * @since 3.1.0
 	 *
@@ -841,7 +834,7 @@ function wp_set_auth_cookie( $user_id, $remember = false, $secure = '', $token =
 	$secure = apply_filters( 'secure_auth_cookie', $secure, $user_id );
 
 	/**
-	 * Filter whether to use a secure cookie when logged-in.
+	 * Filters whether to use a secure cookie when logged-in.
 	 *
 	 * @since 3.1.0
 	 *
@@ -873,23 +866,25 @@ function wp_set_auth_cookie( $user_id, $remember = false, $secure = '', $token =
 	 * @since 2.5.0
 	 *
 	 * @param string $auth_cookie Authentication cookie.
-	 * @param int    $expire      Login grace period in seconds. Default 43,200 seconds, or 12 hours.
-	 * @param int    $expiration  Duration in seconds the authentication cookie should be valid.
-	 *                            Default 1,209,600 seconds, or 14 days.
+	 * @param int    $expire      The time the login grace period expires as a UNIX timestamp.
+	 *                            Default is 12 hours past the cookie's expiration time.
+	 * @param int    $expiration  The time when the authentication cookie expires as a UNIX timestamp.
+	 *                            Default is 14 days from now.
 	 * @param int    $user_id     User ID.
 	 * @param string $scheme      Authentication scheme. Values include 'auth', 'secure_auth', or 'logged_in'.
 	 */
 	do_action( 'set_auth_cookie', $auth_cookie, $expire, $expiration, $user_id, $scheme );
 
 	/**
-	 * Fires immediately before the secure authentication cookie is set.
+	 * Fires immediately before the logged-in authentication cookie is set.
 	 *
 	 * @since 2.6.0
 	 *
 	 * @param string $logged_in_cookie The logged-in cookie.
-	 * @param int    $expire           Login grace period in seconds. Default 43,200 seconds, or 12 hours.
-	 * @param int    $expiration       Duration in seconds the authentication cookie should be valid.
-	 *                                 Default 1,209,600 seconds, or 14 days.
+	 * @param int    $expire           The time the login grace period expires as a UNIX timestamp.
+	 *                                 Default is 12 hours past the cookie's expiration time.
+	 * @param int    $expiration       The time when the logged-in authentication cookie expires as a UNIX timestamp.
+	 *                                 Default is 14 days from now.
 	 * @param int    $user_id          User ID.
 	 * @param string $scheme           Authentication scheme. Default 'logged_in'.
 	 */
@@ -965,7 +960,7 @@ function auth_redirect() {
 	$secure = ( is_ssl() || force_ssl_admin() );
 
 	/**
-	 * Filter whether to use a secure authentication redirect.
+	 * Filters whether to use a secure authentication redirect.
 	 *
 	 * @since 3.1.0
 	 *
@@ -1045,7 +1040,7 @@ if ( !function_exists('check_admin_referer') ) :
  */
 function check_admin_referer( $action = -1, $query_arg = '_wpnonce' ) {
 	if ( -1 == $action )
-		_doing_it_wrong( __FUNCTION__, __( 'You should specify a nonce action to be verified by using the first parameter.' ), '3.2' );
+		_doing_it_wrong( __FUNCTION__, __( 'You should specify a nonce action to be verified by using the first parameter.' ), '3.2.0' );
 
 	$adminurl = strtolower(admin_url());
 	$referer = strtolower(wp_get_referer());
@@ -1073,7 +1068,7 @@ endif;
 
 if ( !function_exists('check_ajax_referer') ) :
 /**
- * Verifies the AJAX request to prevent processing requests external of the blog.
+ * Verifies the Ajax request to prevent processing requests external of the blog.
  *
  * @since 2.0.3
  *
@@ -1087,6 +1082,10 @@ if ( !function_exists('check_ajax_referer') ) :
  *                   0-12 hours ago, 2 if the nonce is valid and generated between 12-24 hours ago.
  */
 function check_ajax_referer( $action = -1, $query_arg = false, $die = true ) {
+	if ( -1 == $action ) {
+		_doing_it_wrong( __FUNCTION__, __( 'You should specify a nonce action to be verified by using the first parameter.' ), '4.7' );
+	}
+
 	$nonce = '';
 
 	if ( $query_arg && isset( $_REQUEST[ $query_arg ] ) )
@@ -1099,19 +1098,19 @@ function check_ajax_referer( $action = -1, $query_arg = false, $die = true ) {
 	$result = wp_verify_nonce( $nonce, $action );
 
 	/**
-	 * Fires once the AJAX request has been validated or not.
+	 * Fires once the Ajax request has been validated or not.
 	 *
 	 * @since 2.1.0
 	 *
-	 * @param string    $action The AJAX nonce action.
+	 * @param string    $action The Ajax nonce action.
 	 * @param false|int $result False if the nonce is invalid, 1 if the nonce is valid and generated between
 	 *                          0-12 hours ago, 2 if the nonce is valid and generated between 12-24 hours ago.
 	 */
 	do_action( 'check_ajax_referer', $action, $result );
 
 	if ( $die && false === $result ) {
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-			wp_die( -1 );
+		if ( wp_doing_ajax() ) {
+			wp_die( -1, 403 );
 		} else {
 			die( '-1' );
 		}
@@ -1125,6 +1124,19 @@ if ( !function_exists('wp_redirect') ) :
 /**
  * Redirects to another page.
  *
+ * Note: wp_redirect() does not exit automatically, and should almost always be
+ * followed by a call to `exit;`:
+ *
+ *     wp_redirect( $url );
+ *     exit;
+ *
+ * Exiting can also be selectively manipulated by using wp_redirect() as a conditional
+ * in conjunction with the {@see 'wp_redirect'} and {@see 'wp_redirect_location'} hooks:
+ *
+ *     if ( wp_redirect( $url ) ) {
+ *         exit;
+ *     }
+ *
  * @since 1.5.1
  *
  * @global bool $is_IIS
@@ -1137,7 +1149,7 @@ function wp_redirect($location, $status = 302) {
 	global $is_IIS;
 
 	/**
-	 * Filter the redirect location.
+	 * Filters the redirect location.
 	 *
 	 * @since 2.1.0
 	 *
@@ -1147,7 +1159,7 @@ function wp_redirect($location, $status = 302) {
 	$location = apply_filters( 'wp_redirect', $location, $status );
 
 	/**
-	 * Filter the redirect status code.
+	 * Filters the redirect status code.
 	 *
 	 * @since 2.3.0
 	 *
@@ -1241,7 +1253,7 @@ function wp_safe_redirect($location, $status = 302) {
 	$location = wp_sanitize_redirect($location);
 
 	/**
-	 * Filter the redirect fallback URL for when the provided redirect is not safe (local).
+	 * Filters the redirect fallback URL for when the provided redirect is not safe (local).
 	 *
 	 * @since 4.3.0
 	 *
@@ -1305,7 +1317,7 @@ function wp_validate_redirect($location, $default = '') {
 	$wpp = parse_url(home_url());
 
 	/**
-	 * Filter the whitelist of hosts to redirect to.
+	 * Filters the whitelist of hosts to redirect to.
 	 *
 	 * @since 2.3.0
 	 *
@@ -1333,7 +1345,7 @@ if ( ! function_exists('wp_notify_postauthor') ) :
  */
 function wp_notify_postauthor( $comment_id, $deprecated = null ) {
 	if ( null !== $deprecated ) {
-		_deprecated_argument( __FUNCTION__, '3.8' );
+		_deprecated_argument( __FUNCTION__, '3.8.0' );
 	}
 
 	$comment = get_comment( $comment_id );
@@ -1350,7 +1362,7 @@ function wp_notify_postauthor( $comment_id, $deprecated = null ) {
 	}
 
 	/**
-	 * Filter the list of email addresses to receive a comment notification.
+	 * Filters the list of email addresses to receive a comment notification.
 	 *
 	 * By default, only post authors are notified of comments. This filter allows
 	 * others to be added.
@@ -1372,7 +1384,7 @@ function wp_notify_postauthor( $comment_id, $deprecated = null ) {
 	$emails = array_flip( $emails );
 
 	/**
-	 * Filter whether to notify comment authors of their comments on their own posts.
+	 * Filters whether to notify comment authors of their comments on their own posts.
 	 *
 	 * By default, comment authors aren't notified of their comments on their own
 	 * posts. This filter allows you to override that.
@@ -1407,6 +1419,8 @@ function wp_notify_postauthor( $comment_id, $deprecated = null ) {
 		$emails = array_flip( $emails );
 	}
 
+	$switched_locale = switch_to_locale( get_locale() );
+
 	$comment_author_domain = @gethostbyaddr($comment->comment_author_IP);
 
 	// The blogname option is escaped with esc_html on the way into the database in sanitize_option
@@ -1416,8 +1430,9 @@ function wp_notify_postauthor( $comment_id, $deprecated = null ) {
 
 	switch ( $comment->comment_type ) {
 		case 'trackback':
+			/* translators: 1: Post title */
 			$notify_message  = sprintf( __( 'New trackback on your post "%s"' ), $post->post_title ) . "\r\n";
-			/* translators: 1: website name, 2: website IP, 3: website hostname */
+			/* translators: 1: Trackback/pingback website name, 2: website IP, 3: website hostname */
 			$notify_message .= sprintf( __('Website: %1$s (IP: %2$s, %3$s)'), $comment->comment_author, $comment->comment_author_IP, $comment_author_domain ) . "\r\n";
 			$notify_message .= sprintf( __( 'URL: %s' ), $comment->comment_author_url ) . "\r\n";
 			$notify_message .= sprintf( __( 'Comment: %s' ), "\r\n" . $comment_content ) . "\r\n\r\n";
@@ -1426,8 +1441,9 @@ function wp_notify_postauthor( $comment_id, $deprecated = null ) {
 			$subject = sprintf( __('[%1$s] Trackback: "%2$s"'), $blogname, $post->post_title );
 			break;
 		case 'pingback':
+			/* translators: 1: Post title */
 			$notify_message  = sprintf( __( 'New pingback on your post "%s"' ), $post->post_title ) . "\r\n";
-			/* translators: 1: website name, 2: website IP, 3: website hostname */
+			/* translators: 1: Trackback/pingback website name, 2: website IP, 3: website hostname */
 			$notify_message .= sprintf( __('Website: %1$s (IP: %2$s, %3$s)'), $comment->comment_author, $comment->comment_author_IP, $comment_author_domain ) . "\r\n";
 			$notify_message .= sprintf( __( 'URL: %s' ), $comment->comment_author_url ) . "\r\n";
 			$notify_message .= sprintf( __( 'Comment: %s' ), "\r\n" . $comment_content ) . "\r\n\r\n";
@@ -1478,7 +1494,7 @@ function wp_notify_postauthor( $comment_id, $deprecated = null ) {
 		$message_headers .= $reply_to . "\n";
 
 	/**
-	 * Filter the comment notification email text.
+	 * Filters the comment notification email text.
 	 *
 	 * @since 1.5.2
 	 *
@@ -1488,7 +1504,7 @@ function wp_notify_postauthor( $comment_id, $deprecated = null ) {
 	$notify_message = apply_filters( 'comment_notification_text', $notify_message, $comment->comment_ID );
 
 	/**
-	 * Filter the comment notification email subject.
+	 * Filters the comment notification email subject.
 	 *
 	 * @since 1.5.2
 	 *
@@ -1498,7 +1514,7 @@ function wp_notify_postauthor( $comment_id, $deprecated = null ) {
 	$subject = apply_filters( 'comment_notification_subject', $subject, $comment->comment_ID );
 
 	/**
-	 * Filter the comment notification email headers.
+	 * Filters the comment notification email headers.
 	 *
 	 * @since 1.5.2
 	 *
@@ -1509,6 +1525,10 @@ function wp_notify_postauthor( $comment_id, $deprecated = null ) {
 
 	foreach ( $emails as $email ) {
 		@wp_mail( $email, wp_specialchars_decode( $subject ), $notify_message, $message_headers );
+	}
+
+	if ( $switched_locale ) {
+		restore_previous_locale();
 	}
 
 	return true;
@@ -1535,7 +1555,7 @@ function wp_notify_moderator($comment_id) {
 	$maybe_notify = get_option( 'moderation_notify' );
 
 	/**
-	 * Filter whether to send the site moderator email notifications, overriding the site setting.
+	 * Filters whether to send the site moderator email notifications, overriding the site setting.
 	 *
 	 * @since 4.4.0
 	 *
@@ -1558,6 +1578,8 @@ function wp_notify_moderator($comment_id) {
 			$emails[] = $user->user_email;
 	}
 
+	$switched_locale = switch_to_locale( get_locale() );
+
 	$comment_author_domain = @gethostbyaddr($comment->comment_author_IP);
 	$comments_waiting = $wpdb->get_var("SELECT count(comment_ID) FROM $wpdb->comments WHERE comment_approved = '0'");
 
@@ -1568,49 +1590,65 @@ function wp_notify_moderator($comment_id) {
 
 	switch ( $comment->comment_type ) {
 		case 'trackback':
+			/* translators: 1: Post title */
 			$notify_message  = sprintf( __('A new trackback on the post "%s" is waiting for your approval'), $post->post_title ) . "\r\n";
 			$notify_message .= get_permalink($comment->comment_post_ID) . "\r\n\r\n";
-			/* translators: 1: website name, 2: website IP, 3: website hostname */
+			/* translators: 1: Trackback/pingback website name, 2: website IP, 3: website hostname */
 			$notify_message .= sprintf( __( 'Website: %1$s (IP: %2$s, %3$s)' ), $comment->comment_author, $comment->comment_author_IP, $comment_author_domain ) . "\r\n";
+			/* translators: 1: Trackback/pingback/comment author URL */
 			$notify_message .= sprintf( __( 'URL: %s' ), $comment->comment_author_url ) . "\r\n";
 			$notify_message .= __('Trackback excerpt: ') . "\r\n" . $comment_content . "\r\n\r\n";
 			break;
 		case 'pingback':
+			/* translators: 1: Post title */
 			$notify_message  = sprintf( __('A new pingback on the post "%s" is waiting for your approval'), $post->post_title ) . "\r\n";
 			$notify_message .= get_permalink($comment->comment_post_ID) . "\r\n\r\n";
-			/* translators: 1: website name, 2: website IP, 3: website hostname */
+			/* translators: 1: Trackback/pingback website name, 2: website IP, 3: website hostname */
 			$notify_message .= sprintf( __( 'Website: %1$s (IP: %2$s, %3$s)' ), $comment->comment_author, $comment->comment_author_IP, $comment_author_domain ) . "\r\n";
+			/* translators: 1: Trackback/pingback/comment author URL */
 			$notify_message .= sprintf( __( 'URL: %s' ), $comment->comment_author_url ) . "\r\n";
 			$notify_message .= __('Pingback excerpt: ') . "\r\n" . $comment_content . "\r\n\r\n";
 			break;
 		default: // Comments
+			/* translators: 1: Post title */
 			$notify_message  = sprintf( __('A new comment on the post "%s" is waiting for your approval'), $post->post_title ) . "\r\n";
 			$notify_message .= get_permalink($comment->comment_post_ID) . "\r\n\r\n";
+			/* translators: 1: Comment author name, 2: comment author's IP, 3: comment author IP's hostname */
 			$notify_message .= sprintf( __( 'Author: %1$s (IP: %2$s, %3$s)' ), $comment->comment_author, $comment->comment_author_IP, $comment_author_domain ) . "\r\n";
+			/* translators: 1: Comment author URL */
 			$notify_message .= sprintf( __( 'Email: %s' ), $comment->comment_author_email ) . "\r\n";
+			/* translators: 1: Trackback/pingback/comment author URL */
 			$notify_message .= sprintf( __( 'URL: %s' ), $comment->comment_author_url ) . "\r\n";
+			/* translators: 1: Comment text */
 			$notify_message .= sprintf( __( 'Comment: %s' ), "\r\n" . $comment_content ) . "\r\n\r\n";
 			break;
 	}
 
+	/* translators: Comment moderation. 1: Comment action URL */
 	$notify_message .= sprintf( __( 'Approve it: %s' ), admin_url( "comment.php?action=approve&c={$comment_id}#wpbody-content" ) ) . "\r\n";
 
-	if ( EMPTY_TRASH_DAYS )
+	if ( EMPTY_TRASH_DAYS ) {
+		/* translators: Comment moderation. 1: Comment action URL */
 		$notify_message .= sprintf( __( 'Trash it: %s' ), admin_url( "comment.php?action=trash&c={$comment_id}#wpbody-content" ) ) . "\r\n";
-	else
+	} else {
+		/* translators: Comment moderation. 1: Comment action URL */
 		$notify_message .= sprintf( __( 'Delete it: %s' ), admin_url( "comment.php?action=delete&c={$comment_id}#wpbody-content" ) ) . "\r\n";
+	}
 
+	/* translators: Comment moderation. 1: Comment action URL */
 	$notify_message .= sprintf( __( 'Spam it: %s' ), admin_url( "comment.php?action=spam&c={$comment_id}#wpbody-content" ) ) . "\r\n";
 
+	/* translators: Comment moderation. 1: Number of comments awaiting approval */
 	$notify_message .= sprintf( _n('Currently %s comment is waiting for approval. Please visit the moderation panel:',
  		'Currently %s comments are waiting for approval. Please visit the moderation panel:', $comments_waiting), number_format_i18n($comments_waiting) ) . "\r\n";
 	$notify_message .= admin_url( "edit-comments.php?comment_status=moderated#wpbody-content" ) . "\r\n";
 
+	/* translators: Comment moderation notification email subject. 1: Site name, 2: Post title */
 	$subject = sprintf( __('[%1$s] Please moderate: "%2$s"'), $blogname, $post->post_title );
 	$message_headers = '';
 
 	/**
-	 * Filter the list of recipients for comment moderation emails.
+	 * Filters the list of recipients for comment moderation emails.
 	 *
 	 * @since 3.7.0
 	 *
@@ -1620,7 +1658,7 @@ function wp_notify_moderator($comment_id) {
 	$emails = apply_filters( 'comment_moderation_recipients', $emails, $comment_id );
 
 	/**
-	 * Filter the comment moderation email text.
+	 * Filters the comment moderation email text.
 	 *
 	 * @since 1.5.2
 	 *
@@ -1630,7 +1668,7 @@ function wp_notify_moderator($comment_id) {
 	$notify_message = apply_filters( 'comment_moderation_text', $notify_message, $comment_id );
 
 	/**
-	 * Filter the comment moderation email subject.
+	 * Filters the comment moderation email subject.
 	 *
 	 * @since 1.5.2
 	 *
@@ -1640,7 +1678,7 @@ function wp_notify_moderator($comment_id) {
 	$subject = apply_filters( 'comment_moderation_subject', $subject, $comment_id );
 
 	/**
-	 * Filter the comment moderation email headers.
+	 * Filters the comment moderation email headers.
 	 *
 	 * @since 2.8.0
 	 *
@@ -1651,6 +1689,10 @@ function wp_notify_moderator($comment_id) {
 
 	foreach ( $emails as $email ) {
 		@wp_mail( $email, wp_specialchars_decode( $subject ), $notify_message, $message_headers );
+	}
+
+	if ( $switched_locale ) {
+		restore_previous_locale();
 	}
 
 	return true;
@@ -1669,11 +1711,13 @@ function wp_password_change_notification( $user ) {
 	// send a copy of password change notification to the admin
 	// but check to see if it's the admin whose password we're changing, and skip this
 	if ( 0 !== strcasecmp( $user->user_email, get_option( 'admin_email' ) ) ) {
-		$message = sprintf(__('Password Lost and Changed for user: %s'), $user->user_login) . "\r\n";
+		/* translators: %s: user name */
+		$message = sprintf( __( 'Password changed for user: %s' ), $user->user_login ) . "\r\n";
 		// The blogname option is escaped with esc_html on the way into the database in sanitize_option
 		// we want to reverse this for the plain text arena of emails.
 		$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
-		wp_mail(get_option('admin_email'), sprintf(__('[%s] Password Lost/Changed'), $blogname), $message);
+		/* translators: %s: site title */
+		wp_mail( get_option( 'admin_email' ), sprintf( __( '[%s] Password Changed' ), $blogname ), $message );
 	}
 }
 endif;
@@ -1687,6 +1731,7 @@ if ( !function_exists('wp_new_user_notification') ) :
  * @since 2.0.0
  * @since 4.3.0 The `$plaintext_pass` parameter was changed to `$notify`.
  * @since 4.3.1 The `$plaintext_pass` parameter was deprecated. `$notify` added as a third parameter.
+ * @since 4.6.0 The `$notify` parameter accepts 'user' for sending notification only to the user created.
  *
  * @global wpdb         $wpdb      WordPress database object for queries.
  * @global PasswordHash $wp_hasher Portable PHP password hashing framework instance.
@@ -1694,7 +1739,7 @@ if ( !function_exists('wp_new_user_notification') ) :
  * @param int    $user_id    User ID.
  * @param null   $deprecated Not used (argument deprecated).
  * @param string $notify     Optional. Type of notification that should happen. Accepts 'admin' or an empty
- *                           string (admin only), or 'both' (admin and user). Default empty.
+ *                           string (admin only), 'user', or 'both' (admin and user). Default empty.
  */
 function wp_new_user_notification( $user_id, $deprecated = null, $notify = '' ) {
 	if ( $deprecated !== null ) {
@@ -1708,13 +1753,20 @@ function wp_new_user_notification( $user_id, $deprecated = null, $notify = '' ) 
 	// we want to reverse this for the plain text arena of emails.
 	$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
 
-	$message  = sprintf(__('New user registration on your site %s:'), $blogname) . "\r\n\r\n";
-	$message .= sprintf(__('Username: %s'), $user->user_login) . "\r\n\r\n";
-	$message .= sprintf(__('Email: %s'), $user->user_email) . "\r\n";
+	if ( 'user' !== $notify ) {
+		$switched_locale = switch_to_locale( get_locale() );
+		$message  = sprintf( __( 'New user registration on your site %s:' ), $blogname ) . "\r\n\r\n";
+		$message .= sprintf( __( 'Username: %s' ), $user->user_login ) . "\r\n\r\n";
+		$message .= sprintf( __( 'Email: %s' ), $user->user_email ) . "\r\n";
 
-	@wp_mail(get_option('admin_email'), sprintf(__('[%s] New User Registration'), $blogname), $message);
+		@wp_mail( get_option( 'admin_email' ), sprintf( __( '[%s] New User Registration' ), $blogname ), $message );
 
-	// `$deprecated was pre-4.3 `$plaintext_pass`. An empty `$plaintext_pass` didn't sent a user notifcation.
+		if ( $switched_locale ) {
+			restore_previous_locale();
+		}
+	}
+
+	// `$deprecated was pre-4.3 `$plaintext_pass`. An empty `$plaintext_pass` didn't sent a user notification.
 	if ( 'admin' === $notify || ( empty( $deprecated ) && empty( $notify ) ) ) {
 		return;
 	}
@@ -1727,11 +1779,12 @@ function wp_new_user_notification( $user_id, $deprecated = null, $notify = '' ) 
 
 	// Now insert the key, hashed, into the DB.
 	if ( empty( $wp_hasher ) ) {
-		require_once ABSPATH . WPINC . '/class-phpass.php';
 		$wp_hasher = new PasswordHash( 8, true );
 	}
 	$hashed = time() . ':' . $wp_hasher->HashPassword( $key );
 	$wpdb->update( $wpdb->users, array( 'user_activation_key' => $hashed ), array( 'user_login' => $user->user_login ) );
+
+	$switched_locale = switch_to_locale( get_user_locale( $user ) );
 
 	$message = sprintf(__('Username: %s'), $user->user_login) . "\r\n\r\n";
 	$message .= __('To set your password, visit the following address:') . "\r\n\r\n";
@@ -1740,6 +1793,10 @@ function wp_new_user_notification( $user_id, $deprecated = null, $notify = '' ) 
 	$message .= wp_login_url() . "\r\n";
 
 	wp_mail($user->user_email, sprintf(__('[%s] Your username and password info'), $blogname), $message);
+
+	if ( $switched_locale ) {
+		restore_previous_locale();
+	}
 }
 endif;
 
@@ -1756,7 +1813,7 @@ if ( !function_exists('wp_nonce_tick') ) :
  */
 function wp_nonce_tick() {
 	/**
-	 * Filter the lifespan of nonces in seconds.
+	 * Filters the lifespan of nonces in seconds.
 	 *
 	 * @since 2.5.0
 	 *
@@ -1788,7 +1845,7 @@ function wp_verify_nonce( $nonce, $action = -1 ) {
 	$uid = (int) $user->ID;
 	if ( ! $uid ) {
 		/**
-		 * Filter whether the user who generated the nonce is logged out.
+		 * Filters whether the user who generated the nonce is logged out.
 		 *
 		 * @since 3.5.0
 		 *
@@ -1900,7 +1957,7 @@ function wp_salt( $scheme = 'auth' ) {
 	static $cached_salts = array();
 	if ( isset( $cached_salts[ $scheme ] ) ) {
 		/**
-		 * Filter the WordPress salt.
+		 * Filters the WordPress salt.
 		 *
 		 * @since 2.5.0
 		 *
@@ -2002,7 +2059,6 @@ function wp_hash_password($password) {
 	global $wp_hasher;
 
 	if ( empty($wp_hasher) ) {
-		require_once( ABSPATH . WPINC . '/class-phpass.php');
 		// By default, use the portable hash from phpass
 		$wp_hasher = new PasswordHash(8, true);
 	}
@@ -2047,7 +2103,7 @@ function wp_check_password($password, $hash, $user_id = '') {
 		}
 
 		/**
-		 * Filter whether the plaintext password matches the encrypted password.
+		 * Filters whether the plaintext password matches the encrypted password.
 		 *
 		 * @since 2.5.0
 		 *
@@ -2062,7 +2118,6 @@ function wp_check_password($password, $hash, $user_id = '') {
 	// If the stored hash is longer than an MD5, presume the
 	// new style phpass portable hash.
 	if ( empty($wp_hasher) ) {
-		require_once( ABSPATH . WPINC . '/class-phpass.php');
 		// By default, use the portable hash from phpass
 		$wp_hasher = new PasswordHash(8, true);
 	}
@@ -2100,7 +2155,7 @@ function wp_generate_password( $length = 12, $special_chars = true, $extra_speci
 	}
 
 	/**
-	 * Filter the randomly-generated password.
+	 * Filters the randomly-generated password.
 	 *
 	 * @since 3.0.0
 	 *
@@ -2289,7 +2344,7 @@ function get_avatar( $id_or_email, $size = 96, $default = '', $alt = '', $args =
 	}
 
 	/**
-	 * Filter whether to retrieve the avatar URL early.
+	 * Filters whether to retrieve the avatar URL early.
 	 *
 	 * Passing a non-null value will effectively short-circuit get_avatar(), passing
 	 * the value through the {@see 'get_avatar'} filter and returning early.
@@ -2348,7 +2403,7 @@ function get_avatar( $id_or_email, $size = 96, $default = '', $alt = '', $args =
 	);
 
 	/**
-	 * Filter the avatar to retrieve.
+	 * Filters the avatar to retrieve.
 	 *
 	 * @since 2.5.0
 	 * @since 4.2.0 The `$args` parameter was added.

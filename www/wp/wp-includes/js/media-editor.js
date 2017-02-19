@@ -48,20 +48,8 @@
 		 * @returns {Object} Joined props
 		 */
 		props: function( props, attachment ) {
-			var link, linkUrl, size, sizes, fallbacks,
+			var link, linkUrl, size, sizes,
 				defaultProps = wp.media.view.settings.defaultProps;
-
-			// Final fallbacks run after all processing has been completed.
-			fallbacks = function( props ) {
-				// Generate alt fallbacks and strip tags.
-				if ( 'image' === props.type && ! props.alt ) {
-					props.alt = props.caption || props.title || '';
-					props.alt = props.alt.replace( /<\/?[^>]+>/g, '' );
-					props.alt = props.alt.replace( /[\r\n]+/g, ' ' );
-				}
-
-				return props;
-			};
 
 			props = props ? _.clone( props ) : {};
 
@@ -80,7 +68,7 @@
 
 			// All attachment-specific settings follow.
 			if ( ! attachment ) {
-				return fallbacks( props );
+				return props;
 			}
 
 			props.title = props.title || attachment.title;
@@ -116,7 +104,7 @@
 				props.rel = props.rel || 'attachment wp-att-' + attachment.id;
 			}
 
-			return fallbacks( props );
+			return props;
 		},
 		/**
 		 * Create link markup that is suitable for passing to the editor
@@ -233,6 +221,7 @@
 			var img = {},
 				options, classes, shortcode, html;
 
+			props.type = 'image';
 			props = wp.media.string.props( props, attachment );
 			classes = props.classes || [];
 
@@ -649,14 +638,24 @@
 
 			settings.post.featuredImageId = id;
 
-			wp.media.post( 'set-post-thumbnail', {
-				json:         true,
+			wp.media.post( 'get-post-thumbnail-html', {
 				post_id:      settings.post.id,
 				thumbnail_id: settings.post.featuredImageId,
 				_wpnonce:     settings.post.nonce
 			}).done( function( html ) {
+				if ( html == '0' ) {
+					window.alert( window.setPostThumbnailL10n.error );
+					return;
+				}
 				$( '.inside', '#postimagediv' ).html( html );
 			});
+		},
+		/**
+		 * Remove the featured image id, save the post thumbnail data and
+		 * set the HTML in the post meta box to no featured image.
+		 */
+		remove: function() {
+			wp.media.featuredImage.set( -1 );
 		},
 		/**
 		 * The Featured Image workflow
@@ -735,7 +734,8 @@
 
 				wp.media.featuredImage.frame().open();
 			}).on( 'click', '#remove-post-thumbnail', function() {
-				wp.media.view.settings.post.featuredImageId = -1;
+				wp.media.featuredImage.remove();
+				return false;
 			});
 		}
 	};
@@ -1091,13 +1091,6 @@
 						};
 
 					event.preventDefault();
-
-					// Remove focus from the `.insert-media` button.
-					// Prevents Opera from showing the outline of the button
-					// above the modal.
-					//
-					// See: https://core.trac.wordpress.org/ticket/22445
-					elem.blur();
 
 					if ( elem.hasClass( 'gallery' ) ) {
 						options.state = 'gallery';

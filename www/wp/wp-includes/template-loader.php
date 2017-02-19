@@ -12,7 +12,7 @@ if ( defined('WP_USE_THEMES') && WP_USE_THEMES )
 	do_action( 'template_redirect' );
 
 /**
- * Filter whether to allow 'HEAD' requests to generate content.
+ * Filters whether to allow 'HEAD' requests to generate content.
  *
  * Provides a significant performance bump by exiting before the page
  * content loads for 'HEAD' requests. See #14348.
@@ -60,12 +60,11 @@ if ( defined('WP_USE_THEMES') && WP_USE_THEMES ) :
 	elseif ( is_author()         && $template = get_author_template()         ) :
 	elseif ( is_date()           && $template = get_date_template()           ) :
 	elseif ( is_archive()        && $template = get_archive_template()        ) :
-	elseif ( is_paged()          && $template = get_paged_template()          ) :
 	else :
 		$template = get_index_template();
 	endif;
 	/**
-	 * Filter the path of the current template before including it.
+	 * Filters the path of the current template before including it.
 	 *
 	 * @since 3.0.0
 	 *

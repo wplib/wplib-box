@@ -22,7 +22,7 @@ if ( ! current_theme_supports( 'menus' ) && ! current_theme_supports( 'widgets' 
 if ( ! current_user_can( 'edit_theme_options' ) ) {
 	wp_die(
 		'<h1>' . __( 'Cheatin&#8217; uh?' ) . '</h1>' .
-		'<p>' . __( 'You are not allowed to edit theme options on this site.' ) . '</p>',
+		'<p>' . __( 'Sorry, you are not allowed to edit theme options on this site.' ) . '</p>',
 		403
 	);
 }
@@ -48,102 +48,6 @@ $num_locations = count( array_keys( $locations ) );
 
 // Allowed actions: add, update, delete
 $action = isset( $_REQUEST['action'] ) ? $_REQUEST['action'] : 'edit';
-
-/**
- * If a JSON blob of navigation menu data is in POST data, expand it and inject
- * it into `$_POST` to avoid PHP `max_input_vars` limitations. See #14134.
- *
- * @ignore
- * @since 4.5.3
- * @access private
- */
-function _wp_expand_nav_menu_post_data() {
-	if ( ! isset( $_POST['nav-menu-data'] ) ) {
-		return;
-	}
-
-	$data = json_decode( stripslashes( $_POST['nav-menu-data'] ) );
-
-	if ( ! is_null( $data ) && $data ) {
-		foreach ( $data as $post_input_data ) {
-			// For input names that are arrays (e.g. `menu-item-db-id[3][4][5]`),
-			// derive the array path keys via regex and set the value in $_POST.
-			preg_match( '#([^\[]*)(\[(.+)\])?#', $post_input_data->name, $matches );
-
-			$array_bits = array( $matches[1] );
-
-			if ( isset( $matches[3] ) ) {
-				$array_bits = array_merge( $array_bits, explode( '][', $matches[3] ) );
-			}
-
-			$new_post_data = array();
-
-			// Build the new array value from leaf to trunk.
-			for ( $i = count( $array_bits ) - 1; $i >= 0; $i -- ) {
-				if ( $i == count( $array_bits ) - 1 ) {
-					$new_post_data[ $array_bits[ $i ] ] = wp_slash( $post_input_data->value );
-				} else {
-					$new_post_data = array( $array_bits[ $i ] => $new_post_data );
-				}
-			}
-
-			$_POST = array_replace_recursive( $_POST, $new_post_data );
-		}
-	}
-}
-
-if ( ! function_exists( 'array_replace_recursive' ) ) :
-	/**
-	 * PHP-agnostic version of {@link array_replace_recursive()}.
-	 *
-	 * The array_replace_recursive() function is a PHP 5.3 function. WordPress
-	 * currently supports down to PHP 5.2, so this method is a workaround
-	 * for PHP 5.2.
-	 *
-	 * Note: array_replace_recursive() supports infinite arguments, but for our use-
-	 * case, we only need to support two arguments.
-	 *
-	 * Subject to removal once WordPress makes PHP 5.3.0 the minimum requirement.
-	 *
-	 * @since 4.5.3
-	 *
-	 * @see http://php.net/manual/en/function.array-replace-recursive.php#109390
-	 *
-	 * @param  array $base         Array with keys needing to be replaced.
-	 * @param  array $replacements Array with the replaced keys.
-	 *
-	 * @return array
-	 */
-	function array_replace_recursive( $base = array(), $replacements = array() ) {
-		foreach ( array_slice( func_get_args(), 1 ) as $replacements ) {
-			$bref_stack = array( &$base );
-			$head_stack = array( $replacements );
-
-			do {
-				end( $bref_stack );
-
-				$bref = &$bref_stack[ key( $bref_stack ) ];
-				$head = array_pop( $head_stack );
-
-				unset( $bref_stack[ key( $bref_stack ) ] );
-
-				foreach ( array_keys( $head ) as $key ) {
-					if ( isset( $key, $bref ) &&
-					     isset( $bref[ $key ] ) && is_array( $bref[ $key ] ) &&
-					     isset( $head[ $key ] ) && is_array( $head[ $key ] )
-					) {
-						$bref_stack[] = &$bref[ $key ];
-						$head_stack[] = $head[ $key ];
-					} else {
-						$bref[ $key ] = $head[ $key ];
-					}
-				}
-			} while ( count( $head_stack ) );
-		}
-
-		return $base;
-	}
-endif;
 
 /*
  * If a JSON blob of navigation menu data is found, expand it and inject it
@@ -614,7 +518,8 @@ if ( ! current_theme_supports( 'menus' ) && ! $num_locations )
 
 if ( ! $locations_screen ) : // Main tab
 	$overview  = '<p>' . __( 'This screen is used for managing your custom navigation menus.' ) . '</p>';
-	$overview .= '<p>' . sprintf( __( 'Menus can be displayed in locations defined by your theme, even used in sidebars by adding a &#8220;Custom Menu&#8221; widget on the <a href="%1$s">Widgets</a> screen. If your theme does not support the custom menus feature (the default themes, %2$s and %3$s, do), you can learn about adding this support by following the Documentation link to the side.' ), admin_url( 'widgets.php' ), 'Twenty Fifteen', 'Twenty Fourteen' ) . '</p>';
+	/* translators: 1: Widgets admin screen URL, 2 and 3: The name of the default themes */
+	$overview .= '<p>' . sprintf( __( 'Menus can be displayed in locations defined by your theme, even used in sidebars by adding a &#8220;Custom Menu&#8221; widget on the <a href="%1$s">Widgets</a> screen. If your theme does not support the custom menus feature (the default themes, %2$s and %3$s, do), you can learn about adding this support by following the Documentation link to the side.' ), admin_url( 'widgets.php' ), 'Twenty Sixteen', 'Twenty Seventeen' ) . '</p>';
 	$overview .= '<p>' . __( 'From this screen you can:' ) . '</p>';
 	$overview .= '<ul><li>' . __( 'Create, edit, and delete menus' ) . '</li>';
 	$overview .= '<li>' . __( 'Add, organize, and modify individual menu items' ) . '</li></ul>';
@@ -663,8 +568,8 @@ endif;
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="https://codex.wordpress.org/Appearance_Menus_Screen" target="_blank">Documentation on Menus</a>') . '</p>' .
-	'<p>' . __('<a href="https://wordpress.org/support/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="https://codex.wordpress.org/Appearance_Menus_Screen">Documentation on Menus</a>') . '</p>' .
+	'<p>' . __('<a href="https://wordpress.org/support/">Support Forums</a>') . '</p>'
 );
 
 // Get the admin header.
@@ -681,7 +586,7 @@ require_once( ABSPATH . 'wp-admin/admin-header.php' );
 					array( 'autofocus' => $focus ),
 					'return' => urlencode( wp_unslash( $_SERVER['REQUEST_URI'] ) ),
 				), admin_url( 'customize.php' ) ) ),
-				__( 'Manage in Customizer' )
+				__( 'Manage with Live Preview' )
 			);
 		endif;
 		?>
@@ -789,7 +694,7 @@ require_once( ABSPATH . 'wp-admin/admin-header.php' );
 							}
 
 							/**
-							 * Filter the number of locations listed per menu in the drop-down select.
+							 * Filters the number of locations listed per menu in the drop-down select.
 							 *
 							 * @since 3.6.0
 							 *
@@ -809,7 +714,7 @@ require_once( ABSPATH . 'wp-admin/admin-header.php' );
 					</option>
 				<?php endforeach; ?>
 			</select>
-			<span class="submit-btn"><input type="submit" class="button-secondary" value="<?php esc_attr_e( 'Select' ); ?>"></span>
+			<span class="submit-btn"><input type="submit" class="button" value="<?php esc_attr_e( 'Select' ); ?>"></span>
 			<span class="add-new-menu-action">
 				<?php printf( __( 'or <a href="%s">create a new menu</a>.' ), esc_url( add_query_arg( array( 'action' => 'edit', 'menu' => 0 ), admin_url( 'nav-menus.php' ) ) ) ); ?>
 			</span><!-- /add-new-menu-action -->
@@ -855,7 +760,7 @@ require_once( ABSPATH . 'wp-admin/admin-header.php' );
 							<label class="menu-name-label" for="menu-name"><?php _e( 'Menu Name' ); ?></label>
 							<input name="menu-name" id="menu-name" type="text" class="menu-name regular-text menu-item-textbox" <?php echo $menu_name_val . $menu_name_aria_desc; ?> />
 							<div class="publishing-action">
-								<?php submit_button( empty( $nav_menu_selected_id ) ? __( 'Create Menu' ) : __( 'Save Menu' ), 'button-primary menu-save', 'save_menu', false, array( 'id' => 'save_menu_header' ) ); ?>
+								<?php submit_button( empty( $nav_menu_selected_id ) ? __( 'Create Menu' ) : __( 'Save Menu' ), 'primary large menu-save', 'save_menu', false, array( 'id' => 'save_menu_header' ) ); ?>
 							</div><!-- END .publishing-action -->
 						</div><!-- END .major-publishing-actions -->
 					</div><!-- END .nav-menu-header -->
@@ -894,17 +799,19 @@ require_once( ABSPATH . 'wp-admin/admin-header.php' );
 										$auto_add = false;
 								} ?>
 
-								<dl class="auto-add-pages">
-									<dt class="howto"><?php _e( 'Auto add pages' ); ?></dt>
-									<dd class="checkbox-input"><input type="checkbox"<?php checked( $auto_add ); ?> name="auto-add-pages" id="auto-add-pages" value="1" /> <label for="auto-add-pages"><?php printf( __('Automatically add new top-level pages to this menu' ), esc_url( admin_url( 'edit.php?post_type=page' ) ) ); ?></label></dd>
-								</dl>
+								<fieldset class="menu-settings-group auto-add-pages">
+									<legend class="menu-settings-group-name howto"><?php _e( 'Auto add pages' ); ?></legend>
+									<div class="menu-settings-input checkbox-input">
+										<input type="checkbox"<?php checked( $auto_add ); ?> name="auto-add-pages" id="auto-add-pages" value="1" /> <label for="auto-add-pages"><?php printf( __('Automatically add new top-level pages to this menu' ), esc_url( admin_url( 'edit.php?post_type=page' ) ) ); ?></label>
+									</div>
+								</fieldset>
 
 								<?php if ( current_theme_supports( 'menus' ) ) : ?>
 
-									<dl class="menu-theme-locations">
-										<dt class="howto"><?php _e( 'Theme locations' ); ?></dt>
+									<fieldset class="menu-settings-group menu-theme-locations">
+										<legend class="menu-settings-group-name howto"><?php _e( 'Display location' ); ?></legend>
 										<?php foreach ( $locations as $location => $description ) : ?>
-										<dd class="checkbox-input">
+										<div class="menu-settings-input checkbox-input">
 											<input type="checkbox"<?php checked( isset( $menu_locations[ $location ] ) && $menu_locations[ $location ] == $nav_menu_selected_id ); ?> name="menu-locations[<?php echo esc_attr( $location ); ?>]" id="locations-<?php echo esc_attr( $location ); ?>" value="<?php echo esc_attr( $nav_menu_selected_id ); ?>" />
 											<label for="locations-<?php echo esc_attr( $location ); ?>"><?php echo $description; ?></label>
 											<?php if ( ! empty( $menu_locations[ $location ] ) && $menu_locations[ $location ] != $nav_menu_selected_id ) : ?>
@@ -915,9 +822,9 @@ require_once( ABSPATH . 'wp-admin/admin-header.php' );
 													);
 												?></span>
 											<?php endif; ?>
-										</dd>
+										</div>
 										<?php endforeach; ?>
-									</dl>
+									</fieldset>
 
 								<?php endif; ?>
 
@@ -932,7 +839,7 @@ require_once( ABSPATH . 'wp-admin/admin-header.php' );
 							</span><!-- END .delete-action -->
 							<?php endif; ?>
 							<div class="publishing-action">
-								<?php submit_button( empty( $nav_menu_selected_id ) ? __( 'Create Menu' ) : __( 'Save Menu' ), 'button-primary menu-save', 'save_menu', false, array( 'id' => 'save_menu_footer' ) ); ?>
+								<?php submit_button( empty( $nav_menu_selected_id ) ? __( 'Create Menu' ) : __( 'Save Menu' ), 'primary large menu-save', 'save_menu', false, array( 'id' => 'save_menu_footer' ) ); ?>
 							</div><!-- END .publishing-action -->
 						</div><!-- END .major-publishing-actions -->
 					</div><!-- /#nav-menu-footer -->

@@ -86,11 +86,19 @@ function get_plugin_data( $plugin_file, $markup = true, $translate = true ) {
 	// Site Wide Only is the old header for Network
 	if ( ! $plugin_data['Network'] && $plugin_data['_sitewide'] ) {
 		/* translators: 1: Site Wide Only: true, 2: Network: true */
-		_deprecated_argument( __FUNCTION__, '3.0', sprintf( __( 'The %1$s plugin header is deprecated. Use %2$s instead.' ), '<code>Site Wide Only: true</code>', '<code>Network: true</code>' ) );
+		_deprecated_argument( __FUNCTION__, '3.0.0', sprintf( __( 'The %1$s plugin header is deprecated. Use %2$s instead.' ), '<code>Site Wide Only: true</code>', '<code>Network: true</code>' ) );
 		$plugin_data['Network'] = $plugin_data['_sitewide'];
 	}
 	$plugin_data['Network'] = ( 'true' == strtolower( $plugin_data['Network'] ) );
 	unset( $plugin_data['_sitewide'] );
+
+	// If no text domain is defined fall back to the plugin slug.
+	if ( ! $plugin_data['TextDomain'] ) {
+		$plugin_slug = dirname( plugin_basename( $plugin_file ) );
+		if ( '.' !== $plugin_slug && false === strpos( $plugin_slug, '/' ) ) {
+			$plugin_data['TextDomain'] = $plugin_slug;
+		}
+	}
 
 	if ( $markup || $translate ) {
 		$plugin_data = _get_plugin_data_markup_translate( $plugin_file, $plugin_data, $markup, $translate );
@@ -487,7 +495,7 @@ function is_plugin_active_for_network( $plugin ) {
  * be activated only as a network wide plugin. The plugin would also work
  * when Multisite is not enabled.
  *
- * Checks for "Site Wide Only: true" for backwards compatibility.
+ * Checks for "Site Wide Only: true" for backward compatibility.
  *
  * @since 3.0.0
  *
@@ -570,19 +578,17 @@ function activate_plugin( $plugin, $redirect = '', $network_wide = false, $silen
 			/**
 			 * Fires as a specific plugin is being activated.
 			 *
-			 * This hook is the "activation" hook used internally by
-			 * {@see register_activation_hook()}. The dynamic portion of the
-			 * hook name, `$plugin`, refers to the plugin basename.
+			 * This hook is the "activation" hook used internally by register_activation_hook().
+			 * The dynamic portion of the hook name, `$plugin`, refers to the plugin basename.
 			 *
-			 * If a plugin is silently activated (such as during an update),
-			 * this hook does not fire.
+			 * If a plugin is silently activated (such as during an update), this hook does not fire.
 			 *
 			 * @since 2.0.0
 			 *
 			 * @param bool $network_wide Whether to enable the plugin for all sites in the network
 			 *                           or just the current site. Multisite only. Default is false.
 			 */
-			do_action( 'activate_' . $plugin, $network_wide );
+			do_action( "activate_{$plugin}", $network_wide );
 		}
 
 		if ( $network_wide ) {
@@ -685,19 +691,17 @@ function deactivate_plugins( $plugins, $silent = false, $network_wide = null ) {
 			/**
 			 * Fires as a specific plugin is being deactivated.
 			 *
-			 * This hook is the "deactivation" hook used internally by
-			 * {@see register_deactivation_hook()}. The dynamic portion of the
-			 * hook name, `$plugin`, refers to the plugin basename.
+			 * This hook is the "deactivation" hook used internally by register_deactivation_hook().
+			 * The dynamic portion of the hook name, `$plugin`, refers to the plugin basename.
 			 *
-			 * If a plugin is silently deactivated (such as during an update),
-			 * this hook does not fire.
+			 * If a plugin is silently deactivated (such as during an update), this hook does not fire.
 			 *
 			 * @since 2.0.0
 			 *
 			 * @param bool $network_deactivating Whether the plugin is deactivated for all sites in the network
 			 *                                   or just the current site. Multisite only. Default is false.
 			 */
-			do_action( 'deactivate_' . $plugin, $network_deactivating );
+			do_action( "deactivate_{$plugin}", $network_deactivating );
 
 			/**
 			 * Fires after a plugin is deactivated.
@@ -778,11 +782,13 @@ function delete_plugins( $plugins, $deprecated = '' ) {
 	foreach ( $plugins as $plugin )
 		$checked[] = 'checked[]=' . $plugin;
 
-	ob_start();
 	$url = wp_nonce_url('plugins.php?action=delete-selected&verify-delete=1&' . implode('&', $checked), 'bulk-plugins');
-	if ( false === ($credentials = request_filesystem_credentials($url)) ) {
-		$data = ob_get_clean();
 
+	ob_start();
+	$credentials = request_filesystem_credentials( $url );
+	$data = ob_get_clean();
+
+	if ( false === $credentials ) {
 		if ( ! empty($data) ){
 			include_once( ABSPATH . 'wp-admin/admin-header.php');
 			echo $data;
@@ -792,8 +798,9 @@ function delete_plugins( $plugins, $deprecated = '' ) {
 		return;
 	}
 
-	if ( ! WP_Filesystem($credentials) ) {
-		request_filesystem_credentials($url, '', true); //Failed to connect, Error and request again
+	if ( ! WP_Filesystem( $credentials ) ) {
+		ob_start();
+		request_filesystem_credentials( $url, '', true ); // Failed to connect, Error and request again.
 		$data = ob_get_clean();
 
 		if ( ! empty($data) ){
@@ -814,7 +821,7 @@ function delete_plugins( $plugins, $deprecated = '' ) {
 	// Get the base plugin folder.
 	$plugins_dir = $wp_filesystem->wp_plugins_dir();
 	if ( empty( $plugins_dir ) ) {
-		return new WP_Error( 'fs_no_plugins_dir', __( 'Unable to locate WordPress Plugin directory.' ) );
+		return new WP_Error( 'fs_no_plugins_dir', __( 'Unable to locate WordPress plugin directory.' ) );
 	}
 
 	$plugins_dir = trailingslashit( $plugins_dir );
@@ -933,11 +940,11 @@ function validate_active_plugins() {
 /**
  * Validate the plugin path.
  *
- * Checks that the file exists and {@link validate_file() is valid file}.
+ * Checks that the file exists and is a valid file. See validate_file().
  *
  * @since 2.5.0
  *
- * @param string $plugin Plugin Path
+ * @param string $plugin Plugin Path.
  * @return WP_Error|int 0 on success, WP_Error on failure.
  */
 function validate_plugin($plugin) {
@@ -1003,7 +1010,7 @@ function uninstall_plugin($plugin) {
 		unset($uninstallable_plugins);
 
 		define('WP_UNINSTALL_PLUGIN', $file);
-		wp_register_plugin_realpath( WP_PLUGIN_DIR . '/' . dirname( $file ) );
+		wp_register_plugin_realpath( WP_PLUGIN_DIR . '/' . $file );
 		include( WP_PLUGIN_DIR . '/' . dirname($file) . '/uninstall.php' );
 
 		return true;
@@ -1024,7 +1031,7 @@ function uninstall_plugin($plugin) {
 		 * Fires in uninstall_plugin() once the plugin has been uninstalled.
 		 *
 		 * The action concatenates the 'uninstall_' prefix with the basename of the
-		 * plugin passed to {@see uninstall_plugin()} to create a dynamically-named action.
+		 * plugin passed to uninstall_plugin() to create a dynamically-named action.
 		 *
 		 * @since 2.7.0
 		 */
@@ -1758,68 +1765,9 @@ function user_can_access_admin_page() {
 /* Whitelist functions */
 
 /**
- * Register a setting and its sanitization callback
+ * Refreshes the value of the options whitelist available via the 'whitelist_options' hook.
  *
- * @since 2.7.0
- *
- * @global array $new_whitelist_options
- *
- * @param string $option_group A settings group name. Should correspond to a whitelisted option key name.
- * 	Default whitelisted option key names include "general," "discussion," and "reading," among others.
- * @param string $option_name The name of an option to sanitize and save.
- * @param callable $sanitize_callback A callback function that sanitizes the option's value.
- */
-function register_setting( $option_group, $option_name, $sanitize_callback = '' ) {
-	global $new_whitelist_options;
-
-	if ( 'misc' == $option_group ) {
-		_deprecated_argument( __FUNCTION__, '3.0', sprintf( __( 'The "%s" options group has been removed. Use another settings group.' ), 'misc' ) );
-		$option_group = 'general';
-	}
-
-	if ( 'privacy' == $option_group ) {
-		_deprecated_argument( __FUNCTION__, '3.5', sprintf( __( 'The "%s" options group has been removed. Use another settings group.' ), 'privacy' ) );
-		$option_group = 'reading';
-	}
-
-	$new_whitelist_options[ $option_group ][] = $option_name;
-	if ( $sanitize_callback != '' )
-		add_filter( "sanitize_option_{$option_name}", $sanitize_callback );
-}
-
-/**
- * Unregister a setting
- *
- * @since 2.7.0
- *
- * @global array $new_whitelist_options
- *
- * @param string   $option_group
- * @param string   $option_name
- * @param callable $sanitize_callback
- */
-function unregister_setting( $option_group, $option_name, $sanitize_callback = '' ) {
-	global $new_whitelist_options;
-
-	if ( 'misc' == $option_group ) {
-		_deprecated_argument( __FUNCTION__, '3.0', sprintf( __( 'The "%s" options group has been removed. Use another settings group.' ), 'misc' ) );
-		$option_group = 'general';
-	}
-
-	if ( 'privacy' == $option_group ) {
-		_deprecated_argument( __FUNCTION__, '3.5', sprintf( __( 'The "%s" options group has been removed. Use another settings group.' ), 'privacy' ) );
-		$option_group = 'reading';
-	}
-
-	$pos = array_search( $option_name, (array) $new_whitelist_options[ $option_group ] );
-	if ( $pos !== false )
-		unset( $new_whitelist_options[ $option_group ][ $pos ] );
-	if ( $sanitize_callback != '' )
-		remove_filter( "sanitize_option_{$option_name}", $sanitize_callback );
-}
-
-/**
- * Refreshes the value of the options whitelist available via the 'whitelist_options' filter.
+ * See the {@see 'whitelist_options'} filter.
  *
  * @since 2.7.0
  *

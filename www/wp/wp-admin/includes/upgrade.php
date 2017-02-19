@@ -38,7 +38,7 @@ if ( !function_exists('wp_install') ) :
  */
 function wp_install( $blog_title, $user_name, $user_email, $public, $deprecated = '', $user_password = '', $language = '' ) {
 	if ( !empty( $deprecated ) )
-		_deprecated_argument( __FUNCTION__, '2.6' );
+		_deprecated_argument( __FUNCTION__, '2.6.0' );
 
 	wp_check_mysql_version();
 	wp_cache_flush();
@@ -49,6 +49,9 @@ function wp_install( $blog_title, $user_name, $user_email, $public, $deprecated 
 	update_option('blogname', $blog_title);
 	update_option('admin_email', $user_email);
 	update_option('blog_public', $public);
+
+	// Freshness of site - in the future, this could get more specific about actions taken, perhaps.
+	update_option( 'fresh_site', 1 );
 
 	if ( $language ) {
 		update_option( 'WPLANG', $language );
@@ -161,12 +164,12 @@ function wp_install_defaults( $user_id ) {
 		}
 
 		$first_post = sprintf( $first_post,
-			sprintf( '<a href="%s">%s</a>', esc_url( network_home_url() ), get_current_site()->site_name )
+			sprintf( '<a href="%s">%s</a>', esc_url( network_home_url() ), get_network()->site_name )
 		);
 
 		// Back-compat for pre-4.4
 		$first_post = str_replace( 'SITE_URL', esc_url( network_home_url() ), $first_post );
-		$first_post = str_replace( 'SITE_NAME', get_current_site()->site_name, $first_post );
+		$first_post = str_replace( 'SITE_NAME', get_network()->site_name, $first_post );
 	} else {
 		$first_post = __( 'Welcome to WordPress. This is your first post. Edit or delete it, then start writing!' );
 	}
@@ -191,19 +194,22 @@ function wp_install_defaults( $user_id ) {
 	$wpdb->insert( $wpdb->term_relationships, array('term_taxonomy_id' => $cat_tt_id, 'object_id' => 1) );
 
 	// Default comment
-	$first_comment_author = __('Mr WordPress');
+	$first_comment_author = __( 'A WordPress Commenter' );
+	$first_comment_email = 'wapuu@wordpress.example';
 	$first_comment_url = 'https://wordpress.org/';
-	$first_comment = __('Hi, this is a comment.
-To delete a comment, just log in and view the post&#039;s comments. There you will have the option to edit or delete them.');
+	$first_comment = __( 'Hi, this is a comment.
+To get started with moderating, editing, and deleting comments, please visit the Comments screen in the dashboard.
+Commenter avatars come from <a href="https://gravatar.com">Gravatar</a>.' );
 	if ( is_multisite() ) {
 		$first_comment_author = get_site_option( 'first_comment_author', $first_comment_author );
+		$first_comment_email = get_site_option( 'first_comment_email', $first_comment_email );
 		$first_comment_url = get_site_option( 'first_comment_url', network_home_url() );
 		$first_comment = get_site_option( 'first_comment', $first_comment );
 	}
 	$wpdb->insert( $wpdb->comments, array(
 		'comment_post_ID' => 1,
 		'comment_author' => $first_comment_author,
-		'comment_author_email' => '',
+		'comment_author_email' => $first_comment_email,
 		'comment_author_url' => $first_comment_url,
 		'comment_date' => $now,
 		'comment_date_gmt' => $now_gmt,
@@ -250,8 +256,7 @@ As a new WordPress user, you should go to <a href=\"%s\">your dashboard</a> to d
 	update_option( 'widget_archives', array ( 2 => array ( 'title' => '', 'count' => 0, 'dropdown' => 0 ), '_multiwidget' => 1 ) );
 	update_option( 'widget_categories', array ( 2 => array ( 'title' => '', 'count' => 0, 'hierarchical' => 0, 'dropdown' => 0 ), '_multiwidget' => 1 ) );
 	update_option( 'widget_meta', array ( 2 => array ( 'title' => '' ), '_multiwidget' => 1 ) );
-	update_option( 'sidebars_widgets', array ( 'wp_inactive_widgets' => array (), 'sidebar-1' => array ( 0 => 'search-2', 1 => 'recent-posts-2', 2 => 'recent-comments-2', 3 => 'archives-2', 4 => 'categories-2', 5 => 'meta-2', ), 'array_version' => 3 ) );
-
+	update_option( 'sidebars_widgets', array( 'wp_inactive_widgets' => array(), 'sidebar-1' => array( 0 => 'search-2', 1 => 'recent-posts-2', 2 => 'recent-comments-2', 3 => 'archives-2', 4 => 'categories-2', 5 => 'meta-2' ), 'sidebar-2' => array(), 'sidebar-3' => array(), 'array_version' => 3 ) );
 	if ( ! is_multisite() )
 		update_user_meta( $user_id, 'show_welcome_panel', 1 );
 	elseif ( ! is_super_admin( $user_id ) && ! metadata_exists( 'user', $user_id, 'show_welcome_panel' ) )
@@ -317,11 +322,12 @@ function wp_install_maybe_enable_pretty_permalinks() {
 	 	 */
 		$wp_rewrite->flush_rules( true );
 
-		// Test against a real WordPress Post, or if none were created, a random 404 page.
-		$test_url = get_permalink( 1 );
+		$test_url = '';
 
-		if ( ! $test_url ) {
-			$test_url = home_url( '/wordpress-check-for-rewrites/' );
+		// Test against a real WordPress Post
+		$first_post = get_page_by_path( sanitize_title( _x( 'hello-world', 'Default post slug' ) ), OBJECT, 'post' );
+		if ( $first_post ) {
+			$test_url = get_permalink( $first_post->ID );
 		}
 
 		/*
@@ -369,6 +375,7 @@ function wp_new_blog_notification($blog_title, $blog_url, $user_id, $password) {
 	$email = $user->user_email;
 	$name = $user->user_login;
 	$login_url = wp_login_url();
+	/* translators: New site notification email. 1: New site URL, 2: User login, 3: User password or password reset link, 4: Login URL */
 	$message = sprintf( __( "Your new WordPress site has been successfully set up at:
 
 %1\$s
@@ -551,6 +558,9 @@ function upgrade_all() {
 
 	if ( $wp_current_db_version < 36686 )
 		upgrade_450();
+
+	if ( $wp_current_db_version < 37965 )
+		upgrade_460();
 
 	maybe_disable_link_manager();
 
@@ -1688,6 +1698,38 @@ function upgrade_450() {
 }
 
 /**
+ * Executes changes made in WordPress 4.6.0.
+ *
+ * @ignore
+ * @since 4.6.0
+ *
+ * @global int $wp_current_db_version Current database version.
+ */
+function upgrade_460() {
+	global $wp_current_db_version;
+
+	// Remove unused post meta.
+	if ( $wp_current_db_version < 37854 ) {
+		delete_post_meta_by_key( '_post_restored_from' );
+	}
+
+	// Remove plugins with callback as an array object/method as the uninstall hook, see #13786.
+	if ( $wp_current_db_version < 37965 ) {
+		$uninstall_plugins = get_option( 'uninstall_plugins', array() );
+
+		if ( ! empty( $uninstall_plugins ) ) {
+			foreach ( $uninstall_plugins as $basename => $callback ) {
+				if ( is_array( $callback ) && is_object( $callback[0] ) ) {
+					unset( $uninstall_plugins[ $basename ] );
+				}
+			}
+
+			update_option( 'uninstall_plugins', $uninstall_plugins );
+		}
+	}
+}
+
+/**
  * Executes network-level upgrade routines.
  *
  * @since 3.0.0
@@ -2104,7 +2146,7 @@ function dbDelta( $queries = '', $execute = true ) {
 	}
 
 	/**
-	 * Filter the dbDelta SQL queries.
+	 * Filters the dbDelta SQL queries.
 	 *
 	 * @since 3.3.0
 	 *
@@ -2133,7 +2175,7 @@ function dbDelta( $queries = '', $execute = true ) {
 	}
 
 	/**
-	 * Filter the dbDelta SQL queries for creating tables and/or databases.
+	 * Filters the dbDelta SQL queries for creating tables and/or databases.
 	 *
 	 * Queries filterable via this hook contain "CREATE TABLE" or "CREATE DATABASE".
 	 *
@@ -2144,7 +2186,7 @@ function dbDelta( $queries = '', $execute = true ) {
 	$cqueries = apply_filters( 'dbdelta_create_queries', $cqueries );
 
 	/**
-	 * Filter the dbDelta SQL queries for inserting or updating.
+	 * Filters the dbDelta SQL queries for inserting or updating.
 	 *
 	 * Queries filterable via this hook contain "INSERT INTO" or "UPDATE".
 	 *
@@ -2183,83 +2225,168 @@ function dbDelta( $queries = '', $execute = true ) {
 		// Separate field lines into an array.
 		$flds = explode("\n", $qryline);
 
-		// todo: Remove this?
-		//echo "<hr/><pre>\n".print_r(strtolower($table), true).":\n".print_r($cqueries, true)."</pre><hr/>";
-
 		// For every field line specified in the query.
-		foreach ($flds as $fld) {
+		foreach ( $flds as $fld ) {
+			$fld = trim( $fld, " \t\n\r\0\x0B," ); // Default trim characters, plus ','.
 
 			// Extract the field name.
-			preg_match("|^([^ ]*)|", trim($fld), $fvals);
+			preg_match( '|^([^ ]*)|', $fld, $fvals );
 			$fieldname = trim( $fvals[1], '`' );
+			$fieldname_lowercased = strtolower( $fieldname );
 
 			// Verify the found field name.
 			$validfield = true;
-			switch (strtolower($fieldname)) {
-			case '':
-			case 'primary':
-			case 'index':
-			case 'fulltext':
-			case 'unique':
-			case 'key':
-				$validfield = false;
-				$indices[] = trim(trim($fld), ", \n");
-				break;
+			switch ( $fieldname_lowercased ) {
+				case '':
+				case 'primary':
+				case 'index':
+				case 'fulltext':
+				case 'unique':
+				case 'key':
+				case 'spatial':
+					$validfield = false;
+
+					/*
+					 * Normalize the index definition.
+					 *
+					 * This is done so the definition can be compared against the result of a
+					 * `SHOW INDEX FROM $table_name` query which returns the current table
+					 * index information.
+					 */
+
+					// Extract type, name and columns from the definition.
+					preg_match(
+						  '/^'
+						.   '(?P<index_type>'             // 1) Type of the index.
+						.       'PRIMARY\s+KEY|(?:UNIQUE|FULLTEXT|SPATIAL)\s+(?:KEY|INDEX)|KEY|INDEX'
+						.   ')'
+						.   '\s+'                         // Followed by at least one white space character.
+						.   '(?:'                         // Name of the index. Optional if type is PRIMARY KEY.
+						.       '`?'                      // Name can be escaped with a backtick.
+						.           '(?P<index_name>'     // 2) Name of the index.
+						.               '(?:[0-9a-zA-Z$_-]|[\xC2-\xDF][\x80-\xBF])+'
+						.           ')'
+						.       '`?'                      // Name can be escaped with a backtick.
+						.       '\s+'                     // Followed by at least one white space character.
+						.   ')*'
+						.   '\('                          // Opening bracket for the columns.
+						.       '(?P<index_columns>'
+						.           '.+?'                 // 3) Column names, index prefixes, and orders.
+						.       ')'
+						.   '\)'                          // Closing bracket for the columns.
+						. '$/im',
+						$fld,
+						$index_matches
+					);
+
+					// Uppercase the index type and normalize space characters.
+					$index_type = strtoupper( preg_replace( '/\s+/', ' ', trim( $index_matches['index_type'] ) ) );
+
+					// 'INDEX' is a synonym for 'KEY', standardize on 'KEY'.
+					$index_type = str_replace( 'INDEX', 'KEY', $index_type );
+
+					// Escape the index name with backticks. An index for a primary key has no name.
+					$index_name = ( 'PRIMARY KEY' === $index_type ) ? '' : '`' . strtolower( $index_matches['index_name'] ) . '`';
+
+					// Parse the columns. Multiple columns are separated by a comma.
+					$index_columns = array_map( 'trim', explode( ',', $index_matches['index_columns'] ) );
+
+					// Normalize columns.
+					foreach ( $index_columns as &$index_column ) {
+						// Extract column name and number of indexed characters (sub_part).
+						preg_match(
+							  '/'
+							.   '`?'                      // Name can be escaped with a backtick.
+							.       '(?P<column_name>'    // 1) Name of the column.
+							.           '(?:[0-9a-zA-Z$_-]|[\xC2-\xDF][\x80-\xBF])+'
+							.       ')'
+							.   '`?'                      // Name can be escaped with a backtick.
+							.   '(?:'                     // Optional sub part.
+							.       '\s*'                 // Optional white space character between name and opening bracket.
+							.       '\('                  // Opening bracket for the sub part.
+							.           '\s*'             // Optional white space character after opening bracket.
+							.           '(?P<sub_part>'
+							.               '\d+'         // 2) Number of indexed characters.
+							.           ')'
+							.           '\s*'             // Optional white space character before closing bracket.
+							.        '\)'                 // Closing bracket for the sub part.
+							.   ')?'
+							. '/',
+							$index_column,
+							$index_column_matches
+						);
+
+						// Escape the column name with backticks.
+						$index_column = '`' . $index_column_matches['column_name'] . '`';
+
+						// Append the optional sup part with the number of indexed characters.
+						if ( isset( $index_column_matches['sub_part'] ) ) {
+							$index_column .= '(' . $index_column_matches['sub_part'] . ')';
+						}
+					}
+
+					// Build the normalized index definition and add it to the list of indices.
+					$indices[] = "{$index_type} {$index_name} (" . implode( ',', $index_columns ) . ")";
+
+					// Destroy no longer needed variables.
+					unset( $index_column, $index_column_matches, $index_matches, $index_type, $index_name, $index_columns );
+
+					break;
 			}
-			$fld = trim($fld);
 
 			// If it's a valid field, add it to the field array.
-			if ($validfield) {
-				$cfields[strtolower($fieldname)] = trim($fld, ", \n");
+			if ( $validfield ) {
+				$cfields[ $fieldname_lowercased ] = $fld;
 			}
 		}
 
 		// For every field in the table.
-		foreach ($tablefields as $tablefield) {
+		foreach ( $tablefields as $tablefield ) {
+			$tablefield_field_lowercased = strtolower( $tablefield->Field );
+			$tablefield_type_lowercased = strtolower( $tablefield->Type );
 
 			// If the table field exists in the field array ...
-			if (array_key_exists(strtolower($tablefield->Field), $cfields)) {
+			if ( array_key_exists( $tablefield_field_lowercased, $cfields ) ) {
 
 				// Get the field type from the query.
-				preg_match("|".$tablefield->Field." ([^ ]*( unsigned)?)|i", $cfields[strtolower($tablefield->Field)], $matches);
+				preg_match( '|`?' . $tablefield->Field . '`? ([^ ]*( unsigned)?)|i', $cfields[ $tablefield_field_lowercased ], $matches );
 				$fieldtype = $matches[1];
+				$fieldtype_lowercased = strtolower( $fieldtype );
 
 				// Is actual field type different from the field type in query?
 				if ($tablefield->Type != $fieldtype) {
 					$do_change = true;
-					if ( in_array( strtolower( $fieldtype ), $text_fields ) && in_array( strtolower( $tablefield->Type ), $text_fields ) ) {
-						if ( array_search( strtolower( $fieldtype ), $text_fields ) < array_search( strtolower( $tablefield->Type ), $text_fields ) ) {
+					if ( in_array( $fieldtype_lowercased, $text_fields ) && in_array( $tablefield_type_lowercased, $text_fields ) ) {
+						if ( array_search( $fieldtype_lowercased, $text_fields ) < array_search( $tablefield_type_lowercased, $text_fields ) ) {
 							$do_change = false;
 						}
 					}
 
-					if ( in_array( strtolower( $fieldtype ), $blob_fields ) && in_array( strtolower( $tablefield->Type ), $blob_fields ) ) {
-						if ( array_search( strtolower( $fieldtype ), $blob_fields ) < array_search( strtolower( $tablefield->Type ), $blob_fields ) ) {
+					if ( in_array( $fieldtype_lowercased, $blob_fields ) && in_array( $tablefield_type_lowercased, $blob_fields ) ) {
+						if ( array_search( $fieldtype_lowercased, $blob_fields ) < array_search( $tablefield_type_lowercased, $blob_fields ) ) {
 							$do_change = false;
 						}
 					}
 
 					if ( $do_change ) {
-					// Add a query to change the column type
-						$cqueries[] = "ALTER TABLE {$table} CHANGE COLUMN {$tablefield->Field} " . $cfields[strtolower($tablefield->Field)];
+						// Add a query to change the column type.
+						$cqueries[] = "ALTER TABLE {$table} CHANGE COLUMN `{$tablefield->Field}` " . $cfields[ $tablefield_field_lowercased ];
 						$for_update[$table.'.'.$tablefield->Field] = "Changed type of {$table}.{$tablefield->Field} from {$tablefield->Type} to {$fieldtype}";
 					}
 				}
 
-				// Get the default value from the array
-					// todo: Remove this?
-					//echo "{$cfields[strtolower($tablefield->Field)]}<br>";
-				if (preg_match("| DEFAULT '(.*?)'|i", $cfields[strtolower($tablefield->Field)], $matches)) {
+				// Get the default value from the array.
+				if ( preg_match( "| DEFAULT '(.*?)'|i", $cfields[ $tablefield_field_lowercased ], $matches ) ) {
 					$default_value = $matches[1];
 					if ($tablefield->Default != $default_value) {
 						// Add a query to change the column's default value
-						$cqueries[] = "ALTER TABLE {$table} ALTER COLUMN {$tablefield->Field} SET DEFAULT '{$default_value}'";
+						$cqueries[] = "ALTER TABLE {$table} ALTER COLUMN `{$tablefield->Field}` SET DEFAULT '{$default_value}'";
 						$for_update[$table.'.'.$tablefield->Field] = "Changed default value of {$table}.{$tablefield->Field} from {$tablefield->Default} to {$default_value}";
 					}
 				}
 
 				// Remove the field from the array (so it's not added).
-				unset($cfields[strtolower($tablefield->Field)]);
+				unset( $cfields[ $tablefield_field_lowercased ] );
 			} else {
 				// This field exists in the table, but not in the creation queries?
 			}
@@ -2283,7 +2410,7 @@ function dbDelta( $queries = '', $execute = true ) {
 			foreach ($tableindices as $tableindex) {
 
 				// Add the index to the index data array.
-				$keyname = $tableindex->Key_name;
+				$keyname = strtolower( $tableindex->Key_name );
 				$index_ary[$keyname]['columns'][] = array('fieldname' => $tableindex->Column_name, 'subpart' => $tableindex->Sub_part);
 				$index_ary[$keyname]['unique'] = ($tableindex->Non_unique == 0)?true:false;
 				$index_ary[$keyname]['index_type'] = $tableindex->Index_type;
@@ -2294,7 +2421,7 @@ function dbDelta( $queries = '', $execute = true ) {
 
 				// Build a create string to compare to the query.
 				$index_string = '';
-				if ($index_name == 'PRIMARY') {
+				if ($index_name == 'primary') {
 					$index_string .= 'PRIMARY ';
 				} elseif ( $index_data['unique'] ) {
 					$index_string .= 'UNIQUE ';
@@ -2302,18 +2429,23 @@ function dbDelta( $queries = '', $execute = true ) {
 				if ( 'FULLTEXT' === strtoupper( $index_data['index_type'] ) ) {
 					$index_string .= 'FULLTEXT ';
 				}
+				if ( 'SPATIAL' === strtoupper( $index_data['index_type'] ) ) {
+					$index_string .= 'SPATIAL ';
+				}
 				$index_string .= 'KEY ';
-				if ($index_name != 'PRIMARY') {
-					$index_string .= $index_name;
+				if ( 'primary' !== $index_name  ) {
+					$index_string .= '`' . $index_name . '`';
 				}
 				$index_columns = '';
 
 				// For each column in the index.
 				foreach ($index_data['columns'] as $column_data) {
-					if ($index_columns != '') $index_columns .= ',';
+					if ( $index_columns != '' ) {
+						$index_columns .= ',';
+					}
 
 					// Add the field to the column list string.
-					$index_columns .= $column_data['fieldname'];
+					$index_columns .= '`' . $column_data['fieldname'] . '`';
 					if ($column_data['subpart'] != '') {
 						$index_columns .= '('.$column_data['subpart'].')';
 					}
@@ -2332,12 +2464,8 @@ function dbDelta( $queries = '', $execute = true ) {
 					if ( ! ( ( $aindex = array_search( $index_string, $indices ) ) === false ) ) {
 						unset( $indices[ $aindex ] );
 						break;
-						// todo: Remove this?
-						//echo "<pre style=\"border:1px solid #ccc;margin-top:5px;\">{$table}:<br />Found index:".$index_string."</pre>\n";
 					}
 				}
-				// todo: Remove this?
-				//else echo "<pre style=\"border:1px solid #ccc;margin-top:5px;\">{$table}:<br /><b>Did not find index:</b>".$index_string."<br />".print_r($indices, true)."</pre>\n";
 			}
 		}
 
@@ -2355,8 +2483,6 @@ function dbDelta( $queries = '', $execute = true ) {
 	$allqueries = array_merge($cqueries, $iqueries);
 	if ($execute) {
 		foreach ($allqueries as $query) {
-			// todo: Remove this?
-			//echo "<pre style=\"border:1px solid #ccc;margin-top:5px;\">".print_r($query, true)."</pre>\n";
 			$wpdb->query($query);
 		}
 	}
@@ -2698,7 +2824,7 @@ function pre_schema_upgrade() {
 	// Multisite schema upgrades.
 	if ( $wp_current_db_version < 25448 && is_multisite() && wp_should_upgrade_global_tables() ) {
 
-		// Upgrade verions prior to 3.7
+		// Upgrade versions prior to 3.7
 		if ( $wp_current_db_version < 25179 ) {
 			// New primary key for signups.
 			$wpdb->query( "ALTER TABLE $wpdb->signups ADD signup_id BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST" );
@@ -2800,7 +2926,7 @@ function wp_should_upgrade_global_tables() {
 	}
 
 	/**
-	 * Filter if upgrade routines should be run on global tables.
+	 * Filters if upgrade routines should be run on global tables.
 	 *
 	 * @param bool $should_upgrade Whether to run the upgrade routines on global tables.
 	 */

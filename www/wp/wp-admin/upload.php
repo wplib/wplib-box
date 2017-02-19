@@ -10,7 +10,7 @@
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( !current_user_can('upload_files') )
-	wp_die( __( 'You do not have permission to upload files.' ) );
+	wp_die( __( 'Sorry, you are not allowed to upload files.' ) );
 
 $mode = get_user_option( 'media_library_mode', get_current_user_id() ) ? get_user_option( 'media_library_mode', get_current_user_id() ) : 'grid';
 $modes = array( 'grid', 'list' );
@@ -63,8 +63,8 @@ if ( 'grid' === $mode ) {
 
 	get_current_screen()->set_help_sidebar(
 		'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-		'<p>' . __( '<a href="https://codex.wordpress.org/Media_Library_Screen" target="_blank">Documentation on Media Library</a>' ) . '</p>' .
-		'<p>' . __( '<a href="https://wordpress.org/support/" target="_blank">Support Forums</a>' ) . '</p>'
+		'<p>' . __( '<a href="https://codex.wordpress.org/Media_Library_Screen">Documentation on Media Library</a>' ) . '</p>' .
+		'<p>' . __( '<a href="https://wordpress.org/support/">Support Forums</a>' ) . '</p>'
 	);
 
 	$title = __('Media Library');
@@ -132,7 +132,7 @@ if ( $doaction ) {
 				break;
 			foreach ( (array) $post_ids as $post_id ) {
 				if ( !current_user_can( 'delete_post', $post_id ) )
-					wp_die( __( 'You are not allowed to move this item to the Trash.' ) );
+					wp_die( __( 'Sorry, you are not allowed to move this item to the Trash.' ) );
 
 				if ( !wp_trash_post( $post_id ) )
 					wp_die( __( 'Error in moving to Trash.' ) );
@@ -144,7 +144,7 @@ if ( $doaction ) {
 				break;
 			foreach ( (array) $post_ids as $post_id ) {
 				if ( !current_user_can( 'delete_post', $post_id ) )
-					wp_die( __( 'You are not allowed to move this item out of the Trash.' ) );
+					wp_die( __( 'Sorry, you are not allowed to restore this item from the Trash.' ) );
 
 				if ( !wp_untrash_post( $post_id ) )
 					wp_die( __( 'Error in restoring from Trash.' ) );
@@ -156,13 +156,16 @@ if ( $doaction ) {
 				break;
 			foreach ( (array) $post_ids as $post_id_del ) {
 				if ( !current_user_can( 'delete_post', $post_id_del ) )
-					wp_die( __( 'You are not allowed to delete this item.' ) );
+					wp_die( __( 'Sorry, you are not allowed to delete this item.' ) );
 
 				if ( !wp_delete_attachment( $post_id_del ) )
 					wp_die( __( 'Error in deleting.' ) );
 			}
 			$location = add_query_arg( 'deleted', count( $post_ids ), $location );
 			break;
+		default:
+			/** This action is documented in wp-admin/edit-comments.php */
+			$location = apply_filters( 'handle_bulk_actions-' . get_current_screen()->id, $location, $doaction, $post_ids );
 	}
 
 	wp_redirect( $location );
@@ -204,8 +207,8 @@ get_current_screen()->add_help_tab( array(
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-	'<p>' . __( '<a href="https://codex.wordpress.org/Media_Library_Screen" target="_blank">Documentation on Media Library</a>' ) . '</p>' .
-	'<p>' . __( '<a href="https://wordpress.org/support/" target="_blank">Support Forums</a>' ) . '</p>'
+	'<p>' . __( '<a href="https://codex.wordpress.org/Media_Library_Screen">Documentation on Media Library</a>' ) . '</p>' .
+	'<p>' . __( '<a href="https://wordpress.org/support/">Support Forums</a>' ) . '</p>'
 );
 
 get_current_screen()->set_screen_reader_content( array(

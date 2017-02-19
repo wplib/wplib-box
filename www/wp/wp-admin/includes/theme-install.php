@@ -29,7 +29,7 @@ $theme_field_defaults = array( 'description' => true, 'sections' => false, 'test
  * @return array
  */
 function install_themes_feature_list() {
-	_deprecated_function( __FUNCTION__, '3.1', 'get_theme_feature_list()' );
+	_deprecated_function( __FUNCTION__, '3.1.0', 'get_theme_feature_list()' );
 
 	if ( !$cache = get_transient( 'wporg_theme_feature_list' ) )
 		set_transient( 'wporg_theme_feature_list', array(), 3 * HOUR_IN_SECONDS );
@@ -85,7 +85,7 @@ function install_theme_search_form( $type_selector = true ) {
 	<label class="screen-reader-text" for="s"><?php _e('Search by keyword'); ?></label>
 	<?php endif; ?>
 	<input type="search" name="s" id="s" size="30" value="<?php echo esc_attr($term) ?>" autofocus="autofocus" />
-	<?php submit_button( __( 'Search' ), 'button', 'search', false ); ?>
+	<?php submit_button( __( 'Search' ), '', 'search', false ); ?>
 </form>
 <?php
 }
@@ -130,7 +130,7 @@ function install_themes_dashboard() {
 
 </div>
 <br class="clear" />
-<?php submit_button( __( 'Find Themes' ), 'button', 'search' ); ?>
+<?php submit_button( __( 'Find Themes' ), '', 'search' ); ?>
 </form>
 <?php
 }
@@ -145,7 +145,7 @@ function install_themes_upload() {
 	<?php wp_nonce_field( 'theme-upload' ); ?>
 	<label class="screen-reader-text" for="themezip"><?php _e( 'Theme zip file' ); ?></label>
 	<input type="file" id="themezip" name="themezip" />
-	<?php submit_button( __( 'Install Now' ), 'button', 'install-theme-submit', false ); ?>
+	<?php submit_button( __( 'Install Now' ), '', 'install-theme-submit', false ); ?>
 </form>
 	<?php
 }
@@ -160,7 +160,7 @@ function install_themes_upload() {
  * @param object $theme
  */
 function display_theme( $theme ) {
-	_deprecated_function( __FUNCTION__, '3.4' );
+	_deprecated_function( __FUNCTION__, '3.4.0' );
 	global $wp_list_table;
 	if ( ! isset( $wp_list_table ) ) {
 		$wp_list_table = _get_list_table('WP_Theme_Install_List_Table');

@@ -12,8 +12,8 @@
  *
  * @since 3.0.0
  *
- * @param string $menu Menu ID, slug, or name - or the menu object.
- * @return object|false False if $menu param isn't supplied or term does not exist, menu object if successful.
+ * @param int|string|WP_Term $menu Menu ID, slug, or name - or the menu object.
+ * @return WP_Term|false False if $menu param isn't supplied or term does not exist, menu object if successful.
  */
 function wp_get_nav_menu_object( $menu ) {
 	$menu_obj = false;
@@ -39,7 +39,7 @@ function wp_get_nav_menu_object( $menu ) {
 	}
 
 	/**
-	 * Filter the nav_menu term retrieved for wp_get_nav_menu_object().
+	 * Filters the nav_menu term retrieved for wp_get_nav_menu_object().
 	 *
 	 * @since 4.3.0
 	 *
@@ -126,13 +126,13 @@ function register_nav_menu( $location, $description ) {
 	register_nav_menus( array( $location => $description ) );
 }
 /**
- * Returns all registered navigation menu locations in a theme.
+ * Retrieves all registered navigation menu locations in a theme.
  *
  * @since 3.0.0
  *
  * @global array $_wp_registered_nav_menus
  *
- * @return array
+ * @return array Registered navigation menu locations. If none are registered, an empty array.
  */
 function get_registered_nav_menus() {
 	global $_wp_registered_nav_menus;
@@ -142,10 +142,12 @@ function get_registered_nav_menus() {
 }
 
 /**
- * Returns an array with the registered navigation menu locations and the menu assigned to it
+ * Retrieves all registered navigation menu locations and the menus assigned to them.
  *
  * @since 3.0.0
- * @return array
+ *
+ * @return array Registered navigation menu locations and the menus assigned them.
+ *               If none are registered, an empty array.
  */
 
 function get_nav_menu_locations() {
@@ -171,7 +173,7 @@ function has_nav_menu( $location ) {
 	}
 
 	/**
-	 * Filter whether a nav menu is assigned to the specified location.
+	 * Filters whether a nav menu is assigned to the specified location.
 	 *
 	 * @since 4.3.0
 	 *
@@ -534,7 +536,7 @@ function wp_update_nav_menu_item( $menu_id = 0, $menu_item_db_id = 0, $menu_item
  * @since 4.1.0 Default value of the 'orderby' argument was changed from 'none'
  *              to 'name'.
  *
- * @param array $args Optional. Array of arguments passed on to {@see get_terms()}.
+ * @param array $args Optional. Array of arguments passed on to get_terms().
  *                    Default empty array.
  * @return array Menu objects.
  */
@@ -543,7 +545,7 @@ function wp_get_nav_menus( $args = array() ) {
 	$args = wp_parse_args( $args, $defaults );
 
 	/**
-	 * Filter the navigation menu objects being returned.
+	 * Filters the navigation menu objects being returned.
 	 *
 	 * @since 3.0.0
 	 *
@@ -553,38 +555,6 @@ function wp_get_nav_menus( $args = array() ) {
 	 * @param array $args  An array of arguments used to retrieve menu objects.
 	 */
 	return apply_filters( 'wp_get_nav_menus', get_terms( 'nav_menu',  $args), $args );
-}
-
-/**
- * Sort menu items by the desired key.
- *
- * @since 3.0.0
- * @access private
- *
- * @global string $_menu_item_sort_prop
- *
- * @param object $a The first object to compare
- * @param object $b The second object to compare
- * @return int -1, 0, or 1 if $a is considered to be respectively less than, equal to, or greater than $b.
- */
-function _sort_nav_menu_items( $a, $b ) {
-	global $_menu_item_sort_prop;
-
-	if ( empty( $_menu_item_sort_prop ) )
-		return 0;
-
-	if ( ! isset( $a->$_menu_item_sort_prop ) || ! isset( $b->$_menu_item_sort_prop ) )
-		return 0;
-
-	$_a = (int) $a->$_menu_item_sort_prop;
-	$_b = (int) $b->$_menu_item_sort_prop;
-
-	if ( $a->$_menu_item_sort_prop == $b->$_menu_item_sort_prop )
-		return 0;
-	elseif ( $_a == $a->$_menu_item_sort_prop && $_b == $b->$_menu_item_sort_prop )
-		return $_a < $_b ? -1 : 1;
-	else
-		return strcmp( $a->$_menu_item_sort_prop, $b->$_menu_item_sort_prop );
 }
 
 /**
@@ -611,7 +581,7 @@ function _is_valid_nav_menu_item( $item ) {
  * @staticvar array $fetched
  *
  * @param string $menu Menu name, ID, or slug.
- * @param array  $args Optional. Arguments to pass to {@see get_posts()}.
+ * @param array  $args Optional. Arguments to pass to get_posts().
  * @return false|array $items Array of menu items, otherwise false.
  */
 function wp_get_nav_menu_items( $menu, $args = array() ) {
@@ -680,8 +650,9 @@ function wp_get_nav_menu_items( $menu, $args = array() ) {
 	}
 
 	if ( ARRAY_A == $args['output'] ) {
-		$GLOBALS['_menu_item_sort_prop'] = $args['output_key'];
-		usort($items, '_sort_nav_menu_items');
+		$items = wp_list_sort( $items, array(
+			$args['output_key'] => 'ASC',
+		) );
 		$i = 1;
 		foreach ( $items as $k => $item ) {
 			$items[$k]->{$args['output_key']} = $i++;
@@ -689,7 +660,7 @@ function wp_get_nav_menu_items( $menu, $args = array() ) {
 	}
 
 	/**
-	 * Filter the navigation menu items being returned.
+	 * Filters the navigation menu items being returned.
 	 *
 	 * @since 3.0.0
 	 *
@@ -745,6 +716,10 @@ function wp_setup_nav_menu_item( $menu_item ) {
 					$menu_item->_invalid = true;
 				}
 
+				if ( 'trash' === get_post_status( $menu_item->object_id ) ) {
+					$menu_item->_invalid = true;
+				}
+
 				$menu_item->url = get_permalink( $menu_item->object_id );
 
 				$original_object = get_post( $menu_item->object_id );
@@ -770,7 +745,7 @@ function wp_setup_nav_menu_item( $menu_item ) {
 
 				$menu_item->type_label = __( 'Post Type Archive' );
 				$post_content = wp_trim_words( $menu_item->post_content, 200 );
-				$post_type_description = '' == $post_content ? $post_type_description : $post_content; 
+				$post_type_description = '' == $post_content ? $post_type_description : $post_content;
 				$menu_item->url = get_post_type_archive_link( $menu_item->object );
 			} elseif ( 'taxonomy' == $menu_item->type ) {
 				$object = get_taxonomy( $menu_item->object );
@@ -798,7 +773,7 @@ function wp_setup_nav_menu_item( $menu_item ) {
 			$menu_item->target = ! isset( $menu_item->target ) ? get_post_meta( $menu_item->ID, '_menu_item_target', true ) : $menu_item->target;
 
 			/**
-			 * Filter a navigation menu item's title attribute.
+			 * Filters a navigation menu item's title attribute.
 			 *
 			 * @since 3.0.0
 			 *
@@ -808,7 +783,7 @@ function wp_setup_nav_menu_item( $menu_item ) {
 
 			if ( ! isset( $menu_item->description ) ) {
 				/**
-				 * Filter a navigation menu item's description.
+				 * Filters a navigation menu item's description.
 				 *
 				 * @since 3.0.0
 				 *
@@ -869,7 +844,7 @@ function wp_setup_nav_menu_item( $menu_item ) {
 	}
 
 	/**
-	 * Filter a navigation menu item object.
+	 * Filters a navigation menu item object.
 	 *
 	 * @since 3.0.0
 	 *

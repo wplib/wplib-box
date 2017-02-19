@@ -10,11 +10,8 @@
 /** Load WordPress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
-if ( ! is_multisite() )
-	wp_die( __( 'Multisite support is not enabled.' ) );
-
 if ( ! current_user_can( 'manage_network_users' ) )
-	wp_die( __( 'You do not have permission to access this page.' ), 403 );
+	wp_die( __( 'Sorry, you are not allowed to access this page.' ), 403 );
 
 if ( isset( $_GET['action'] ) ) {
 	/** This action is documented in wp-admin/network/edit.php */
@@ -23,7 +20,7 @@ if ( isset( $_GET['action'] ) ) {
 	switch ( $_GET['action'] ) {
 		case 'deleteuser':
 			if ( ! current_user_can( 'manage_network_users' ) )
-				wp_die( __( 'You do not have permission to access this page.' ), 403 );
+				wp_die( __( 'Sorry, you are not allowed to access this page.' ), 403 );
 
 			check_admin_referer( 'deleteuser' );
 
@@ -44,7 +41,7 @@ if ( isset( $_GET['action'] ) ) {
 
 		case 'allusers':
 			if ( !current_user_can( 'manage_network_users' ) )
-				wp_die( __( 'You do not have permission to access this page.' ), 403 );
+				wp_die( __( 'Sorry, you are not allowed to access this page.' ), 403 );
 
 			if ( ( isset( $_POST['action']) || isset($_POST['action2'] ) ) && isset( $_POST['allusers'] ) ) {
 				check_admin_referer( 'bulk-users-network' );
@@ -57,7 +54,7 @@ if ( isset( $_GET['action'] ) ) {
 						switch ( $doaction ) {
 							case 'delete':
 								if ( ! current_user_can( 'delete_users' ) )
-									wp_die( __( 'You do not have permission to access this page.' ), 403 );
+									wp_die( __( 'Sorry, you are not allowed to access this page.' ), 403 );
 								$title = __( 'Users' );
 								$parent_file = 'users.php';
 								require_once( ABSPATH . 'wp-admin/admin-header.php' );
@@ -75,7 +72,7 @@ if ( isset( $_GET['action'] ) ) {
 								$userfunction = 'all_spam';
 								$blogs = get_blogs_of_user( $user_id, true );
 								foreach ( (array) $blogs as $details ) {
-									if ( $details->userblog_id != $current_site->blog_id ) // main blog not a spam !
+									if ( $details->userblog_id != get_network()->site_id ) // main blog not a spam !
 										update_blog_status( $details->userblog_id, 'spam', '1' );
 								}
 								update_user_status( $user_id, 'spam', '1' );
@@ -93,6 +90,17 @@ if ( isset( $_GET['action'] ) ) {
 					}
 				}
 
+				if ( ! in_array( $doaction, array( 'delete', 'spam', 'notspam' ), true ) ) {
+					$sendback = wp_get_referer();
+
+					$user_ids = (array) $_POST['allusers'];
+					/** This action is documented in wp-admin/network/site-themes.php */
+					$sendback = apply_filters( 'handle_network_bulk_actions-' . get_current_screen()->id, $sendback, $doaction, $user_ids );
+
+					wp_safe_redirect( $sendback );
+					exit();
+				}
+
 				wp_safe_redirect( add_query_arg( array( 'updated' => 'true', 'action' => $userfunction ), wp_get_referer() ) );
 			} else {
 				$location = network_admin_url( 'users.php' );
@@ -106,7 +114,7 @@ if ( isset( $_GET['action'] ) ) {
 		case 'dodelete':
 			check_admin_referer( 'ms-users-delete' );
 			if ( ! ( current_user_can( 'manage_network_users' ) && current_user_can( 'delete_users' ) ) )
-				wp_die( __( 'You do not have permission to access this page.' ), 403 );
+				wp_die( __( 'Sorry, you are not allowed to access this page.' ), 403 );
 
 			if ( ! empty( $_POST['blog'] ) && is_array( $_POST['blog'] ) ) {
 				foreach ( $_POST['blog'] as $id => $users ) {
@@ -161,15 +169,15 @@ get_current_screen()->add_help_tab( array(
 		'<p>' . __('This table shows all users across the network and the sites to which they are assigned.') . '</p>' .
 		'<p>' . __('Hover over any user on the list to make the edit links appear. The Edit link on the left will take you to their Edit User profile page; the Edit link on the right by any site name goes to an Edit Site screen for that site.') . '</p>' .
 		'<p>' . __('You can also go to the user&#8217;s profile page by clicking on the individual username.') . '</p>' .
-		'<p>' . __('You can sort the table by clicking on any of the bold headings and switch between list and excerpt views by using the icons in the upper right.') . '</p>' .
+		'<p>' . __( 'You can sort the table by clicking on any of the table headings and switch between list and excerpt views by using the icons above the users list.' ) . '</p>' .
 		'<p>' . __('The bulk action will permanently delete selected users, or mark/unmark those selected as spam. Spam users will have posts removed and will be unable to sign up again with the same email addresses.') . '</p>' .
 		'<p>' . __('You can make an existing user an additional super admin by going to the Edit User profile page and checking the box to grant that privilege.') . '</p>'
 ) );
 
 get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="https://codex.wordpress.org/Network_Admin_Users_Screen" target="_blank">Documentation on Network Users</a>') . '</p>' .
-	'<p>' . __('<a href="https://wordpress.org/support/forum/multisite/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="https://codex.wordpress.org/Network_Admin_Users_Screen">Documentation on Network Users</a>') . '</p>' .
+	'<p>' . __('<a href="https://wordpress.org/support/forum/multisite/">Support Forums</a>') . '</p>'
 );
 
 get_current_screen()->set_screen_reader_content( array(

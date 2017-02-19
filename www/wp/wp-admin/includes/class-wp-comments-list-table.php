@@ -94,7 +94,7 @@ class WP_Comments_List_Table extends WP_List_Table {
 
 		$comments_per_page = $this->get_per_page( $comment_status );
 
-		$doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
+		$doing_ajax = wp_doing_ajax();
 
 		if ( isset( $_REQUEST['number'] ) ) {
 			$number = (int) $_REQUEST['number'];
@@ -166,7 +166,7 @@ class WP_Comments_List_Table extends WP_List_Table {
 	public function get_per_page( $comment_status = 'all' ) {
 		$comments_per_page = $this->get_items_per_page( 'edit_comments_per_page' );
 		/**
-		 * Filter the number of comments listed per page in the comments list table.
+		 * Filters the number of comments listed per page in the comments list table.
 		 *
 		 * @since 2.6.0
 		 *
@@ -201,8 +201,7 @@ class WP_Comments_List_Table extends WP_List_Table {
 
 		$status_links = array();
 		$num_comments = ( $post_id ) ? wp_count_comments( $post_id ) : wp_count_comments();
-		//, number_format_i18n($num_comments->moderated) ), "<span class='comment-count'>" . number_format_i18n($num_comments->moderated) . "</span>"),
-		//, number_format_i18n($num_comments->spam) ), "<span class='spam-comment-count'>" . number_format_i18n($num_comments->spam) . "</span>")
+
 		$stati = array(
 			/* translators: %s: all comments count */
 			'all' => _nx_noop(
@@ -270,7 +269,7 @@ class WP_Comments_List_Table extends WP_List_Table {
 		}
 
 		/**
-		 * Filter the comment status links.
+		 * Filters the comment status links.
 		 *
 		 * @since 2.5.0
 		 *
@@ -330,7 +329,7 @@ class WP_Comments_List_Table extends WP_List_Table {
 				<option value=""><?php _e( 'All comment types' ); ?></option>
 <?php
 				/**
-				 * Filter the comment types dropdown menu.
+				 * Filters the comment types dropdown menu.
 				 *
 				 * @since 2.7.0
 				 *
@@ -352,7 +351,7 @@ class WP_Comments_List_Table extends WP_List_Table {
 			 * @since 3.5.0
 			 */
 			do_action( 'restrict_manage_comments' );
-			submit_button( __( 'Filter' ), 'button', 'filter_action', false, array( 'id' => 'post-query-submit' ) );
+			submit_button( __( 'Filter' ), '', 'filter_action', false, array( 'id' => 'post-query-submit' ) );
 		}
 
 		if ( ( 'spam' === $comment_status || 'trash' === $comment_status ) && current_user_can( 'moderate_comments' ) ) {
@@ -601,7 +600,7 @@ class WP_Comments_List_Table extends WP_List_Table {
 			( ( ( 'approve' === $action || 'unapprove' === $action ) && 2 === $i ) || 1 === $i ) ? $sep = '' : $sep = ' | ';
 
 			// Reply and quickedit need a hide-if-no-js span when not added with ajax
-			if ( ( 'reply' === $action || 'quickedit' === $action ) && ! defined('DOING_AJAX') )
+			if ( ( 'reply' === $action || 'quickedit' === $action ) && ! wp_doing_ajax() )
 				$action .= ' hide-if-no-js';
 			elseif ( ( $action === 'untrash' && $the_comment_status === 'trash' ) || ( $action === 'unspam' && $the_comment_status === 'spam' ) ) {
 				if ( '1' == get_comment_meta( $comment->comment_ID, '_wp_trash_meta_status', true ) )
@@ -718,7 +717,7 @@ class WP_Comments_List_Table extends WP_List_Table {
 	public function column_date( $comment ) {
 		/* translators: 1: comment date, 2: comment time */
 		$submitted = sprintf( __( '%1$s at %2$s' ),
-			/* translators: comment date format. See http://php.net/date */
+			/* translators: comment date format. See https://secure.php.net/date */
 			get_comment_date( __( 'Y/m/d' ), $comment ),
 			get_comment_date( __( 'g:i a' ), $comment )
 		);

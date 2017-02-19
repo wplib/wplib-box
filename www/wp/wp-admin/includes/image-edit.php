@@ -60,11 +60,11 @@ function wp_image_editor($post_id, $msg = false) {
 		<legend><?php _e( 'New dimensions:' ); ?></legend>
 		<div class="nowrap">
 		<label><span class="screen-reader-text"><?php _e( 'scale width' ); ?></span>
-		<input type="text" id="imgedit-scale-width-<?php echo $post_id; ?>" onkeyup="imageEdit.scaleChanged(<?php echo $post_id; ?>, 1)" onblur="imageEdit.scaleChanged(<?php echo $post_id; ?>, 1)" value="<?php echo isset( $meta['width'] ) ? $meta['width'] : 0; ?>" />
+		<input type="text" id="imgedit-scale-width-<?php echo $post_id; ?>" onkeyup="imageEdit.scaleChanged(<?php echo $post_id; ?>, 1, this)" onblur="imageEdit.scaleChanged(<?php echo $post_id; ?>, 1, this)" value="<?php echo isset( $meta['width'] ) ? $meta['width'] : 0; ?>" />
 		</label>
 		<span class="imgedit-separator">&times;</span>
 		<label><span class="screen-reader-text"><?php _e( 'scale height' ); ?></span>
-		<input type="text" id="imgedit-scale-height-<?php echo $post_id; ?>" onkeyup="imageEdit.scaleChanged(<?php echo $post_id; ?>, 0)" onblur="imageEdit.scaleChanged(<?php echo $post_id; ?>, 0)" value="<?php echo isset( $meta['height'] ) ? $meta['height'] : 0; ?>" />
+		<input type="text" id="imgedit-scale-height-<?php echo $post_id; ?>" onkeyup="imageEdit.scaleChanged(<?php echo $post_id; ?>, 0, this)" onblur="imageEdit.scaleChanged(<?php echo $post_id; ?>, 0, this)" value="<?php echo isset( $meta['height'] ) ? $meta['height'] : 0; ?>" />
 		</label>
 		<span class="imgedit-scale-warn" id="imgedit-scale-warn-<?php echo $post_id; ?>">!</span>
 		<input id="imgedit-scale-button" type="button" onclick="imageEdit.action(<?php echo "$post_id, '$nonce'"; ?>, 'scale')" class="button button-primary" value="<?php esc_attr_e( 'Scale' ); ?>" />
@@ -116,11 +116,11 @@ function wp_image_editor($post_id, $msg = false) {
 		<legend><?php _e( 'Aspect ratio:' ); ?></legend>
 		<div class="nowrap">
 		<label><span class="screen-reader-text"><?php _e( 'crop ratio width' ); ?></span>
-		<input type="text" id="imgedit-crop-width-<?php echo $post_id; ?>" onkeyup="imageEdit.setRatioSelection(<?php echo $post_id; ?>, 0, this)" />
+		<input type="text" id="imgedit-crop-width-<?php echo $post_id; ?>" onkeyup="imageEdit.setRatioSelection(<?php echo $post_id; ?>, 0, this)" onblur="imageEdit.setRatioSelection(<?php echo $post_id; ?>, 0, this)" />
 		</label>
 		<span class="imgedit-separator">:</span>
 		<label><span class="screen-reader-text"><?php _e( 'crop ratio height' ); ?></span>
-		<input type="text" id="imgedit-crop-height-<?php echo $post_id; ?>" onkeyup="imageEdit.setRatioSelection(<?php echo $post_id; ?>, 1, this)" />
+		<input type="text" id="imgedit-crop-height-<?php echo $post_id; ?>" onkeyup="imageEdit.setRatioSelection(<?php echo $post_id; ?>, 1, this)" onblur="imageEdit.setRatioSelection(<?php echo $post_id; ?>, 1, this)" />
 		</label>
 		</div>
 	</fieldset>
@@ -129,11 +129,11 @@ function wp_image_editor($post_id, $msg = false) {
 		<legend><?php _e( 'Selection:' ); ?></legend>
 		<div class="nowrap">
 		<label><span class="screen-reader-text"><?php _e( 'selection width' ); ?></span>
-		<input type="text" id="imgedit-sel-width-<?php echo $post_id; ?>" onkeyup="imageEdit.setNumSelection(<?php echo $post_id; ?>)" />
+		<input type="text" id="imgedit-sel-width-<?php echo $post_id; ?>" onkeyup="imageEdit.setNumSelection(<?php echo $post_id; ?>, this)" onblur="imageEdit.setNumSelection(<?php echo $post_id; ?>, this)" />
 		</label>
 		<span class="imgedit-separator">&times;</span>
 		<label><span class="screen-reader-text"><?php _e( 'selection height' ); ?></span>
-		<input type="text" id="imgedit-sel-height-<?php echo $post_id; ?>" onkeyup="imageEdit.setNumSelection(<?php echo $post_id; ?>)" />
+		<input type="text" id="imgedit-sel-height-<?php echo $post_id; ?>" onkeyup="imageEdit.setNumSelection(<?php echo $post_id; ?>, this)" onblur="imageEdit.setNumSelection(<?php echo $post_id; ?>, this)" />
 		</label>
 		</div>
 	</fieldset>
@@ -224,7 +224,6 @@ function wp_image_editor($post_id, $msg = false) {
 
 	</div>
 	<div class="imgedit-wait" id="imgedit-wait-<?php echo $post_id; ?>"></div>
-	<script type="text/javascript">jQuery( function() { imageEdit.init(<?php echo $post_id; ?>); });</script>
 	<div class="hidden" id="imgedit-leaving-<?php echo $post_id; ?>"><?php _e("There are unsaved changes that will be lost. 'OK' to continue, 'Cancel' to return to the Image Editor."); ?></div>
 	</div>
 <?php
@@ -243,7 +242,7 @@ function wp_stream_image( $image, $mime_type, $post_id ) {
 	if ( $image instanceof WP_Image_Editor ) {
 
 		/**
-		 * Filter the WP_Image_Editor instance for the image to be streamed to the browser.
+		 * Filters the WP_Image_Editor instance for the image to be streamed to the browser.
 		 *
 		 * @since 3.5.0
 		 *
@@ -257,10 +256,10 @@ function wp_stream_image( $image, $mime_type, $post_id ) {
 
 		return true;
 	} else {
-		_deprecated_argument( __FUNCTION__, '3.5', __( '$image needs to be an WP_Image_Editor object' ) );
+		_deprecated_argument( __FUNCTION__, '3.5.0', __( '$image needs to be an WP_Image_Editor object' ) );
 
 		/**
-		 * Filter the GD image resource to be streamed to the browser.
+		 * Filters the GD image resource to be streamed to the browser.
 		 *
 		 * @since 2.9.0
 		 * @deprecated 3.5.0 Use image_editor_save_pre instead.
@@ -302,7 +301,7 @@ function wp_save_image_file( $filename, $image, $mime_type, $post_id ) {
 		$image = apply_filters( 'image_editor_save_pre', $image, $post_id );
 
 		/**
-		 * Filter whether to skip saving the image file.
+		 * Filters whether to skip saving the image file.
 		 *
 		 * Returning a non-null value will short-circuit the save method,
 		 * returning that value instead.
@@ -322,13 +321,13 @@ function wp_save_image_file( $filename, $image, $mime_type, $post_id ) {
 
 		return $image->save( $filename, $mime_type );
 	} else {
-		_deprecated_argument( __FUNCTION__, '3.5', __( '$image needs to be an WP_Image_Editor object' ) );
+		_deprecated_argument( __FUNCTION__, '3.5.0', __( '$image needs to be an WP_Image_Editor object' ) );
 
 		/** This filter is documented in wp-admin/includes/image-edit.php */
 		$image = apply_filters( 'image_save_pre', $image, $post_id );
 
 		/**
-		 * Filter whether to skip saving the image file.
+		 * Filters whether to skip saving the image file.
 		 *
 		 * Returning a non-null value will short-circuit the save method,
 		 * returning that value instead.
@@ -388,7 +387,7 @@ function _image_get_preview_ratio($w, $h) {
  * @return resource|false GD image resource, false otherwise.
  */
 function _rotate_image_resource($img, $angle) {
-	_deprecated_function( __FUNCTION__, '3.5', __( 'Use WP_Image_Editor::rotate' ) );
+	_deprecated_function( __FUNCTION__, '3.5.0', 'WP_Image_Editor::rotate()' );
 	if ( function_exists('imagerotate') ) {
 		$rotated = imagerotate($img, $angle, 0);
 		if ( is_resource($rotated) ) {
@@ -411,7 +410,7 @@ function _rotate_image_resource($img, $angle) {
  * @return resource (maybe) flipped image resource.
  */
 function _flip_image_resource($img, $horz, $vert) {
-	_deprecated_function( __FUNCTION__, '3.5', __( 'Use WP_Image_Editor::flip' ) );
+	_deprecated_function( __FUNCTION__, '3.5.0', 'WP_Image_Editor::flip()' );
 	$w = imagesx($img);
 	$h = imagesy($img);
 	$dst = wp_imagecreatetruecolor($w, $h);
@@ -458,13 +457,13 @@ function _crop_image_resource($img, $x, $y, $w, $h) {
  *
  * @since 2.9.0
  *
- * @param WP_Image_Editor $image   {@see WP_Image_Editor} instance.
+ * @param WP_Image_Editor $image   WP_Image_Editor instance.
  * @param array           $changes Array of change operations.
- * @return WP_Image_Editor {@see WP_Image_Editor} instance with changes applied.
+ * @return WP_Image_Editor WP_Image_Editor instance with changes applied.
  */
 function image_edit_apply_changes( $image, $changes ) {
 	if ( is_resource( $image ) )
-		_deprecated_argument( __FUNCTION__, '3.5', __( '$image needs to be an WP_Image_Editor object' ) );
+		_deprecated_argument( __FUNCTION__, '3.5.0', __( '$image needs to be an WP_Image_Editor object' ) );
 
 	if ( !is_array($changes) )
 		return $image;
@@ -515,7 +514,7 @@ function image_edit_apply_changes( $image, $changes ) {
 	if ( $image instanceof WP_Image_Editor ) {
 
 		/**
-		 * Filter the WP_Image_Editor instance before applying changes to the image.
+		 * Filters the WP_Image_Editor instance before applying changes to the image.
 		 *
 		 * @since 3.5.0
 		 *
@@ -526,7 +525,7 @@ function image_edit_apply_changes( $image, $changes ) {
 	} elseif ( is_resource( $image ) ) {
 
 		/**
-		 * Filter the GD image resource before applying changes to the image.
+		 * Filters the GD image resource before applying changes to the image.
 		 *
 		 * @since 2.9.0
 		 * @deprecated 3.5.0 Use wp_image_editor_before_change instead.
@@ -586,8 +585,7 @@ function image_edit_apply_changes( $image, $changes ) {
 function stream_preview_image( $post_id ) {
 	$post = get_post( $post_id );
 
-	/** This filter is documented in wp-admin/admin.php */
-	@ini_set( 'memory_limit', apply_filters( 'admin_memory_limit', WP_MAX_MEMORY_LIMIT ) );
+	wp_raise_memory_limit( 'admin' );
 
 	$img = wp_get_image_editor( _load_image_to_edit_path( $post_id ) );
 
@@ -702,13 +700,11 @@ function wp_restore_image($post_id) {
  * Saves image to post along with enqueued changes
  * in $_REQUEST['history']
  *
- * @global array $_wp_additional_image_sizes
- *
  * @param int $post_id
  * @return \stdClass
  */
 function wp_save_image( $post_id ) {
-	global $_wp_additional_image_sizes;
+	$_wp_additional_image_sizes = wp_get_additional_image_sizes();
 
 	$return = new stdClass;
 	$success = $delete = $scaled = $nocrop = false;
@@ -763,28 +759,33 @@ function wp_save_image( $post_id ) {
 		$backup_sizes = array();
 
 	// Generate new filename.
-	$path = get_attached_file($post_id);
-	$path_parts = pathinfo( $path );
-	$filename = $path_parts['filename'];
+	$path = get_attached_file( $post_id );
+
+	$basename = pathinfo( $path, PATHINFO_BASENAME );
+	$dirname = pathinfo( $path, PATHINFO_DIRNAME );
+	$ext = pathinfo( $path, PATHINFO_EXTENSION );
+	$filename = pathinfo( $path, PATHINFO_FILENAME );
 	$suffix = time() . rand(100, 999);
 
 	if ( defined('IMAGE_EDIT_OVERWRITE') && IMAGE_EDIT_OVERWRITE &&
-		isset($backup_sizes['full-orig']) && $backup_sizes['full-orig']['file'] != $path_parts['basename'] ) {
+		isset($backup_sizes['full-orig']) && $backup_sizes['full-orig']['file'] != $basename ) {
 
-		if ( 'thumbnail' == $target )
-			$new_path = "{$path_parts['dirname']}/{$filename}-temp.{$path_parts['extension']}";
-		else
+		if ( 'thumbnail' == $target ) {
+			$new_path = "{$dirname}/{$filename}-temp.{$ext}";
+		} else {
 			$new_path = $path;
+		}
 	} else {
-		while( true ) {
+		while ( true ) {
 			$filename = preg_replace( '/-e([0-9]+)$/', '', $filename );
 			$filename .= "-e{$suffix}";
-			$new_filename = "{$filename}.{$path_parts['extension']}";
-			$new_path = "{$path_parts['dirname']}/$new_filename";
-			if ( file_exists($new_path) )
+			$new_filename = "{$filename}.{$ext}";
+			$new_path = "{$dirname}/$new_filename";
+			if ( file_exists($new_path) ) {
 				$suffix++;
-			else
+			} else {
 				break;
+			}
 		}
 	}
 
@@ -794,18 +795,19 @@ function wp_save_image( $post_id ) {
 		return $return;
 	}
 
-	if ( 'nothumb' == $target || 'all' == $target || 'full' == $target || $scaled ) {
+	if ( 'nothumb' === $target || 'all' === $target || 'full' === $target || $scaled ) {
 		$tag = false;
-		if ( isset($backup_sizes['full-orig']) ) {
-			if ( ( !defined('IMAGE_EDIT_OVERWRITE') || !IMAGE_EDIT_OVERWRITE ) && $backup_sizes['full-orig']['file'] != $path_parts['basename'] )
+		if ( isset( $backup_sizes['full-orig'] ) ) {
+			if ( ( ! defined( 'IMAGE_EDIT_OVERWRITE' ) || ! IMAGE_EDIT_OVERWRITE ) && $backup_sizes['full-orig']['file'] !== $basename ) {
 				$tag = "full-$suffix";
+			}
 		} else {
 			$tag = 'full-orig';
 		}
 
-		if ( $tag )
-			$backup_sizes[$tag] = array('width' => $meta['width'], 'height' => $meta['height'], 'file' => $path_parts['basename']);
-
+		if ( $tag ) {
+			$backup_sizes[$tag] = array('width' => $meta['width'], 'height' => $meta['height'], 'file' => $basename );
+		}
 		$success = ( $path === $new_path ) || update_attached_file( $post_id, $new_path );
 
 		$meta['file'] = _wp_relative_upload_path( $new_path );
@@ -825,6 +827,21 @@ function wp_save_image( $post_id ) {
 	} elseif ( 'thumbnail' == $target ) {
 		$sizes = array( 'thumbnail' );
 		$success = $delete = $nocrop = true;
+	}
+
+	/*
+	 * We need to remove any existing resized image files because
+	 * a new crop or rotate could generate different sizes (and hence, filenames),
+	 * keeping the new resized images from overwriting the existing image files.
+	 * https://core.trac.wordpress.org/ticket/32171
+	 */
+	if ( defined( 'IMAGE_EDIT_OVERWRITE' ) && IMAGE_EDIT_OVERWRITE && ! empty( $meta['sizes'] ) ) {
+		foreach ( $meta['sizes'] as $size ) {
+			if ( ! empty( $size['file'] ) && preg_match( '/-e[0-9]{13}-/', $size['file'] ) ) {
+				$delete_file = path_join( $dirname, $size['file'] );
+				wp_delete_file( $delete_file );
+			}
+		}
 	}
 
 	if ( isset( $sizes ) ) {

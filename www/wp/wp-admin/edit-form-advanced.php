@@ -11,9 +11,9 @@ if ( !defined('ABSPATH') )
 	die('-1');
 
 /**
- * @global string  $post_type
- * @global object  $post_type_object
- * @global WP_Post $post
+ * @global string       $post_type
+ * @global WP_Post_Type $post_type_object
+ * @global WP_Post      $post
  */
 global $post_type, $post_type_object, $post;
 
@@ -21,7 +21,7 @@ wp_enqueue_script('post');
 $_wp_editor_expand = $_content_editor_dfw = false;
 
 /**
- * Filter whether to enable the 'expand' functionality in the post editor.
+ * Filters whether to enable the 'expand' functionality in the post editor.
  *
  * @since 4.0.0
  * @since 4.1.0 Added the `$post_type` parameter.
@@ -129,7 +129,7 @@ if ( $viewable ) {
 
 }
 
-/* translators: Publish box date format, see http://php.net/date */
+/* translators: Publish box date format, see https://secure.php.net/date */
 $scheduled_date = date_i18n( __( 'M j, Y @ H:i' ), strtotime( $post->post_date ) );
 
 $messages['post'] = array(
@@ -163,7 +163,7 @@ $messages['page'] = array(
 $messages['attachment'] = array_fill( 1, 10, __( 'Media file updated.' ) ); // Hack, for now.
 
 /**
- * Filter the post updated messages.
+ * Filters the post updated messages.
  *
  * @since 3.0.0
  *
@@ -219,7 +219,7 @@ $publish_callback_args = null;
 if ( post_type_supports($post_type, 'revisions') && 'auto-draft' != $post->post_status ) {
 	$revisions = wp_get_post_revisions( $post_ID );
 
-	// We should aim to show the revisions metabox only when there are revisions.
+	// We should aim to show the revisions meta box only when there are revisions.
 	if ( count( $revisions ) > 1 ) {
 		reset( $revisions ); // Reset pointer for key()
 		$publish_callback_args = array( 'revisions_count' => count( $revisions ), 'revision_id' => key( $revisions ) );
@@ -259,8 +259,9 @@ foreach ( get_object_taxonomies( $post ) as $tax_name ) {
 	add_meta_box( $tax_meta_box_id, $label, $taxonomy->meta_box_cb, null, 'side', 'core', array( 'taxonomy' => $tax_name ) );
 }
 
-if ( post_type_supports($post_type, 'page-attributes') )
-	add_meta_box('pageparentdiv', 'page' == $post_type ? __('Page Attributes') : __('Attributes'), 'page_attributes_meta_box', null, 'side', 'core');
+if ( post_type_supports( $post_type, 'page-attributes' ) || count( get_page_templates( $post ) ) > 0 ) {
+	add_meta_box( 'pageparentdiv', $post_type_object->labels->attributes, 'page_attributes_meta_box', null, 'side', 'core' );
+}
 
 if ( $thumbnail_support && current_user_can( 'upload_files' ) )
 	add_meta_box('postimagediv', esc_html( $post_type_object->labels->featured_image ), 'post_thumbnail_meta_box', null, 'side', 'low');
@@ -331,7 +332,7 @@ do_action( 'add_meta_boxes', $post_type, $post );
  *
  * @param WP_Post $post Post object.
  */
-do_action( 'add_meta_boxes_' . $post_type, $post );
+do_action( "add_meta_boxes_{$post_type}", $post );
 
 /**
  * Fires after meta boxes have been added.
@@ -378,8 +379,8 @@ if ( 'post' == $post_type ) {
 	get_current_screen()->set_help_sidebar(
 			'<p>' . sprintf(__('You can also create posts with the <a href="%s">Press This bookmarklet</a>.'), 'tools.php') . '</p>' .
 			'<p><strong>' . __('For more information:') . '</strong></p>' .
-			'<p>' . __('<a href="https://codex.wordpress.org/Posts_Add_New_Screen" target="_blank">Documentation on Writing and Editing Posts</a>') . '</p>' .
-			'<p>' . __('<a href="https://wordpress.org/support/" target="_blank">Support Forums</a>') . '</p>'
+			'<p>' . __('<a href="https://codex.wordpress.org/Posts_Add_New_Screen">Documentation on Writing and Editing Posts</a>') . '</p>' .
+			'<p>' . __('<a href="https://wordpress.org/support/">Support Forums</a>') . '</p>'
 	);
 } elseif ( 'page' == $post_type ) {
 	$about_pages = '<p>' . __('Pages are similar to posts in that they have a title, body text, and associated metadata, but they are different in that they are not part of the chronological blog stream, kind of like permanent posts. Pages are not categorized or tagged, but can have a hierarchy. You can nest pages under other pages by making one the &#8220;Parent&#8221; of the other, creating a group of pages.') . '</p>' .
@@ -393,9 +394,9 @@ if ( 'post' == $post_type ) {
 
 	get_current_screen()->set_help_sidebar(
 			'<p><strong>' . __('For more information:') . '</strong></p>' .
-			'<p>' . __('<a href="https://codex.wordpress.org/Pages_Add_New_Screen" target="_blank">Documentation on Adding New Pages</a>') . '</p>' .
-			'<p>' . __('<a href="https://codex.wordpress.org/Pages_Screen#Editing_Individual_Pages" target="_blank">Documentation on Editing Pages</a>') . '</p>' .
-			'<p>' . __('<a href="https://wordpress.org/support/" target="_blank">Support Forums</a>') . '</p>'
+			'<p>' . __('<a href="https://codex.wordpress.org/Pages_Add_New_Screen">Documentation on Adding New Pages</a>') . '</p>' .
+			'<p>' . __('<a href="https://codex.wordpress.org/Pages_Screen#Editing_Individual_Pages">Documentation on Editing Pages</a>') . '</p>' .
+			'<p>' . __('<a href="https://wordpress.org/support/">Support Forums</a>') . '</p>'
 	);
 } elseif ( 'attachment' == $post_type ) {
 	get_current_screen()->add_help_tab( array(
@@ -410,8 +411,8 @@ if ( 'post' == $post_type ) {
 
 	get_current_screen()->set_help_sidebar(
 	'<p><strong>' . __('For more information:') . '</strong></p>' .
-	'<p>' . __('<a href="https://codex.wordpress.org/Media_Add_New_Screen#Edit_Media" target="_blank">Documentation on Edit Media</a>') . '</p>' .
-	'<p>' . __('<a href="https://wordpress.org/support/" target="_blank">Support Forums</a>') . '</p>'
+	'<p>' . __('<a href="https://codex.wordpress.org/Media_Add_New_Screen#Edit_Media">Documentation on Edit Media</a>') . '</p>' .
+	'<p>' . __('<a href="https://wordpress.org/support/">Support Forums</a>') . '</p>'
 	);
 }
 
@@ -473,11 +474,18 @@ require_once( ABSPATH . 'wp-admin/admin-header.php' );
 ?>
 
 <div class="wrap">
-<h1><?php
+<h1 class="wp-heading-inline"><?php
 echo esc_html( $title );
-if ( isset( $post_new_file ) && current_user_can( $post_type_object->cap->create_posts ) )
-	echo ' <a href="' . esc_url( admin_url( $post_new_file ) ) . '" class="page-title-action">' . esc_html( $post_type_object->labels->add_new ) . '</a>';
 ?></h1>
+
+<?php
+if ( isset( $post_new_file ) && current_user_can( $post_type_object->cap->create_posts ) ) {
+	echo ' <a href="' . esc_url( admin_url( $post_new_file ) ) . '" class="page-title-action">' . esc_html( $post_type_object->labels->add_new ) . '</a>';
+}
+?>
+
+<hr class="wp-header-end">
+
 <?php if ( $notice ) : ?>
 <div id="notice" class="notice notice-warning"><p id="has-newer-autosave"><?php echo $notice ?></p></div>
 <?php endif; ?>
@@ -543,7 +551,7 @@ do_action( 'edit_form_top', $post ); ?>
 <div id="titlewrap">
 	<?php
 	/**
-	 * Filter the title field placeholder text.
+	 * Filters the title field placeholder text.
 	 *
 	 * @since 3.1.0
 	 *
@@ -631,8 +639,10 @@ if ( post_type_supports($post_type, 'editor') ) {
 	if ( 'auto-draft' != $post->post_status ) {
 		echo '<span id="last-edit">';
 		if ( $last_user = get_userdata( get_post_meta( $post_ID, '_edit_last', true ) ) ) {
+			/* translators: 1: Name of most recent post author, 2: Post edited date, 3: Post edited time */
 			printf( __( 'Last edited by %1$s on %2$s at %3$s' ), esc_html( $last_user->display_name ), mysql2date( __( 'F j, Y' ), $post->post_modified ), mysql2date( __( 'g:i a' ), $post->post_modified ) );
 		} else {
+			/* translators: 1: Post edited date, 2: Post edited time */
 			printf( __( 'Last edited on %1$s at %2$s' ), mysql2date( __( 'F j, Y' ), $post->post_modified ), mysql2date( __( 'g:i a' ), $post->post_modified ) );
 		}
 		echo '</span>';

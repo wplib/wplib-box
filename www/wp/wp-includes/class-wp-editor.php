@@ -26,6 +26,7 @@ final class _WP_Editors {
 	private static $editor_buttons_css = true;
 	private static $drag_drop_upload = false;
 	private static $old_dfw_compat = false;
+	private static $translation;
 
 	private function __construct() {}
 
@@ -54,7 +55,8 @@ final class _WP_Editors {
 	 *     @type string     $editor_class      Extra classes to add to the editor textarea element. Default empty.
 	 *     @type bool       $teeny             Whether to output the minimal editor config. Examples include
 	 *                                         Press This and the Comment editor. Default false.
-	 *     @type bool       $dfw               Deprecated in 4.1. Since 4.3 used only to enqueue wp-fullscreen-stub.js for backwards compatibility.
+	 *     @type bool       $dfw               Deprecated in 4.1. Since 4.3 used only to enqueue wp-fullscreen-stub.js
+	 *                                         for backward compatibility.
 	 *     @type bool|array $tinymce           Whether to load TinyMCE. Can be used to pass settings directly to
 	 *                                         TinyMCE using an array. Default true.
 	 *     @type bool|array $quicktags         Whether to load Quicktags. Can be used to pass settings directly to
@@ -65,7 +67,7 @@ final class _WP_Editors {
 	public static function parse_settings( $editor_id, $settings ) {
 
 		/**
-		 * Filter the wp_editor() settings.
+		 * Filters the wp_editor() settings.
 		 *
 		 * @since 4.0.0
 		 *
@@ -99,7 +101,7 @@ final class _WP_Editors {
 		if ( self::$this_tinymce ) {
 			if ( false !== strpos( $editor_id, '[' ) ) {
 				self::$this_tinymce = false;
-				_deprecated_argument( 'wp_editor()', '3.9', 'TinyMCE editor IDs cannot have brackets.' );
+				_deprecated_argument( 'wp_editor()', '3.9.0', 'TinyMCE editor IDs cannot have brackets.' );
 			}
 		}
 
@@ -240,7 +242,7 @@ final class _WP_Editors {
 		}
 
 		/**
-		 * Filter the HTML markup output that displays the editor.
+		 * Filters the HTML markup output that displays the editor.
 		 *
 		 * @since 2.1.0
 		 *
@@ -257,7 +259,7 @@ final class _WP_Editors {
 		}
 
 		/**
-		 * Filter the default editor content.
+		 * Filters the default editor content.
 		 *
 		 * @since 2.1.0
 		 *
@@ -295,14 +297,13 @@ final class _WP_Editors {
 	/**
 	 * @static
 	 *
-	 * @global string $wp_version
 	 * @global string $tinymce_version
 	 *
 	 * @param string $editor_id
 	 * @param array  $set
 	 */
 	public static function editor_settings($editor_id, $set) {
-		global $wp_version, $tinymce_version;
+		global $tinymce_version;
 
 		if ( empty(self::$first_init) ) {
 			if ( is_admin() ) {
@@ -332,7 +333,7 @@ final class _WP_Editors {
 			}
 
 			/**
-			 * Filter the Quicktags settings.
+			 * Filters the Quicktags settings.
 			 *
 			 * @since 3.3.0
 			 *
@@ -351,17 +352,24 @@ final class _WP_Editors {
 			if ( empty( self::$first_init ) ) {
 				self::$baseurl = includes_url( 'js/tinymce' );
 
-				$mce_locale = get_locale();
+				$mce_locale = get_user_locale();
 				self::$mce_locale = $mce_locale = empty( $mce_locale ) ? 'en' : strtolower( substr( $mce_locale, 0, 2 ) ); // ISO 639-1
 
 				/** This filter is documented in wp-admin/includes/media.php */
 				$no_captions = (bool) apply_filters( 'disable_captions', '' );
 				$ext_plugins = '';
+				$shortcut_labels = array();
+
+				foreach ( self::get_translation() as $name => $value ) {
+					if ( is_array( $value ) ) {
+						$shortcut_labels[$name] = $value[1];
+					}
+				}
 
 				if ( $set['teeny'] ) {
 
 					/**
-					 * Filter the list of teenyMCE plugins.
+					 * Filters the list of teenyMCE plugins.
 					 *
 					 * @since 2.7.0
 					 *
@@ -372,7 +380,7 @@ final class _WP_Editors {
 				} else {
 
 					/**
-					 * Filter the list of TinyMCE external plugins.
+					 * Filters the list of TinyMCE external plugins.
 					 *
 					 * The filter takes an associative array of external plugins for
 					 * TinyMCE in the form 'plugin_name' => 'url'.
@@ -417,7 +425,7 @@ final class _WP_Editors {
 					}
 
 					/**
-					 * Filter the list of default TinyMCE plugins.
+					 * Filters the list of default TinyMCE plugins.
 					 *
 					 * The filter specifies which of the default plugins included
 					 * in WordPress should be added to the TinyMCE instance.
@@ -437,7 +445,7 @@ final class _WP_Editors {
 					if ( ! empty( $mce_external_plugins ) ) {
 
 						/**
-						 * Filter the translations loaded for external TinyMCE 3.x plugins.
+						 * Filters the translations loaded for external TinyMCE 3.x plugins.
 						 *
 						 * The filter takes an associative array ('plugin_name' => 'path')
 						 * where 'path' is the include path to the file.
@@ -550,7 +558,8 @@ final class _WP_Editors {
 					'wpeditimage_disable_captions' => $no_captions,
 					'wpeditimage_html5_captions' => current_theme_supports( 'html5', 'caption' ),
 					'plugins' => implode( ',', $plugins ),
-					'wp_lang_attr' => get_bloginfo( 'language' )
+					'wp_lang_attr' => get_bloginfo( 'language' ),
+					'wp_shortcut_labels' => wp_json_encode( $shortcut_labels ),
 				);
 
 				if ( ! empty( $mce_external_plugins ) ) {
@@ -558,7 +567,7 @@ final class _WP_Editors {
 				}
 
 				$suffix = SCRIPT_DEBUG ? '' : '.min';
-				$version = 'ver=' . $wp_version;
+				$version = 'ver=' . get_bloginfo( 'version' );
 				$dashicons = includes_url( "css/dashicons$suffix.css?$version" );
 
 				// WordPress default stylesheet and dashicons
@@ -575,7 +584,7 @@ final class _WP_Editors {
 				}
 
 				/**
-				 * Filter the comma-delimited list of stylesheets to load in TinyMCE.
+				 * Filters the comma-delimited list of stylesheets to load in TinyMCE.
 				 *
 				 * @since 2.1.0
 				 *
@@ -590,7 +599,7 @@ final class _WP_Editors {
 			if ( $set['teeny'] ) {
 
 				/**
-				 * Filter the list of teenyMCE buttons (Text tab).
+				 * Filters the list of teenyMCE buttons (Text tab).
 				 *
 				 * @since 2.7.0
 				 *
@@ -600,7 +609,7 @@ final class _WP_Editors {
 				$mce_buttons = apply_filters( 'teeny_mce_buttons', array('bold', 'italic', 'underline', 'blockquote', 'strikethrough', 'bullist', 'numlist', 'alignleft', 'aligncenter', 'alignright', 'undo', 'redo', 'link', 'unlink', 'fullscreen'), $editor_id );
 				$mce_buttons_2 = $mce_buttons_3 = $mce_buttons_4 = array();
 			} else {
-				$mce_buttons = array( 'bold', 'italic', 'strikethrough', 'bullist', 'numlist', 'blockquote', 'hr', 'alignleft', 'aligncenter', 'alignright', 'link', 'unlink', 'wp_more', 'spellchecker' );
+				$mce_buttons = array( 'formatselect', 'bold', 'italic', 'bullist', 'numlist', 'blockquote', 'alignleft', 'aligncenter', 'alignright', 'link', 'unlink', 'wp_more', 'spellchecker' );
 
 				if ( ! wp_is_mobile() ) {
 					if ( $set['_content_editor_dfw'] ) {
@@ -613,7 +622,7 @@ final class _WP_Editors {
 				$mce_buttons[] = 'wp_adv';
 
 				/**
-				 * Filter the first-row list of TinyMCE buttons (Visual tab).
+				 * Filters the first-row list of TinyMCE buttons (Visual tab).
 				 *
 				 * @since 2.0.0
 				 *
@@ -622,14 +631,14 @@ final class _WP_Editors {
 				 */
 				$mce_buttons = apply_filters( 'mce_buttons', $mce_buttons, $editor_id );
 
-				$mce_buttons_2 = array( 'formatselect', 'underline', 'alignjustify', 'forecolor', 'pastetext', 'removeformat', 'charmap', 'outdent', 'indent', 'undo', 'redo' );
+				$mce_buttons_2 = array( 'strikethrough', 'hr', 'forecolor', 'pastetext', 'removeformat', 'charmap', 'outdent', 'indent', 'undo', 'redo' );
 
 				if ( ! wp_is_mobile() ) {
 					$mce_buttons_2[] = 'wp_help';
 				}
 
 				/**
-				 * Filter the second-row list of TinyMCE buttons (Visual tab).
+				 * Filters the second-row list of TinyMCE buttons (Visual tab).
 				 *
 				 * @since 2.0.0
 				 *
@@ -639,7 +648,7 @@ final class _WP_Editors {
 				$mce_buttons_2 = apply_filters( 'mce_buttons_2', $mce_buttons_2, $editor_id );
 
 				/**
-				 * Filter the third-row list of TinyMCE buttons (Visual tab).
+				 * Filters the third-row list of TinyMCE buttons (Visual tab).
 				 *
 				 * @since 2.0.0
 				 *
@@ -649,7 +658,7 @@ final class _WP_Editors {
 				$mce_buttons_3 = apply_filters( 'mce_buttons_3', array(), $editor_id );
 
 				/**
-				 * Filter the fourth-row list of TinyMCE buttons (Visual tab).
+				 * Filters the fourth-row list of TinyMCE buttons (Visual tab).
 				 *
 				 * @since 2.5.0
 				 *
@@ -663,6 +672,7 @@ final class _WP_Editors {
 
 			if ( $post = get_post() ) {
 				$body_class .= ' post-type-' . sanitize_html_class( $post->post_type ) . ' post-status-' . sanitize_html_class( $post->post_status );
+
 				if ( post_type_supports( $post->post_type, 'post-formats' ) ) {
 					$post_format = get_post_format( $post );
 					if ( $post_format && ! is_wp_error( $post_format ) )
@@ -670,9 +680,16 @@ final class _WP_Editors {
 					else
 						$body_class .= ' post-format-standard';
 				}
+
+				$page_template = get_page_template_slug( $post );
+
+				if ( $page_template !== false ) {
+					$page_template = empty( $page_template ) ? 'default' : str_replace( '.', '-', basename( $page_template, '.php' ) );
+					$body_class .= ' page-template-' . sanitize_html_class( $page_template );
+				}
 			}
 
-			$body_class .= ' locale-' . sanitize_html_class( strtolower( str_replace( '_', '-', get_locale() ) ) );
+			$body_class .= ' locale-' . sanitize_html_class( strtolower( str_replace( '_', '-', get_user_locale() ) ) );
 
 			if ( !empty($set['tinymce']['body_class']) ) {
 				$body_class .= ' ' . $set['tinymce']['body_class'];
@@ -710,7 +727,7 @@ final class _WP_Editors {
 			if ( $set['teeny'] ) {
 
 				/**
-				 * Filter the teenyMCE config before init.
+				 * Filters the teenyMCE config before init.
 				 *
 				 * @since 2.7.0
 				 *
@@ -721,7 +738,7 @@ final class _WP_Editors {
 			} else {
 
 				/**
-				 * Filter the TinyMCE config before init.
+				 * Filters the TinyMCE config before init.
 				 *
 				 * @since 2.5.0
 				 *
@@ -788,7 +805,8 @@ final class _WP_Editors {
 
 		if ( self::$has_medialib ) {
 			add_thickbox();
-			wp_enqueue_script('media-upload');
+			wp_enqueue_script( 'media-upload' );
+			wp_enqueue_script( 'wp-embed' );
 		}
 
 		/**
@@ -805,73 +823,64 @@ final class _WP_Editors {
 		) );
 	}
 
-	/**
-	 * Translates the default TinyMCE strings and returns them as JSON encoded object ready to be loaded with tinymce.addI18n().
-	 * Can be used directly (_WP_Editors::wp_mce_translation()) by passing the same locale as set in the TinyMCE init object.
-	 *
-	 * @static
-	 * @param string $mce_locale The locale used for the editor.
-	 * @param bool $json_only optional Whether to include the JavaScript calls to tinymce.addI18n() and tinymce.ScriptLoader.markDone().
-	 * @return string Translation object, JSON encoded.
-	 */
-	public static function wp_mce_translation( $mce_locale = '', $json_only = false ) {
-
-		$mce_translation = array(
+	private static function get_translation() {
+		if ( empty( self::$translation ) ) {
+			self::$translation = array(
 			// Default TinyMCE strings
 			'New document' => __( 'New document' ),
 			'Formats' => _x( 'Formats', 'TinyMCE' ),
 
 			'Headings' => _x( 'Headings', 'TinyMCE' ),
-			'Heading 1' => __( 'Heading 1' ),
-			'Heading 2' => __( 'Heading 2' ),
-			'Heading 3' => __( 'Heading 3' ),
-			'Heading 4' => __( 'Heading 4' ),
-			'Heading 5' => __( 'Heading 5' ),
-			'Heading 6' => __( 'Heading 6' ),
+			'Heading 1' => array( __( 'Heading 1' ), 'access1' ),
+			'Heading 2' => array( __( 'Heading 2' ), 'access2' ),
+			'Heading 3' => array( __( 'Heading 3' ), 'access3' ),
+			'Heading 4' => array( __( 'Heading 4' ), 'access4' ),
+			'Heading 5' => array( __( 'Heading 5' ), 'access5' ),
+			'Heading 6' => array( __( 'Heading 6' ), 'access6' ),
 
 			/* translators: block tags */
 			'Blocks' => _x( 'Blocks', 'TinyMCE' ),
-			'Paragraph' => __( 'Paragraph' ),
-			'Blockquote' => __( 'Blockquote' ),
+			'Paragraph' => array( __( 'Paragraph' ), 'access7' ),
+			'Blockquote' => array( __( 'Blockquote' ), 'accessQ' ),
 			'Div' => _x( 'Div', 'HTML tag' ),
 			'Pre' => _x( 'Pre', 'HTML tag' ),
 			'Preformatted' => _x( 'Preformatted', 'HTML tag' ),
 			'Address' => _x( 'Address', 'HTML tag' ),
 
 			'Inline' => _x( 'Inline', 'HTML elements' ),
-			'Underline' => __( 'Underline' ),
-			'Strikethrough' => __( 'Strikethrough' ),
+			'Underline' => array( __( 'Underline' ), 'metaU' ),
+			'Strikethrough' => array( __( 'Strikethrough' ), 'accessD' ),
 			'Subscript' => __( 'Subscript' ),
 			'Superscript' => __( 'Superscript' ),
 			'Clear formatting' => __( 'Clear formatting' ),
-			'Bold' => __( 'Bold' ),
-			'Italic' => __( 'Italic' ),
-			'Code' => _x( 'Code', 'editor button' ),
+			'Bold' => array( __( 'Bold' ), 'metaB' ),
+			'Italic' => array( __( 'Italic' ), 'metaI' ),
+			'Code' => array( __( 'Code' ), 'accessX' ),
 			'Source code' => __( 'Source code' ),
 			'Font Family' => __( 'Font Family' ),
 			'Font Sizes' => __( 'Font Sizes' ),
 
-			'Align center' => __( 'Align center' ),
-			'Align right' => __( 'Align right' ),
-			'Align left' => __( 'Align left' ),
-			'Justify' => __( 'Justify' ),
+			'Align center' => array( __( 'Align center' ), 'accessC' ),
+			'Align right' => array( __( 'Align right' ), 'accessR' ),
+			'Align left' => array( __( 'Align left' ), 'accessL' ),
+			'Justify' => array( __( 'Justify' ), 'accessJ' ),
 			'Increase indent' => __( 'Increase indent' ),
 			'Decrease indent' => __( 'Decrease indent' ),
 
-			'Cut' => __( 'Cut' ),
-			'Copy' => __( 'Copy' ),
-			'Paste' => __( 'Paste' ),
-			'Select all' => __( 'Select all' ),
-			'Undo' => __( 'Undo' ),
-			'Redo' => __( 'Redo' ),
+			'Cut' => array( __( 'Cut' ), 'metaX' ),
+			'Copy' => array( __( 'Copy' ), 'metaC' ),
+			'Paste' => array( __( 'Paste' ), 'metaV' ),
+			'Select all' => array( __( 'Select all' ), 'metaA' ),
+			'Undo' => array( __( 'Undo' ), 'metaZ' ),
+			'Redo' => array( __( 'Redo' ), 'metaY' ),
 
 			'Ok' => __( 'OK' ),
 			'Cancel' => __( 'Cancel' ),
 			'Close' => __( 'Close' ),
 			'Visual aids' => __( 'Visual aids' ),
 
-			'Bullet list' => __( 'Bulleted list' ),
-			'Numbered list' => __( 'Numbered list' ),
+			'Bullet list' => array( __( 'Bulleted list' ), 'accessU' ),
+			'Numbered list' => array( __( 'Numbered list' ), 'accessO' ),
 			'Square' => _x( 'Square', 'list style' ),
 			'Default' => _x( 'Default', 'list style' ),
 			'Circle' => _x( 'Circle', 'list style' ),
@@ -897,7 +906,7 @@ final class _WP_Editors {
 			'Author' => __( 'Author' ),
 
 			// Media, image plugins
-			'Insert/edit image' => __( 'Insert/edit image' ),
+			'Insert/edit image' => array( __( 'Insert/edit image' ), 'accessM' ),
 			'General' => __( 'General' ),
 			'Advanced' => __( 'Advanced' ),
 			'Source' => __( 'Source' ),
@@ -931,8 +940,8 @@ final class _WP_Editors {
 			'Horizontal line' => __( 'Horizontal line' ),
 			'Horizontal space' => __( 'Horizontal space' ),
 			'Restore last draft' => __( 'Restore last draft' ),
-			'Insert/edit link' => __( 'Insert/edit link' ),
-			'Remove link' => __( 'Remove link' ),
+			'Insert/edit link' => array( __( 'Insert/edit link' ), 'metaK' ),
+			'Remove link' => array( __( 'Remove link' ), 'accessS' ),
 
 			'Color' => __( 'Color' ),
 			'Custom color' => __( 'Custom color' ),
@@ -1021,7 +1030,8 @@ final class _WP_Editors {
 			/* translators: word count */
 			'Words: {0}' => sprintf( __( 'Words: %s' ), '{0}' ),
 			'Paste is now in plain text mode. Contents will now be pasted as plain text until you toggle this option off.' => __( 'Paste is now in plain text mode. Contents will now be pasted as plain text until you toggle this option off.' ) . "\n\n" . __( 'If you&#8217;re looking to paste rich content from Microsoft Word, try turning this option off. The editor will clean up text pasted from Word automatically.' ),
-			'Rich Text Area. Press ALT-F9 for menu. Press ALT-F10 for toolbar. Press ALT-0 for help' => __( 'Rich Text Area. Press Alt-Shift-H for help' ),
+			'Rich Text Area. Press ALT-F9 for menu. Press ALT-F10 for toolbar. Press ALT-0 for help' => __( 'Rich Text Area. Press Alt-Shift-H for help.' ),
+			'Rich Text Area. Press Control-Option-H for help.' => __( 'Rich Text Area. Press Control-Option-H for help.' ),
 			'You have unsaved changes are you sure you want to navigate away?' => __( 'The changes you made will be lost if you navigate away from this page.' ),
 			'Your browser doesn\'t support direct access to the clipboard. Please use the Ctrl+X/C/V keyboard shortcuts instead.' => __( 'Your browser does not support direct access to the clipboard. Please use keyboard shortcuts or your browser&#8217;s edit menu instead.' ),
 
@@ -1035,11 +1045,11 @@ final class _WP_Editors {
 			'Format' => _x( 'Format', 'TinyMCE menu' ),
 
 			// WordPress strings
-			'Toolbar Toggle' => __( 'Toolbar Toggle' ),
-			'Insert Read More tag' => __( 'Insert Read More tag' ),
-			'Insert Page Break tag' => __( 'Insert Page Break tag' ),
+			'Toolbar Toggle' => array( __( 'Toolbar Toggle' ), 'accessZ' ),
+			'Insert Read More tag' => array( __( 'Insert Read More tag' ), 'accessT' ),
+			'Insert Page Break tag' => array( __( 'Insert Page Break tag' ), 'accessP' ),
 			'Read more...' => __( 'Read more...' ), // Title on the placeholder inside the editor (no ellipsis)
-			'Distraction-free writing mode' => __( 'Distraction-free writing mode' ),
+			'Distraction-free writing mode' => array( __( 'Distraction-free writing mode' ), 'accessW' ),
 			'No alignment' => __( 'No alignment' ), // Tooltip for the 'alignnone' button in the image toolbar
 			'Remove' => __( 'Remove' ), // Tooltip for the 'remove' button in the image toolbar
 			'Edit ' => __( 'Edit' ), // Tooltip for the 'edit' button in the image toolbar
@@ -1048,7 +1058,7 @@ final class _WP_Editors {
 			'Link options'  => __( 'Link options' ), // Tooltip for the 'link options' button in the inline link dialog
 
 			// Shortcuts help modal
-			'Keyboard Shortcuts' => __( 'Keyboard Shortcuts' ),
+			'Keyboard Shortcuts' => array( __( 'Keyboard Shortcuts' ), 'accessH' ),
 			'Default shortcuts,' => __( 'Default shortcuts,' ),
 			'Additional shortcuts,' => __( 'Additional shortcuts,' ),
 			'Focus shortcuts:' => __( 'Focus shortcuts:' ),
@@ -1062,6 +1072,7 @@ final class _WP_Editors {
 			'Ctrl + letter:' => __( 'Ctrl + letter:' ),
 			'Letter' => __( 'Letter' ),
 			'Action' => __( 'Action' ),
+			'Warning: the link has been inserted but may have errors. Please test it.' => __( 'Warning: the link has been inserted but may have errors. Please test it.' ),
 			'To move focus to other buttons use Tab or the arrow keys. To return focus to the editor press Escape or use one of the buttons.' =>
 				__( 'To move focus to other buttons use Tab or the arrow keys. To return focus to the editor press Escape or use one of the buttons.' ),
 			'When starting a new paragraph with one of these formatting shortcuts followed by a space, the formatting will be applied automatically. Press Backspace or Escape to undo.' =>
@@ -1070,7 +1081,8 @@ final class _WP_Editors {
 				__( 'The following formatting shortcuts are replaced when pressing Enter. Press Escape or the Undo button to undo.' ),
 			'The next group of formatting shortcuts are applied as you type or when you insert them around plain text in the same paragraph. Press Escape or the Undo button to undo.' =>
 				__( 'The next group of formatting shortcuts are applied as you type or when you insert them around plain text in the same paragraph. Press Escape or the Undo button to undo.' ),
-		);
+			);
+		}
 
 		/**
 		 * Link plugin (not included):
@@ -1083,12 +1095,33 @@ final class _WP_Editors {
 		 *	Url
 		 */
 
+		return self::$translation;
+	}
+
+	/**
+	 * Translates the default TinyMCE strings and returns them as JSON encoded object ready to be loaded with tinymce.addI18n().
+	 * Can be used directly (_WP_Editors::wp_mce_translation()) by passing the same locale as set in the TinyMCE init object.
+	 *
+	 * @static
+	 * @param string $mce_locale The locale used for the editor.
+	 * @param bool $json_only optional Whether to include the JavaScript calls to tinymce.addI18n() and tinymce.ScriptLoader.markDone().
+	 * @return string Translation object, JSON encoded.
+	 */
+	public static function wp_mce_translation( $mce_locale = '', $json_only = false ) {
 		if ( ! $mce_locale ) {
 			$mce_locale = self::$mce_locale;
 		}
 
+		$mce_translation = self::get_translation();
+		
+		foreach ( $mce_translation as $name => $value ) {
+			if ( is_array( $value ) ) {
+				$mce_translation[$name] = $value[0];
+			}
+		}
+
 		/**
-		 * Filter translated strings prepared for TinyMCE.
+		 * Filters translated strings prepared for TinyMCE.
 		 *
 		 * @since 3.9.0
 		 *
@@ -1127,16 +1160,15 @@ final class _WP_Editors {
 	/**
 	 *
 	 * @static
-	 * @global string $wp_version
 	 * @global string $tinymce_version
 	 * @global bool   $concatenate_scripts
 	 * @global bool   $compress_scripts
 	 */
 	public static function editor_js() {
-		global $wp_version, $tinymce_version, $concatenate_scripts, $compress_scripts;
+		global $tinymce_version, $concatenate_scripts, $compress_scripts;
 
 		/**
-		 * Filter "tiny_mce_version" is deprecated
+		 * Filters "tiny_mce_version" is deprecated
 		 *
 		 * The tiny_mce_version filter is not needed since external plugins are loaded directly by TinyMCE.
 		 * These plugins can be refreshed by appending query string to the URL passed to "mce_external_plugins" filter.
@@ -1211,7 +1243,7 @@ final class _WP_Editors {
 
 		$baseurl = self::$baseurl;
 		// Load tinymce.js when running from /src, else load wp-tinymce.js.gz (production) or tinymce.min.js (SCRIPT_DEBUG)
-		$mce_suffix = false !== strpos( $wp_version, '-src' ) ? '' : '.min';
+		$mce_suffix = false !== strpos( get_bloginfo( 'version' ), '-src' ) ? '' : '.min';
 
 		if ( $tmce_on ) {
 			if ( $compressed ) {
@@ -1282,8 +1314,9 @@ final class _WP_Editors {
 		</script>
 		<?php
 
-		if ( in_array( 'wplink', self::$plugins, true ) || in_array( 'link', self::$qt_buttons, true ) )
+		if ( in_array( 'wplink', self::$plugins, true ) || in_array( 'link', self::$qt_buttons, true ) ) {
 			self::wp_link_dialog();
+		}
 
 		/**
 		 * Fires after any core TinyMCE editor instances are created.
@@ -1301,7 +1334,7 @@ final class _WP_Editors {
 	 * @global int $content_width
 	 */
 	public static function wp_fullscreen_html() {
-		_deprecated_function( __FUNCTION__, '4.3' );
+		_deprecated_function( __FUNCTION__, '4.3.0' );
 	}
 
 	/**
@@ -1334,7 +1367,7 @@ final class _WP_Editors {
 		$query['offset'] = $args['pagenum'] > 1 ? $query['posts_per_page'] * ( $args['pagenum'] - 1 ) : 0;
 
 		/**
-		 * Filter the link query arguments.
+		 * Filters the link query arguments.
 		 *
 		 * Allows modification of the link query arguments before querying.
 		 *
@@ -1370,7 +1403,7 @@ final class _WP_Editors {
 		}
 
 		/**
-		 * Filter the link query results.
+		 * Filters the link query results.
 		 *
 		 * Allows modification of the returned link query results.
 		 *

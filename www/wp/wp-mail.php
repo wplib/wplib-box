@@ -12,7 +12,13 @@ require(dirname(__FILE__) . '/wp-load.php');
 
 /** This filter is documented in wp-admin/options.php */
 if ( ! apply_filters( 'enable_post_by_email_configuration', true ) )
-	wp_die( __( 'This action has been disabled by the administrator.' ) );
+	wp_die( __( 'This action has been disabled by the administrator.' ), 403 );
+
+$mailserver_url = get_option( 'mailserver_url' );
+
+if ( 'mail.example.com' === $mailserver_url || empty( $mailserver_url ) ) {
+	wp_die( __( 'This action has been disabled by the administrator.' ), 403 );
+}
 
 /**
  * Fires to allow a plugin to do a complete takeover of Post by Email.
@@ -66,7 +72,6 @@ for ( $i = 1; $i <= $count; $i++ ) {
 	$content_transfer_encoding = '';
 	$post_author = 1;
 	$author_found = false;
-	$dmonths = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
 	foreach ($message as $line) {
 		// Body signal.
 		if ( strlen($line) < 3 )
@@ -119,6 +124,7 @@ for ( $i = 1; $i <= $count; $i++ ) {
 					$author = trim($line);
 				$author = sanitize_email($author);
 				if ( is_email($author) ) {
+					/* translators: Post author email address */
 					echo '<p>' . sprintf(__('Author is %s'), $author) . '</p>';
 					$userdata = get_user_by('email', $author);
 					if ( ! empty( $userdata ) ) {
@@ -163,7 +169,7 @@ for ( $i = 1; $i <= $count; $i++ ) {
 	$content = trim($content);
 
 	/**
-	 * Filter the original content of the email.
+	 * Filters the original content of the email.
 	 *
 	 * Give Post-By-Email extending plugins full access to the content, either
 	 * the raw content, or the content of the last quoted-printable section.
@@ -189,7 +195,7 @@ for ( $i = 1; $i <= $count; $i++ ) {
 	$content = trim($content);
 
 	/**
-	 * Filter the content of the post submitted by email before saving.
+	 * Filters the content of the post submitted by email before saving.
 	 *
 	 * @since 1.2.0
 	 *
