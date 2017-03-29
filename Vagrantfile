@@ -360,18 +360,6 @@ Vagrant.configure(2) do |config|
     config.ssh.forward_agent = true
     config.ssh.insert_key = false
 
-    $provision = <<PROVISION
-if [ -f "/vagrant/scripts/provision.sh" ]; then
-    bash /vagrant/scripts/provision.sh --force
-else
-    rm -rf /tmp/box-scripts  2>/dev/null
-    git clone https://github.com/wplib/box-scripts.git /tmp/box-scripts  2>/dev/null
-    bash /tmp/box-scripts/provision.sh
-fi
-PROVISION
-
-    config.vm.provision "shell", inline: $provision
-
     config.trigger.before :halt do
         run_remote "box backup-db"
     end
