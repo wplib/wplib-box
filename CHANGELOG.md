@@ -1,5 +1,11 @@
 # WPLib Box ChangeLog
 
+## 0.12.0
++ Implement Apache and Nginx as Docker containers
++ Add CLI command `set-web-server` to switch between Apache and Nginx
++ Change message that appears on default web page
++ Clone box scripts into box during build
+
 ## 0.11.0
 + Fix incorrect installation of `screen` and `jq`
 + Remove `HHVM`, `gearman`, and `ZeroMQ`
