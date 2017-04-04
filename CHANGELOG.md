@@ -1,5 +1,12 @@
 # WPLib Box ChangeLog
 
+## 0.12.1
++ Fixed issue with Docker webserver container starting before Vagrant mounts shared directories
++ Updated FAQ with instructions for accessing Adminer
++ Updated to WordPress `4.7.3` as default
++ Updated database with new WP `4.7.3` structure
++ Updated Query Monitor plugin to `2.13.4`
+
 ## 0.12.0
 + Implement Apache and Nginx as Docker containers
 + Add CLI command `set-web-server` to switch between Apache and Nginx
