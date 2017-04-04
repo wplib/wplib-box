@@ -3,7 +3,7 @@ Contributors: johnbillion
 Tags: ajax, debug, debug-bar, debugging, development, developer, performance, profiler, profiling, queries, query monitor, rest-api
 Requires at least: 3.7
 Tested up to: 4.7
-Stable tag: 2.13.2
+Stable tag: 2.13.4
 License: GPLv2 or later
 
 View debugging and performance information on database queries, hooks, conditionals, HTTP requests, redirects and more.

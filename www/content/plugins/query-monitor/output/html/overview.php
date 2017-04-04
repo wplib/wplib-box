@@ -57,9 +57,7 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 			echo '<th scope="col">' . esc_html__( 'Database query time', 'query-monitor' ) . '</th>';
 			echo '<th scope="col">' . esc_html__( 'Database queries', 'query-monitor' ) . '</th>';
 		}
-		if ( isset( $cache_hit_percentage ) ) {
-			echo '<th scope="col">' . esc_html__( 'Object cache', 'query-monitor' ) . '</th>';
-		}
+		echo '<th scope="col">' . esc_html__( 'Object cache', 'query-monitor' ) . '</th>';
 		echo '</tr>';
 		echo '</thead>';
 
@@ -112,20 +110,39 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 			echo '</td>';
 		}
 
+		echo '<td>';
 		if ( isset( $cache_hit_percentage ) ) {
-			echo '<td>';
 			echo esc_html( sprintf(
-				/* translators: %s: Cache hit rate percentage */
-				__( '%s%% hit rate', 'query-monitor' ),
-				number_format_i18n( $cache_hit_percentage, 1 )
+				/* translators: 1: Cache hit rate percentage, 2: number of cache hits, 3: number of cache misses */
+				__( '%s%% hit rate (%s hits, %s misses)', 'query-monitor' ),
+				number_format_i18n( $cache_hit_percentage, 1 ),
+				number_format_i18n( $cache_data['stats']['cache_hits'], 0 ),
+				number_format_i18n( $cache_data['stats']['cache_misses'], 0 )
 			) );
+			if ( $cache_data['display_hit_rate_warning'] ) {
+				printf(
+					'<br><a href="%s">%s</a>',
+					'https://github.com/johnbillion/query-monitor/wiki/Cache-Hit-Rate',
+					esc_html__( "Why is this value 100%?", 'query-monitor' )
+				);
+			}
 			echo '<br><span class="qm-info">';
-			echo ( $cache_data['ext_object_cache'] )
-				? esc_html__( 'External object cache in use', 'query-monitor' )
-				: esc_html__( 'External object cache not in use', 'query-monitor' );
+			if ( $cache_data['ext_object_cache'] ) {
+				printf(
+					'<a href="%s">%s</a>',
+					network_admin_url( 'plugins.php?plugin_status=dropins' ),
+					esc_html__( 'External object cache in use', 'query-monitor' )
+				);
+			} else {
+				echo esc_html__( 'External object cache not in use', 'query-monitor' );
+			}
 			echo '</span>';
-			echo '</td>';
+		} else {
+			echo '<span class="qm-info">';
+			echo esc_html__( 'Object cache information is not available', 'query-monitor' );
+			echo '</span>';
 		}
+		echo '</td>';
 
 		echo '</tr>';
 		echo '</tbody>';
