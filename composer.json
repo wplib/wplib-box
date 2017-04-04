@@ -51,9 +51,5 @@
   "config": {
     "vendor-dir": "www/vendor",
     "secure-http": false
-  },
-  "scripts": {
-    "post-install-cmd": "php scripts/host/after-composer.php",
-    "post-update-cmd": "php scripts/host/after-composer.php"
   }
 }
