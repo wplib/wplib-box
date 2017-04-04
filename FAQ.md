@@ -362,6 +362,14 @@ The configuration file for Visual Studio Code is already included in the resposi
 
 [Adminer](https://www.adminer.org/) is a web front end to administer the MySQL server. End users can access Adminer at http://adminer.{your-domain}. If you have not changed the box domain name, that would be [http://adminer.wplib.box](http://adminer.wplib.box).
 
+The credentials are:
+
++ Host: 172.17.0.1
++ Username: wordpress
++ Password: wordpress
++ database: wordpress
+
+
 <a id="mailhog"></a>
 ### How do I access MailHog?
 
