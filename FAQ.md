@@ -39,6 +39,7 @@
 - [How do I access Adminer?](#adminer)
 - [How do I access MailHog?](#mailhog)
 - [How do I fix the Vagrant 1.8.6 Bug?](#vagrant-1.8.6-bug)
+- [How do I switch from Nginx to Apache?](#webserver)
 
 ### Glossary
 - [What Do They All These Terms Mean?](#glossary)
@@ -132,7 +133,7 @@ First check to see what version of Vagrant you are running by running the follow
     vagrant -v
 
 If you are running Vagrant 1.8.6 upgrade your Vagrant; see [Vagrant-1.8.6-bug](#vagrant-1.8.6-bug) to understand why.  If not please run [`vagrant reload --debug`](#vagrant-debug) and provide your `vagrant.log` when [requesting support](#support).
-
+    
 <a id="no-answer"></a>
 ### No Answer Here
  
@@ -396,7 +397,16 @@ Then run `vagrant reload`.  This should fix it.
 
 Also you should not need to revert that after upgrading to a new version of Vagrant **_unless_** you need to [change the box's IP address](README.md#change-ip).
 
+<a id="webserver"></a>
+### How do I switch from Nginx to Apache (or vice versa)?
+By default, WPLib Box uses Nginx as its webserver. However, Apache is available and can be switched out with Nginx.
+The box CLI has a command, `set-web-server` to accomplish this.
 
+For example, to switch from Nginx to Apache:
+ 
++ Log in to the box using `vagrant ssh` on your host machine.
++ Enter the following command: `box set-web-server apache` to make Apache the running webserver.
++ Conversely, you can `box set-web-server nginx` to switch from Apache to Nginx.
 
 ##Glossary 
 
