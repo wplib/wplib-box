@@ -416,7 +416,7 @@ For example, to switch from Nginx to Apache:
 + Enter the following command: `box set-web-server apache` to make Apache the running webserver.
 + Conversely, you can `box set-web-server nginx` to switch from Apache to Nginx.
 
-##Glossary 
+## Glossary 
 
 <a id="glossary"></a>
 ### What Do All These Terms Mean?
