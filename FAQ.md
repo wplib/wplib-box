@@ -85,7 +85,7 @@ We can also schedule a time with you to screen share using [**ScreenHero**](http
 
 <a id="github-issues"></a>
 ### Less Urgent Help via GitHub issues
-Finally you can submit a GitHub issue with bugs and/or feature requests. Feel free to [submit any issue](/wplib/wplib-box/issues/new) about WPLib Box, especially feature requests or to discuss integrating other open-source software with the box. When you do please assign your issue the _"question"_ label. 
+Finally you can submit a GitHub issue with bugs and/or feature requests. Feel free to [submit any issue](https://github.com/wplib/wplib-box/issues/new) about WPLib Box, especially feature requests or to discuss integrating other open-source software with the box. When you do please assign your issue the _"question"_ label. 
 
 <a id="troubleshooting"></a>
 ## Troubleshooting/WPLib Box is not working
