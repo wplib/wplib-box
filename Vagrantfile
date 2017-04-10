@@ -353,6 +353,10 @@ Vagrant.configure(2) do |config|
         "mailhog.#{hostname}"
     ]
 
+    config.vm.provider :vmare_fusion do |vmware|
+        vmware.vmx["ethernet0.pcislotnumber"] = "33"
+    end
+
     config.vm.network 'private_network', ip: IO.read('IP').strip
 
     config.vm.synced_folder "www", "/var/www"
