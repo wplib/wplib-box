@@ -40,6 +40,8 @@
 - [How do I access MailHog?](#mailhog)
 - [How do I fix the Vagrant 1.8.6 Bug?](#vagrant-1.8.6-bug)
 - [How do I switch from Nginx to Apache?](#webserver)
+- [How do I switch from MySQL to MariaDB?](#database)
+- [How do I see the logs for Docker container Foo?](#logs)
 
 ### Glossary
 - [What Do They All These Terms Mean?](#glossary)
@@ -303,8 +305,12 @@ The above commands will backup your database to `/your/project/directory/sql/cur
     
 <a id="php-versions"></a>
 ### Which PHP Versions are Available?
-Currently, the box has PHP 5.6, PHP 7.0, and HHVM. The PHP is installed from the `ondrej/php` [repository](https://launchpad.net/~ondrej/+archive/ubuntu/php). _(Please note: most answers one might find on the internet regarding `How do I install X module on Ubuntu` are based on previous versions of this repository which only installed one version of PHP on the OS. As such, they will be of no use in this use case.)_ 
-This results in both php5.6-fpm and php7.0-fpm services running concurrently, as well as making three versions of each PHP executable available: e.g. `php` (a symlink to `php7.0`), `php7.0`, and `php5.6`. This is true for `phpize` as well.
+Currently, the box has PHP 5.6, and PHP 7.0. The PHP is installed from the 
+`ondrej/php` [repository](https://launchpad.net/~ondrej/+archive/ubuntu/php).
+_(Please note: most answers one might find on the internet regarding 
+`How do I install X module on Ubuntu` are based on previous versions of
+this repository which only installed one version of PHP on the OS.
+As such, they will be of no use in this use case.)_ 
   
 The configuration directory structure is as follows:
 - /etc
@@ -413,8 +419,24 @@ The box CLI has a command, `set-web-server` to accomplish this.
 For example, to switch from Nginx to Apache:
  
 + Log in to the box using `vagrant ssh` on your host machine.
-+ Enter the following command: `box set-web-server apache` to make Apache the running webserver.
-+ Conversely, you can `box set-web-server nginx` to switch from Apache to Nginx.
++ Enter the following command: `box apache` to make Apache the running webserver.
++ Conversely, you can `box nginx` to switch from Apache to Nginx.
+
+<a id="database"></a>
+### How do I swtich from MySQL to MariaDB (or vice versa)?
+The box runs MySQL as the default database, however MariaDB is available. To configure the box to use
+MariaDB instead, use the 'box' command:
+
++ Log in to the box using `vagrant ssh` on your host machine.
++ Enter the following command: `box mariadb` to use MariaDB.
++ Conversely, you can `box mysql' to switch from MariaDB to MySQL.
+
+<a id="logs"></a>
+### How do I see the logs for Docker container Foo?
+The logs for a Docker container can be viewed using the command `docker logs foo`, where `foo` is the name of the
+container whose logs you wish to view.
+
+In the case of the webserver containers, these logs contain both the access and error log entries.
 
 ## Glossary 
 

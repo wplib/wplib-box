@@ -54,15 +54,15 @@ We think that once you try WPLib Box you will agree that we have succeeded.  Wan
 
 Service/Software|Version
 -------|----------
-PHP/PHP-FPM|7.0.9 & 5.6.20
-HipHop VM|3.14.3
+PHP/PHP-FPM|7.0.17 & 5.6.20
 MySQL|5.6
-nginx|1.4
+MariaDB|10.1.22
+Nginx|1.11.0
+Apache|2.4.25
 XDEBUG|2.4.0
 Redis|2.8.4
-WP CLI|0.23.0
-Nodejs|6.2.2
-Gearman|1.0.6
+WP CLI|1.1.0
+Nodejs|7.8.0
 localtunnel.me|
 
 ## Supported Host/Development Computers
