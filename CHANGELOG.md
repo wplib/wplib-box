@@ -1,5 +1,18 @@
 # WPLib Box ChangeLog
 
+## 0.13.0
++ Implement MySQL as a Docker container
++ Implement Redis as a Docker container
++ Add MariaDB as an option
++ Fix broken command to switch PHP versions in box
++ Increase Nginx client_max_body_size to 100M
++ Increase Nginx fast_cgi_read_timout to 9999
++ Add command to switch between MySQL and MariaDB
++ Add shortcut commands for switching out web servers.
++ Update Adminer to 4.3.0
++ Updated FAQ
++ Update README with current software version numbers
+
 ## 0.12.1
 + Fixed issue with Docker webserver container starting before Vagrant mounts shared directories
 + Updated FAQ with instructions for accessing Adminer
