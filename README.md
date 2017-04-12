@@ -54,13 +54,13 @@ We think that once you try WPLib Box you will agree that we have succeeded.  Wan
 
 Service/Software|Version
 -------|----------
-PHP/PHP-FPM|7.0.17 & 5.6.20
-MySQL|5.6
+PHP/PHP-FPM|7.0.18 & 5.6.30
+MySQL|5.7.17
 MariaDB|10.1.22
 Nginx|1.11.0
 Apache|2.4.25
-XDEBUG|2.4.0
-Redis|2.8.4
+XDEBUG|2.5.1
+Redis|3.0.7
 WP CLI|1.1.0
 Nodejs|7.8.0
 localtunnel.me|
