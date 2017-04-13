@@ -51,7 +51,7 @@ if ( ! defined( 'DB_PASSWORD' ) ) {
 }
 
 if ( ! defined( 'DB_HOST' ) ) {
-	define( 'DB_HOST', 'localhost' );
+	define( 'DB_HOST', '172.17.0.1' );
 }
 
 if ( ! defined( 'DB_CHARSET' ) ) {
