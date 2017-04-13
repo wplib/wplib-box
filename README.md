@@ -1,41 +1,41 @@
-#WPLib Box
+# WPLib Box
 
 **The EASIEST way to get a local WordPress development environment**, using Vagrant.
 
 ----
 
-## [CLICK HERE](https://slackpass.io/wplib) for **quick help** via [`wplib.slack.com#box`](FAQ.md#slack).
-## [CLICK HERE](FAQ.md#troubleshooting) for **troubleshooting** and other [FAQs](FAQ.md).
+## [CLICK HERE](https://slackpass.io/wplib) for **quick help** via [`wplib.slack.com# box`](FAQ.md# slack).
+## [CLICK HERE](FAQ.md# troubleshooting) for **troubleshooting** and other [FAQs](FAQ.md).
 
 ----
 
-- [Why Use WPLib Box?](#why-wplib-box)
-- [Services & Software Included](#whats-included)
-- [Required Hardware](#required-hw)
-- [Required Software](#required-sw)
-- [Quickstart](#quickstart)
-- [Setting the Domain Name](#setting-domain)
-- [Changing the Local IP Address](#change-ip)
-- [Default PHP Version for the Web](#web-php)
-- [Switching PHP Versions](#switching-php)
-- [Logging into the WordPress Admin](#wp-admin)
-- [The WordPress Database Credentials](#wpdb)
-- [The MySQL Credentials](#mysql-credentials)
-- [Connecting to MySQL in Terminal](#mysql-terminal)
-- [The SSH Credentials](#ssh-credentials)
-- [Logging into SSH as root](#ssh-root)
-- [Debugging PHP with XDEBUG and PhpStorm](#xdebug)
-- [Internet Sharing](#internet-sharing)
-- [Troubleshooting](#troubleshooting)
-- [How are we the Best?](#how-best)
+- [Why Use WPLib Box?](# why-wplib-box)
+- [Services & Software Included](# whats-included)
+- [Required Hardware](# required-hw)
+- [Required Software](# required-sw)
+- [Quickstart](# quickstart)
+- [Setting the Domain Name](# setting-domain)
+- [Changing the Local IP Address](# change-ip)
+- [Default PHP Version for the Web](# web-php)
+- [Switching PHP Versions](# switching-php)
+- [Logging into the WordPress Admin](# wp-admin)
+- [The WordPress Database Credentials](# wpdb)
+- [The MySQL Credentials](# mysql-credentials)
+- [Connecting to MySQL in Terminal](# mysql-terminal)
+- [The SSH Credentials](# ssh-credentials)
+- [Logging into SSH as root](# ssh-root)
+- [Debugging PHP with XDEBUG and PhpStorm](# xdebug)
+- [Internet Sharing](# internet-sharing)
+- [Troubleshooting](# troubleshooting)
+- [How are we the Best?](# how-best)
 - [3rd Party WPLib Box Projects](#3rd-party)
-- [Status of Issues](#issues-status)
-- [Future Plans](#future-plans)
+- [Status of Issues](# issues-status)
+- [Future Plans](# future-plans)
 
 ---
 
 <a id="why-wplib-box"></a>
-##Why Use WPLib Box?
+## Why Use WPLib Box?
 
 Why Use WPLib Box for WordPress local development instead of one of the other Vagrant boxes for WordPress such as [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV), [VIP QuickStart](https://github.com/Automattic/vip-quickstart), [Trellis](https://github.com/roots/trellis) or [one of the others](http://wptavern.com/13-vagrant-resources-for-wordpress-development)?
 
@@ -47,7 +47,7 @@ Our **GOAL** is to be:
 
 And one more goal we achieved is that our box supports **PhpStorm+XDEBUG debugging** with the least effort required on your part.
  
-We think that once you try WPLib Box you will agree that we have succeeded.  Want to know [**how**](#how) we did it?
+We think that once you try WPLib Box you will agree that we have succeeded.  Want to know [**how**](# how) we did it?
 
 <a id="whats-included"></a>
 ## Services & Software Included
@@ -86,7 +86,7 @@ Since WPLib Box is distributed as a virtual machine image of a 64-bit distributi
 
 <a id="for-mac"></a>
 <a id="for-linux"></a>
-###For Mac & Linux Users
+### For Mac & Linux Users
 
 To run WPLib Box requires the following software be installed:
 
@@ -96,17 +96,17 @@ To run WPLib Box requires the following software be installed:
 - Install the [Vagrant Triggers](https://github.com/emyl/vagrant-triggers) plugin by running `vagrant plugin install vagrant-triggers`
 
 <a id="for-windows"></a>
-###For Windows Users
+### For Windows Users
 
 - Install everything from the Mac & Linux Users list above
 - Ensure that no other VM platform is running (either VMware or Hyper-V) as they will prevent VirtualBox from operating.
 - Install [Git](https://git-scm.com/downloads) version 2 or greater **OR** download the `.ZIP` file and unzip instead.
 
 <a id="quickstart"></a>
-##Quickstart
+## Quickstart
 After making sure you have the necessary software, run the following commands 
 
-###For Mac or Linux users:
+### For Mac or Linux users:
 
     # cd ~/Sites, or cd into whichever directory you store your website projects in
     cd ~/Sites                
@@ -115,7 +115,7 @@ After making sure you have the necessary software, run the following commands
     vagrant up
     open "http://wplib.box"
 
-###For Windows users:
+### For Windows users:
 
     # cd into whichever directory you store your website projects in. 
     # For example, your user profile: C:\Users\{current user}\Sites
@@ -132,7 +132,7 @@ After making sure you have the necessary software, run the following commands
 After this you should have a running WPLib Box via Vagrant and VirtualBox and a website loaded at the local `wplib.box` domain.
 
 <a id="setting-domain"></a>
-##Setting the Domain Name
+## Setting the Domain Name
 
 To use WPLib Box for a local domain name other than `wplib.box` edit the `HOSTNAME` file  _(with no extension)_
 and replace the text `"wplib.box"` with your preferred local domain name _(we recommend `"your-production-2nd-level-domain.dev"` e.g. if `google.com` then use `google.dev`):_
@@ -160,7 +160,7 @@ If you need to change that for any reason simply **edit the file named just `IP`
 
 <a id="web-php"></a>
 ## Default PHP Version for the Web
-The default version fot the web is `7.0.x`.  Instructions to [switch to PHP 5.6](FAQ.md#switch-php) are on our FAQ.
+The default version fot the web is `7.0.x`.  Instructions to [switch to PHP 5.6](FAQ.md# switch-php) are on our FAQ.
 
 <a id="switching-php"></a>
 ## Switching PHP Versions
@@ -233,7 +233,7 @@ There is no `root` user _per-se_ in WPLib Box, only the `vagrant` user. You have
 <a id="xdebug"></a>
 ## Debugging PHP with XDEBUG and PhpStorm
 
-See instructions [**here**](https://github.com/wplib/connect.tech-atlanta-2016/blob/master/debugging-with-phpstorm-xdebug.md#debugging-with-phpstorm-and-xdebug).
+See instructions [**here**](https://github.com/wplib/connect.tech-atlanta-2016/blob/master/debugging-with-phpstorm-xdebug.md# debugging-with-phpstorm-and-xdebug).
 
 <a id="internet-sharing"></a>
 ## Internet Sharing
@@ -243,11 +243,11 @@ Internet sharing is implemented with [localtunnel.me](https://localtunnel.me), w
 <a id="troubleshooting"></a>
 ## Troubleshooting
 
-If you are having trouble with WPLib Box please check out our Troubleshooting section of our [**FAQ**](FAQ.md#troubleshooting) and/or you can also [reach out to our support team](FAQ.md#support) for **quick help** on Slack and via other channels. 
+If you are having trouble with WPLib Box please check out our Troubleshooting section of our [**FAQ**](FAQ.md# troubleshooting) and/or you can also [reach out to our support team](FAQ.md# support) for **quick help** on Slack and via other channels. 
 
 
 <a id="how-best"></a>
-##How are we the Best?
+## How are we the Best?
 
 How have we been able to make **WPLib Box** the:
 
@@ -279,13 +279,13 @@ Give it a try and see if you don't agree.
 - [**WPLib Box Maker**](https://github.com/ArtOfWP/generator-wplibbox) from [ArtOfWP](https://github.com/ArtOfWP): _Generates a custom WPLib Box setup using [Yeoman](http://yeoman.io/)._
 
 <a id="issues-status"></a>
-##Status of Issues
+## Status of Issues
 We are using Waffle.io to help us manage our GitHub issue queue:
 
 [![Stories in Ready](https://badge.waffle.io/wplib/wplib-box.png?label=ready&title=Ready)](https://waffle.io/wplib/wplib-box)
 [![Stories In Progress](https://badge.waffle.io/wplib/wplib-box.svg?label=in+progress&title=In+Progress)](http://waffle.io/wplib/wplib-box)
 
 <a id="future-plans"></a>
-##Future Plans 
+## Future Plans 
 
 We have many plans for the WPLib platform.  This is just a start.  Watch this repo to keep up to date.
