@@ -4,33 +4,33 @@
 
 ----
 
-## [CLICK HERE](https://slackpass.io/wplib) for **quick help** via [`wplib.slack.com# box`](FAQ.md# slack).
+## [CLICK HERE](https://slackpass.io/wplib) for **quick help** via [`wplib.slack.com# box`](FAQ.md#slack).
 ## [CLICK HERE](FAQ.md#troubleshooting) for **troubleshooting** and other [FAQs](FAQ.md).
 
 ----
 
-- [Why Use WPLib Box?](# why-wplib-box)
-- [Services & Software Included](# whats-included)
-- [Required Hardware](# required-hw)
-- [Required Software](# required-sw)
-- [Quickstart](# quickstart)
-- [Setting the Domain Name](# setting-domain)
-- [Changing the Local IP Address](# change-ip)
-- [Default PHP Version for the Web](# web-php)
-- [Switching PHP Versions](# switching-php)
-- [Logging into the WordPress Admin](# wp-admin)
-- [The WordPress Database Credentials](# wpdb)
-- [The MySQL Credentials](# mysql-credentials)
-- [Connecting to MySQL in Terminal](# mysql-terminal)
-- [The SSH Credentials](# ssh-credentials)
-- [Logging into SSH as root](# ssh-root)
-- [Debugging PHP with XDEBUG and PhpStorm](# xdebug)
-- [Internet Sharing](# internet-sharing)
-- [Troubleshooting](# troubleshooting)
-- [How are we the Best?](# how-best)
+- [Why Use WPLib Box?](#why-wplib-box)
+- [Services & Software Included](#whats-included)
+- [Required Hardware](#required-hw)
+- [Required Software](#required-sw)
+- [Quickstart](#quickstart)
+- [Setting the Domain Name](#setting-domain)
+- [Changing the Local IP Address](#change-ip)
+- [Default PHP Version for the Web](#web-php)
+- [Switching PHP Versions](#switching-php)
+- [Logging into the WordPress Admin](#wp-admin)
+- [The WordPress Database Credentials](#wpdb)
+- [The MySQL Credentials](#mysql-credentials)
+- [Connecting to MySQL in Terminal](#mysql-terminal)
+- [The SSH Credentials](#ssh-credentials)
+- [Logging into SSH as root](#ssh-root)
+- [Debugging PHP with XDEBUG and PhpStorm](#xdebug)
+- [Internet Sharing](#internet-sharing)
+- [Troubleshooting](#troubleshooting)
+- [How are we the Best?](#how-best)
 - [3rd Party WPLib Box Projects](#3rd-party)
-- [Status of Issues](# issues-status)
-- [Future Plans](# future-plans)
+- [Status of Issues](#issues-status)
+- [Future Plans](#future-plans)
 
 ---
 
