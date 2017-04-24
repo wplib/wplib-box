@@ -369,5 +369,8 @@ Vagrant.configure(2) do |config|
         run_remote "box backup-db"
     end
 
+    config.trigger.after [:up, :reload] do
+        run_remote "box startup"
+    end
 end
 

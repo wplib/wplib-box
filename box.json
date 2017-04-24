@@ -1,0 +1,7 @@
+{
+  "startup" : {
+    "database": "mysql",
+    "webserver": "nginx",
+    "processvm": "php7_fpm"
+  }
+}
