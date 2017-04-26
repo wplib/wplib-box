@@ -1,5 +1,13 @@
 # WPLib Box ChangeLog
 
+## 0.14.0
++ Add Memcached as an option
++ Implement CLI commands to switch between Redis and Memcached
++ Implement PHP5.6 and PHP7.0 as Docker containers
++ Add shortcut command to switch to PHP7.1
++ Implement ability to configure box using box.json file
++ Fix bug in Nginx MailHog virtualhost configuration
+
 ## 0.13.0
 + Implement MySQL as a Docker container
 + Implement Redis as a Docker container
