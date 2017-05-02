@@ -47,20 +47,21 @@ Our **GOAL** is to be:
 
 And one more goal we achieved is that our box supports **PhpStorm+XDEBUG debugging** with the least effort required on your part.
  
-We think that once you try WPLib Box you will agree that we have succeeded.  Want to know [**how**](# how) we did it?
+We think that once you try WPLib Box you will agree that we have succeeded.  Want to know [**how**](#how) we did it?
 
 <a id="whats-included"></a>
 ## Services & Software Included
 
 Service/Software|Version
 -------|----------
-PHP/PHP-FPM|7.0.18 & 5.6.30
+PHP/PHP-FPM|7.1.4, 7.0.16, & 5.6.30
 MySQL|5.7.17
 MariaDB|10.1.22
 Nginx|1.11.0
 Apache|2.4.25
-XDEBUG|2.5.1
+XDEBUG|2.5.0
 Redis|3.0.7
+Memcached|1.4.36
 WP CLI|1.1.0
 Nodejs|7.8.0
 localtunnel.me|

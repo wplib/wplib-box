@@ -423,14 +423,14 @@ For example, to switch from Nginx to Apache:
 + Conversely, you can `box nginx` to switch from Apache to Nginx.
 
 <a id="database"></a>
-### How do I swtich from MySQL to MariaDB (or vice versa)?
+### How do I switch from MySQL to MariaDB (or vice versa)?
 The box runs MySQL as the default database, however MariaDB is available. To configure the box to use
 MariaDB instead, use the `box` command _(which will dump the contents of
 the current database and import into the new database)_:
 
 + Log in to the box using `vagrant ssh` on your host machine.
 + Enter the following command: `box mariadb` to use MariaDB.
-+ Conversely, you can `box mysql' to switch from MariaDB to MySQL.
++ Conversely, you can `box mysql` to switch from MariaDB to MySQL.
 
 <a id="logs"></a>
 ### How do I see the logs for Docker container Foo?

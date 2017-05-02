@@ -1,0 +1,8 @@
+{
+  "services" : {
+    "database": "mysql",
+    "webserver": "nginx",
+    "processvm": "php7.0",
+    "kvstore": "redis"
+  }
+}
