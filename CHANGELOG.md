@@ -1,12 +1,14 @@
 # WPLib Box ChangeLog
 
 ## 0.14.0
++ `vagrant up` now configures box using `project.json` file
 + Add Memcached as an option
-+ Implement CLI commands to switch between Redis and Memcached
++ Add CLI commands to switch between Redis and Memcached
 + Implement PHP5.6 and PHP7.0 as Docker containers
 + Add shortcut command to switch to PHP7.1
-+ Implement ability to configure box using box.json file
-+ Fix bug in Nginx MailHog virtualhost configuration
++ Fix bug in Nginx MailHog virtual host configuration
++ Fix issue where `jq` was not latest version
++ Add `realpath` package
 
 ## 0.13.0
 + Implement MySQL as a Docker container
