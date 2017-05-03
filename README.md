@@ -211,6 +211,8 @@ Password    | `wordpress`
 
 The MySQL server listens on all interfaces on port 3306. If you have the MySQL command-line client installed on your host machine, you can simply `mysql --host wplib.box -u wordpress -pwordpress` (assuming you are using the `wplib.box` hostname).
 
+If you need to use MySQL with root privileges, for example to add a new database, use `mysql` instead to connect as root. 
+
 <a id="ssh-credentials"></a>
 ## The SSH Credentials
 
