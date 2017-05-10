@@ -7,8 +7,14 @@
     {
       "name": "The WPLib Team",
       "email": "team@wplib.org",
-      "homepage": "http://wplib.org",
+      "homepage": "http://github.com/wplib/wplib-box",
       "role": "Local Development Server Author"
+    },
+    {
+      "name": "The NewClarity Team",
+      "email": "team@newclarity.net",
+      "homepage": "http://newclarity.net",
+      "role": "Project Sponsor and Product Managers"
     }
   ],
   "repositories": [
@@ -27,10 +33,10 @@
   },
   "require": {
     "composer/installers": "dev-master",
+    "johnpbloch/wordpress": "*",
     "wpackagist-theme/twentysixteen": "*",
-    "wplib/wplib": "0.13.1",
     "wpackagist-plugin/wp-redis": "0.2.2",
-    "johnpbloch/wordpress": "*"
+    "wplib/wplib": "0.13.4"
   },
   "extra": {
     "wordpress-install-dir": "www/wp",
