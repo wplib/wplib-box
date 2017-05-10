@@ -21,13 +21,6 @@ class ComposerStaticInit29aee13f57ba92d3138989a6a89e1d73
     );
 
     public static $prefixesPsr0 = array (
-        'j' => 
-        array (
-            'johnpbloch\\Composer\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/johnpbloch/wordpress-core-installer/src',
-            ),
-        ),
         'W' => 
         array (
             'WPLib_' => 

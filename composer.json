@@ -33,7 +33,7 @@
   },
   "require": {
     "composer/installers": "dev-master",
-    "johnpbloch/wordpress": "*",
+    "johnpbloch/wordpress-core": "*",
     "wpackagist-theme/twentysixteen": "*",
     "wpackagist-plugin/wp-redis": "0.2.2",
     "wplib/wplib": "0.13.4"
