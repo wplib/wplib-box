@@ -1,5 +1,13 @@
 # WPLib Box ChangeLog
 
+## 0.15.0
++ Implement installable pacakages
++ Add Caddy Web Server as installable package
++ Add Nginx proxy
++ Add PHP-DOM extension
++ Add box restart command
++ Update to Adminer 4.3.1
+
 ## 0.14.0
 + `vagrant up` now configures box using `project.json` file
 + Add Memcached as an option
