@@ -233,7 +233,7 @@ There is no `root` user _per-se_ in WPLib Box, only the `vagrant` user. You have
 <a id="xdebug"></a>
 ## Debugging PHP with XDEBUG and PhpStorm
 
-See instructions [**here**](https://github.com/wplib/connect.tech-atlanta-2016/blob/master/debugging-with-phpstorm-xdebug.md# debugging-with-phpstorm-and-xdebug).
+See instructions [**here**](https://github.com/wplib/connect.tech-atlanta-2016/blob/master/debugging-with-phpstorm-xdebug.md#debugging-with-phpstorm-and-xdebug).
 
 <a id="internet-sharing"></a>
 ## Internet Sharing
