@@ -309,30 +309,20 @@ Currently, the box has PHP `5.6`, PHP `7.0` and PHP `7.1`, with PHP `7.0` runnin
 
 <a id="switch-php"></a>
 ### How do I Switch PHP Versions?
-The PHP version in use by the site is set `project.json` in the `services` section and the `processvm` property. This will set both the web version and the command line version. 
+The PHP version in use by the site is set in the `project.json` file in the `services` section and the `processvm` property. This will set both the web version and the command line version. 
 
-To change both web and command line versions to PHP `7.1`, SSH into the running Vagrant box from your project directory and then run the `box set-processvm-php7.1` command:
+To change both web and command line versions to PHP `7.1`, SSH into the running Vagrant box from your project directory and then run the `box php7.1` command:
 
     cd /your/project/directory
     vagrant ssh
-    box set-processvm-php7.1
+    box php7.1
 
 To change to `7.0` or `5.6`, use the same command but replace `7.1` with `7.0` or `5.6` from while SSHed into the box, e.g.:
 
-    box set-processvm-php7.0
+    box php7.0
 or
 
-    box set-processvm-php5.6
-
-In addition, if you want a different version for web than for your command line you can change them separately by using one of the following commands while SSHed into the box:
-    
-    set-web-processvm-php5.6
-    set-web-processvm-php7.0
-    set-web-processvm-php7.1
-
-    set-cli-processvm-php5.6
-    set-cli-processvm-php7.0
-    # set-cli-processvm-php7.1 <-- Version 0.15.0 does not have this command
+    box php5.6
 
 <a id="phpmyadmin"></a>
 ### How do I Install PhpMyAdmin?
