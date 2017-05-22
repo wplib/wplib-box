@@ -305,40 +305,33 @@ The above commands will backup your database to `/your/project/directory/sql/cur
     
 <a id="php-versions"></a>
 ### Which PHP Versions are Available?
-Currently, the box has PHP 5.6, and PHP 7.0. The PHP is installed from the 
-`ondrej/php` [repository](https://launchpad.net/~ondrej/+archive/ubuntu/php).
-_(Please note: most answers one might find on the internet regarding 
-`How do I install X module on Ubuntu` are based on previous versions of
-this repository which only installed one version of PHP on the OS.
-As such, they will be of no use in this use case.)_ 
-  
-The configuration directory structure is as follows:
-- /etc
-    - /php
-        - /5.6
-            - /cli
-            - /fpm
-            - /mods-available
-        - /7.0
-            - /cli
-            - /fpm
-            - /mods-available
- 
- All modules installed are configured for both versions of PHP.
+Currently, the box has PHP `5.6`, PHP `7.0` and PHP `7.1`, with PHP `7.0` running by default. Versions `5.6` and `7.0` are each implemented using their own Docker container and the latter is installed directly into Ubunutu in our box. All modules installed are configured for both versions of PHP.
 
 <a id="switch-php"></a>
 ### How do I Switch PHP Versions?
-The PHP version in use by the site is set in the Nginx vhost configuration. Our intention is to provide a control panel to simplify this process, but currently you must edit this file manually. This file is located at `/etc/nginx/sites-available/default`.
-To change to PHP 7, you must change the line `set $sock php/php5.6-fpm.sock;` to `set $sock php/php7.0-fpm.sock;`. To use HHVM, change it to `set $sock hhvm/sock`.
+The PHP version in use by the site is set `project.json` in the `services` section and the `processvm` property. This will set both the web version and the command line version. 
 
-This can be accomplished by connecting to the guest machine via ssh:
+To change both web and command line versions to PHP `7.1`, SSH into the running Vagrant box from your project directory and then run the `box set-processvm-php7.1` command:
 
-    cd project-directory
+    cd /your/project/directory
     vagrant ssh
-    sudo nano /etc/nginx/sites-available/default
+    box set-processvm-php7.1
+
+To change to `7.0` or `5.6`, use the same command but replace `7.1` with `7.0` or `5.6` from while SSHed into the box, e.g.:
+
+    box set-processvm-php7.0
+or
+    box set-processvm-php5.6
+
+In addition, if you want a different version for web than for your command line you can change them separately by using one of the following commands while SSHed into the box:
     
-Change the pertinent line. Press `CTRL-X` to exit the program. When prompted to save the buffer, press `ENTER`. The filename will appear. Press `ENTER` again. Then enter the command `sudo service nginx restart`.
-Visit [http://wplib.box/phpinfo.php](http://wplib.box/phpinfo.php) (or whatever domain name you have configured for the box) to verify.
+    set-web-processvm-php5.6
+    set-web-processvm-php7.0
+    set-web-processvm-php7.1
+
+    set-cli-processvm-php5.6
+    set-cli-processvm-php7.0
+    # set-cli-processvm-php7.1 <-- Version 0.15.0 does not have this command
 
 <a id="phpmyadmin"></a>
 ### How do I Install PhpMyAdmin?
