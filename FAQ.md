@@ -321,6 +321,7 @@ To change to `7.0` or `5.6`, use the same command but replace `7.1` with `7.0` o
 
     box set-processvm-php7.0
 or
+
     box set-processvm-php5.6
 
 In addition, if you want a different version for web than for your command line you can change them separately by using one of the following commands while SSHed into the box:
