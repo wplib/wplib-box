@@ -166,8 +166,7 @@ The default version fot the web is `7.0.x`.  Instructions to [switch to PHP 5.6]
 <a id="switching-php"></a>
 ## Switching PHP Versions
 
-The box has both PHP-FPM 5.6 and 7.0 running concurrently. They are implemented as separate processes with
-individual sockets. Instructions on how to select which version to use can be found in the [FAQ](https://github.com/wplib/wplib-box/blob/master/FAQ.md).
+The box has both PHP-FPM 5.6, 7.0, and 7.1. Instructions on how to select which version to use can be found in the [FAQ](https://github.com/wplib/wplib-box/blob/master/FAQ.md).
 
 <a id="wp-admin"></a>
 ## Logging into the WordPress Admin
