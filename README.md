@@ -16,7 +16,7 @@
 - [Quickstart](#quickstart)
 - [Setting the Domain Name](#setting-domain)
 - [Changing the Local IP Address](#change-ip)
-- [Default PHP Version for the Web](#web-php)
+- [Default PHP Version](#default-php)
 - [Switching PHP Versions](#switching-php)
 - [Logging into the WordPress Admin](#wp-admin)
 - [The WordPress Database Credentials](#wpdb)
@@ -159,9 +159,9 @@ The default local IP address used by this box is `10.10.10.{octet}` where `{octe
 If you need to change that for any reason simply **edit the file named just `IP`** _(with no extension)_ found in the project root. It is created during `vagrant up` and a random `{octet}` is generated. Just edit this file and change the IP address it contains.
 
 
-<a id="web-php"></a>
-## Default PHP Version for the Web
-The default version fot the web is `7.0.x`.  Instructions to [switch to PHP 5.6](FAQ.md# switch-php) are on our FAQ.
+<a id="default-php"></a>
+## Default PHP Version
+The default version for the box is `7.0.x`.  Instructions to [switch to PHP 5.6 or 7.1](FAQ.md#switch-php) are on our FAQ.
 
 <a id="switching-php"></a>
 ## Switching PHP Versions
