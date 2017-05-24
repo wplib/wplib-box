@@ -3,6 +3,8 @@
 **The EASIEST way to get a local WordPress development environment**, using Vagrant.
 
 ----
+**We are slowly moving our documentation [to the wiki](https://github.com/wplib/wplib-box/wiki)** here on GitHub.  The wiki contains information not found here, while this document still contains lost of information not found on the wiki.
+----
 
 ## [CLICK HERE](https://slackpass.io/wplib) for **quick help** via [`wplib.slack.com# box`](FAQ.md#slack).
 ## [CLICK HERE](FAQ.md#troubleshooting) for **troubleshooting** and other [FAQs](FAQ.md).
