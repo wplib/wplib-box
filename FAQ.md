@@ -431,16 +431,16 @@ To see just the names run this command:
 
 At the time of this writing the container names in WPLib Box were _(though not all run all the time):_
 
-- mailhog
-- mariadb
-- mysql
-- memcached
-- redis
-- php5_fpm
-- php7_fpm
-- apache
-- nginx
-- proxy
+- `mailhog`
+- `mariadb`
+- `mysql`
+- `memcached`
+- `redis`
+- `php5_fpm`
+- `php7_fpm`
+- `apache`
+- `nginx`
+- `proxy`
 
 In the case of the webserver containers, these logs contain both the access and error log entries.
 
