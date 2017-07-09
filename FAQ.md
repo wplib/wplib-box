@@ -421,6 +421,27 @@ the current database and import into the new database)_:
 The logs for a Docker container can be viewed using the command `docker logs foo`, where `foo` is the name of the
 container whose logs you wish to view.
 
+To get a list of containers you can run the following command:
+
+    docker container ls
+
+To see just the names run this command:
+
+    docker container ls --format '{{.Names}}'
+
+At the time of this writing the container names in WPLib Box were _(though not all run all the time):_
+
+- mailhog
+- mariadb
+- mysql
+- memcached
+- redis
+- php5_fpm
+- php7_fpm
+- apache
+- nginx
+- proxy
+
 In the case of the webserver containers, these logs contain both the access and error log entries.
 
 ## Glossary 
