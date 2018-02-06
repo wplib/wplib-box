@@ -9,12 +9,11 @@
 
 ![WPLib-Box](https://github.com/wplib/wplib-box/blob/master/WPLib-Box-100x.png)
 
-# W002 - /var/www directory not mounted in VMWare.
+# W003 - [nginx proxy Docker container](https://github.com/wplib/proxy-docker/) not running.
 
 ## Error code repository for WPLib Box
 This is the error code repository for [WPLib-Box](https://github.com/wplib/wplib-box) and contains hints and howtos to fix common issues.
 More than likely you will be directed to one of the error code pages from [WPLib-Box](https://github.com/wplib/wplib-box) when you come across an error.
-
 
 ## Common fixes
 

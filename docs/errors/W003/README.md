@@ -9,7 +9,7 @@
 
 ![WPLib-Box](https://github.com/wplib/wplib-box/blob/master/WPLib-Box-100x.png)
 
-# W003 - [nginx proxy Docker container](https://github.com/wplib/proxy-docker/) not running.
+# W004 - [nginx Docker container](https://github.com/wplib/nginx-docker/) not running.
 
 ## Error code repository for WPLib Box
 This is the error code repository for [WPLib-Box](https://github.com/wplib/wplib-box) and contains hints and howtos to fix common issues.

@@ -9,7 +9,7 @@
 
 ![WPLib-Box](https://github.com/wplib/wplib-box/blob/master/WPLib-Box-100x.png)
 
-# W001 - /var/www directory not mounted in VirtualBox.
+# W001 - /var/www directory not mounted
 
 ## Error code repository for WPLib Box
 This is the error code repository for [WPLib-Box](https://github.com/wplib/wplib-box) and contains hints and howtos to fix common issues.
