@@ -9,9 +9,13 @@
 
 ![WPLib-Box](https://github.com/wplib/wplib-box/blob/master/WPLib-Box-100x.png)
 
-# Error code repository for WPLib Box
+# W005 - [php-fpm Docker container](https://github.com/wplib/php-fpm-docker/) not running.
+
+## Error code repository for WPLib Box
 This is the error code repository for [WPLib-Box](https://github.com/wplib/wplib-box) and contains hints and howtos to fix common issues.
 More than likely you will be directed to one of the error code pages from [WPLib-Box](https://github.com/wplib/wplib-box) when you come across an error.
 
-## W005 - [php-fpm Docker container](https://github.com/wplib/php-fpm-docker/) not running.
+## Common fixes
+
+### 
 
