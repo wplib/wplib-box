@@ -11,10 +11,6 @@
 
 # W001 - /var/www directory not mounted
 
-## Error code repository for WPLib Box
-This is the error code repository for [WPLib-Box](https://github.com/wplib/wplib-box) and contains hints and howtos to fix common issues.
-More than likely you will be directed to one of the error code pages from [WPLib-Box](https://github.com/wplib/wplib-box) when you come across an error.
-
 ## Cause
 If you are seeing this, then the /var/www directory has not been mounted via VirtualBox or VMWare from the host PC.
 
@@ -22,3 +18,6 @@ If you are seeing this, then the /var/www directory has not been mounted via Vir
 
 ### 
 
+
+## See Also
+[Complete Error code repository for WPLib Box](https://github.com/wplib/wplib-box/tree/master/docs/errors)

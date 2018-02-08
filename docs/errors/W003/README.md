@@ -11,14 +11,14 @@
 
 # W003 - [nginx Docker container](https://github.com/wplib/nginx-docker/) not running.
 
-## Error code repository for WPLib Box
-This is the error code repository for [WPLib-Box](https://github.com/wplib/wplib-box) and contains hints and howtos to fix common issues.
-More than likely you will be directed to one of the error code pages from [WPLib-Box](https://github.com/wplib/wplib-box) when you come across an error.
-
 ## Cause
 The php-fpm Docker container may have been shutdown for some reason or is not starting up properly, or network connectivity is an issue.
 
 ## Common fixes
 
 ### 
+
+
+## See Also
+[Complete Error code repository for WPLib Box](https://github.com/wplib/wplib-box/tree/master/docs/errors)
 

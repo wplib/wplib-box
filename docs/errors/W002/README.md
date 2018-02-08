@@ -11,14 +11,14 @@
 
 # W002 - [nginx proxy Docker container](https://github.com/wplib/proxy-docker/) not running.
 
-## Error code repository for WPLib Box
-This is the error code repository for [WPLib-Box](https://github.com/wplib/wplib-box) and contains hints and howtos to fix common issues.
-More than likely you will be directed to one of the error code pages from [WPLib-Box](https://github.com/wplib/wplib-box) when you come across an error.
-
 ## Cause
 The nginx proxy Docker container may have been shutdown for some reason or is not starting up properly.
 
 ## Common fixes
 
 ### 
+
+
+## See Also
+[Complete Error code repository for WPLib Box](https://github.com/wplib/wplib-box/tree/master/docs/errors)
 
