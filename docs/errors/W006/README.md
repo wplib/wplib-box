@@ -7,7 +7,7 @@
      \/  \/   |_|    |______|_|_.__/  |____/ \___/_/\_\
 ```
 
-![WPLib-Box](https://github.com/wplib/wplib-box/blob/master/WPLib-Box-100x.png)
+![WPLib-Box](https://github.com/wplib/wplib-box/blob/master/docs/assets/images/WPLib-Box-100x.png)
 
 # W006 - [mailhog Docker container](https://github.com/wplib/mailhog-docker/) not running.
 

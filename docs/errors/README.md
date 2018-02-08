@@ -7,7 +7,7 @@
      \/  \/   |_|    |______|_|_.__/  |____/ \___/_/\_\
 ```
 
-![WPLib-Box](https://github.com/wplib/wplib-box/blob/master/WPLib-Box-100x.png)
+![WPLib-Box](https://github.com/wplib/wplib-box/blob/master/docs/assets/images/WPLib-Box-100x.png)
 
 # Error code repository for WPLib Box
 This is the error code repository for [WPLib-Box](https://github.com/wplib/wplib-box) and contains hints and howtos to fix common issues.
