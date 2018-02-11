@@ -12,7 +12,7 @@ If you a familiar with WPLib Box [please help us test](#instructions-for-0160-rc
 ## Links
  - [Quick Start](http://wplib.github.io/wplib-box/#quickstart)
  - [Documentation](http://wplib.github.io/wplib-box/)
- - [Interactive Help](https://slackpass.io/wplib) on [Slack](https://slackhq.com)
+ - [Interactive Help](wplib.slack.com) on [Slack](https://slackhq.com) (Join [here](https://slackpass.io/wplib))
 
 ## Instructions for 0.16.0-rc 
 
@@ -29,6 +29,5 @@ open "wplib.box"
 
 **If your browser times out** trying to load http://wplib.box check your `/env/hosts` file to see if you have more than one IP address entry mapped to the `wplib.box` domain and its various subdomains.
 
-If you have questions please post them in the `#box` channel on our [Slack account](https://slackpass.io/wplib).
-
+If you have questions please post them in the `#box` channel on our [Slack account](wplib.slack.com) (Join [here](https://slackpass.io/wplib))
 If you find bugs or have suggestions of any type, please [**create an issue on Github**](https://github.com/wplib/wplib-box/issues/new) so we can keep track of your feedback.
