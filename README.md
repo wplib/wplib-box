@@ -2,7 +2,7 @@
 
 **The EASIEST way to get a local WordPress development environment**
 
-## Release Candidate - !NEW! 
+## Release Candidate - NEW! 
 
 We have a candiate for our next release available for testing! 
 
