@@ -27,7 +27,7 @@ vagrant up
 open "wplib.box"
 ```
 
-**If your browser times out** trying to load http://wplib.box check to see if you have more than one IP address entry mapped to the `wplib.box` domain and its various subdomains.
+**If your browser times out** trying to load http://wplib.box check your `/env/hosts` file to see if you have more than one IP address entry mapped to the `wplib.box` domain and its various subdomains.
 
 If you have questions please post them in the `#box` channel on our [Slack account](https://slackpass.io/wplib).
 
