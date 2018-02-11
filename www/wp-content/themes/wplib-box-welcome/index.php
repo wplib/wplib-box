@@ -32,22 +32,24 @@ h2 {margin:0 auto 42px;font-style: italic;}
                 <li><a href="<?php echo site_url( '/wp-login.php' ); ?>" target="_blank">Login</a> to the admin</li>
                 <li><a href="#" target="_blank">See</a> this page in the admin</li>
                 <li><a href="<?php echo admin_url( '/themes.php' ); ?>" target="_blank">Switch</a> to a real WordPress theme</li>
-                <li><a href="<?php echo admin_url( '/plugins.php' ); ?>" target="_blank">Install and Activate</a> plugins</li>
+                <li><a href="<?php echo admin_url( '/plugins.php' ); ?>" target="_blank">Install and activate</a> plugins</li>
                 <li><a href="#" target="_blank">Change</a> the <a href="http://wplib.box" target="_blank">wplib.box</a> domain name to one for your project.</li>
+                <li><a href="#" target="_blank">Disconnect</a> the <a href="https://github.com/wplib/wplib-box" target="_blank">WPLib Box GitHub repository</a> from your project</li>
             </ul>
 
-            <p>You may also want to:</p>
+            <p>You may also need to:</p>
             <ul>
                 <li><a href="http://adminer.wplib.box" target="_blank">Explore</a> the WordPress' MySQL database using Adminer</li>
                 <li><a href="http://mailhog.wplib.box" target="_blank">View</a> emails sent out by WPLib Box in MailHog <em>(if any)</em></li>
                 <li><a href="#" target="_blank">Enable</a> a different stack <em>(vs. Nginx/MySQL/PHP7/Redis)</em></li>
+                <li><a href="#" target="_blank">Manage</a> your project dependencies using <a href="https://getcomposer.org" target="_blank">Composer</a></li>
             </ul>
 
-            <p>To give feedback or get help:</p>
+            <p>And to give feedback or get help:</p>
             <ul>
                 <li><a href="https://github.com/wplib/wplib-box/issues/new" target="_blank">Submit</a> feature requests and/or bug reports for WPLib Box</li>
-                <li><a href="https://launchpass.com/wplib" target="_blank">Join</a> the WPlib Box Slack community</li>
-                <li><a href="http://wplib.slack.com" target="_blank">Ask questions</a> about WPlib Box in Slack</li>
+                <li><a href="https://launchpass.com/wplib" target="_blank">Join</a> the WPLib Box Slack community</li>
+                <li><a href="http://wplib.slack.com" target="_blank">Ask questions</a> about WPLib Box in Slack</li>
             </ul>
 
         </div>
