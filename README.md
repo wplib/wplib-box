@@ -26,7 +26,7 @@ git checkout 0.16.0-rc
 vagrant up
 open "wplib.box"
 ```
-Windows and Linux users will probably need use a different directory on the first `cd` command. Pick the parent directory where you typically put your website projects.
+For **Windows** or **Linux** users you will probably need use a different directory on the first `cd` command. Pick the parent directory where you typically put your website projects.
 
 ### Troubleshooting, Questions and Feedback/Bug Reports
 - **If your browser times out** trying to load http://wplib.box check your `/env/hosts` file to see if you have more than one IP address entry mapped to the `wplib.box` domain and its various subdomains.
