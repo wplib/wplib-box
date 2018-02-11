@@ -22,9 +22,9 @@ The following should work **for Mac users**:
 cd ~/Sites
 git clone https://github.com/wplib/wplib-box.git 0.16.0-rc
 cd 0.16.0-rc
-git checkout 0.16.0-rc
+git checkout -b 0.16.0-rc origin/0.16.0-rc
 vagrant up
-open "wplib.box"
+open "http://wplib.box"
 ```
 For **Windows** or **Linux** users you will probably need use a different directory on the first `cd` command. Pick the parent directory where you typically put your website projects.
 
