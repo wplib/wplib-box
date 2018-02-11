@@ -6,7 +6,7 @@
 
 We have a candiate for our next release available for testing! 
 
-If you a familiar with WPLib Box [please help us test](#instructions-for-0160-rc). 
+If you a familiar with WPLib Box [please help us test](#instructions-for-getting-0160-rc). 
 
 
 ## Links
