@@ -30,7 +30,7 @@ For **Windows** or **Linux** users you will probably need use a different direct
 
 ## How to Test
 - **To help us QA our changes**, please review the [issues for the `0.16.0` milestone](https://github.com/wplib/wplib-box/milestone/24) and look for any that are marked _"Ready for QA"_ as we think those tickets should all be working.  If we missed something, please add comments to the respective issue.
-- **To review it for your own use-cases** go ahead and set up your own project to work with it and see if it meets your needs, if you struggle to understand anything, if anything does not work for you, or if you have an idea for how it can become better please [add an issue]((https://github.com/wplib/wplib-box/issues/new).
+- **To review it for your own use-cases** go ahead and set up your own project to work with it and see if it meets your needs, if you struggle to understand anything, if anything does not work for you, or if you have an idea for how it can become better please [add an issue](https://github.com/wplib/wplib-box/issues/new).
 
 
 ## Troubleshooting, Questions and Feedback/Bug Reports
