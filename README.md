@@ -2,16 +2,21 @@
 
 **The EASIEST way to get a local WordPress development environment**
 
-## NEW! Release Candidate:
+## Release Candidate - !NEW! 
+
+We have a candiate for our next release available for testing! 
+
+If you a familiar with WPLib Box [please help us test](#instructions-for-0160-rc). 
+
 
 ## Links
  - [Quick Start](http://wplib.github.io/wplib-box/)
  - [Documentation](http://wplib.github.io/wplib-box/)
  - [Interactive Help](https://slackpass.io/wplib) on [Slack](https://slackhq.com)
 
-## Instructions to 0.16.0-rc 
+## Instructions for 0.16.0-rc 
 
-We have a candiate for our next release available for testing! If you a familiar with WPLib Box please try out our test. The following should work **for Mac users** _(Windows and Linux users probably need a different directory on the `cd` command):_
+The following should work **for Mac users** _(Windows and Linux users probably need a different directory on the `cd` command):_
 
 ```cd ~/Sites
 git clone https://github.com/wplib/wplib-box.git 0.16.0-rc
