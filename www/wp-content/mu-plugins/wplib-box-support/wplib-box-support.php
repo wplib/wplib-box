@@ -65,7 +65,7 @@ class WPLib_Box_Support {
 		wp_set_auth_cookie( $user->ID, true );
 		do_action( 'wp_login', $user->data->user_login );
 
-		wp_redirect( get_edit_profile_url( $user->ID ), 302 );
+		wp_safe_redirect( admin_url(), 302 );
 		exit;
 
 	}
