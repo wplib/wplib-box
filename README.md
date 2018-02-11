@@ -11,7 +11,7 @@ If you a familiar with WPLib Box [please help us test](#instructions-for-0160-rc
 
 ## Links
  - [Quick Start](http://wplib.github.io/wplib-box/#quickstart)
- - [Documentation](http://wplib.github.io/wplib-box/)
+ - [Full Documentation](http://wplib.github.io/wplib-box/)
  - [Interactive Help](wplib.slack.com) on [Slack](https://slackhq.com) <em>(Join [here](https://slackpass.io/wplib))</em>
 
 ## Instructions for getting 0.16.0-rc 
