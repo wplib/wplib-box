@@ -24,9 +24,12 @@ git clone https://github.com/wplib/wplib-box.git 0.16.0-rc
 cd 0.16.0-rc
 git checkout -b 0.16.0-rc origin/0.16.0-rc
 vagrant up
+sleep 3
 open "http://wplib.box"
 ```
 For **Windows** or **Linux** users you will probably need use a different directory on the first `cd` command. Pick the parent directory where you typically put your website projects.
+
+**Note:** The `sleep 3` command is needed if you run the commands in a script but not if you type the commands in manually one-by-one.
 
 ## How to Test
 - **To help us QA our changes**, please review the [issues for the `0.16.0` milestone](https://github.com/wplib/wplib-box/milestone/24) and look for any that are marked _"Ready for QA"_ as we think those tickets should all be working.  If we missed something, please add comments to the respective issue.
