@@ -10,7 +10,7 @@ If you a familiar with WPLib Box [please help us test](#instructions-for-0160-rc
 
 
 ## Links
- - [Quick Start](http://wplib.github.io/wplib-box/)
+ - [Quick Start](http://wplib.github.io/wplib-box/#quickstart)
  - [Documentation](http://wplib.github.io/wplib-box/)
  - [Interactive Help](https://slackpass.io/wplib) on [Slack](https://slackhq.com)
 
