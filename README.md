@@ -24,7 +24,7 @@ git clone https://github.com/wplib/wplib-box.git 0.16.0-rc
 cd 0.16.0-rc
 git checkout 0.16.0-rc
 vagrant up
-open wplib.box
+open "wplib.box"
 ```
 
 If your browser tries to load http://wplib.box but times out check to see if you have more than one IP address entry mapped to the `wplib.box` domain and its various subdomains.
