@@ -18,7 +18,8 @@ If you a familiar with WPLib Box [please help us test](#instructions-for-0160-rc
 
 The following should work **for Mac users** _(Windows and Linux users probably need a different directory on the `cd` command):_
 
-```cd ~/Sites
+```
+cd ~/Sites
 git clone https://github.com/wplib/wplib-box.git 0.16.0-rc
 cd 0.16.0-rc
 git checkout 0.16.0-rc
