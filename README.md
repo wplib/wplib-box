@@ -2,17 +2,17 @@
 
 **The EASIEST way to get a local WordPress development environment**
 
+## Links
+ - [Quick Start](http://wplib.github.io/wplib-box/#quickstart)
+ - [Full Documentation](http://wplib.github.io/wplib-box/)
+ - [Interactive Help](https://wplib.slack.com) on [Slack](https://slackhq.com) <em>(Join [here](https://slackpass.io/wplib))</em>
+
+
 ## Release Candidate - NEW! 
 
 We have a candiate for our next release available for testing! 
 
 If you a familiar with WPLib Box [please help us test](#instructions-for-getting-0160-rc). 
-
-
-## Links
- - [Quick Start](http://wplib.github.io/wplib-box/#quickstart)
- - [Full Documentation](http://wplib.github.io/wplib-box/)
- - [Interactive Help](https://wplib.slack.com) on [Slack](https://slackhq.com) <em>(Join [here](https://slackpass.io/wplib))</em>
 
 
 ## Instructions for getting 0.16.0-rc 
