@@ -39,7 +39,7 @@ h2 {margin:0 auto 42px;font-style: italic;}
 
             <p>You may also need to:</p>
             <ul>
-                <li><a href="http://adminer.wplib.box" target="_blank">Explore</a> the WordPress' MySQL database using Adminer</li>
+                <li><a href="http://adminer.wplib.box?server=172.18.0.1&username=wordpress&db=wordpress" target="_blank">Explore</a> the WordPress' MySQL database using Adminer</li>
                 <li><a href="http://mailhog.wplib.box" target="_blank">View</a> emails sent out by WPLib Box in MailHog <em>(if any)</em></li>
                 <li><a href="#" target="_blank">Enable</a> a different stack <em>(vs. Nginx/MySQL/PHP7/Redis)</em></li>
                 <li><a href="#" target="_blank">Manage</a> your project dependencies using <a href="https://getcomposer.org" target="_blank">Composer</a></li>
