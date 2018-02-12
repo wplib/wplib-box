@@ -14,7 +14,10 @@ If you a familiar with WPLib Box [please help us test](#instructions-for-getting
  - [Full Documentation](http://wplib.github.io/wplib-box/)
  - [Interactive Help](https://wplib.slack.com) on [Slack](https://slackhq.com) <em>(Join [here](https://slackpass.io/wplib))</em>
 
+
 ## Instructions for getting 0.16.0-rc 
+
+If you new to WPLib Box click [**here**](#new-to-wplib-box).  If not, continue on.
 
 The following should work **for Mac users**: 
 
@@ -30,6 +33,15 @@ open "http://wplib.box"
 For **Windows** or **Linux** users you will probably need use a different directory on the first `cd` command. Pick the parent directory where you typically put your website projects.
 
 **Note:** The `sleep 3` command is needed if you run the commands in a script but not if you type the commands in manually one-by-one.
+
+### New to WPLib Box?
+
+If you are new to WPLib Box be sure to:
+
+- [**Install required software**](http://wplib.github.io/wplib-box/#required-hw) to support WPLib Box.
+
+Once installedd [**return to getting**](#instructions-for-getting-0160-rc) `0.16.0-rc`.
+
 
 ## How to Test
 - **To help us QA our changes**, please review the [issues for the `0.16.0` milestone](https://github.com/wplib/wplib-box/milestone/24) and look for any that are marked _"Ready for QA"_ as we think those tickets should all be working.  If we missed something, please add comments to the respective issue.
