@@ -7,4 +7,4 @@ ini_set('display_startup_errors', 1);
 
 error_reporting(E_ALL);
 
-define( 'WPLIB_BOX_URL_PROTOCOL', 'http' );
+define( 'WPLIB_BOX_URL_SCHEME', 'http' );

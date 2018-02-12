@@ -25,8 +25,8 @@ if ( ! defined( 'WPLIB_BOX_DIRECTORY_LAYOUT' ) ) {
 	}
 }
 
-if ( ! defined( 'WPLIB_BOX_URL_PROTOCOL' ) ) {
-	define( 'WPLIB_BOX_URL_PROTOCOL', 'https' );
+if ( ! defined( 'WPLIB_BOX_URL_SCHEME' ) ) {
+	define( 'WPLIB_BOX_URL_SCHEME', 'https' );
 }
 
 if ( ! isset( $_SERVER[ 'HTTP_HOST' ] ) ) {
@@ -38,15 +38,15 @@ if ( ! defined( 'SITE_DOMAIN' ) ) {
 	define( 'SITE_DOMAIN', $_SERVER[ 'HTTP_HOST' ] );
 }
 
-define( 'WP_HOME', WPLIB_BOX_URL_PROTOCOL . '://' . SITE_DOMAIN );
+define( 'WP_HOME', WPLIB_BOX_URL_SCHEME . '://' . SITE_DOMAIN );
 
 if ( 'standard' === WPLIB_BOX_DIRECTORY_LAYOUT ) {
-	define( 'WP_SITEURL', WPLIB_BOX_URL_PROTOCOL . '://' . SITE_DOMAIN );
+	define( 'WP_SITEURL', WPLIB_BOX_URL_SCHEME . '://' . SITE_DOMAIN );
 
 } else if ( 'skeleton' === WPLIB_BOX_DIRECTORY_LAYOUT ) {
-	define( 'WP_SITEURL', WPLIB_BOX_URL_PROTOCOL . '://' . SITE_DOMAIN . '/wp' );
+	define( 'WP_SITEURL', WPLIB_BOX_URL_SCHEME . '://' . SITE_DOMAIN . '/wp' );
 	define( 'WP_CONTENT_DIR', __DIR__ . '/content' );
-	define( 'WP_CONTENT_URL', WPLIB_BOX_URL_PROTOCOL . '://' . SITE_DOMAIN . '/content' );
+	define( 'WP_CONTENT_URL', WPLIB_BOX_URL_SCHEME . '://' . SITE_DOMAIN . '/content' );
 }
 
 if ( ! defined( 'DB_NAME' ) ) {
