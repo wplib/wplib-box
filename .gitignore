@@ -2,3 +2,4 @@
 /IP
 /.vagrant
 /sql/
+!/sql/provision.sql
