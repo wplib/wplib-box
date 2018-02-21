@@ -42,6 +42,28 @@ If you are new to WPLib Box be sure to:
 
 Once installedd [**return to getting**](#instructions-for-getting-0160-rc) `0.16.0-rc`.
 
+### If you get 404 Not Found on Vagrant Up
+If you get a 404 error from `vagrant up` chances are you are on a `1.x` version of Vagrant and need to upgrade to a `2.x` version.  The `1.x` version does not recognize the new Vagrant Cloud and still looks to [atlas.hashicorp.com](https://atlas.hashicorp.com) for our Vagrant image, which is obviously no longer there _(not sure why Hashicorp does not support redirects here, but maybe Vagrant `1.x` deoes not follow them?)_ 
+
+Upgrading Vagrant to `2.x` then running `vagrant plugin repair` should resolve this issue. 
+
+Here is what this error looks like on the command line:
+
+```
+$ vagrant up
+Bringing machine 'default' up with 'virtualbox' provider...
+==> default: Box 'wplib/wplib' could not be found. Attempting to find and install...
+    default: Box Provider: virtualbox
+    default: Box Version: 0.16.0-rc
+The box 'wplib/wplib' could not be found or
+could not be accessed in the remote catalog. If this is a private
+box on HashiCorp's Atlas, please verify you're logged in via
+`vagrant login`. Also, please double-check the name. The expanded
+URL and error message are shown below:
+
+URL: ["https://atlas.hashicorp.com/wplib/wplib"]
+Error: The requested URL returned error: 404 Not Found
+```
 
 ## How to Test
 - **To help us QA our changes**, please review the [issues for the `0.16.0` milestone](https://github.com/wplib/wplib-box/milestone/24) and look for any that are marked _"Ready for QA"_ as we think those tickets should all be working.  If we missed something, please add comments to the respective issue.
