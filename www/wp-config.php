@@ -28,12 +28,12 @@ if ( file_exists( __DIR__ . WPLIB_BOX_LOCAL_CONFIG ) ) {
 }
 
 if ( ! defined( 'WPLIB_BOX_DIRECTORY_LAYOUT' ) ) {
-	if ( is_dir( __DIR__ . '/wp-include' ) ) {
+	if ( is_dir( __DIR__ . '/wp-includes' ) ) {
 		define( 'WPLIB_BOX_DIRECTORY_LAYOUT', 'standard' );
-	} else if ( is_dir( __DIR__ . '/wp/wp-include' ) ) {
+	} else if ( is_dir( __DIR__ . '/wp/wp-includes' ) ) {
 		define( 'WPLIB_BOX_DIRECTORY_LAYOUT', 'skeleton' );
 	} else {
-		trigger_error( 'WordPress includes directory not found (expected at ' . __DIR__ . '/wp-include/)' );
+		trigger_error( 'WordPress includes directory not found (expected at ' . __DIR__ . '/wp-includes/)' );
 		exit;
 	}
 }
