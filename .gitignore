@@ -1,6 +1,5 @@
 .*.swp
 /.idea
-/sql/*
 !/sql/default.sql
 /IP
 /.vagrant
