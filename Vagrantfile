@@ -4,69 +4,77 @@
 #
 # Welcome to WPLib Box!
 #
-#       The EASIEST Way to Setup a Local WordPress Development
-#        Environment, using Vagrant
+#       The EASIEST Way to Setup Local WordPress Development
+#
+#       The functionality of WPLib Box is provided by Docker
+#       Containers run within a VirtualBox Virtual Machine (VM)
+#       where Vagrant automated VirtualBox.
+#
+#       ---------------------------------------------------------
+#       The next version of WPLib Box will no longer use Vagrant!
+#       ---------------------------------------------------------
 #
 #       Brought to you by The WPLib Team:
 #
 #            - http://github/wplib
 #
-#   README FIRST!:
+#   READ THE DOCS FIRST!:
 #
 #       Before you jump down into the the docs in this file you should
-#       probably just skim the README.md first:
+#       probably skim the docs first:
 #
-#           - https://github.com/wplib/wplib-box/blob/master/README.md
+#           - http://wplib.github.io/wplib-box/
 #
 #   BACKGROUND:
 #
 #       You typically find this named "Vagrantfile" as the result of
-#       running the followingcommands:
+#       downloading and unzipping the following file:
 #
-#           - git clone https://github.com/wplib/wplib-box
-#           - cd wplib-box
+#           - https://github.com/wplib/wplib-box/archive/0.16.0.zip
 #
 #   INITIAL USAGE:
 #
 #       Once you have this Vagrantfile and assuming you have already
-#       VirtualBox, Vagrant and the two (2) required Vagrant plugins
-#       installed (see the README mentioned above if you do not) then
+#       installed VirtualBox, Vagrant and the two (2) required Vagrant
+#       plugins (see the docs mentioned above if you do not) then
 #       you can start your WPLib Box with this one (1) simple command
 #       from your terminal window on Mac OS X or Linux or via git-bash
 #       or PowerShell on Windows (again, see the README):
 #
 #           - vagrant up
+#
+#       Then you can test to see if WPLib Box is working by running:
+#
 #           - open "wplib.box"
 #
-#       The second line just opens the wplib.box within your default
-#       browser, or you can do it manually by opening your browser and
-#       navigating to http://wplib.box.
+#       You can also manually open your browser and navigate to the
+#       local website at: http://wplib.box.
 #
-#       If that did not work some reason that try reloading with the
-#       "reprovision" option:
+#       If that did not work for some reason then try reloading with
+#       the "reprovision" option:
 #
 #           - vagrant reload --provision
 #           - open "wplib.box"
 #
 #       If that still did not work, try our the troubleshooting FAQ:
 #
-#           - https://github.com/wplib/wplib-box/blob/master/FAQ.md#troubleshooting
+#           - http://wplib.github.io/wplib-box/faq/troubleshooting/
 #
 #   REFERENCE:
 #
 #       config.vm.box = "wplib/wplib"
 #
 #           This line specifies the VM "box" image which is hosted for
-#           download on Hashicorp's Atlas Vagrant Box Repository here:
+#           download from Hashicorp's VagrantCloud Box Repository:
 #
-#               https://atlas.hashicorp.com/wplib/boxes/wplib
+#               https://app.vagrantup.com/wplib/boxes/wplib
 #
 #           This box image is a pre-provisioned Ubuntu Linux 14.04 LTS
-#           with nginx, MySQL, PHP7.0/5.6 and more; everything a good
-#           a Linux server needs to be able to serve WordPress pages.
+#           with Docker containers with every server a good WordPress
+#           site needs to be able to serve WordPress pages.
 #
-#           In many ways -- compared to Vagrant boxes like VVV and VIP
-#           Quickstart -- this is WPLib's "secret sauce."
+#           Compared to Vagrant boxes like VVV and VIP Quickstart, this
+#           prebuilt box is WPLib Box's "secret sauce."
 #
 #       File.write('IP', "10.10.10.#{rand(10..250)}") if not File.exists?('IP')
 #
