@@ -366,7 +366,7 @@ Vagrant.configure(2) do |config|
     config.ssh.insert_key = false
 
     config.trigger.before :halt do
-        run_remote "box export"
+        run_remote "box database backup"
     end
 
     config.trigger.after [:up, :reload] do
