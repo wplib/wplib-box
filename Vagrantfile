@@ -340,7 +340,7 @@
 Vagrant.configure(2) do |config|
 
     config.vm.box = "wplib/wplib"
-    config.vm.box_version = "0.15.0"
+    config.vm.box_version = "0.16.0"
 
     File.write('IP', "10.10.10.#{rand(10..250)}") if not File.exists?('IP')
     File.write('HOSTNAME', "wplib.box") if not File.exists?('HOSTNAME')
@@ -366,7 +366,7 @@ Vagrant.configure(2) do |config|
     config.ssh.insert_key = false
 
     config.trigger.before :halt do
-        run_remote "box backup-db"
+        run_remote "box export"
     end
 
     config.trigger.after [:up, :reload] do

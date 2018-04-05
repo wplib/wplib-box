@@ -1,5 +1,7 @@
 # WPLib Box ChangeLog
 
+## 0.16.0
+
 ## 0.15.0
 + Implement installable pacakages
 + Add Caddy Web Server as installable package

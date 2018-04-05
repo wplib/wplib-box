@@ -12,10 +12,10 @@
 
 We have a candiate for our next release available for testing! 
 
-If you a familiar with WPLib Box [please help us test](#instructions-for-getting-0160-rc). 
+If you a familiar with WPLib Box [please help us test](#instructions-for-getting-0160). 
 
 
-## Instructions for getting 0.16.0-rc 
+## Instructions for getting 0.16.0
 
 If you new to WPLib Box click [**here**](#new-to-wplib-box).  If not, continue on.
 
@@ -23,9 +23,9 @@ The following should work **for Mac users**:
 
 ```
 cd ~/Sites
-git clone https://github.com/wplib/wplib-box.git 0.16.0-rc
-cd 0.16.0-rc
-git checkout -b 0.16.0-rc origin/0.16.0-rc
+git clone https://github.com/wplib/wplib-box.git 0.16.0
+cd 0.16.0
+git checkout -b 0.16.0 origin/0.16.0
 vagrant up
 sleep 3
 open "http://wplib.box"
@@ -40,7 +40,7 @@ If you are new to WPLib Box be sure to:
 
 - [**Install required software**](http://wplib.github.io/wplib-box/#required-hw) to support WPLib Box.
 
-Once installedd [**return to getting**](#instructions-for-getting-0160-rc) `0.16.0-rc`.
+Once installedd [**return to getting**](#instructions-for-getting-0160) `0.16.0`.
 
 ### If you get 404 Not Found on Vagrant Up
 If you get a 404 error from `vagrant up` chances are you are on a `1.x` version of Vagrant and need to upgrade to a `2.x` version.  The `1.x` version does not recognize the new Vagrant Cloud and still looks to [atlas.hashicorp.com](https://atlas.hashicorp.com) for our Vagrant image, which is obviously no longer there _(not sure why Hashicorp does not support redirects here, but maybe Vagrant `1.x` deoes not follow them?)_ 
@@ -54,7 +54,7 @@ $ vagrant up
 Bringing machine 'default' up with 'virtualbox' provider...
 ==> default: Box 'wplib/wplib' could not be found. Attempting to find and install...
     default: Box Provider: virtualbox
-    default: Box Version: 0.16.0-rc
+    default: Box Version: 0.16.0
 The box 'wplib/wplib' could not be found or
 could not be accessed in the remote catalog. If this is a private
 box on HashiCorp's Atlas, please verify you're logged in via
