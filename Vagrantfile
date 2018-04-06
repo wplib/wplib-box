@@ -135,31 +135,30 @@
 #
 #       hostname = IO.read('HOSTNAME').strip;
 #
-#           This line reads the value in the file named 'HOSTNAME',
+#           This line reads the value in the file named `HOSTNAME`,
 #           strips off any leading or trailing whitespace and then
-#           assignes it to a variable named 'hostname' which is
+#           assigns it to a Ruby variable named 'hostname' which is
 #           local to this Vagrantfile.
 #
 #           If the previous line wrote the file then it will load
 #           'wplib.box' otherwise it will load a host name that
-#           you have updated the 'HOSTNAME' file to include, such
-#           as 'example.dev' or similar (but without the quotes).
+#           you have changed the `HOSTNAME` file to include, such
+#           as 'example.local' or similar (but without the quotes).
 #
 #       config.vm.hostname = hostname
 #
 #           This line specifies the domain name your browser should be
 #           able to load the WordPress site running inside this box.
 #
-#           This value comes from the file named 'HOSTNAME' which was
-#           created and/or read into the variable 'hostname' in the
-#           previous two lines.
+#           This value comes from the file named `HOSTNAME` which was
+#           created and/or read into the Ruby variable 'hostname' in
+#           the previous two lines.
 #
 #           To CHANGE the domain name to use to when loading the box's
-#           website in your browser you only need to update the file
-#           named 'HOSTNAME', or create one if it does not already
-#           exist. It should be a text file than only contains the
-#           local domain name that you want to use to access the
-#           website(s) on your WPLib Box.
+#           website in your browser you only need to edit the `HOSTNAME`
+#           file. This file could contain only the text of the local
+#           domain name that you want to use to access the website on
+#           running in your WPLib Box via your browser.
 #
 #           Of course your computer's hosts file must contain the IP
 #           address used by the box for your browser to use it to load
@@ -167,9 +166,10 @@
 #           then it will handle updating the hosts file for you.
 #
 #           Assuming you have that plugin, once you've updated the
-#           'HOSTNAME' file run "vagrant up" or "vagrant reload" in
-#           your terminal to update your computer's 'hosts' file to
-#           recognize this domain name when typed into your browser.
+#           `HOSTNAME` file run either "vagrant up" or "vagrant reload"
+#           in your terminal to update your computer's 'hosts' file to
+#           recognize this domain name when typed into your browser and
+#           to load/reload your WPLib Box.
 #
 #       config.hostsupdater.aliases = [
 #           "www.#{hostname}",
@@ -177,14 +177,14 @@
 #           "mailhog.#{hostname}"
 #       ]
 #
-#           These lines specify addition domains that WPLib Box will
+#           These lines specify additional domains that WPLib Box will
 #           add to your hosts file (assuming you have the Vagrant
 #           hosts-updater plugin) and thus WPLib Box will be able to
 #           recognize when you request them from your browser.
 #
 #           You'll note the use the same (base) host name as the
 #           prior line so look to its description for further details
-#           on the 'hostname' variable.
+#           on the hostname variable.
 #
 #           These lines add a 'www.' alias, domains for Adminer (which
 #           is like phpMyAdmin, only better) and for Mailhog (that
@@ -196,32 +196,43 @@
 #           You can add other domains here that you might need, such
 #           as subdomains of your domain, if you have that need.
 #
+#       config.vm.provider :vmware_fusion do |vmware|
+#           vmware.vmx["ethernet0.pcislotnumber"] = "33"
+#       end
+#
+#           This is a configuration option needed only for the VMware
+#           provider. You do not actually need it if you are not using
+#           VMware, and actually the latest version of WPLib Box does
+#           not provide a VMware provider. Submit an issue on GitHub
+#           if you need a VMware provider:
+#
+#               https://github.com/wplib/wplib-box/issues/new
+#
 #       config.vm.network 'private_network', ip: IO.read('IP').strip
 #
 #           This line tells Vagrant what IP address to use for the VM.
-#           It loads the IP address from the file named "IP" that
-#           previously created by the script `/scripts/before-vagrant.sh`
+#           It loads the IP address from the file named `IP` created
+#           by an earlier line in this `Vagrantfile`.
 #
-#           The IP file can be found in in the project root after the
-#           first "vagrant up"; the project root is the same directory
+#           Look for the `IP` file in your project's root folder after
+#           the first "vagrant up"; the project root is the same folder
 #           that contains this Vagrantfile.
 #
-#           If you want to specify a specfic IP address you can either
-#           edit the "IP" file, or you can change the line which
-#           contains "private_network" and instead hardcode the IP
-#           address into the Vagrantfile; as in the following example:
+#           If you wanta specfic IP address you can either edit the
+#           `IP` file, or you can change this like in the `Vagrantfile`
+#           instead hardcode the IP address into the Vagrantfile; as in:
 #
-#               config.vm.network 'private_network',ip:"192.168.99.99"
+#               config.vm.network 'private_network', ip:"192.168.99.99"
 #
 #       config.vm.synced_folder "www", "/var/www"
 #
-#           This line tells Vagrant to "mount" the "www" folder in the
-#           host computer's project's folder and on peer with this
-#           Vagrantfile as a symlink named "/var/www" inside the VM.
+#           This line tells Vagrant to "mount" the `www` folder in the
+#           host computer's project folder as the symlink `/var/www`,
+#           which is on peer with this `Vagrantfile` inside the VM.
 #
-#           The folder "/var/www" inside the virtual machine and is
+#           The folder `/var/www` inside the virtual machine and is
 #           where the nginx web server running in the VM will look for
-#           it's website root.
+#           it's website's root.
 #
 #           The upshot of this is it will allow a developer to store
 #           all of a project's source code on their host computer
@@ -230,23 +241,28 @@
 #           presses the refresh key on the browser. We do not have any
 #           a fully automatic refresh built into WPLib Box, yet.)
 #
-#           Further, developers will not have to worry about loosing
-#           uncommitted source code if the VM is delete or otherwise
-#           corrupted because all source will be on the developer's
-#           computer, where it belongs.
+#           Further, your will not have to worry about loosing any
+#           uncommitted source code if you (accidentally) delete the
+#           VM or it is otherwise corrupted because all source will be
+#           your host Mac, Windows or Linux computer, where it belongs.
+#
+#           One caveat to this is the MySQL database; it is contained
+#           inside the VM for performance reasons, but WPLib Box runs
+#           a periodic backup to `/sql/backup.sql` so unless something
+#           goes very wrong you won't loose your database either. Still
+#           treat your local MySQL database as replaceable, just in case.
 #
 #       config.ssh.forward_agent = true
 #
-#           This line enables the virtual machine (or the provisoners
-#           like Ansible or Puppet if WPLib Box used them) to access
-#           Git or Bitbucket repositories on behalf of the developer's
-#           Git or BitBucket accounts by allowing the SSH "agent" on
-#           the developer's machine by 'forwarding' the user's SSH key
-#           stored on the developer's machine.
+#           This line enables the virtual machine to access Git version
+#           control repositories using the SSH keys configured to access
+#           your GitHub and/or Bitbucket accounts, or other Git server.
 #
-#           WPLib Box does NOT _currently_ need this but we have plans
-#           that will require it so it is easier to simply include it
-#           now.
+#           This allows you to run `git` within WPLib Box on your private
+#           repositories without additional configuration if and when you
+#           `vagrant ssh` into WPLib Box and use `git` from the command
+#           line (WPLib Box will never automatically access your private
+#           respositories unless you explicitly request it to do so.)
 #
 #           To learn more about Vagrant and SSH Agent Forwarding here
 #           is a well-written blog post that explains it well:
@@ -262,58 +278,46 @@
 #
 #           This line tells Vagrant not to insert a new private/public
 #           SSH key pair and to go ahead and use the insecure SSH key
-#           pair published by Hashicorp to that normally simplifies
-#           using SSH with Vargant VMs.
+#           pair published by Hashicorp that normally simplifies using
+#           SSH withing Vargant-controlled VMs.
 #
 #           This configuration option is used with "forward_agent" as
-#           the box uses the SSN key from the host aka developer's
+#           the box uses the SSH key from your Mac, Windows or Linux
 #           machine instead of using an insecure private key pair.
 #
 #           The security is not really the concern here since VMs used
 #           for development rarely need to be secure. Instead this
-#           option simply assumes the developer has an SSH key already
-#           installed on their computer so it uses it instead.
+#           option simply assumes you already have an SSH key
+#           installed on their computer so it uses that instead.
 #
 #           See these links to learn more about "insert_key"
 #
 #               - https://github.com/mitchellh/vagrant/tree/master/keys
 #               - https://twitter.com/mitchellh/status/525704721714012160
 #
-#       $provision = <<PROVISION
-#    if [ -f "/vagrant/scripts/provision.sh" ]; then
-#        bash /vagrant/scripts/provision.sh --force
-#    else
-#        rm -rf /tmp/box-scripts  2>/dev/null
-#        git clone https://github.com/wplib/box-scripts.git /tmp/box-scripts  2>/dev/null
-#        bash /tmp/box-scripts/provision.sh
-#    fi
-#    PROVISION
+#       config.trigger.before :halt do
+#           run_remote "box database backup"
+#       end
 #
-#           These lines create an "inline" provisioning script to be
-#           run on the FIRST "vagrant up" or on any "vagrant up" or
-#           "vagrant reload" that has the "--provision" switch.
+#           These lines trigger a backup of the MySQL database to run
+#           inside of the VM. whenever you run `vagrant halt` to
+#           stop your Vagrant/VirtualBox VM from within your terminal's
+#           command line.
 #
-#           This inline script checks for a provision script on disk
-#           named '/vagrant/scripts/provision.sh' and if there it
-#           runs it. If not there it pulls it down from GitHub by
-#           cloning the script, and then it runs it.
+#           This uses the `box database backup` command of WPLib Box's
+#           CLI tool and it generates a `backup.sql` in the `/sql/`
+#           subdirectory, in the same folder as this `Vagrantfile`.
 #
-#       config.vm.provision "shell", inline: $provision
+#       config.trigger.after [:up, :reload] do
+#           run_remote "box startup"
+#       end
 #
-#           This line tells Vagrant to run the "inline" bash script
-#           described above, which ultimately runs the "provision.sh"
-#           found in the "scripts" folder which is in the same folder
-#           where Vagrantfile is located.
-#
-#           This provision script runs a few quick commands, such as
-#           importing "/sql/default.sql" which is the default MySQL
-#           file, and symlinking the "object-cache.php" file into the
-#           "/wp-content/" folder from the folder of the plugin that
-#           provides it.
-#
-#           This provision script will only be run the first time a
-#           "vagrant up" command is run, or when the "--provision"
-#           option is selected when running "vagrant reload."
+#           These lines trigger the `box startup` command of WPLib Box's
+#           CLI tool when you run `vagrant up` or `vagrant reload` from
+#           your Mac, Windows or Linux host computer's terminal command
+#           line. The  `box startup` command starts all of the Docker
+#           containers used by WPLib Box, thus preparing WPLib Box to
+#           serve your WordPress site to your browser.
 #
 #   REUSE:
 #
@@ -339,12 +343,13 @@
 #
 #           2. Create a/update the HOSTNAME file and replace 'wplib.box'
 #              with a local domain name relevant to your project, for
-#              examples: 'acme.dev' or 'example.dev'.
+#              examples: 'acme.local' or 'example.local'.
 #
-#           3. Either delete the link with config.vm.provision "shell"
-#              or copy "scripts/provision.sh" and modify it to run
-#              any simply provisioning you need for your project such
-#              as symlinking "object-cache.php", if applicable.
+#           3. Copy your initial database as a MySQL dump file to
+#              `/sql/provision.sql`, assuming you have an initial
+#              database which is typical when you are enhancing an
+#              existing WordPress site but doing so on a local
+#              development server, as is a best practice!
 #
 #           4. Run "vagrant up" in your projects folder where your
 #              Vagrantfile is located.
@@ -356,7 +361,7 @@
 #
 #       But if that did not work try our troubleshooting FAQ here:
 #
-#           - https://github.com/wplib/wplib-box/blob/master/FAQ.md#troubleshooting
+#           - http://wplib.github.io/wplib-box/faq/troubleshooting/
 #
 
 Vagrant.configure(2) do |config|
