@@ -76,15 +76,28 @@
 #           Compared to Vagrant boxes like VVV and VIP Quickstart, this
 #           prebuilt box is WPLib Box's "secret sauce."
 #
+#       config.vm.box_version = "0.16.0"
+#
+#           This line specifies the version of the VM "box" image to
+#           download from Hashicorp's VagrantCloud Box Repository:
+#
+#           If you want to use a different version you can change the
+#           value to match one of the other versions available at
+#           Hashicorp's VagrantCloud Box Repository:
+#
+#               https://app.vagrantup.com/wplib/boxes/wplib
+#
 #       File.write('IP', "10.10.10.#{rand(10..250)}") if not File.exists?('IP')
 #
 #           This line creates a randomly-generated and non-routable IP
 #           address starting with 10.10.10. and randomly selects the
 #           final octet between 10 and 250. It then writes the IP
-#           address to a file named 'IP' in the project's root folder
-#           which is the same folder where this Vagrantfile is found
-#           to ensure future runs of "vagrant up" or "vagrant reload"
-#           will use the same IP address.
+#           address to a file named `IP` in your project's root folder
+#           which is the same folder where this Vagrantfile is found.
+#           By writing the value into this `IP` file it ensure future
+#           runs of "vagrant up" or "vagrant reload" will use the same
+#           IP address and this make it less likely to get out of sync
+#           in your local `hosts` file.
 #
 #           The assumption here is that it is very unlikely that this
 #           randomly-generated IP address will conflict with anything
@@ -104,18 +117,19 @@
 #       File.write('HOSTNAME', "wplib.box") if not File.exists?('HOSTNAME')
 #
 #           This line writes the host name of 'wplib.box' to a file
-#           named 'HOSTNAME' in the project's root folder, the same
-#           folder in which this Vagrantfile is found to ensure future
-#           runs of "vagrant up" or "vagrant reload" use the same host
-#           name, unless of course you change it, which we expect.
+#           named `HOSTNAME` in the project's root folder, the same
+#           folder in which this Vagrantfile is found. Writing this
+#           file ensures future runs of "vagrant up" or "vagrant
+#           reload" use the same host name unless of course you
+#           change it, WHICH WE EXPECT YOU WILL.
 #
 #           The host name in this context is a domain name local to
 #           your computer which you can access via your browser by
 #           prefixing the host name with 'http://', for example
 #           http://wplib.box or http://example.dev.
 #
-#           To change the host name of your WPLib Box simple update
-#           the `HOSTNAME` file to include only your preferred host
+#           To change the host name of your WPLib Box simple edit the
+#           `HOSTNAME` file to include only your preferred local host
 #           name, e.g. `example.dev` or similar (but without the
 #           quotes).
 #
