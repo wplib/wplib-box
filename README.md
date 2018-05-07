@@ -1,7 +1,7 @@
-[![Stories in Ready](https://badge.waffle.io/wplib/wplib.png?label=ready&title=Ready)](https://waffle.io/wplib/wplib)
-[![Latest Stable Version](https://poser.pugx.org/wplib/wplib/v/stable)](https://packagist.org/packages/wplib/wplib)
-[![Total Downloads](https://poser.pugx.org/wplib/wplib/downloads)](https://packagist.org/packages/wplib/wplib)
-[![License](https://poser.pugx.org/wplib/wplib/license)](https://packagist.org/packages/wplib/wplib)
+[![Latest Stable Version](https://poser.pugx.org/wplib/wplib-box/version)](https://packagist.org/packages/wplib/wplib-box)
+[![Total Downloads](https://poser.pugx.org/wplib/wplib-box/downloads)](https://packagist.org/packages/wplib/wplib-box)
+[![Latest Unstable Version](https://poser.pugx.org/wplib/wplib-box/v/unstable)](//packagist.org/packages/wplib/wplib-box)
+[![License](https://poser.pugx.org/wplib/wplib-box/license)](https://packagist.org/packages/wplib/wplib-box)
 
 
 ```
