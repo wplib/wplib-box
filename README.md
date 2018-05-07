@@ -1,6 +1,5 @@
-[![Latest Stable Version](https://poser.pugx.org/wplib/wplib-box/version)](https://packagist.org/packages/wplib/wplib-box)
-[![Total Downloads](https://poser.pugx.org/wplib/wplib-box/downloads)](https://packagist.org/packages/wplib/wplib-box)
-[![Latest Unstable Version](https://poser.pugx.org/wplib/wplib-box/v/unstable)](//packagist.org/packages/wplib/wplib-box)
+![Latest Stable Version](https://img.shields.io/badge/stable-0.16.0-blue.svg)
+![Latest Testing Version](https://img.shields.io/badge/testing-0.16.1-red.svg)
 [![License](https://poser.pugx.org/wplib/wplib-box/license)](https://packagist.org/packages/wplib/wplib-box)
 
 
