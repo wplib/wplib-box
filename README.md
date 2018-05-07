@@ -1,3 +1,21 @@
+[![Stories in Ready](https://badge.waffle.io/wplib/wplib.png?label=ready&title=Ready)](https://waffle.io/wplib/wplib)
+[![Latest Stable Version](https://poser.pugx.org/wplib/wplib/v/stable)](https://packagist.org/packages/wplib/wplib)
+[![Total Downloads](https://poser.pugx.org/wplib/wplib/downloads)](https://packagist.org/packages/wplib/wplib)
+[![License](https://poser.pugx.org/wplib/wplib/license)](https://packagist.org/packages/wplib/wplib)
+
+
+```
+ __          _______  _      _ _       ____
+ \ \        / /  __ \| |    (_) |     |  _ \
+  \ \  /\  / /| |__) | |     _| |__   | |_) | _____  __
+   \ \/  \/ / |  ___/| |    | | '_ \  |  _ < / _ \ \/ /
+    \  /\  /  | |    | |____| | |_) | | |_) | (_) >  <
+     \/  \/   |_|    |______|_|_.__/  |____/ \___/_/\_\
+```
+
+![WPLib-Box](https://github.com/wplib/wplib.github.io/raw/master/WPLib-Box-100x.png)
+
+
 # WPLib Box
 
 **The EASIEST way to get a local WordPress development environment**
