@@ -2,6 +2,8 @@
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	$_SERVER[ 'HTTP_HOST' ] = 'wplib.box';
+} else {
+	define( 'WP_CLI', false );
 }
 
 if ( ! isset( $_SERVER[ 'HTTP_HOST' ] ) ) {
@@ -58,27 +60,27 @@ if ( 'standard' === WPLIB_BOX_DIRECTORY_LAYOUT ) {
 }
 
 if ( ! defined( 'DB_NAME' ) ) {
-	define( 'DB_NAME', $_SERVER[ 'DB_NAME' ] );
+	define( 'DB_NAME', WP_CLI ? 'wordpress' : $_ENV[ 'DB_NAME' ]);
 }
 
 if ( ! defined( 'DB_USER' ) ) {
-	define( 'DB_USER',  $_SERVER[ 'DB_USER' ] );
+	define( 'DB_USER', WP_CLI ? 'wordpress' : $_ENV[ 'DB_USER' ] );
 }
 
 if ( ! defined( 'DB_PASSWORD' ) ) {
-	define( 'DB_PASSWORD',  $_SERVER[ 'DB_PASSWORD' ] );
+	define( 'DB_PASSWORD', WP_CLI ? 'wordpress' : $_ENV[ 'DB_PASSWORD' ] );
 }
 
 if ( ! defined( 'DB_HOST' ) ) {
-	define( 'DB_HOST', '172.17.0.1' );
+	define( 'DB_HOST', WP_CLI ? '172.42.0.1' : $_ENV[ 'DB_HOST' ] );
 }
 
 if ( ! defined( 'DB_CHARSET' ) ) {
-	define( 'DB_CHARSET', 'utf8' );
+	define( 'DB_CHARSET', WP_CLI ? 'utf8' : $_ENV[ 'DB_CHARSET' ] );
 }
 
 if ( ! defined( 'DB_COLLATE' ) ) {
-	define( 'DB_COLLATE', '' );
+	define( 'DB_COLLATE', WP_CLI ? "" : $_ENV[ 'DB_COLLATE' ] );
 }
 
 if ( ! defined( 'WP_DEBUG' ) ) {
