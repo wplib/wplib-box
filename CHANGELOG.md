@@ -1,6 +1,11 @@
 # WPLib Box ChangeLog
 
-## 0.16.0
+## 0.16.0-rc
++ Dropped composer.json from default install
++ Changed to use 'standard' directory layout (vs. 'skeleton')
++ Changed local config file to use host name. 
++ Fixed WP-CLI to work. 
++ MANY other things to do documented soon...
 
 ## 0.15.0
 + Implement installable pacakages

@@ -1,12 +1,15 @@
 .*.swp
 /.idea
+/sql/*
 !/sql/default.sql
 /IP
 /.vagrant
 /.vscode
 /.wplib-box.git
 /.save.git
+/logs
 /scripts
+/www/*
 !/www/content/
 /www/content/object-cache.php
 /www/content/mu-plugins/wp-redis
