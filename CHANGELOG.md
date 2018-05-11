@@ -1,5 +1,18 @@
 # WPLib Box ChangeLog
 
+## 0.16.1
+This release allowed us to catch up on some of the things we missed with `0.16.0`:
+
++ PHP `7.2`
++ Import `/sql/provision.sql` on first `vagrant up`
++ Added PHP ZLib extension
++ Resolve issues with `box self-update` command
++ Moved box CLI to `/opt/box/cli`
++ Added `/opt/box/log`
++ Changed `W004` error message on a PHP error to `HTTP 500` error.
++ Dropped support for older WP-CLI versions
++ Added basic `box test` command to test box functionality
+
 ## 0.16.0
 Numerically it was a small change, but functionality and stability-wise is was a **HUGE** update.
 
