@@ -42,6 +42,7 @@
 - [How do I switch from Nginx to Apache?](#webserver)
 - [How do I switch from MySQL to MariaDB?](#database)
 - [How do I see the logs for Docker container Foo?](#logs)
+- [If you get 404 Not Found on Vagrant Up?](#404-vagrant-up)
 
 ### Glossary
 - [What Do They All These Terms Mean?](#glossary)
@@ -443,6 +444,31 @@ At the time of this writing the container names in WPLib Box were _(though not a
 - `proxy`
 
 In the case of the webserver containers, these logs contain both the access and error log entries.
+
+<a id="404-vagrant-up"></a>
+### If you get 404 Not Found on Vagrant Up
+If you get a 404 error from `vagrant up` chances are you are on a `1.x` version of Vagrant and need to upgrade to a `2.x` version.  The `1.x` version does not recognize the new Vagrant Cloud and still looks to [atlas.hashicorp.com](https://atlas.hashicorp.com) for our Vagrant image, which is obviously no longer there _(not sure why Hashicorp does not support redirects here, but maybe Vagrant `1.x` deoes not follow them?)_ 
+
+Upgrading Vagrant to `2.x` then running `vagrant plugin repair` should resolve this issue. 
+
+Here is what this error looks like on the command line:
+
+```
+$ vagrant up
+Bringing machine 'default' up with 'virtualbox' provider...
+==> default: Box 'wplib/wplib' could not be found. Attempting to find and install...
+    default: Box Provider: virtualbox
+    default: Box Version: 0.16.0
+The box 'wplib/wplib' could not be found or
+could not be accessed in the remote catalog. If this is a private
+box on HashiCorp's Atlas, please verify you're logged in via
+`vagrant login`. Also, please double-check the name. The expanded
+URL and error message are shown below:
+
+URL: ["https://atlas.hashicorp.com/wplib/wplib"]
+Error: The requested URL returned error: 404 Not Found
+```
+
 
 ## Glossary 
 
