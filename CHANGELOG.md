@@ -1,6 +1,61 @@
 # WPLib Box ChangeLog
 
 ## 0.16.0
+Numerically it was a small change, but functionality and stability-wise is was a **HUGE** update.
+
+### Added:
+* New _"Getting Started"_ Default Theme
+* Plugin for WPLib Box Support
+    * One-click admin login _(for local development only)_
+* Splash screen on SSH, displays version number.
+* Configuration in `$_ENV` variables
+* Configuration error messages w/referenced online docs
+* Default containers for stack roles
+* PHP extensions
+    * `ctype`
+    * `pcntl`
+    * `imagick` _(5.6 and 7.1 but not yet 7.0)_
+* Warning on non-mounted webroot _(`/var/www`)_
+* New and/or updated CLI Commands!
+    * `box version`
+    * `box status`
+    * `box container`
+    * `box database`
+        * `box db chunk & box db unchunk`
+    * `box self-update`
+    * `box start/restart`
+
+### Fixed:
+* WP-CLI now works!
+* Invalid permissions for uploads
+* Invalid permissions for core, theme and plugin updates
+* 30 second timeout triggering Bad Gateway
+* Red (error) output by Vagrant on non-errors
+* Inability to login to Adminer
+* Bug related to NodeJS vs. `jq`
+* Ability to serve HTTPS even w/o certificate
+* Increase upload limit on file uploads to 100MB
+
+### Created/updated Docker containers: 
+* Adminer
+* Apache2 
+* Composer
+* MariaDB
+* MySQL
+* MailHog
+* Memcached
+* Nginx
+* PHP-FPM 5.6, 7.0, 7.1
+* phpMyAdmin
+* Redis
+* WP-CLI
+
+### Internal architecture improvements:
+* Simplified `project.json` stack format
+* Moved box CLI to `/opt/box` and added symlink of `/box`.
+* Implemented JSON-based tag for container metadata
+* Archived unused and/or no longer relevant `box` commands
+
 
 ## 0.15.0
 + Implement installable pacakages
