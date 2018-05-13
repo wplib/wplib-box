@@ -2,6 +2,8 @@
 ![Latest Testing Version](https://img.shields.io/badge/testing-0.16.1-red.svg)
 [![License](https://poser.pugx.org/wplib/wplib-box/license)](https://packagist.org/packages/wplib/wplib-box)
 
+![WPLib-Box](https://github.com/wplib/wplib.github.io/raw/master/WPLib-Box-100x.png)
+
 
 ```
  __          _______  _      _ _       ____
@@ -12,22 +14,25 @@
      \/  \/   |_|    |______|_|_.__/  |____/ \___/_/\_\
 ```
 
-![WPLib-Box](https://github.com/wplib/wplib.github.io/raw/master/WPLib-Box-100x.png)
-
 
 # WPLib Box
 
 **The Best Single-project Solution for Local WordPress Development**
+
+But, multi-project version coming very soon...
+
+## New to WPLib Box?
+
+- [**Install required software**](http://wplib.github.io/wplib-box/#required-hw) to support WPLib Box.
 
 ## Links
  - [Quick Start](http://wplib.github.io/wplib-box/#quickstart)
  - [Full Documentation](http://wplib.github.io/wplib-box/)
  - [Interactive Help](https://wplib.slack.com) on [Slack](https://slackhq.com) <em>(Join [here](https://slackpass.io/wplib))</em>
 
+### A note about the `master` branch
+The `master` branch currently contains the contents of `0.16.1` branch as of 12 May 2018.    
 
-### New to WPLib Box?
-
-- [**Install required software**](http://wplib.github.io/wplib-box/#required-hw) to support WPLib Box.
 
 ## Troubleshooting, Questions and Feedback/Bug Reports
 - **If your browser times out** trying to load http://wplib.box check your `/env/hosts` file to see if you have more than one IP address entry mapped to the `wplib.box` domain and its various subdomains.
