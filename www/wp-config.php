@@ -1,65 +1,86 @@
 <?php
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
-	$_SERVER['HTTP_HOST'] = 'wplib.box';
+	$_SERVER[ 'HTTP_HOST' ] = 'wplib.box';
+} else {
+	define( 'WP_CLI', false );
 }
 
-// Autoload any non-WordPress dependencies
-if ( is_file( __DIR__ . '/vendor/autoload.php' ) ) {
-	require( __DIR__ . '/vendor/autoload.php' );
+if ( ! isset( $_SERVER[ 'HTTP_HOST' ] ) ) {
+	trigger_error( '$_SERVER[ \'HTTP_HOST\' ] not set (server may be misconfigured)' );
+	exit;
 }
 
-// Search for a wp-config-local.php in the current and parent directories for config overrides
-if ( file_exists( __DIR__ . '/wp-config-local.php' ) ) {
-	require( __DIR__ . '/wp-config-local.php' );
-} else if ( file_exists( dirname( __DIR__ ) . '/wp-config-local.php' ) ) {
-	require( dirname( __DIR__ ) . '/wp-config-local.php' );
+define( 'WPLIB_BOX_HOST', preg_match( '#^www\.(.+)$#', $_SERVER[ 'HTTP_HOST' ] )
+	? preg_replace( '#^www\.(.+)$#', '$1', $_SERVER[ 'HTTP_HOST' ] )
+	: $_SERVER[ 'HTTP_HOST' ]
+);
+
+define( 'WPLIB_BOX_LOCAL_CONFIG', '/wp-config-' . WPLIB_BOX_HOST . '.php' );
+
+
+/**
+ * Search for a wp-config-{HTTP_HOST}.php in current
+ * and parent directories for config overrides
+ */
+if ( file_exists( __DIR__ . WPLIB_BOX_LOCAL_CONFIG ) ) {
+	require( __DIR__ . WPLIB_BOX_LOCAL_CONFIG );
+} else if ( file_exists( dirname( __DIR__ ) . WPLIB_BOX_LOCAL_CONFIG ) ) {
+	require( dirname( __DIR__ ) . WPLIB_BOX_LOCAL_CONFIG );
 }
 
 if ( ! defined( 'WPLIB_BOX_DIRECTORY_LAYOUT' ) ) {
-	if ( is_dir( __DIR__ . '/wp-content' ) ) {
+	if ( is_dir( __DIR__ . '/wp-includes' ) ) {
 		define( 'WPLIB_BOX_DIRECTORY_LAYOUT', 'standard' );
-	} else {
+	} else if ( is_dir( __DIR__ . '/wp/wp-includes' ) ) {
 		define( 'WPLIB_BOX_DIRECTORY_LAYOUT', 'skeleton' );
+	} else {
+		trigger_error( 'WordPress includes directory not found (expected at ' . __DIR__ . '/wp-includes/)' );
+		exit;
 	}
 }
-if ( ! defined( 'APP_DOMAIN' ) ) {
-	define( 'APP_DOMAIN', $_SERVER['HTTP_HOST'] );
+
+if ( ! defined( 'WPLIB_BOX_URL_SCHEME' ) ) {
+	define( 'WPLIB_BOX_URL_SCHEME', 'https' );
 }
 
-define( 'WP_HOME', 'http://' . APP_DOMAIN );
+if ( ! defined( 'SITE_DOMAIN' ) ) {
+	define( 'SITE_DOMAIN', $_SERVER[ 'HTTP_HOST' ] );
+}
+
+define( 'WP_HOME', WPLIB_BOX_URL_SCHEME . '://' . SITE_DOMAIN );
 
 if ( 'standard' === WPLIB_BOX_DIRECTORY_LAYOUT ) {
-	define( 'WP_SITEURL', 'http://' . APP_DOMAIN );
-} else {
-	define( 'WP_SITEURL', 'http://' . APP_DOMAIN . '/wp' );
+	define( 'WP_SITEURL', WPLIB_BOX_URL_SCHEME . '://' . SITE_DOMAIN );
 
+} else if ( 'skeleton' === WPLIB_BOX_DIRECTORY_LAYOUT ) {
+	define( 'WP_SITEURL', WPLIB_BOX_URL_SCHEME . '://' . SITE_DOMAIN . '/wp' );
 	define( 'WP_CONTENT_DIR', __DIR__ . '/content' );
-	define( 'WP_CONTENT_URL', 'http://' . APP_DOMAIN . '/content' );
+	define( 'WP_CONTENT_URL', WPLIB_BOX_URL_SCHEME . '://' . SITE_DOMAIN . '/content' );
 }
 
 if ( ! defined( 'DB_NAME' ) ) {
-	define( 'DB_NAME', 'wordpress' );
+	define( 'DB_NAME', isset( $_ENV[ 'DB_NAME' ] ) ? $_ENV[ 'DB_NAME' ] : 'wordpress' );
 }
 
 if ( ! defined( 'DB_USER' ) ) {
-	define( 'DB_USER', 'wordpress' );
+	define( 'DB_USER', isset( $_ENV[ 'DB_USER' ] ) ? $_ENV[ 'DB_USER' ] : 'wordpress' );
 }
 
 if ( ! defined( 'DB_PASSWORD' ) ) {
-	define( 'DB_PASSWORD', 'wordpress' );
+	define( 'DB_PASSWORD', isset( $_ENV[ 'DB_PASSWORD' ] ) ? $_ENV[ 'DB_PASSWORD' ] : 'wordpress' );
 }
 
 if ( ! defined( 'DB_HOST' ) ) {
-	define( 'DB_HOST', '172.17.0.1' );
+	define( 'DB_HOST', isset( $_ENV[ 'DB_HOST' ] ) ? $_ENV[ 'DB_HOST' ] : '172.42.0.1' );
 }
 
 if ( ! defined( 'DB_CHARSET' ) ) {
-	define( 'DB_CHARSET', 'utf8' );
+	define( 'DB_CHARSET', isset( $_ENV[ 'DB_CHARSET' ] ) ? $_ENV[ 'DB_CHARSET' ] : 'utf8' );
 }
 
 if ( ! defined( 'DB_COLLATE' ) ) {
-	define( 'DB_COLLATE', '' );
+	define( 'DB_COLLATE', isset( $_ENV[ 'DB_COLLATE' ] ) ? $_ENV[ 'DB_COLLATE' ] : '' );
 }
 
 if ( ! defined( 'WP_DEBUG' ) ) {
@@ -74,25 +95,30 @@ if ( ! isset( $table_prefix ) ) {
 	$table_prefix = 'wp_';
 }
 
-// https://api.wordpress.org/secret-key/1.1/salt/
-if ( file_exists( __DIR__ . '/salt.php' ) ) {
-	require( __DIR__ . '/salt.php' );
+/**
+ * Search for a salt-{HTTP_HOST}.php in current
+ * and parent directories for config overrides
+ */
+/**
+ * https://api.wordpress.org/secret-key/1.1/salt/
+ */
+if ( file_exists( __DIR__ . '/salt-' . WPLIB_BOX_HOST . '.php' ) ) {
+	require( __DIR__ . '/salt-' . WPLIB_BOX_HOST . '.php' );
 } else {
-	define('AUTH_KEY',         '~-hipd7(}dmj`QUW/_)7>0};$oI]F,[g}TnwSlMNC|zg&2<|/19M-pPcns>:fCdj');
-	define('SECURE_AUTH_KEY',  'S_xbE6Sw}@1646+fZe4Gh1]9@>Ij@Sh+2ng{6 G/j3(3F #t+z+BUYwwY>.@[j~.');
-	define('LOGGED_IN_KEY',    'JGD sHt8R%vK>Q#i3uR<)?oD7$kwx+TuMxSF1XA^[+8H)%rEh{Jv(d-^W{sl3@6p');
-	define('NONCE_KEY',        '>5b)un/!Mq)/M(F+ziihL!&mXz+LH5s0 #yi^VLC)r&/u7Uw6E~pz.6c@8TE!Gua');
-	define('AUTH_SALT',        '~/m+x1w:VGn?Z#4sw|(L?Ld^hr!;*nq,gN<#p}xHYf<Z(9uc]Vt8V}AOQ|@VZ{%0');
-	define('SECURE_AUTH_SALT', ')QlZJ$Ur^4]BR($y9!]gM=zY7Hh1x.i i0_Wp?kcE+<_F6FI`sUcwZXzP<0|5bU4');
-	define('LOGGED_IN_SALT',   '}jQ]F|h0Su0l4Nh^:9C3>$kLI__9!Sc&M9X+=vA`kicXZ4x?Cb!2qDzdC(w@/pG|');
-	define('NONCE_SALT',       'O%afYX;J`-8v1G<y5Cge?}VmPH*,7#GaA53D*Cd^TH~0qUi<4wRTrI_b:xG`{.T,');
+	define('AUTH_KEY',         'Insecure' );
+	define('SECURE_AUTH_KEY',  'Insecure' );
+	define('LOGGED_IN_KEY',    'Insecure' );
+	define('NONCE_KEY',        'Insecure' );
+	define('AUTH_SALT',        'Insecure' );
+	define('SECURE_AUTH_SALT', 'Insecure' );
+	define('LOGGED_IN_SALT',   'Insecure' );
+	define('NONCE_SALT',       'Insecure' );
 }
-
 
 if ( ! defined( 'ABSPATH' ) ) {
 	if ( 'standard' === WPLIB_BOX_DIRECTORY_LAYOUT ) {
 		define( 'ABSPATH', dirname( __FILE__ ) . '/' );
-	} else {
+	} else if ( 'skeleton' === WPLIB_BOX_DIRECTORY_LAYOUT ) {
 		define( 'ABSPATH', dirname( __FILE__ ) . '/wp/' );
 	}
 }
