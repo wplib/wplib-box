@@ -97,7 +97,7 @@ To run WPLib Box requires the following software be installed:
 
 - Install [VirtualBox](https://www.virtualbox.org/)
 - Install [Vagrant](https://www.vagrantup.com/)
-- Install the [Vagrant Hosts Updater](https://github.com/cogitatio/vagrant-hostsupdater) plugin by running `vagrant plugin install vagrant-hostsupdater`
+- _([Vagrant Hosts Updater](https://github.com/cogitatio/vagrant-hostsupdater) is also required but WPLib Box will automatically install it.)_
 
 <a id="for-windows"></a>
 ### For Windows Users
