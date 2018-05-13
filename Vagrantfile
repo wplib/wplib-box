@@ -364,6 +364,31 @@
 #           - http://wplib.github.io/wplib-box/faq/troubleshooting/
 #
 
+#
+# Ensure pre-requisites
+#
+
+Vagrant.require_version ">= 2.1"
+
+vboxmanage = Vagrant::Util::Which.which("VBoxManage") || Vagrant::Util::Which.which("VBoxManage.exe")
+if vboxmanage == nil
+    raise "WPLib Box needs VirtualBox 5.2 or greater.\n\n" \
+      "\tPlease download and install VirtualBox from https://www.virtualbox.org/wiki/Downloads\n"
+else
+    version = Vagrant::Util::Subprocess.execute(vboxmanage, '--version')
+    version = Gem::Version.create(version.stdout.strip!)
+    unless version >= Gem::Version.create('5.2')
+      raise "WPLib Box needs VirtualBox 5.2 or greater. Your current version is " + version.version + "\n\n" \
+          "\tPlease download a newer version of VirtualBox from https://www.virtualbox.org/wiki/Downloads\n"
+    end
+end
+
+system "vagrant plugin install vagrant-hostsupdater" \
+   unless Vagrant.has_plugin? "vagrant-hostsupdater"
+
+#
+# Run the main Vagrant configuration
+#
 Vagrant.configure(2) do |config|
 
     config.vm.box = "wplib/wplib"
@@ -392,12 +417,12 @@ Vagrant.configure(2) do |config|
     config.ssh.forward_agent = true
     config.ssh.insert_key = false
 
-    config.trigger.before :halt do
-        run_remote "box database backup"
+    config.trigger.before :halt do |trigger|
+        trigger.run_remote = {inline: "box database backup"}
     end
 
-    config.trigger.after [:up, :reload] do
-        run_remote "box startup"
+    config.trigger.after [:up, :reload] do |trigger|
+        trigger.run_remote = {inline: "box startup"}
     end
 end
 
