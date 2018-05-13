@@ -377,7 +377,7 @@ if vboxmanage == nil
 else
     version = Vagrant::Util::Subprocess.execute(vboxmanage, '--version')
     version = Gem::Version.create(version.stdout.strip!)
-    unless version >= Gem::Version.create('5.3')
+    unless version >= Gem::Version.create('5.2')
       abort "\nWPLib Box needs VirtualBox 5.2 or greater. Your current version is " + version.version + "\n" \
           "Please download a newer version of VirtualBox from:\n\n\thttps://www.virtualbox.org/wiki/Downloads\n"
     end
