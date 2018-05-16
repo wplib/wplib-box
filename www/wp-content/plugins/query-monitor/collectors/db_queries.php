@@ -1,18 +1,9 @@
 <?php
-/*
-Copyright 2009-2017 John Blackbourn
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-*/
+/**
+ * Database query collector.
+ *
+ * @package query-monitor
+ */
 
 if ( ! defined( 'SAVEQUERIES' ) ) {
 	define( 'SAVEQUERIES', true );
@@ -81,13 +72,11 @@ class QM_Collector_DB_Queries extends QM_Collector {
 		if ( ! isset( $this->data['times'][ $caller ] ) ) {
 			$this->data['times'][ $caller ] = array(
 				'caller' => $caller,
-				'calls' => 0,
 				'ltime' => 0,
 				'types' => array(),
 			);
 		}
 
-		$this->data['times'][ $caller ]['calls']++;
 		$this->data['times'][ $caller ]['ltime'] += $ltime;
 
 		if ( isset( $this->data['times'][ $caller ]['types'][ $type ] ) ) {
@@ -107,6 +96,11 @@ class QM_Collector_DB_Queries extends QM_Collector {
 		$has_result = false;
 		$has_trace  = false;
 		$i          = 0;
+		$request    = trim( $wp_the_query->request );
+
+		if ( method_exists( $db, 'remove_placeholder_escape' ) ) {
+			$request = $db->remove_placeholder_escape( $request );
+		}
 
 		foreach ( (array) $db->queries as $query ) {
 
@@ -118,10 +112,11 @@ class QM_Collector_DB_Queries extends QM_Collector {
 			$sql           = $query[0];
 			$ltime         = $query[1];
 			$stack         = $query[2];
+			$has_start     = isset( $query[3] );
 			$has_trace     = isset( $query['trace'] );
 			$has_result    = isset( $query['result'] );
 
-			if ( isset( $query['result'] ) ) {
+			if ( $has_result ) {
 				$result = $query['result'];
 			} else {
 				$result = null;
@@ -129,7 +124,7 @@ class QM_Collector_DB_Queries extends QM_Collector {
 
 			$total_time += $ltime;
 
-			if ( isset( $query['trace'] ) ) {
+			if ( $has_trace ) {
 
 				$trace       = $query['trace'];
 				$component   = $query['trace']->get_component();
@@ -175,9 +170,13 @@ class QM_Collector_DB_Queries extends QM_Collector {
 				$types[ $type ]['callers'][ $caller ]++;
 			}
 
-			$is_main_query = ( trim( $wp_the_query->request ) === $sql && ( false !== strpos( $stack, ' WP->main,' ) ) );
+			$is_main_query = ( $request === $sql && ( false !== strpos( $stack, ' WP->main,' ) ) );
 
-			$row = compact( 'caller', 'caller_name', 'stack', 'sql', 'ltime', 'result', 'type', 'component', 'trace', 'is_main_query' );
+			$row = compact( 'caller', 'caller_name', 'sql', 'ltime', 'result', 'type', 'component', 'trace', 'is_main_query' );
+
+			if ( ! isset( $trace ) ) {
+				$row['stack'] = $stack;
+			}
 
 			if ( is_wp_error( $result ) ) {
 				$this->data['errors'][] = $row;
@@ -200,10 +199,12 @@ class QM_Collector_DB_Queries extends QM_Collector {
 					'caller_name' => __( 'Unknown', 'query-monitor' ),
 					'stack'       => '',
 					'sql'         => $error['query'],
+					'ltime'       => 0,
 					'result'      => new WP_Error( 'qmdb', $error['error_str'] ),
 					'type'        => '',
 					'component'   => false,
 					'trace'       => null,
+					'is_main_query' => false,
 				);
 				$this->data['errors'][] = $row;
 			}

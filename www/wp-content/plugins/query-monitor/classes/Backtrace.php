@@ -1,18 +1,9 @@
 <?php
-/*
-Copyright 2009-2017 John Blackbourn
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-*/
+/**
+ * Function call backtrace container.
+ *
+ * @package query-monitor
+ */
 
 if ( ! class_exists( 'QM_Backtrace' ) ) {
 class QM_Backtrace {
@@ -20,7 +11,6 @@ class QM_Backtrace {
 	protected static $ignore_class = array(
 		'wpdb'           => true,
 		'QueryMonitor'   => true,
-		'ExtQuery'       => true,
 		'W3_Db'          => true,
 		'Debug_Bar_PHP'  => true,
 		'WP_Hook'        => true,
@@ -65,10 +55,9 @@ class QM_Backtrace {
 	protected $calling_file    = '';
 
 	public function __construct( array $args = array() ) {
-		# @TODO save the args as a property and process the trace JIT
 		$args = array_merge( array(
 			'ignore_current_filter' => true,
-			'ignore_items'          => 0,
+			'ignore_frames'         => 0,
 		), $args );
 		$this->trace = debug_backtrace( false );
 		$this->ignore( 1 ); # Self-awareness
@@ -81,13 +70,33 @@ class QM_Backtrace {
 			$this->ignore( 1 );
 		}
 
-		if ( $args['ignore_items'] ) {
-			$this->ignore( $args['ignore_items'] );
+		if ( $args['ignore_frames'] ) {
+			$this->ignore( $args['ignore_frames'] );
 		}
 		if ( $args['ignore_current_filter'] ) {
 			$this->ignore_current_filter();
 		}
 
+		foreach ( $this->trace as $k => $frame ) {
+			if ( ! isset( $frame['args'] ) ) {
+				continue;
+			}
+
+			if ( isset( self::$show_args[ $frame['function'] ] ) ) {
+				$show = self::$show_args[ $frame['function'] ];
+
+				if ( 'dir' === $show ) {
+					$show = 1;
+				}
+
+				$frame['args'] = array_slice( $frame['args'], 0, $show );
+
+			} else {
+				unset( $frame['args'] );
+			}
+
+			$this->trace[ $k ] = $frame;
+		}
 	}
 
 	public function get_stack() {
@@ -111,29 +120,35 @@ class QM_Backtrace {
 
 		$components = array();
 
-		foreach ( $this->trace as $item ) {
+		foreach ( $this->trace as $frame ) {
 			try {
 
-				if ( isset( $item['class'] ) ) {
-					if ( ! is_object( $item['class'] ) and ! class_exists( $item['class'], false ) ) {
+				if ( isset( $frame['class'] ) ) {
+					if ( ! class_exists( $frame['class'], false ) ) {
 						continue;
 					}
-					if ( ! method_exists( $item['class'], $item['function'] ) ) {
+					if ( ! method_exists( $frame['class'], $frame['function'] ) ) {
 						continue;
 					}
-					$ref = new ReflectionMethod( $item['class'], $item['function'] );
+					$ref = new ReflectionMethod( $frame['class'], $frame['function'] );
 					$file = $ref->getFileName();
-				} elseif ( function_exists( $item['function'] ) ) {
-					$ref = new ReflectionFunction( $item['function'] );
+				} elseif ( isset( $frame['function'] ) && function_exists( $frame['function'] ) ) {
+					$ref = new ReflectionFunction( $frame['function'] );
 					$file = $ref->getFileName();
-				} elseif ( isset( $item['file'] ) ) {
-					$file = $item['file'];
+				} elseif ( isset( $frame['file'] ) ) {
+					$file = $frame['file'];
 				} else {
 					continue;
 				}
 
 				$comp = QM_Util::get_file_component( $file );
 				$components[ $comp->type ] = $comp;
+
+				if ( 'plugin' === $comp->type ) {
+					// If the component is a plugin then it can't be anything else,
+					// so short-circuit and return early.
+					return $comp;
+				}
 			} catch ( ReflectionException $e ) {
 				# nothing
 			}
@@ -236,7 +251,7 @@ class QM_Backtrace {
 
 				if ( 'dir' === $show ) {
 					if ( isset( $trace['args'][0] ) ) {
-						$arg = QM_Util::standard_dir( $trace['args'][0], '~/' );
+						$arg = QM_Util::standard_dir( $trace['args'][0], '' );
 						$return['id']      = $trace['function'] . '()';
 						$return['display'] = $trace['function'] . "('{$arg}')";
 					}

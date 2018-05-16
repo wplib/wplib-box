@@ -1,18 +1,9 @@
 <?php
-/*
-Copyright 2009-2017 John Blackbourn
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-*/
+/**
+ * Hooks and actions output for HTML pages.
+ *
+ * @package query-monitor
+ */
 
 class QM_Output_Html_Hooks extends QM_Output_Html {
 
@@ -38,20 +29,24 @@ class QM_Output_Html_Hooks extends QM_Output_Html {
 		}
 
 		echo '<div class="qm" id="' . esc_attr( $this->collector->id() ) . '">';
-		echo '<table cellspacing="0">';
+		echo '<table>';
 		echo '<caption class="screen-reader-text">' . esc_html__( 'Hooks', 'query-monitor' ) . '</caption>';
 		echo '<thead>';
 		echo '<tr>';
-		echo '<th scope="col">';
+		echo '<th scope="col" class="qm-filterable-column">';
 		echo $this->build_filter( 'name', $data['parts'], __( 'Hook', 'query-monitor' ) ); // WPCS: XSS ok.
 		echo '</th>';
-		echo '<th  scope="col" colspan="3">';
-		echo $this->build_filter( 'component', $data['components'], __( 'Actions', 'query-monitor' ), 'subject' ); // WPCS: XSS ok.
+		echo '<th scope="col">' . esc_html__( 'Priority', 'query-monitor' ) . '</th>';
+		echo '<th scope="col">' . esc_html__( 'Action', 'query-monitor' ) . '</th>';
+		echo '<th scope="col" class="qm-filterable-column">';
+		echo $this->build_filter( 'component', $data['components'], __( 'Component', 'query-monitor' ), 'subject' ); // WPCS: XSS ok.
 		echo '</th>';
 		echo '</tr>';
 		echo '</thead>';
 
+		echo '<tbody>';
 		self::output_hook_table( $data['hooks'], $screen );
+		echo '</tbody>';
 
 		echo '</table>';
 		echo '</div>';
@@ -59,10 +54,7 @@ class QM_Output_Html_Hooks extends QM_Output_Html {
 	}
 
 	public static function output_hook_table( array $hooks, $screen = '' ) {
-
 		foreach ( $hooks as $hook ) {
-
-			echo '<tbody class="qm-group">';
 
 			if ( ! empty( $screen ) ) {
 
@@ -115,8 +107,8 @@ class QM_Output_Html_Hooks extends QM_Output_Html {
 
 					if ( $first ) {
 
-						echo '<th scope="row" rowspan="' . absint( $rowspan ) . '" class="qm-nowrap qm-ltr">';
-						echo $hook_name; // WPCS: XSS ok.
+						echo '<th scope="row" rowspan="' . absint( $rowspan ) . '" class="qm-nowrap qm-ltr"><span class="qm-sticky">';
+						echo '<code>' . $hook_name . '</code>'; // WPCS: XSS ok.
 						if ( 'all' === $hook['name'] ) {
 							echo '<br><span class="qm-warn">';
 							printf(
@@ -126,31 +118,47 @@ class QM_Output_Html_Hooks extends QM_Output_Html {
 							);
 							echo '<span>';
 						}
-						echo '</th>';
+						echo '</span></th>';
 
-					}
-
-					echo '<td class="qm-num">' . intval( $action['priority'] ) . '</td>';
-					echo '<td class="qm-ltr qm-wrap">';
-
-					if ( isset( $action['callback']['file'] ) ) {
-						echo self::output_filename( $action['callback']['name'], $action['callback']['file'], $action['callback']['line'] ); // WPCS: XSS ok.
-					} else {
-						echo esc_html( $action['callback']['name'] );
 					}
 
 					if ( isset( $action['callback']['error'] ) ) {
-						echo '<br><span class="qm-warn">';
+						$class = ' qm-warn';
+					} else {
+						$class = '';
+					}
+
+					echo '<td class="qm-num' . esc_attr( $class ) . '">' . intval( $action['priority'] ) . '</td>';
+
+					if ( isset( $action['callback']['file'] ) ) {
+						if ( self::has_clickable_links() ) {
+							echo '<td class="qm-wrap qm-ltr' . esc_attr( $class ) . '">';
+							echo self::output_filename( $action['callback']['name'], $action['callback']['file'], $action['callback']['line'] ); // WPCS: XSS ok.
+							echo '</td>';
+						} else {
+							echo '<td class="qm-nowrap qm-ltr qm-has-toggle' . esc_attr( $class ) . '"><ol class="qm-toggler">';
+							echo self::build_toggler(); // WPCS: XSS ok;
+							echo '<li>';
+							echo self::output_filename( $action['callback']['name'], $action['callback']['file'], $action['callback']['line'] ); // WPCS: XSS ok.
+							echo '</li>';
+							echo '</ol></td>';
+						}
+					} else {
+						echo '<td class="qm-ltr qm-wrap' . esc_attr( $class ) . '">';
+						echo '<code>' . esc_html( $action['callback']['name'] ) . '</code>';
+					}
+
+					if ( isset( $action['callback']['error'] ) ) {
+						echo '<br>';
 						echo esc_html( sprintf(
 							/* translators: %s: Error message text */
 							__( 'Error: %s', 'query-monitor' ),
 							$action['callback']['error']->get_error_message()
 						) );
-						echo '<span>';
 					}
 
 					echo '</td>';
-					echo '<td class="qm-nowrap">';
+					echo '<td class="qm-nowrap' . esc_attr( $class ) . '">';
 					echo esc_html( $component );
 					echo '</td>';
 					echo '</tr>';
@@ -159,14 +167,13 @@ class QM_Output_Html_Hooks extends QM_Output_Html {
 			} else {
 				echo "<tr{$attr}>"; // WPCS: XSS ok.
 				echo '<th scope="row" class="qm-ltr">';
-				echo $hook_name; // WPCS: XSS ok.
+				echo '<code>' . $hook_name . '</code>'; // WPCS: XSS ok.
 				echo '</th>';
-				echo '<td colspan="3">&nbsp;</td>';
+				echo '<td>&nbsp;</td>';
+				echo '<td>&nbsp;</td>';
+				echo '<td>&nbsp;</td>';
 				echo '</tr>';
 			}
-
-			echo '</tbody>';
-
 		}
 
 	}

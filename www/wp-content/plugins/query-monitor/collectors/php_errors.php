@@ -1,35 +1,14 @@
 <?php
-/*
-Copyright 2009-2017 John Blackbourn
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-*/
-
-# E_DEPRECATED and E_USER_DEPRECATED were introduced in PHP 5.3 so we need to use back-compat constants that work on 5.2.
-if ( defined( 'E_DEPRECATED' ) ) {
-	define( 'QM_E_DEPRECATED', E_DEPRECATED );
-} else {
-	define( 'QM_E_DEPRECATED', 0 );
-}
-
-if ( defined( 'E_USER_DEPRECATED' ) ) {
-	define( 'QM_E_USER_DEPRECATED', E_USER_DEPRECATED );
-} else {
-	define( 'QM_E_USER_DEPRECATED', 0 );
-}
+/**
+ * PHP error collector.
+ *
+ * @package query-monitor
+ */
 
 class QM_Collector_PHP_Errors extends QM_Collector {
 
 	public $id = 'php_errors';
+	public $types = array();
 	private $error_reporting = null;
 	private $display_errors = null;
 	private static $unexpected_error;
@@ -74,8 +53,8 @@ class QM_Collector_PHP_Errors extends QM_Collector {
 				$type = 'strict';
 				break;
 
-			case QM_E_DEPRECATED:
-			case QM_E_USER_DEPRECATED:
+			case E_DEPRECATED:
+			case E_USER_DEPRECATED:
 				$type = 'deprecated';
 				break;
 
@@ -89,9 +68,11 @@ class QM_Collector_PHP_Errors extends QM_Collector {
 			return false;
 		}
 
+		$error_group = 'errors';
+
 		if ( 0 === error_reporting() && 0 !== $this->error_reporting ) {
 			// This is most likely an @-suppressed error
-			$type .= '-suppressed';
+			$error_group = 'suppressed';
 		}
 
 		if ( ! isset( self::$unexpected_error ) ) {
@@ -120,10 +101,10 @@ class QM_Collector_PHP_Errors extends QM_Collector {
 
 		$filename = QM_Util::standard_dir( $file, '' );
 
-		if ( isset( $this->data['errors'][ $type ][ $key ] ) ) {
-			$this->data['errors'][ $type ][ $key ]->calls++;
+		if ( isset( $this->data[ $error_group ][ $type ][ $key ] ) ) {
+			$this->data[ $error_group ][ $type ][ $key ]->calls++;
 		} else {
-			$this->data['errors'][ $type ][ $key ] = (object) array(
+			$this->data[ $error_group ][ $type ][ $key ] = (object) array(
 				'errno'    => $errno,
 				'type'     => $type,
 				'message'  => $message,
@@ -188,6 +169,191 @@ class QM_Collector_PHP_Errors extends QM_Collector {
 		restore_error_handler();
 	}
 
+	/**
+	 * Runs post-processing on the collected errors and updates the
+	 * errors collected in the data->errors property.
+	 *
+	 * Any unreportable errors are placed in the data->filtered_errors
+	 * property.
+	 */
+	public function process() {
+		$this->types = array(
+			'errors' => array(
+				'warning'    => _x( 'Warning', 'PHP error level', 'query-monitor' ),
+				'notice'     => _x( 'Notice', 'PHP error level', 'query-monitor' ),
+				'strict'     => _x( 'Strict', 'PHP error level', 'query-monitor' ),
+				'deprecated' => _x( 'Deprecated', 'PHP error level', 'query-monitor' ),
+			),
+			'suppressed' => array(
+				'warning'    => _x( 'Warning (Suppressed)', 'Suppressed PHP error level', 'query-monitor' ),
+				'notice'     => _x( 'Notice (Suppressed)', 'Suppressed PHP error level', 'query-monitor' ),
+				'strict'     => _x( 'Strict (Suppressed)', 'Suppressed PHP error level', 'query-monitor' ),
+				'deprecated' => _x( 'Deprecated (Suppressed)', 'Suppressed PHP error level', 'query-monitor' ),
+			),
+			'silenced' => array(
+				'warning'    => _x( 'Warning (Silenced)', 'Silenced PHP error level', 'query-monitor' ),
+				'notice'     => _x( 'Notice (Silenced)', 'Silenced PHP error level', 'query-monitor' ),
+				'strict'     => _x( 'Strict (Silenced)', 'Silenced PHP error level', 'query-monitor' ),
+				'deprecated' => _x( 'Deprecated (Silenced)', 'Silenced PHP error level', 'query-monitor' ),
+			),
+		);
+		$components = array();
+
+		if ( ! empty( $this->data ) && ! empty( $this->data['errors'] ) ) {
+			/**
+			 * Filters the levels used for reported PHP errors on a per-component basis.
+			 *
+			 * Error levels can be specified in order to silence certain error levels from
+			 * plugins or the current theme. Most commonly, you may wish to use this filter
+			 * in order to silence annoying notices from third party plugins that you do not
+			 * have control over.
+			 *
+			 * Silenced errors will still appear in Query Monitor's output, but will not
+			 * cause highlighting to appear in the top level admin toolbar.
+			 *
+			 * For example, to show all errors in the 'foo' plugin except PHP notices use:
+			 *
+			 *     add_filter( 'qm/collect/php_error_levels', function( array $levels ) {
+			 *         $levels['plugin']['foo'] = ( E_ALL & ~E_NOTICE );
+			 *         return $levels;
+			 *     } );
+			 *
+			 * Errors from themes, WordPress core, and other components can also be filtered:
+			 *
+			 *     add_filter( 'qm/collect/php_error_levels', function( array $levels ) {
+			 *         $levels['theme']['stylesheet'] = ( E_WARNING & E_USER_WARNING );
+			 *         $levels['theme']['template']   = ( E_WARNING & E_USER_WARNING );
+			 *         $levels['core']['core']        = ( 0 );
+			 *         return $levels;
+			 *     } );
+			 *
+			 * Any component which doesn't have an error level specified via this filter is
+			 * assumed to have the default level of `E_ALL`, which shows all errors.
+			 *
+			 * Valid PHP error level bitmasks are supported for each component, including `0`
+			 * to silence all errors from a component. See the PHP documentation on error
+			 * reporting for more info: http://php.net/manual/en/function.error-reporting.php
+			 *
+			 * @param int[] $levels The error levels used for each component.
+			 */
+			$levels = apply_filters( 'qm/collect/php_error_levels', array() );
+
+			/**
+			 * Controls whether silenced PHP errors are hidden entirely by Query Monitor.
+			 *
+			 * To hide silenced errors, use:
+			 *
+			 *     add_filter( 'qm/collect/hide_silenced_php_errors', '__return_true' );
+			 *
+			 * @param bool $hide Whether to hide silenced PHP errors. Default false.
+			 */
+			$this->hide_silenced_php_errors = apply_filters( 'qm/collect/hide_silenced_php_errors', false );
+
+			array_map( array( $this, 'filter_reportable_errors' ), $levels, array_keys( $levels ) );
+
+			foreach ( $this->types as $error_group => $error_types ) {
+				foreach ( $error_types as $type => $title ) {
+					if ( isset( $this->data[ $error_group ][ $type ] ) ) {
+						foreach ( $this->data[ $error_group ][ $type ] as $error ) {
+							$component = $error->trace->get_component();
+							$components[ $component->name ] = $component->name;
+						}
+					}
+				}
+			}
+		}
+
+		$this->data['components'] = $components;
+	}
+
+	/**
+	 * Filters the reportable PHP errors using the table specified. Users can customize the levels
+	 * using the `qm/collect/php_error_levels` filter.
+	 *
+	 * @param int[]  $components     The error levels keyed by component name.
+	 * @param string $component_type The component type, for example 'plugin' or 'theme'.
+	 */
+	public function filter_reportable_errors( array $components, $component_type ) {
+		$all_errors = $this->data['errors'];
+
+		foreach ( $components as $component_context => $allowed_level ) {
+			foreach ( $all_errors as $error_level => $errors ) {
+				foreach ( $errors as $error_id => $error ) {
+					if ( $this->is_reportable_error( $error->errno, $allowed_level ) ) {
+						continue;
+					}
+					if ( ! $this->is_affected_component( $error->trace->get_component(), $component_type, $component_context ) ) {
+						continue;
+					}
+
+					unset( $this->data['errors'][ $error_level ][ $error_id ] );
+
+					if ( $this->hide_silenced_php_errors ) {
+						continue;
+					}
+
+					$this->data['silenced'][ $error_level ][ $error_id ] = $error;
+				}
+			}
+		}
+
+		$this->data['errors'] = array_filter( $this->data['errors'] );
+	}
+
+	/**
+	 * Checks if the file path is within the specified plugin. This is
+	 * used to scope an error's file path to a plugin.
+	 *
+	 * @param string $plugin_name The name of the plugin
+	 * @param string $file_path The full path to the file
+	 * @return bool
+	 */
+	public function is_affected_component( $component, $component_type, $component_context ) {
+		if ( empty( $component ) ) {
+			return false;
+		}
+		return ( $component->type === $component_type && $component->context === $component_context );
+	}
+
+	/**
+	 * Checks if the error number specified is viewable based on the
+	 * flags specified.
+	 *
+	 * @param int $error_no The errno from PHP
+	 * @param int $flags The config flags specified by users
+	 * @return int Truthy int value if reportable else 0.
+	 *
+	 * Eg:- If a plugin had the config flags,
+	 *
+	 * E_ALL & ~E_NOTICE
+	 *
+	 * then,
+	 *
+	 * is_reportable_error( E_NOTICE, E_ALL & ~E_NOTICE ) is false
+	 * is_reportable_error( E_WARNING, E_ALL & ~E_NOTICE ) is true
+	 *
+	 * If the $flag is null, all errors are assumed to be
+	 * reportable by default.
+	 */
+	public function is_reportable_error( $error_no, $flags ) {
+		if ( ! is_null( $flags ) ) {
+			$result = $error_no & $flags;
+		} else {
+			$result = 1;
+		}
+
+		return (bool) $result;
+	}
+
+	/**
+	 * For testing purposes only. Sets the errors property manually.
+	 * Needed to test the filter since the data property is protected.
+	 *
+	 * @param array $errors The list of errors
+	 */
+	public function set_php_errors( $errors ) {
+		$this->data['errors'] = $errors;
+	}
 }
 
 # Load early to catch early errors

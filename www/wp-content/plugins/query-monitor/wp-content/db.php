@@ -1,27 +1,16 @@
 <?php
-/*
-Plugin Name: Query Monitor Database Class
-
-*********************************************************************
-
-Ensure this file is symlinked to your wp-content directory to provide
-additional database query information in Query Monitor's output.
-
-*********************************************************************
-
-Copyright 2009-2017 John Blackbourn
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-*/
+/**
+ * Plugin Name: Query Monitor Database Class
+ *
+ * *********************************************************************
+ *
+ * Ensure this file is symlinked to your wp-content directory to provide
+ * additional database query information in Query Monitor's output.
+ *
+ * *********************************************************************
+ *
+ * @package query-monitor
+ */
 
 defined( 'ABSPATH' ) or die();
 
@@ -42,6 +31,17 @@ if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
 
 # No autoloaders for us. See https://github.com/johnbillion/query-monitor/issues/7
 $qm_dir = dirname( dirname( __FILE__ ) );
+$plugin = "{$qm_dir}/classes/Plugin.php";
+
+if ( ! is_readable( $plugin ) ) {
+	return;
+}
+require_once $plugin;
+
+if ( ! QM_Plugin::php_version_met() ) {
+	return;
+}
+
 $backtrace = "{$qm_dir}/classes/Backtrace.php";
 if ( ! is_readable( $backtrace ) ) {
 	return;
@@ -105,8 +105,12 @@ class QM_DB extends wpdb {
 
 		$i = $this->num_queries - 1;
 		$this->queries[ $i ]['trace'] = new QM_Backtrace( array(
-			'ignore_items' => 1,
+			'ignore_frames' => 1,
 		) );
+
+		if ( ! isset( $this->queries[ $i ][3] ) ) {
+			$this->queries[ $i ][3] = $this->time_start;
+		}
 
 		if ( $this->last_error ) {
 			$code = 'qmdb';

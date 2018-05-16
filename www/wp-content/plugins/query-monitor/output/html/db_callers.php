@@ -1,18 +1,9 @@
 <?php
-/*
-Copyright 2009-2017 John Blackbourn
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-*/
+/**
+ * Database query calling function output for HTML pages.
+ *
+ * @package query-monitor
+ */
 
 class QM_Output_Html_DB_Callers extends QM_Output_Html {
 
@@ -30,30 +21,27 @@ class QM_Output_Html_DB_Callers extends QM_Output_Html {
 		}
 
 		$total_time  = 0;
-		$span = count( $data['types'] ) + 2;
 
-		echo '<div class="qm qm-half" id="' . esc_attr( $this->collector->id() ) . '">';
-		echo '<table cellspacing="0" class="qm-sortable">';
-		echo '<caption>' . esc_html( $this->collector->name() ) . '</caption>';
-		echo '<thead>';
-		echo '<tr>';
-		echo '<th scope="col">' . esc_html__( 'Caller', 'query-monitor' ) . '</th>';
-
-		foreach ( $data['types'] as $type_name => $type_count ) {
-			echo '<th scope="col" class="qm-num qm-ltr">';
-			echo esc_html( $type_name );
-			echo $this->build_sorter(); // WPCS: XSS ok;
-			echo '</th>';
-		}
-
-		echo '<th scope="col" class="qm-num qm-sorted-desc">';
-		esc_html_e( 'Time', 'query-monitor' );
-		echo $this->build_sorter(); // WPCS: XSS ok;
-		echo '</th>';
-		echo '</tr>';
-		echo '</thead>';
+		echo '<div class="qm" id="' . esc_attr( $this->collector->id() ) . '">';
 
 		if ( ! empty( $data['times'] ) ) {
+			echo '<table class="qm-sortable">';
+			echo '<caption>' . esc_html( $this->collector->name() ) . '</caption>';
+			echo '<thead>';
+			echo '<tr>';
+			echo '<th scope="col">' . esc_html__( 'Caller', 'query-monitor' ) . '</th>';
+
+			foreach ( $data['types'] as $type_name => $type_count ) {
+				echo '<th scope="col" class="qm-num qm-ltr qm-sortable-column">';
+				echo $this->build_sorter( $type_name ); // WPCS: XSS ok;
+				echo '</th>';
+			}
+
+			echo '<th scope="col" class="qm-num qm-sorted-desc qm-sortable-column">';
+			echo $this->build_sorter( __( 'Time', 'query-monitor' ) ); // WPCS: XSS ok;
+			echo '</th>';
+			echo '</tr>';
+			echo '</thead>';
 
 			echo '<tbody>';
 
@@ -62,7 +50,7 @@ class QM_Output_Html_DB_Callers extends QM_Output_Html {
 				$stime = number_format_i18n( $row['ltime'], 4 );
 
 				echo '<tr>';
-				echo '<th scope="row" class="qm-ltr"><a href="#" class="qm-filter-trigger" data-qm-target="db_queries-wpdb" data-qm-filter="caller" data-qm-value="' . esc_attr( $row['caller'] ) . '">' . esc_html( $row['caller'] ) . '</a></th>';
+				echo '<td class="qm-ltr"><a href="#" class="qm-filter-trigger" data-qm-target="db_queries-wpdb" data-qm-filter="caller" data-qm-value="' . esc_attr( $row['caller'] ) . '"><code>' . esc_html( $row['caller'] ) . '</code></a></td>';
 
 				foreach ( $data['types'] as $type_name => $type_count ) {
 					if ( isset( $row['types'][ $type_name ] ) ) {
@@ -83,7 +71,7 @@ class QM_Output_Html_DB_Callers extends QM_Output_Html {
 			$total_stime = number_format_i18n( $total_time, 4 );
 
 			echo '<tr>';
-			echo '<td>' . esc_html__( 'Total', 'query-monitor' ) . '</td>';
+			echo '<td>&nbsp;</td>';
 
 			foreach ( $data['types'] as $type_name => $type_count ) {
 				echo '<td class="qm-num">' . esc_html( number_format_i18n( $type_count ) ) . '</td>';
@@ -93,18 +81,16 @@ class QM_Output_Html_DB_Callers extends QM_Output_Html {
 			echo '</tr>';
 
 			echo '</tfoot>';
+			echo '</table>';
 
 		} else {
 
-			echo '<tbody>';
-			echo '<tr>';
-			echo '<td colspan="3" style="text-align:center !important"><em>' . esc_html__( 'none', 'query-monitor' ) . '</em></td>';
-			echo '</tr>';
-			echo '</tbody>';
+			echo '<div class="qm-none">';
+			echo '<p>' . esc_html__( 'None', 'query-monitor' ) . '</p>';
+			echo '</div>';
 
 		}
 
-		echo '</table>';
 		echo '</div>';
 
 	}

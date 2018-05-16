@@ -1,18 +1,9 @@
 <?php
-/*
-Copyright 2009-2017 John Blackbourn
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-*/
+/**
+ * Mock 'Debug Bar' data collector.
+ *
+ * @package query-monitor
+ */
 
 final class QM_Collector_Debug_Bar extends QM_Collector {
 
@@ -65,10 +56,10 @@ function register_qm_collectors_debug_bar() {
 
 	$debug_bar = new Debug_Bar;
 	$redundant = array(
-		'debug_bar_actions_addon_panel',
-		'debug_bar_remote_requests_panel',
-		'debug_bar_screen_info_panel',
-		'ps_listdeps_debug_bar_panel',
+		'debug_bar_actions_addon_panel', // Debug Bar Actions and Filters Addon
+		'debug_bar_remote_requests_panel', // Debug Bar Remote Requests
+		'debug_bar_screen_info_panel', // Debug Bar Screen Info
+		'ps_listdeps_debug_bar_panel', // Debug Bar List Script & Style Dependencies
 	);
 
 	foreach ( $debug_bar->panels as $panel ) {

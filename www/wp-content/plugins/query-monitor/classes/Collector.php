@@ -1,22 +1,14 @@
 <?php
-/*
-Copyright 2009-2017 John Blackbourn
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-*/
+/**
+ * Abstract data collector.
+ *
+ * @package query-monitor
+ */
 
 if ( ! class_exists( 'QM_Collector' ) ) {
 abstract class QM_Collector {
 
+	protected $timer;
 	protected $data = array(
 		'types'           => array(),
 		'component_times' => array(),
@@ -57,13 +49,11 @@ abstract class QM_Collector {
 		if ( ! isset( $this->data['component_times'][ $component->name ] ) ) {
 			$this->data['component_times'][ $component->name ] = array(
 				'component' => $component->name,
-				'calls'     => 0,
 				'ltime'     => 0,
 				'types'     => array(),
 			);
 		}
 
-		$this->data['component_times'][ $component->name ]['calls']++;
 		$this->data['component_times'][ $component->name ]['ltime'] += $ltime;
 
 		if ( isset( $this->data['component_times'][ $component->name ]['types'][ $type ] ) ) {
@@ -124,7 +114,17 @@ abstract class QM_Collector {
 
 	public function process() {}
 
+	public function post_process() {}
+
 	public function tear_down() {}
+
+	public function get_timer() {
+		return $this->timer;
+	}
+
+	public function set_timer( QM_Timer $timer ) {
+		$this->timer = $timer;
+	}
 
 }
 }
