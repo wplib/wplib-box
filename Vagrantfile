@@ -367,7 +367,6 @@
 #
 # Ensure pre-requisites
 #
-
 Vagrant.require_version ">= 2.1"
 
 vboxmanage = Vagrant::Util::Which.which("VBoxManage") || Vagrant::Util::Which.which("VBoxManage.exe")
