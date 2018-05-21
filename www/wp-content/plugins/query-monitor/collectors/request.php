@@ -1,18 +1,9 @@
 <?php
-/*
-Copyright 2009-2017 John Blackbourn
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-*/
+/**
+ * Request collector.
+ *
+ * @package query-monitor
+ */
 
 class QM_Collector_Request extends QM_Collector {
 
@@ -24,7 +15,7 @@ class QM_Collector_Request extends QM_Collector {
 
 	public function process() {
 
-		global $wp, $wp_query, $current_blog, $current_site;
+		global $wp, $wp_query, $current_blog, $current_site, $wp_rewrite;
 
 		$qo = get_queried_object();
 		$user = wp_get_current_user();
@@ -32,7 +23,7 @@ class QM_Collector_Request extends QM_Collector {
 		if ( $user->exists() ) {
 			$user_title = sprintf(
 				/* translators: %d: User ID */
-				__( 'Current user: #%d', 'query-monitor' ),
+				__( 'Current User: #%d', 'query-monitor' ),
 				$user->ID
 			);
 		} else {
@@ -46,10 +37,10 @@ class QM_Collector_Request extends QM_Collector {
 		);
 
 		if ( is_multisite() ) {
-			$this->data['multisite']['current_blog'] = array(
+			$this->data['multisite']['current_site'] = array(
 				'title' => sprintf(
-					/* translators: %d: Blog ID */
-					__( 'Current blog: #%d', 'query-monitor' ),
+					/* translators: %d: Multisite site ID */
+					__( 'Current Site: #%d', 'query-monitor' ),
 					$current_blog->blog_id
 				),
 				'data'  => $current_blog,
@@ -57,10 +48,10 @@ class QM_Collector_Request extends QM_Collector {
 		}
 
 		if ( QM_Util::is_multi_network() ) {
-			$this->data['multisite']['current_site'] = array(
+			$this->data['multisite']['current_network'] = array(
 				'title' => sprintf(
-					/* translators: %d: Site ID */
-					__( 'Current site: #%d', 'query-monitor' ),
+					/* translators: %d: Multisite network ID */
+					__( 'Current Network: #%d', 'query-monitor' ),
 					$current_site->id
 				),
 				'data'  => $current_site,
@@ -69,7 +60,10 @@ class QM_Collector_Request extends QM_Collector {
 
 		if ( is_admin() ) {
 			if ( isset( $_SERVER['REQUEST_URI'] ) ) {
-				$this->data['request']['request'] = wp_unslash( $_SERVER['REQUEST_URI'] ); // @codingStandardsIgnoreLine
+				$home_path = trim( parse_url( home_url(), PHP_URL_PATH ), '/' );
+				$request   = wp_unslash( $_SERVER['REQUEST_URI'] ); // @codingStandardsIgnoreLine
+
+				$this->data['request']['request'] = str_replace( "/{$home_path}/", '', $request );
 			} else {
 				$this->data['request']['request'] = '';
 			}
@@ -117,7 +111,7 @@ class QM_Collector_Request extends QM_Collector {
 
 		switch ( true ) {
 
-			case is_null( $qo ):
+			case ! is_object( $qo ):
 				// Nada
 				break;
 
@@ -167,7 +161,7 @@ class QM_Collector_Request extends QM_Collector {
 
 		}
 
-		if ( ! is_null( $qo ) ) {
+		if ( $qo ) {
 			$this->data['queried_object']['data'] = $qo;
 		}
 
@@ -177,6 +171,19 @@ class QM_Collector_Request extends QM_Collector {
 			$this->data['request_method'] = '';
 		}
 
+		if ( is_admin() || QM_Util::is_async() || empty( $wp_rewrite->rules ) ) {
+			return;
+		}
+
+		$matching = array();
+
+		foreach ( $wp_rewrite->rules as $match => $query ) {
+			if ( preg_match( "#^{$match}#", $this->data['request']['request'] ) ) {
+				$matching[ $match ] = $query;
+			}
+		}
+
+		$this->data['matching_rewrites'] = $matching;
 	}
 
 }

@@ -1,18 +1,9 @@
 <?php
-/*
-Copyright 2009-2017 John Blackbourn
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-*/
+/**
+ * The main Query Monitor plugin class.
+ *
+ * @package query-monitor
+ */
 
 class QueryMonitor extends QM_Plugin {
 
@@ -29,7 +20,13 @@ class QueryMonitor extends QM_Plugin {
 		parent::__construct( $file );
 
 		# Load and register built-in collectors:
-		foreach ( apply_filters( 'qm/built-in-collectors', glob( $this->plugin_path( 'collectors/*.php' ) ) ) as $file ) {
+		$collectors = array();
+		foreach ( glob( $this->plugin_path( 'collectors/*.php' ) ) as $file ) {
+			$key = basename( $file, '.php' );
+			$collectors[ $key ] = $file;
+		}
+
+		foreach ( apply_filters( 'qm/built-in-collectors', $collectors ) as $file ) {
 			include $file;
 		}
 

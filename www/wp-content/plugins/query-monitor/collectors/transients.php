@@ -1,18 +1,9 @@
 <?php
-/*
-Copyright 2009-2017 John Blackbourn
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-*/
+/**
+ * Transient storage collector.
+ *
+ * @package query-monitor
+ */
 
 class QM_Collector_Transients extends QM_Collector {
 
@@ -44,7 +35,7 @@ class QM_Collector_Transients extends QM_Collector {
 
 	public function setted_transient( $transient, $type, $value, $expiration ) {
 		$trace = new QM_Backtrace( array(
-			'ignore_items' => 1, # Ignore the action_setted_(site|blog)_transient method
+			'ignore_frames' => 1, # Ignore the action_setted_(site|blog)_transient method
 		) );
 		$this->data['trans'][] = array(
 			'transient'  => $transient,

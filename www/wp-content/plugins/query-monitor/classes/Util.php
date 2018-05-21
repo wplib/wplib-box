@@ -1,18 +1,9 @@
 <?php
-/*
-Copyright 2009-2017 John Blackbourn
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-*/
+/**
+ * General utilities class.
+ *
+ * @package query-monitor
+ */
 
 if ( ! class_exists( 'QM_Util' ) ) {
 class QM_Util {
@@ -83,6 +74,7 @@ class QM_Util {
 			self::$file_dirs['go-plugin']  = self::standard_dir( WPMU_PLUGIN_DIR . '/shared-plugins' );
 			self::$file_dirs['mu-plugin']  = self::standard_dir( WPMU_PLUGIN_DIR );
 			self::$file_dirs['vip-plugin'] = self::standard_dir( get_theme_root() . '/vip/plugins' );
+			self::$file_dirs['theme']      = null;
 			self::$file_dirs['stylesheet'] = self::standard_dir( get_stylesheet_directory() );
 			self::$file_dirs['template']   = self::standard_dir( get_template_directory() );
 			self::$file_dirs['other']      = self::standard_dir( WP_CONTENT_DIR );
@@ -152,9 +144,11 @@ class QM_Util {
 				} else {
 					$name = __( 'Theme', 'query-monitor' );
 				}
+				$type = 'theme';
 				break;
 			case 'template':
 				$name = __( 'Parent Theme', 'query-monitor' );
+				$type = 'theme';
 				break;
 			case 'other':
 				// Anything else that's within the content directory should appear as

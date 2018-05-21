@@ -1,18 +1,9 @@
 <?php
-/*
-Copyright 2009-2017 John Blackbourn
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-*/
+/**
+ * User capability checks output for HTML pages.
+ *
+ * @package query-monitor
+ */
 
 class QM_Output_Html_Caps extends QM_Output_Html {
 
@@ -22,11 +13,30 @@ class QM_Output_Html_Caps extends QM_Output_Html {
 	}
 
 	public function output() {
+		if ( ! defined( 'QM_ENABLE_CAPS_PANEL' ) ) {
+			echo '<div class="qm qm-non-tabular" id="' . esc_attr( $this->collector->id() ) . '">';
+			echo '<div class="qm-boxed qm-boxed-wrap">';
+			echo '<div class="qm-section">';
+			echo '<h2>' . esc_html( $this->collector->name() ) . '</h2>';
+			echo '<p class="qm-warn">';
+			printf(
+				/* translators: %s: Configuration file name. */
+				esc_html__( 'For performance reasons, this panel is not enabled by default. To enable it, add the following code to your %s file:', 'query-monitor' ),
+				'<code>wp-config.php</code>'
+			);
+			echo '</p>';
+			echo "<p><code>define( 'QM_ENABLE_CAPS_PANEL', true );</code></p>";
+			echo '</div>';
+			echo '</div>';
+			echo '</div>';
+
+			return;
+		}
 
 		$data = $this->collector->get_data();
 
 		echo '<div class="qm" id="' . esc_attr( $this->collector->id() ) . '">';
-		echo '<table cellspacing="0">';
+		echo '<table>';
 
 		if ( ! empty( $data['caps'] ) ) {
 
@@ -40,21 +50,21 @@ class QM_Output_Html_Caps extends QM_Output_Html {
 
 			echo '<thead>';
 			echo '<tr>';
-			echo '<th scope="col">';
+			echo '<th scope="col" class="qm-filterable-column">';
 			echo $this->build_filter( 'name', $data['parts'], __( 'Capability Check', 'query-monitor' ) ); // WPCS: XSS ok;
 			echo '</th>';
 
 			if ( $show_user ) {
-				echo '<th scope="col">';
+				echo '<th scope="col" class="qm-filterable-column qm-num">';
 				echo $this->build_filter( 'user', $data['users'], __( 'User', 'query-monitor' ) ); // WPCS: XSS ok;
 				echo '</th>';
 			}
 
-			echo '<th scope="col">';
+			echo '<th scope="col" class="qm-filterable-column">';
 			echo $this->build_filter( 'result', $results, __( 'Result', 'query-monitor' ) ); // WPCS: XSS ok;
 			echo '</th>';
 			echo '<th scope="col">' . esc_html__( 'Caller', 'query-monitor' ) . '</th>';
-			echo '<th scope="col">';
+			echo '<th scope="col" class="qm-filterable-column">';
 			echo $this->build_filter( 'component', $data['components'], __( 'Component', 'query-monitor' ) ); // WPCS: XSS ok.
 			echo '</th>';
 			echo '</tr>';
@@ -95,7 +105,7 @@ class QM_Output_Html_Caps extends QM_Output_Html {
 				}
 
 				printf( // WPCS: XSS ok.
-					'<td class="qm-ltr qm-nowrap">%s</td>',
+					'<td class="qm-ltr qm-nowrap"><code>%s</code></td>',
 					$name
 				);
 
@@ -106,7 +116,7 @@ class QM_Output_Html_Caps extends QM_Output_Html {
 					);
 				}
 
-				$result = ( $row['result'] ) ? '<span class="qm-true">true&nbsp;&#x2713;</span>' : '<span class="qm-false">false</span>';
+				$result = ( $row['result'] ) ? '<span class="qm-true">true&nbsp;&#x2713;</span>' : 'false';
 				printf( // WPCS: XSS ok.
 					'<td class="qm-ltr qm-nowrap">%s</td>',
 					$result
@@ -143,7 +153,7 @@ class QM_Output_Html_Caps extends QM_Output_Html {
 				$caller = array_pop( $stack );
 
 				if ( ! empty( $stack ) ) {
-					echo $this->build_toggler(); // WPCS: XSS ok;
+					echo self::build_toggler(); // WPCS: XSS ok;
 					echo '<div class="qm-toggled"><li>' . implode( '</li><li>', $stack ) . '</li></div>'; // WPCS: XSS ok.
 				}
 
@@ -160,6 +170,23 @@ class QM_Output_Html_Caps extends QM_Output_Html {
 			}
 
 			echo '</tbody>';
+
+			echo '<tfoot>';
+
+			$colspan = ( $show_user ) ? 5 : 4;
+
+			echo '<tr>';
+			printf(
+				'<td colspan="%1$d">%2$s</td>',
+				esc_attr( $colspan ),
+				esc_html( sprintf(
+					/* translators: %s: Number of user capability checks */
+					__( 'Total Checks: %s', 'query-monitor' ),
+					number_format_i18n( count( $data['caps'] ) )
+				) )
+			);
+			echo '</tr>';
+			echo '</tfoot>';
 
 		} else {
 

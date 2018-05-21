@@ -1,18 +1,9 @@
 <?php
-/*
-Copyright 2009-2017 John Blackbourn
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-*/
+/**
+ * Abstract dispatcher.
+ *
+ * @package query-monitor
+ */
 
 if ( ! class_exists( 'QM_Dispatcher' ) ) {
 abstract class QM_Dispatcher {
@@ -49,21 +40,12 @@ abstract class QM_Dispatcher {
 	}
 
 	public function get_outputters( $outputter_id ) {
-
-		$out = array();
-
 		$collectors = QM_Collectors::init();
 		$collectors->process();
 
 		$this->outputters = apply_filters( "qm/outputter/{$outputter_id}", array(), $collectors );
 
-		/* @var QM_Output[] */
-		foreach ( $this->outputters as $id => $outputter ) {
-			$out[ $id ] = $outputter;
-		}
-
-		return $out;
-
+		return $this->outputters;
 	}
 
 	public function init() {

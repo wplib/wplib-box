@@ -1,18 +1,9 @@
 <?php
-/*
-Copyright 2009-2015 John Blackbourn
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-*/
+/**
+ * Duplicate database query output for HTML pages.
+ *
+ * @package query-monitor
+ */
 
 class QM_Output_Html_DB_Dupes extends QM_Output_Html {
 
@@ -29,10 +20,8 @@ class QM_Output_Html_DB_Dupes extends QM_Output_Html {
 			return;
 		}
 
-		$colspan = empty( $data['dupe_components'] ) ? 4 : 5;
-
 		echo '<div class="qm" id="' . esc_attr( $this->collector->id() ) . '">';
-		echo '<table cellspacing="0">';
+		echo '<table>';
 		echo '<caption>' . esc_html( $this->collector->name() ) . '</caption>';
 		echo '<thead>';
 
@@ -73,7 +62,7 @@ class QM_Output_Html_DB_Dupes extends QM_Output_Html {
 			echo '<td class="qm-row-caller qm-nowrap qm-ltr">';
 			foreach ( $data['dupe_callers'][ $sql ] as $caller => $calls ) {
 				printf(
-					'<a href="#" class="qm-filter-trigger" data-qm-target="db_queries-wpdb" data-qm-filter="caller" data-qm-value="%s">%s</a><br><span class="qm-info qm-supplemental">%s</span><br>',
+					'<a href="#" class="qm-filter-trigger" data-qm-target="db_queries-wpdb" data-qm-filter="caller" data-qm-value="%s"><code>%s</code></a><br><span class="qm-info qm-supplemental">%s</span><br>',
 					esc_attr( $caller ),
 					esc_html( $caller ),
 					esc_html( sprintf(
@@ -100,7 +89,7 @@ class QM_Output_Html_DB_Dupes extends QM_Output_Html {
 			echo '<td class="qm-row-caller qm-nowrap qm-ltr">';
 			foreach ( $data['dupe_sources'][ $sql ] as $source => $calls ) {
 				printf(
-					'%s<br><span class="qm-info qm-supplemental">%s</span><br>',
+					'<code>%s</code><br><span class="qm-info qm-supplemental">%s</span><br>',
 					esc_html( $source ),
 					esc_html( sprintf(
 						translate_nooped_plural( $call_text, $calls, 'query-monitor' ),

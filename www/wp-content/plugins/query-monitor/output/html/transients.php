@@ -1,18 +1,9 @@
 <?php
-/*
-Copyright 2009-2017 John Blackbourn
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-*/
+/**
+ * Transient storage output for HTML pages.
+ *
+ * @package query-monitor
+ */
 
 class QM_Output_Html_Transients extends QM_Output_Html {
 
@@ -26,10 +17,10 @@ class QM_Output_Html_Transients extends QM_Output_Html {
 		$data = $this->collector->get_data();
 
 		echo '<div class="qm" id="' . esc_attr( $this->collector->id() ) . '">';
-		echo '<table cellspacing="0">';
 
 		if ( ! empty( $data['trans'] ) ) {
 
+			echo '<table>';
 			echo '<caption class="screen-reader-text">' . esc_html__( 'Transient Updates', 'query-monitor' ) . '</caption>';
 
 			echo '<thead>';
@@ -57,7 +48,7 @@ class QM_Output_Html_Transients extends QM_Output_Html {
 
 				echo '<tr>';
 				printf(
-					'<td class="qm-ltr">%s</td>',
+					'<td class="qm-ltr"><code>%s</code></td>',
 					esc_html( $transient )
 				);
 				if ( is_multisite() ) {
@@ -98,7 +89,7 @@ class QM_Output_Html_Transients extends QM_Output_Html {
 				$caller = array_pop( $stack );
 
 				if ( ! empty( $stack ) ) {
-					echo $this->build_toggler(); // WPCS: XSS ok;
+					echo self::build_toggler(); // WPCS: XSS ok;
 					echo '<div class="qm-toggled"><li>' . implode( '</li><li>', $stack ) . '</li></div>'; // WPCS: XSS ok.
 				}
 
@@ -115,24 +106,16 @@ class QM_Output_Html_Transients extends QM_Output_Html {
 			}
 
 			echo '</tbody>';
+			echo '</table>';
 
 		} else {
 
-			echo '<thead>';
-			echo '<tr>';
-			echo '<th>' . esc_html__( 'Transient Updates', 'query-monitor' ) . '</th>';
-			echo '</tr>';
-			echo '</thead>';
-
-			echo '<tbody>';
-			echo '<tr>';
-			echo '<td style="text-align:center !important"><em>' . esc_html__( 'none', 'query-monitor' ) . '</em></td>';
-			echo '</tr>';
-			echo '</tbody>';
+			echo '<div class="qm-none">';
+			echo '<p>' . esc_html__( 'None', 'query-monitor' ) . '</p>';
+			echo '</div>';
 
 		}
 
-		echo '</table>';
 		echo '</div>';
 
 	}
