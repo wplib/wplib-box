@@ -391,7 +391,7 @@ system "vagrant plugin install vagrant-hostsupdater" \
 Vagrant.configure(2) do |config|
 
     config.vm.box = "wplib/wplib"
-    config.vm.box_version = "0.16.1"
+    config.vm.box_version = "0.16.2"
 
     File.write('IP', "10.10.10.#{rand(10..250)}") if not File.exists?('IP')
     File.write('HOSTNAME', "wplib.box") if not File.exists?('HOSTNAME')
