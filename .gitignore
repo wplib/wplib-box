@@ -5,9 +5,6 @@
 /IP
 /.vagrant
 /.vscode
-/.wplib-box.git
-/.save.git
 /logs
 /scripts
-/www/*
-!/www/content/
+
