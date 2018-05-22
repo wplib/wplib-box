@@ -1,9 +1,10 @@
 # WPLib Box ChangeLog
 
 ## 0.16.2
+=======
 This release allowed us to catch up on some of the things we missed with `0.16.1`:
 
-+ Pending...
++ Details to be added soon.
 
 ## 0.16.1
 This release allowed us to catch up on some of the things we missed with `0.16.0`:

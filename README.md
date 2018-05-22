@@ -1,5 +1,5 @@
 ![Latest Stable Version](https://img.shields.io/badge/stable-0.16.0-blue.svg)
-![Latest Testing Version](https://img.shields.io/badge/testing-0.16.1-red.svg)
+![Latest Testing Version](https://img.shields.io/badge/testing-0.16.2-red.svg)
 [![License](https://poser.pugx.org/wplib/wplib-box/license)](https://packagist.org/packages/wplib/wplib-box)
 
 ![WPLib-Box](https://github.com/wplib/wplib.github.io/raw/master/WPLib-Box-100x.png)
@@ -28,10 +28,10 @@ But, multi-project version coming very soon...
 ## Links
  - [Quick Start](http://wplib.github.io/wplib-box/#quickstart)
  - [Full Documentation](http://wplib.github.io/wplib-box/)
- - [Interactive Help](https://wplib.slack.com) on [Slack](https://slackhq.com) <em>(Join [here](https://slackpass.io/wplib))</em>
+ - [Hands-on Help](https://wplib.slack.com) via [Slack](https://slackhq.com) <em>(Join [here](https://launchpass.com/wplib))</em>
 
 ### A note about the `master` branch
-The `master` branch currently contains the contents of `0.16.1` branch as of 12 May 2018.    
+The `master` branch currently contains the contents of `0.16.2` branch as of 22 May 2018.    
 
 
 ## Troubleshooting, Questions and Feedback/Bug Reports
