@@ -1,5 +1,5 @@
-![Latest Stable Version](https://img.shields.io/badge/stable-0.16.0-blue.svg)
-![Latest Testing Version](https://img.shields.io/badge/testing-0.16.2-red.svg)
+![Latest Stable Version](https://img.shields.io/badge/stable-0.16.2-blue.svg)
+![Latest Testing Version](https://img.shields.io/badge/testing-0.17.0-red.svg)
 [![License](https://poser.pugx.org/wplib/wplib-box/license)](https://packagist.org/packages/wplib/wplib-box)
 
 ![WPLib-Box](https://github.com/wplib/wplib.github.io/raw/master/WPLib-Box-100x.png)
