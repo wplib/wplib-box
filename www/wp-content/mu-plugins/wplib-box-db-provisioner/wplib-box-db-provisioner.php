@@ -18,7 +18,7 @@ class WPLib_Box_DB_Provisioner {
 		static $provisioned_filepath;
 
 		if ( ! isset( $provisioned_filepath ) ) {
-			$provisioned_filepath = __DIR__ . '/' . self::PROVISION_FILENAME;
+			$provisioned_filepath = dirname( __FILE__ ) . '/' . self::PROVISION_FILENAME;
 		}
 
 		do {

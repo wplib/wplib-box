@@ -2,7 +2,7 @@
   "services" : {
     "database": "wplib/mysql:5.5.60",
     "webserver": "wplib/nginx:1.13.12",
-    "processvm": "wplib/php-fpm:7.1.16",
+    "processvm": "wplib/php:5.2.4",
     "kvstore": "wplib/redis:4.0.9"
   }
 }

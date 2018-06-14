@@ -23,19 +23,19 @@ define( 'WPLIB_BOX_LOCAL_CONFIG', '/wp-config-' . WPLIB_BOX_HOST . '.php' );
  * Search for a wp-config-{HTTP_HOST}.php in current
  * and parent directories for config overrides
  */
-if ( file_exists( __DIR__ . WPLIB_BOX_LOCAL_CONFIG ) ) {
-	require( __DIR__ . WPLIB_BOX_LOCAL_CONFIG );
-} else if ( file_exists( dirname( __DIR__ ) . WPLIB_BOX_LOCAL_CONFIG ) ) {
-	require( dirname( __DIR__ ) . WPLIB_BOX_LOCAL_CONFIG );
+if ( file_exists( dirname( __FILE__ ) . WPLIB_BOX_LOCAL_CONFIG ) ) {
+	require( dirname( __FILE__ ) . WPLIB_BOX_LOCAL_CONFIG );
+} else if ( file_exists( dirname( dirname( __FILE__ ) ) . WPLIB_BOX_LOCAL_CONFIG ) ) {
+	require( dirname( dirname( __FILE__ ) ) . WPLIB_BOX_LOCAL_CONFIG );
 }
 
 if ( ! defined( 'WPLIB_BOX_DIRECTORY_LAYOUT' ) ) {
-	if ( is_dir( __DIR__ . '/wp-includes' ) ) {
+	if ( is_dir( dirname( __FILE__ ) . '/wp-includes' ) ) {
 		define( 'WPLIB_BOX_DIRECTORY_LAYOUT', 'standard' );
-	} else if ( is_dir( __DIR__ . '/wp/wp-includes' ) ) {
+	} else if ( is_dir( dirname( __FILE__ ) . '/wp/wp-includes' ) ) {
 		define( 'WPLIB_BOX_DIRECTORY_LAYOUT', 'skeleton' );
 	} else {
-		trigger_error( 'WordPress includes directory not found (expected at ' . __DIR__ . '/wp-includes/)' );
+		trigger_error( 'WordPress includes directory not found (expected at ' . dirname( __FILE__ ) . '/wp-includes/)' );
 		exit;
 	}
 }
@@ -55,7 +55,7 @@ if ( 'standard' === WPLIB_BOX_DIRECTORY_LAYOUT ) {
 
 } else if ( 'skeleton' === WPLIB_BOX_DIRECTORY_LAYOUT ) {
 	define( 'WP_SITEURL', WPLIB_BOX_URL_SCHEME . '://' . SITE_DOMAIN . '/wp' );
-	define( 'WP_CONTENT_DIR', __DIR__ . '/content' );
+	define( 'WP_CONTENT_DIR', dirname( __FILE__ ) . '/content' );
 	define( 'WP_CONTENT_URL', WPLIB_BOX_URL_SCHEME . '://' . SITE_DOMAIN . '/content' );
 }
 
@@ -102,8 +102,8 @@ if ( ! isset( $table_prefix ) ) {
 /**
  * https://api.wordpress.org/secret-key/1.1/salt/
  */
-if ( file_exists( __DIR__ . '/salt-' . WPLIB_BOX_HOST . '.php' ) ) {
-	require( __DIR__ . '/salt-' . WPLIB_BOX_HOST . '.php' );
+if ( file_exists( dirname( __FILE__ ) . '/salt-' . WPLIB_BOX_HOST . '.php' ) ) {
+	require( dirname( __FILE__ ) . '/salt-' . WPLIB_BOX_HOST . '.php' );
 } else {
 	define('AUTH_KEY',         'Insecure' );
 	define('SECURE_AUTH_KEY',  'Insecure' );

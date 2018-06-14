@@ -4,7 +4,7 @@
  *
  * @example:
  *
- *      require __DIR__ . '/foo-bar/foo-bar.php';
+ *      require dirname( __FILE__ ) . '/foo-bar/foo-bar.php';
  */
 
 /**
@@ -13,4 +13,4 @@
  * instructive to review for who to create a similar configuration
  * for WordPress sites you want to be configured upon first load.
  */
-require __DIR__ . '/wplib-box-db-provisioner/wplib-box-db-provisioner.php';
+require dirname( __FILE__ ) . '/wplib-box-db-provisioner/wplib-box-db-provisioner.php';
