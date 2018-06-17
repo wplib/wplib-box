@@ -1,0 +1,5 @@
+site_name: 'WPLib Box Docs'
+docs_dir: 'mkdocs'
+site_dir: 'www/docs'
+theme:
+    name: 'material'

@@ -1,0 +1,694 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "WPLib Box\n\n\nThe EASIEST way to get a local WordPress development environment\n, using Vagrant.\n\n\n\n\nWe are slowly moving our documentation \nto the wiki\n here on GitHub.  The wiki contains information not found here, while this document still contains lost of information not found on the wiki.\n\n\n\n\nCLICK HERE\n for \nquick help\n via \nwplib.slack.com# box\n.\n\n\nCLICK HERE\n for \ntroubleshooting\n and other \nFAQs\n.\n\n\n\n\n\n\nWhy Use WPLib Box?\n\n\nServices & Software Included\n\n\nRequired Hardware\n\n\nRequired Software\n\n\nQuickstart\n\n\nSetting the Domain Name\n\n\nChanging the Local IP Address\n\n\nDefault PHP Version\n\n\nSwitching PHP Versions\n\n\nLogging into the WordPress Admin\n\n\nThe WordPress Database Credentials\n\n\nThe MySQL Credentials\n\n\nConnecting to MySQL in Terminal\n\n\nThe SSH Credentials\n\n\nLogging into SSH as root\n\n\nDebugging PHP with XDEBUG and PhpStorm\n\n\nInternet Sharing\n\n\nTroubleshooting\n\n\nHow are we the Best?\n\n\n3rd Party WPLib Box Projects\n\n\nStatus of Issues\n\n\nFuture Plans\n\n\n\n\n\n\n\n\nWhy Use WPLib Box?\n\n\nWhy Use WPLib Box for WordPress local development instead of one of the other Vagrant boxes for WordPress such as \nVVV\n, \nVIP QuickStart\n, \nTrellis\n or \none of the others\n?\n\n\nOur \nGOAL\n is to be:\n\n\n\n\nThe \nEasiest Box to Get Working Initially\n, \n\n\nThe \nFastest Box to\n \nvagrant up\n\n\nThe \nLeast Problematic Box in Day-to-Day Usage\n; especially when re-provisioning, which you rarely need to do with WPLib Box.\n\n\n\n\nAnd one more goal we achieved is that our box supports \nPhpStorm+XDEBUG debugging\n with the least effort required on your part.\n\n\nWe think that once you try WPLib Box you will agree that we have succeeded.  Want to know \nhow\n we did it?\n\n\n\n\nServices & Software Included\n\n\n\n\n\n\n\n\nService/Software\n\n\nVersion\n\n\n\n\n\n\n\n\n\n\nPHP/PHP-FPM\n\n\n7.1.4, 7.0.16, & 5.6.30\n\n\n\n\n\n\nMySQL\n\n\n5.7.17\n\n\n\n\n\n\nMariaDB\n\n\n10.1.22\n\n\n\n\n\n\nNginx\n\n\n1.11.0\n\n\n\n\n\n\nApache\n\n\n2.4.25\n\n\n\n\n\n\nXDEBUG\n\n\n2.5.0\n\n\n\n\n\n\nRedis\n\n\n3.0.7\n\n\n\n\n\n\nMemcached\n\n\n1.4.36\n\n\n\n\n\n\nWP CLI\n\n\n1.1.0\n\n\n\n\n\n\nNodejs\n\n\n7.8.0\n\n\n\n\n\n\nlocaltunnel.me\n\n\n\n\n\n\n\n\n\n\nSupported Host/Development Computers\n\n\nThis box was developed using Mac OS/X and tested using Linux and Windows with \ngit-bash\n. Thus we believe it currently works with:\n\n\n\n\n\n\n\n\nO/S\n\n\nNotes\n\n\n\n\n\n\n\n\n\n\nMac OS X\n\n\nLatest 3 releases of OS X, at least\n\n\n\n\n\n\nLinux\n\n\nMost (all?) distros of Linux\n\n\n\n\n\n\nWindows 7 thru 10\n\n\nWith PowerShell or \ngit-bash\n\n\n\n\n\n\n\n\nWe assume this will work on all these platforms but we have not tested it thoroughly yet so we welcome your bug reports if you have issues with it.\n\n\n\n\nRequired Hardware\n\n\nSince WPLib Box is distributed as a virtual machine image of a 64-bit distribution of Ubuntu Linux, a 64-bit Intel or AMD CPU is required, along with support for either Intel or AMD virtualization technologies: VT-x or AMD-v. You will need to enable VT-x/AMD-v in the host PC BIOS.\n\n\n\n\nRequired Software\n\n\n\n\n\n\nFor Mac & Linux Users\n\n\nTo run WPLib Box requires the following software be installed:\n\n\n\n\nInstall \nVirtualBox\n\n\nInstall \nVagrant\n\n\n(\nVagrant Hosts Updater\n is also required but WPLib Box will automatically install it.)\n\n\n\n\n\n\nFor Windows Users\n\n\n\n\nInstall everything from the Mac & Linux Users list above\n\n\nEnsure that no other VM platform is running (either VMware or Hyper-V) as they will prevent VirtualBox from operating.\n\n\nInstall \nGit\n version 2 or greater \nOR\n download the \n.ZIP\n file and unzip instead.\n\n\n\n\n\n\nQuickstart\n\n\nAfter making sure you have the necessary software, run the following commands \n\n\nFor Mac or Linux users:\n\n\n# cd ~/Sites, or cd into whichever directory you store your website projects in\ncd ~/Sites                \ngit clone https://github.com/wplib/wplib-box.git\ncd wplib-box\nvagrant up\nopen \"http://wplib.box\"\n\n\n\nFor Windows users:\n\n\n# cd into whichever directory you store your website projects in. \n# For example, your user profile: C:\\Users\\{current user}\\Sites\nc:\ncd %userprofile%\\Sites  \n#\n# You can run the next command, or just download from the web and unzip into the wplib-box directory\n#\ngit clone https://github.com/wplib/wplib-box.git\ncd wplib-box\nvagrant up\nexplorer \"http://wplib.box\"\n\n\n\nAfter this you should have a running WPLib Box via Vagrant and VirtualBox and a website loaded at the local \nwplib.box\n domain.\n\n\n\n\nSetting the Domain Name\n\n\nTo use WPLib Box for a local domain name other than \nwplib.box\n edit the \nHOSTNAME\n file  \n(with no extension)\n\nand replace the text \n\"wplib.box\"\n with your preferred local domain name \n(we recommend \n\"your-production-2nd-level-domain.dev\"\n e.g. if \ngoogle.com\n then use \ngoogle.dev\n):\n\n\nIn other words, change the \nentire contents\n of the \nHOSTNAME\n file from this:\n\n\nwplib.box\n\n\n\nTo \n(something like)\n this:\n\n\nexample.dev\n\n\n\nSave the changes to \nHOSTNAME\n and then run the following commands to reload the Vagrant configuration, and then open in your browser. \n(Be sure you replaced the domain name in the 2nd command with your own local domain name):\n\n\nvagrant reload\nopen \"http://example.dev\"\n\n\n\n\n\nChanging the Local IP Address\n\n\nThe default local IP address used by this box is \n10.10.10.{octet}\n where \n{octet}\n is a number between 10 to 250.\n\n\nIf you need to change that for any reason simply \nedit the file named just \nIP\n \n(with no extension)\n found in the project root. It is created during \nvagrant up\n and a random \n{octet}\n is generated. Just edit this file and change the IP address it contains.\n\n\n\n\nDefault PHP Version\n\n\nThe default version for the box is \n7.0.x\n.  Instructions to \nswitch to PHP 5.6 or 7.1\n are on our FAQ.\n\n\n\n\nSwitching PHP Versions\n\n\nThe box has both PHP-FPM 5.6, 7.0, and 7.1. Instructions on how to select which version to use can be found in the \nFAQ\n.\n\n\n\n\nLogging into the WordPress Admin\n\n\nTo login to \nwplib.box/wp-admin/\n use the following credentials:\n\n\n\n\n\n\n\n\nCredential\n\n\nValue\n\n\n\n\n\n\n\n\n\n\nUsername:\n\n\nadmin\n\n\n\n\n\n\nPassword:\n\n\npassword\n\n\n\n\n\n\n\n\nWe will probably change to using different username and password in the future.\n\n\n\n\nThe WordPress Database Credentials\n\n\nIf you want to access the database using a tool such as Sequel Pro the MySQL database name, username and password are all \nwordpress\n.\n\n\nIn other words:\n\n\ndefine( 'DB_NAME', 'wordpress' );\ndefine( 'DB_USER', 'wordpress' );\ndefine( 'DB_PASSWORD', 'wordpress' );\n\n\n\nWe may change to using different MySQL credentials in the future.\n\n\n\n\nThe MySQL Credentials\n\n\nHere are the credentials you can use for accessing the MySQL database using a GUI such as Sequel Pro, Navicat, et al:\n\n\n\n\n\n\n\n\nCredential\n\n\nValue\n\n\n\n\n\n\n\n\n\n\nHost Name\n\n\nwplib.box\n \n(or \nexample.dev\n)\n\n\n\n\n\n\nPort\n\n\n3306\n\n\n\n\n\n\nUsername\n\n\nwordpress\n\n\n\n\n\n\nPassword\n\n\nwordpress\n\n\n\n\n\n\n\n\n\n\nConnecting to MySQL in Terminal\n\n\nThe MySQL server listens on all interfaces on port 3306. If you have the MySQL command-line client installed on your host machine, you can simply \nmysql --host wplib.box -u wordpress -pwordpress\n (assuming you are using the \nwplib.box\n hostname).\n\n\n\n\nThe SSH Credentials\n\n\nHere are the credentials you can use for the SSH tunnel:\n\n\n\n\n\n\n\n\nCredential\n\n\nValue\n\n\n\n\n\n\n\n\n\n\nHost Name\n\n\nwplib.box\n \n(or\nexample.dev\n)\n\n\n\n\n\n\nPort\n\n\n22\n\n\n\n\n\n\nAuthentication Method\n\n\nPassword\n\n\n\n\n\n\nUsername\n\n\nvagrant\n\n\n\n\n\n\nPassword\n\n\nvagrant\n\n\n\n\n\n\n\n\n\n\nLogging into SSH as root\n\n\nThere is no \nroot\n user \nper-se\n in WPLib Box, only the \nvagrant\n user. You have to use either \nsudo\n for one-off commands, or you can \nuse the following command to switch to root\n:\n\n\nsudo -s\n\n\n\n\n\nDebugging PHP with XDEBUG and PhpStorm\n\n\nSee instructions \nhere\n.\n\n\n\n\nInternet Sharing\n\n\nInternet sharing is implemented with \nlocaltunnel.me\n, which is pre-installed in the box image.\n\n\n\n\nTroubleshooting\n\n\nIf you are having trouble with WPLib Box please check out our Troubleshooting section of our \nFAQ\n and/or you can also \nreach out to our support team\n for \nquick help\n on Slack and via other channels. \n\n\n\n\nHow are we the Best?\n\n\nHow have we been able to make \nWPLib Box\n the:\n\n\n\n\nEasiest\n, \n\n\nFastest\n and \n\n\nLeast Problematic\n Vagrant box for local WordPress development\n\n\nPlus \nNo-Fuss PhpStorm+XDEBUG Debugging\n?\n\n\n\n\nBecause \nwe took the blinders off\n.  We ignored the lead of everyone else who has created a Vagrant box for WordPress development and we rethought how a Vagrant box should be designed, using a blank canvas.  \n\n\nInstead of starting with a standard Linux distribution image as a base box \u2014 such as \nprovided by Ubuntu\n \u2014 and then using Puppet, Chef or Ansible to provision the box \non your computer while running inside\n of your \nVagrantfile\n \nwe provision and test the box IN ADVANCE\n.  \n\n\nOur \nProvision-in-Advance\n approach practically eliminates all the hair-pulling and infuriatingly unproductive time you frequently have to spend to solve an obscure provisioning issue in a script that you did not develop and thus know almost nothing about when you use one of the other boxes for local WordPress development. WPLib Box bypasses all those headaches for you and saves you tons of time!\n\n\nWhat this means for you is that the only thing your \nVagrantfile\n must do is: \n\n\n\n\nSpecify \nour base box\n, \n\n\nSet your local domain name and local IP address, \n\n\nMount your source code directory into the VM, and  \n\n\nExtract WordPress core files from a ZIP file \n(but we only run this step on (re-)provisioning.)\n \n\n\n\n\nBadda-bing, badda-bang; as Steve Jobs would say: \nIt Just Works!\n\n\nGive it a try and see if you don't agree.\n\n\n\n\n3rd Party WPLib Box Projects\n\n\n\n\nWPLib Box Maker\n from \nArtOfWP\n: \nGenerates a custom WPLib Box setup using \nYeoman\n.\n\n\n\n\n\n\nStatus of Issues\n\n\nWe are using Waffle.io to help us manage our GitHub issue queue:\n\n\n\n\n\n\n\n\nFuture Plans\n\n\nWe have many plans for the WPLib platform.  This is just a start.  Watch this repo to keep up to date.",
+            "title": "WPLib Box"
+        },
+        {
+            "location": "/#wplib-box",
+            "text": "The EASIEST way to get a local WordPress development environment , using Vagrant.   We are slowly moving our documentation  to the wiki  here on GitHub.  The wiki contains information not found here, while this document still contains lost of information not found on the wiki.",
+            "title": "WPLib Box"
+        },
+        {
+            "location": "/#click-here-for-quick-help-via-wplibslackcom-box",
+            "text": "",
+            "title": "CLICK HERE for quick help via wplib.slack.com# box."
+        },
+        {
+            "location": "/#click-here-for-troubleshooting-and-other-faqs",
+            "text": "Why Use WPLib Box?  Services & Software Included  Required Hardware  Required Software  Quickstart  Setting the Domain Name  Changing the Local IP Address  Default PHP Version  Switching PHP Versions  Logging into the WordPress Admin  The WordPress Database Credentials  The MySQL Credentials  Connecting to MySQL in Terminal  The SSH Credentials  Logging into SSH as root  Debugging PHP with XDEBUG and PhpStorm  Internet Sharing  Troubleshooting  How are we the Best?  3rd Party WPLib Box Projects  Status of Issues  Future Plans",
+            "title": "CLICK HERE for troubleshooting and other FAQs."
+        },
+        {
+            "location": "/#why-use-wplib-box",
+            "text": "Why Use WPLib Box for WordPress local development instead of one of the other Vagrant boxes for WordPress such as  VVV ,  VIP QuickStart ,  Trellis  or  one of the others ?  Our  GOAL  is to be:   The  Easiest Box to Get Working Initially ,   The  Fastest Box to   vagrant up  The  Least Problematic Box in Day-to-Day Usage ; especially when re-provisioning, which you rarely need to do with WPLib Box.   And one more goal we achieved is that our box supports  PhpStorm+XDEBUG debugging  with the least effort required on your part.  We think that once you try WPLib Box you will agree that we have succeeded.  Want to know  how  we did it?",
+            "title": "Why Use WPLib Box?"
+        },
+        {
+            "location": "/#services-software-included",
+            "text": "Service/Software  Version      PHP/PHP-FPM  7.1.4, 7.0.16, & 5.6.30    MySQL  5.7.17    MariaDB  10.1.22    Nginx  1.11.0    Apache  2.4.25    XDEBUG  2.5.0    Redis  3.0.7    Memcached  1.4.36    WP CLI  1.1.0    Nodejs  7.8.0    localtunnel.me",
+            "title": "Services &amp; Software Included"
+        },
+        {
+            "location": "/#supported-hostdevelopment-computers",
+            "text": "This box was developed using Mac OS/X and tested using Linux and Windows with  git-bash . Thus we believe it currently works with:     O/S  Notes      Mac OS X  Latest 3 releases of OS X, at least    Linux  Most (all?) distros of Linux    Windows 7 thru 10  With PowerShell or  git-bash     We assume this will work on all these platforms but we have not tested it thoroughly yet so we welcome your bug reports if you have issues with it.",
+            "title": "Supported Host/Development Computers"
+        },
+        {
+            "location": "/#required-hardware",
+            "text": "Since WPLib Box is distributed as a virtual machine image of a 64-bit distribution of Ubuntu Linux, a 64-bit Intel or AMD CPU is required, along with support for either Intel or AMD virtualization technologies: VT-x or AMD-v. You will need to enable VT-x/AMD-v in the host PC BIOS.",
+            "title": "Required Hardware"
+        },
+        {
+            "location": "/#required-software",
+            "text": "",
+            "title": "Required Software"
+        },
+        {
+            "location": "/#for-mac-linux-users",
+            "text": "To run WPLib Box requires the following software be installed:   Install  VirtualBox  Install  Vagrant  ( Vagrant Hosts Updater  is also required but WPLib Box will automatically install it.)",
+            "title": "For Mac &amp; Linux Users"
+        },
+        {
+            "location": "/#for-windows-users",
+            "text": "Install everything from the Mac & Linux Users list above  Ensure that no other VM platform is running (either VMware or Hyper-V) as they will prevent VirtualBox from operating.  Install  Git  version 2 or greater  OR  download the  .ZIP  file and unzip instead.",
+            "title": "For Windows Users"
+        },
+        {
+            "location": "/#quickstart",
+            "text": "After making sure you have the necessary software, run the following commands",
+            "title": "Quickstart"
+        },
+        {
+            "location": "/#for-mac-or-linux-users",
+            "text": "# cd ~/Sites, or cd into whichever directory you store your website projects in\ncd ~/Sites                \ngit clone https://github.com/wplib/wplib-box.git\ncd wplib-box\nvagrant up\nopen \"http://wplib.box\"",
+            "title": "For Mac or Linux users:"
+        },
+        {
+            "location": "/#for-windows-users_1",
+            "text": "# cd into whichever directory you store your website projects in. \n# For example, your user profile: C:\\Users\\{current user}\\Sites\nc:\ncd %userprofile%\\Sites  \n#\n# You can run the next command, or just download from the web and unzip into the wplib-box directory\n#\ngit clone https://github.com/wplib/wplib-box.git\ncd wplib-box\nvagrant up\nexplorer \"http://wplib.box\"  After this you should have a running WPLib Box via Vagrant and VirtualBox and a website loaded at the local  wplib.box  domain.",
+            "title": "For Windows users:"
+        },
+        {
+            "location": "/#setting-the-domain-name",
+            "text": "To use WPLib Box for a local domain name other than  wplib.box  edit the  HOSTNAME  file   (with no extension) \nand replace the text  \"wplib.box\"  with your preferred local domain name  (we recommend  \"your-production-2nd-level-domain.dev\"  e.g. if  google.com  then use  google.dev ):  In other words, change the  entire contents  of the  HOSTNAME  file from this:  wplib.box  To  (something like)  this:  example.dev  Save the changes to  HOSTNAME  and then run the following commands to reload the Vagrant configuration, and then open in your browser.  (Be sure you replaced the domain name in the 2nd command with your own local domain name):  vagrant reload\nopen \"http://example.dev\"",
+            "title": "Setting the Domain Name"
+        },
+        {
+            "location": "/#changing-the-local-ip-address",
+            "text": "The default local IP address used by this box is  10.10.10.{octet}  where  {octet}  is a number between 10 to 250.  If you need to change that for any reason simply  edit the file named just  IP   (with no extension)  found in the project root. It is created during  vagrant up  and a random  {octet}  is generated. Just edit this file and change the IP address it contains.",
+            "title": "Changing the Local IP Address"
+        },
+        {
+            "location": "/#default-php-version",
+            "text": "The default version for the box is  7.0.x .  Instructions to  switch to PHP 5.6 or 7.1  are on our FAQ.",
+            "title": "Default PHP Version"
+        },
+        {
+            "location": "/#switching-php-versions",
+            "text": "The box has both PHP-FPM 5.6, 7.0, and 7.1. Instructions on how to select which version to use can be found in the  FAQ .",
+            "title": "Switching PHP Versions"
+        },
+        {
+            "location": "/#logging-into-the-wordpress-admin",
+            "text": "To login to  wplib.box/wp-admin/  use the following credentials:     Credential  Value      Username:  admin    Password:  password     We will probably change to using different username and password in the future.",
+            "title": "Logging into the WordPress Admin"
+        },
+        {
+            "location": "/#the-wordpress-database-credentials",
+            "text": "If you want to access the database using a tool such as Sequel Pro the MySQL database name, username and password are all  wordpress .  In other words:  define( 'DB_NAME', 'wordpress' );\ndefine( 'DB_USER', 'wordpress' );\ndefine( 'DB_PASSWORD', 'wordpress' );  We may change to using different MySQL credentials in the future.",
+            "title": "The WordPress Database Credentials"
+        },
+        {
+            "location": "/#the-mysql-credentials",
+            "text": "Here are the credentials you can use for accessing the MySQL database using a GUI such as Sequel Pro, Navicat, et al:     Credential  Value      Host Name  wplib.box   (or  example.dev )    Port  3306    Username  wordpress    Password  wordpress",
+            "title": "The MySQL Credentials"
+        },
+        {
+            "location": "/#connecting-to-mysql-in-terminal",
+            "text": "The MySQL server listens on all interfaces on port 3306. If you have the MySQL command-line client installed on your host machine, you can simply  mysql --host wplib.box -u wordpress -pwordpress  (assuming you are using the  wplib.box  hostname).",
+            "title": "Connecting to MySQL in Terminal"
+        },
+        {
+            "location": "/#the-ssh-credentials",
+            "text": "Here are the credentials you can use for the SSH tunnel:     Credential  Value      Host Name  wplib.box   (or example.dev )    Port  22    Authentication Method  Password    Username  vagrant    Password  vagrant",
+            "title": "The SSH Credentials"
+        },
+        {
+            "location": "/#logging-into-ssh-as-root",
+            "text": "There is no  root  user  per-se  in WPLib Box, only the  vagrant  user. You have to use either  sudo  for one-off commands, or you can  use the following command to switch to root :  sudo -s",
+            "title": "Logging into SSH as root"
+        },
+        {
+            "location": "/#debugging-php-with-xdebug-and-phpstorm",
+            "text": "See instructions  here .",
+            "title": "Debugging PHP with XDEBUG and PhpStorm"
+        },
+        {
+            "location": "/#internet-sharing",
+            "text": "Internet sharing is implemented with  localtunnel.me , which is pre-installed in the box image.",
+            "title": "Internet Sharing"
+        },
+        {
+            "location": "/#troubleshooting",
+            "text": "If you are having trouble with WPLib Box please check out our Troubleshooting section of our  FAQ  and/or you can also  reach out to our support team  for  quick help  on Slack and via other channels.",
+            "title": "Troubleshooting"
+        },
+        {
+            "location": "/#how-are-we-the-best",
+            "text": "How have we been able to make  WPLib Box  the:   Easiest ,   Fastest  and   Least Problematic  Vagrant box for local WordPress development  Plus  No-Fuss PhpStorm+XDEBUG Debugging ?   Because  we took the blinders off .  We ignored the lead of everyone else who has created a Vagrant box for WordPress development and we rethought how a Vagrant box should be designed, using a blank canvas.    Instead of starting with a standard Linux distribution image as a base box \u2014 such as  provided by Ubuntu  \u2014 and then using Puppet, Chef or Ansible to provision the box  on your computer while running inside  of your  Vagrantfile   we provision and test the box IN ADVANCE .    Our  Provision-in-Advance  approach practically eliminates all the hair-pulling and infuriatingly unproductive time you frequently have to spend to solve an obscure provisioning issue in a script that you did not develop and thus know almost nothing about when you use one of the other boxes for local WordPress development. WPLib Box bypasses all those headaches for you and saves you tons of time!  What this means for you is that the only thing your  Vagrantfile  must do is:    Specify  our base box ,   Set your local domain name and local IP address,   Mount your source code directory into the VM, and    Extract WordPress core files from a ZIP file  (but we only run this step on (re-)provisioning.)     Badda-bing, badda-bang; as Steve Jobs would say:  It Just Works!  Give it a try and see if you don't agree.",
+            "title": "How are we the Best?"
+        },
+        {
+            "location": "/#3rd-party-wplib-box-projects",
+            "text": "WPLib Box Maker  from  ArtOfWP :  Generates a custom WPLib Box setup using  Yeoman .",
+            "title": "3rd Party WPLib Box Projects"
+        },
+        {
+            "location": "/#status-of-issues",
+            "text": "We are using Waffle.io to help us manage our GitHub issue queue:",
+            "title": "Status of Issues"
+        },
+        {
+            "location": "/#future-plans",
+            "text": "We have many plans for the WPLib platform.  This is just a start.  Watch this repo to keep up to date.",
+            "title": "Future Plans"
+        },
+        {
+            "location": "/index.mkdocs/",
+            "text": "Welcome to MkDocs\n\n\nFor full documentation visit \nmkdocs.org\n.\n\n\nCommands\n\n\n\n\nmkdocs new [dir-name]\n - Create a new project.\n\n\nmkdocs serve\n - Start the live-reloading docs server.\n\n\nmkdocs build\n - Build the documentation site.\n\n\nmkdocs help\n - Print this help message.\n\n\n\n\nProject layout\n\n\nmkdocs.yml    # The configuration file.\ndocs/\n    index.md  # The documentation homepage.\n    ...       # Other markdown pages, images and other files.",
+            "title": "Welcome to MkDocs"
+        },
+        {
+            "location": "/index.mkdocs/#welcome-to-mkdocs",
+            "text": "For full documentation visit  mkdocs.org .",
+            "title": "Welcome to MkDocs"
+        },
+        {
+            "location": "/index.mkdocs/#commands",
+            "text": "mkdocs new [dir-name]  - Create a new project.  mkdocs serve  - Start the live-reloading docs server.  mkdocs build  - Build the documentation site.  mkdocs help  - Print this help message.",
+            "title": "Commands"
+        },
+        {
+            "location": "/index.mkdocs/#project-layout",
+            "text": "mkdocs.yml    # The configuration file.\ndocs/\n    index.md  # The documentation homepage.\n    ...       # Other markdown pages, images and other files.",
+            "title": "Project layout"
+        },
+        {
+            "location": "/errors/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nError code repository for WPLib Box\n\n\nThis is the error code repository for \nWPLib-Box\n and contains hints and howtos to fix common issues.\nMore than likely you will be directed to one of the error code pages from \nWPLib-Box\n when you come across an error.\n\n\nError code structure\n\n\nWxxx\n - Errors specific to WPLib-Box.",
+            "title": "README"
+        },
+        {
+            "location": "/errors/README/#error-code-repository-for-wplib-box",
+            "text": "This is the error code repository for  WPLib-Box  and contains hints and howtos to fix common issues.\nMore than likely you will be directed to one of the error code pages from  WPLib-Box  when you come across an error.",
+            "title": "Error code repository for WPLib Box"
+        },
+        {
+            "location": "/errors/README/#error-code-structure",
+            "text": "Wxxx  - Errors specific to WPLib-Box.",
+            "title": "Error code structure"
+        },
+        {
+            "location": "/errors/W001/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW001 - /var/www directory not mounted\n\n\nCause\n\n\nIf you are seeing this, then the /var/www directory has not been mounted via VirtualBox or VMWare from the host PC.\n\n\nCommon fixes\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W001/README/#w001-varwww-directory-not-mounted",
+            "text": "",
+            "title": "W001 - /var/www directory not mounted"
+        },
+        {
+            "location": "/errors/W001/README/#cause",
+            "text": "If you are seeing this, then the /var/www directory has not been mounted via VirtualBox or VMWare from the host PC.",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W001/README/#common-fixes",
+            "text": "",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W001/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        },
+        {
+            "location": "/errors/W002/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW002 - \nnginx proxy Docker container\n not running.\n\n\nCause\n\n\nThe nginx proxy Docker container may have been shutdown for some reason or is not starting up properly.\n\n\nCommon fixes\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W002/README/#w002-nginx-proxy-docker-container-not-running",
+            "text": "",
+            "title": "W002 - nginx proxy Docker container not running."
+        },
+        {
+            "location": "/errors/W002/README/#cause",
+            "text": "The nginx proxy Docker container may have been shutdown for some reason or is not starting up properly.",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W002/README/#common-fixes",
+            "text": "",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W002/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        },
+        {
+            "location": "/errors/W003/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW003 - \nnginx Docker container\n not running.\n\n\nCause\n\n\nThe php-fpm Docker container may have been shutdown for some reason or is not starting up properly, or network connectivity is an issue.\n\n\nCommon fixes\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W003/README/#w003-nginx-docker-container-not-running",
+            "text": "",
+            "title": "W003 - nginx Docker container not running."
+        },
+        {
+            "location": "/errors/W003/README/#cause",
+            "text": "The php-fpm Docker container may have been shutdown for some reason or is not starting up properly, or network connectivity is an issue.",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W003/README/#common-fixes",
+            "text": "",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W003/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        },
+        {
+            "location": "/errors/W004/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW004 - \nphp-fpm Docker container\n not running.\n\n\nCause\n\n\nThe php-fpm Docker container may have been shutdown for some reason or is not starting up properly, or network connectivity is an issue.\n\n\nCommon fixes\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W004/README/#w004-php-fpm-docker-container-not-running",
+            "text": "",
+            "title": "W004 - php-fpm Docker container not running."
+        },
+        {
+            "location": "/errors/W004/README/#cause",
+            "text": "The php-fpm Docker container may have been shutdown for some reason or is not starting up properly, or network connectivity is an issue.",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W004/README/#common-fixes",
+            "text": "",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W004/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        },
+        {
+            "location": "/errors/W005/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW005 - \nadminer Docker container\n not running.\n\n\nCause\n\n\nThe adminer Docker container may have been shutdown for some reason or is not starting up properly, or network connectivity is an issue.\n\n\nCommon fixes\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W005/README/#w005-adminer-docker-container-not-running",
+            "text": "",
+            "title": "W005 - adminer Docker container not running."
+        },
+        {
+            "location": "/errors/W005/README/#cause",
+            "text": "The adminer Docker container may have been shutdown for some reason or is not starting up properly, or network connectivity is an issue.",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W005/README/#common-fixes",
+            "text": "",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W005/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        },
+        {
+            "location": "/errors/W006/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW006 - \nmailhog Docker container\n not running.\n\n\nCause\n\n\nThe mailhog Docker container may have been shutdown for some reason or is not starting up properly, or network connectivity is an issue.\n\n\nCommon fixes\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W006/README/#w006-mailhog-docker-container-not-running",
+            "text": "",
+            "title": "W006 - mailhog Docker container not running."
+        },
+        {
+            "location": "/errors/W006/README/#cause",
+            "text": "The mailhog Docker container may have been shutdown for some reason or is not starting up properly, or network connectivity is an issue.",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W006/README/#common-fixes",
+            "text": "",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W006/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        },
+        {
+            "location": "/errors/W007/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW007 - Warning project not supported.\n\n\nCause\n\n\nUsually a critical error returned from the \nbox\n command with any of the sub-commands \ninstall\n, \nls\n, \nstart\n, \nstop\n, \nrm\n, \nclean\n and \nrefresh\n.\nThe 'wplib' project definition was changed within the \ncontainer\n script.\n\n\nCommon fixes\n\n\nConsult WPLib-Box support.\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W007/README/#w007-warning-project-not-supported",
+            "text": "",
+            "title": "W007 - Warning project not supported."
+        },
+        {
+            "location": "/errors/W007/README/#cause",
+            "text": "Usually a critical error returned from the  box  command with any of the sub-commands  install ,  ls ,  start ,  stop ,  rm ,  clean  and  refresh .\nThe 'wplib' project definition was changed within the  container  script.",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W007/README/#common-fixes",
+            "text": "Consult WPLib-Box support.",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W007/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        },
+        {
+            "location": "/errors/W008/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW008 - Error no image provided.\n\n\nCause\n\n\nUsually an error returned from the \nbox\n command with any of the sub-commands \ninstall\n, \nstart\n, \nstop\n, \nrm\n, \nclean\n and \nrefresh\n.\n\n\nCommon fixes\n\n\nProvide a WPLib-Box container image to use.\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W008/README/#w008-error-no-image-provided",
+            "text": "",
+            "title": "W008 - Error no image provided."
+        },
+        {
+            "location": "/errors/W008/README/#cause",
+            "text": "Usually an error returned from the  box  command with any of the sub-commands  install ,  start ,  stop ,  rm ,  clean  and  refresh .",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W008/README/#common-fixes",
+            "text": "Provide a WPLib-Box container image to use.",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W008/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        },
+        {
+            "location": "/errors/W009/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW009 - Error image not found locally.\n\n\nCause\n\n\nUsually an error returned from the \nbox\n command with any of the sub-commands \ninstall\n, \nstart\n, \nstop\n, \nrm\n, \nclean\n and \nrefresh\n.\nThe specified container image hasn't been pulled from the WPLib-Box repository.\n\n\nCommon fixes\n\n\nRun a \nbox container create <image name>\n to download and install the container.\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W009/README/#w009-error-image-not-found-locally",
+            "text": "",
+            "title": "W009 - Error image not found locally."
+        },
+        {
+            "location": "/errors/W009/README/#cause",
+            "text": "Usually an error returned from the  box  command with any of the sub-commands  install ,  start ,  stop ,  rm ,  clean  and  refresh .\nThe specified container image hasn't been pulled from the WPLib-Box repository.",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W009/README/#common-fixes",
+            "text": "Run a  box container create <image name>  to download and install the container.",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W009/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        },
+        {
+            "location": "/errors/W010/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW010 - Error image doesn't conform to JSON config format in 0.16 or later.\n\n\nCause\n\n\nUsually an error returned from the \nbox\n command with any of the sub-commands \ninstall\n, \nstart\n, \nstop\n, \nrm\n, \nclean\n and \nrefresh\n.\nThe specified container image is not using the WPLib-Box JSON string that is present in all images from WPLib-Box version 0.16 and onwards.\n\n\nCommon fixes\n\n\nYou may have to upgrade to WPLib-Box 0.16 or later.\nAlternatively start the container manually.\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W010/README/#w010-error-image-doesnt-conform-to-json-config-format-in-016-or-later",
+            "text": "",
+            "title": "W010 - Error image doesn't conform to JSON config format in 0.16 or later."
+        },
+        {
+            "location": "/errors/W010/README/#cause",
+            "text": "Usually an error returned from the  box  command with any of the sub-commands  install ,  start ,  stop ,  rm ,  clean  and  refresh .\nThe specified container image is not using the WPLib-Box JSON string that is present in all images from WPLib-Box version 0.16 and onwards.",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W010/README/#common-fixes",
+            "text": "You may have to upgrade to WPLib-Box 0.16 or later.\nAlternatively start the container manually.",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W010/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        },
+        {
+            "location": "/errors/W011/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW011 - Error image does not exist in repository.\n\n\nCause\n\n\nUsually an error returned from the \nbox\n command with any of the sub-commands \ninstall\n, \nstart\n, \nstop\n, \nrm\n, \nclean\n and \nrefresh\n.\nThe specified container image does not exist in the WPLib-Box respository.\n\n\nCommon fixes\n\n\nCheck the name and version number exists on \nGitHub\n or \nDocker hub\n.\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W011/README/#w011-error-image-does-not-exist-in-repository",
+            "text": "",
+            "title": "W011 - Error image does not exist in repository."
+        },
+        {
+            "location": "/errors/W011/README/#cause",
+            "text": "Usually an error returned from the  box  command with any of the sub-commands  install ,  start ,  stop ,  rm ,  clean  and  refresh .\nThe specified container image does not exist in the WPLib-Box respository.",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W011/README/#common-fixes",
+            "text": "Check the name and version number exists on  GitHub  or  Docker hub .",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W011/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        },
+        {
+            "location": "/errors/W012/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW012 - Error container can't be removed.\n\n\nCause\n\n\nUsually an error returned from the \nbox\n command with any of the sub-commands \ninstall\n, \nstart\n, \nstop\n, \nrm\n, \nclean\n and \nrefresh\n.\nThe specified container cannot be removed. This is due to the container running.\n\n\nCommon fixes\n\n\nShutdown the container by issuing \nbox container stop <container name>\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W012/README/#w012-error-container-cant-be-removed",
+            "text": "",
+            "title": "W012 - Error container can't be removed."
+        },
+        {
+            "location": "/errors/W012/README/#cause",
+            "text": "Usually an error returned from the  box  command with any of the sub-commands  install ,  start ,  stop ,  rm ,  clean  and  refresh .\nThe specified container cannot be removed. This is due to the container running.",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W012/README/#common-fixes",
+            "text": "Shutdown the container by issuing  box container stop <container name>",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W012/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        },
+        {
+            "location": "/errors/W013/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW013 - Error container can't be installed.\n\n\nCause\n\n\nUsually an error returned from the \nbox\n command with any of the sub-commands \ninstall\n, \nstart\n, \nstop\n, \nrm\n, \nclean\n and \nrefresh\n.\nThe specified container image can't be installed. Due to anotehr container already existing.\n\n\nCommon fixes\n\n\nRemove the container with the same name.\n\nbox container rm <container name>\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W013/README/#w013-error-container-cant-be-installed",
+            "text": "",
+            "title": "W013 - Error container can't be installed."
+        },
+        {
+            "location": "/errors/W013/README/#cause",
+            "text": "Usually an error returned from the  box  command with any of the sub-commands  install ,  start ,  stop ,  rm ,  clean  and  refresh .\nThe specified container image can't be installed. Due to anotehr container already existing.",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W013/README/#common-fixes",
+            "text": "Remove the container with the same name. box container rm <container name>",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W013/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        },
+        {
+            "location": "/errors/W014/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW014 - Error container can't be started.\n\n\nCause\n\n\nUsually an error returned from the \nbox\n command with any of the sub-commands \ninstall\n, \nstart\n, \nstop\n, \nrm\n, \nclean\n and \nrefresh\n.\nThe specified container can't be started. Due to several reasons:\n\n The container doesn't exist.\n\n Another container is already listening on ports that are required by this container.\n\n\nCommon fixes\n\n\nCheck to make sure that the container exists - \ncontainer ls\n\nCheck to ensure no other container is listening on required ports - check the error message from the box command.\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W014/README/#w014-error-container-cant-be-started",
+            "text": "",
+            "title": "W014 - Error container can't be started."
+        },
+        {
+            "location": "/errors/W014/README/#cause",
+            "text": "Usually an error returned from the  box  command with any of the sub-commands  install ,  start ,  stop ,  rm ,  clean  and  refresh .\nThe specified container can't be started. Due to several reasons:  The container doesn't exist.  Another container is already listening on ports that are required by this container.",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W014/README/#common-fixes",
+            "text": "Check to make sure that the container exists -  container ls \nCheck to ensure no other container is listening on required ports - check the error message from the box command.",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W014/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        },
+        {
+            "location": "/errors/W015/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW015 - Error container can't be stopped.\n\n\nCause\n\n\nUsually an error returned from the \nbox\n command with any of the sub-commands \ninstall\n, \nstart\n, \nstop\n, \nrm\n, \nclean\n and \nrefresh\n.\nThe specified container can't be stopped. Due to various reasons.\n\n\nCommon fixes\n\n\nCheck the box command output for analysis.\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W015/README/#w015-error-container-cant-be-stopped",
+            "text": "",
+            "title": "W015 - Error container can't be stopped."
+        },
+        {
+            "location": "/errors/W015/README/#cause",
+            "text": "Usually an error returned from the  box  command with any of the sub-commands  install ,  start ,  stop ,  rm ,  clean  and  refresh .\nThe specified container can't be stopped. Due to various reasons.",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W015/README/#common-fixes",
+            "text": "Check the box command output for analysis.",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W015/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        },
+        {
+            "location": "/errors/W016/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW016 - Warning container already installed.\n\n\nCause\n\n\nUsually an error returned from the \nbox\n command with any of the sub-commands \ninstall\n, \nstart\n, \nstop\n, \nrm\n, \nclean\n and \nrefresh\n.\nThis is a warning. The container image is already installed and functioning.\n\n\nCommon fixes\n\n\nNo action needs to be taken.\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W016/README/#w016-warning-container-already-installed",
+            "text": "",
+            "title": "W016 - Warning container already installed."
+        },
+        {
+            "location": "/errors/W016/README/#cause",
+            "text": "Usually an error returned from the  box  command with any of the sub-commands  install ,  start ,  stop ,  rm ,  clean  and  refresh .\nThis is a warning. The container image is already installed and functioning.",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W016/README/#common-fixes",
+            "text": "No action needs to be taken.",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W016/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        },
+        {
+            "location": "/errors/W017/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW017 - Warning container already running.\n\n\nCause\n\n\nUsually an error returned from the \nbox\n command with any of the sub-commands \ninstall\n, \nstart\n, \nstop\n, \nrm\n, \nclean\n and \nrefresh\n.\nThis is a warning. The container image is already installed and running.\n\n\nCommon fixes\n\n\nNo action needs to be taken.\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W017/README/#w017-warning-container-already-running",
+            "text": "",
+            "title": "W017 - Warning container already running."
+        },
+        {
+            "location": "/errors/W017/README/#cause",
+            "text": "Usually an error returned from the  box  command with any of the sub-commands  install ,  start ,  stop ,  rm ,  clean  and  refresh .\nThis is a warning. The container image is already installed and running.",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W017/README/#common-fixes",
+            "text": "No action needs to be taken.",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W017/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        },
+        {
+            "location": "/errors/W018/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW018 - Warning container already stopped.\n\n\nCause\n\n\nUsually an error returned from the \nbox\n command with any of the sub-commands \ninstall\n, \nstart\n, \nstop\n, \nrm\n, \nclean\n and \nrefresh\n.\nThis is a warning. The container image is already installed and in a stopped state.\n\n\nCommon fixes\n\n\nNo action needs to be taken.\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W018/README/#w018-warning-container-already-stopped",
+            "text": "",
+            "title": "W018 - Warning container already stopped."
+        },
+        {
+            "location": "/errors/W018/README/#cause",
+            "text": "Usually an error returned from the  box  command with any of the sub-commands  install ,  start ,  stop ,  rm ,  clean  and  refresh .\nThis is a warning. The container image is already installed and in a stopped state.",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W018/README/#common-fixes",
+            "text": "No action needs to be taken.",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W018/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        },
+        {
+            "location": "/errors/W019/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW019 - Error not all containers could be stopped.\n\n\nCause\n\n\nUsually an error returned from the \nbox\n command with the sub-command \nshutdown\n.\nThere was an error in shutting down one of the containers.\n\n\nCommon fixes\n\n\nCheck the output of the box command for further analysis.\nIssue a \nbox ls\n to see what containers could not be stopped.\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W019/README/#w019-error-not-all-containers-could-be-stopped",
+            "text": "",
+            "title": "W019 - Error not all containers could be stopped."
+        },
+        {
+            "location": "/errors/W019/README/#cause",
+            "text": "Usually an error returned from the  box  command with the sub-command  shutdown .\nThere was an error in shutting down one of the containers.",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W019/README/#common-fixes",
+            "text": "Check the output of the box command for further analysis.\nIssue a  box ls  to see what containers could not be stopped.",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W019/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        },
+        {
+            "location": "/errors/W020/README/",
+            "text": "__          _______  _      _ _       ____\n \\ \\        / /  __ \\| |    (_) |     |  _ \\\n  \\ \\  /\\  / /| |__) | |     _| |__   | |_) | _____  __\n   \\ \\/  \\/ / |  ___/| |    | | '_ \\  |  _ < / _ \\ \\/ /\n    \\  /\\  /  | |    | |____| | |_) | | |_) | (_) >  <\n     \\/  \\/   |_|    |______|_|_.__/  |____/ \\___/_/\\_\\\n\n\n\n\n\n\nW020 - 500 Internal Server Error.\n\n\nCause\n\n\nThere is an issue with the PHP code running on WPLib Box.\n\n\nCommon fixes\n\n\nCheck for files and plugins that may have been added or modified since it was working last.\n\n\n\n\nSee Also\n\n\nComplete Error code repository for WPLib Box",
+            "title": "README"
+        },
+        {
+            "location": "/errors/W020/README/#w020-500-internal-server-error",
+            "text": "",
+            "title": "W020 - 500 Internal Server Error."
+        },
+        {
+            "location": "/errors/W020/README/#cause",
+            "text": "There is an issue with the PHP code running on WPLib Box.",
+            "title": "Cause"
+        },
+        {
+            "location": "/errors/W020/README/#common-fixes",
+            "text": "Check for files and plugins that may have been added or modified since it was working last.",
+            "title": "Common fixes"
+        },
+        {
+            "location": "/errors/W020/README/#see-also",
+            "text": "Complete Error code repository for WPLib Box",
+            "title": "See Also"
+        }
+    ]
+}
