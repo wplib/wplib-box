@@ -391,7 +391,7 @@ system "vagrant plugin install vagrant-hostsupdater" \
 Vagrant.configure(2) do |config|
 
     config.vm.box = "wplib/wplib"
-    config.vm.box_version = "0.16.2"
+    config.vm.box_version = "0.17.0"
 
     File.write('IP', "10.10.10.#{rand(10..250)}") if not File.exists?('IP')
     File.write('HOSTNAME', "wplib.box") if not File.exists?('HOSTNAME')
@@ -411,7 +411,14 @@ Vagrant.configure(2) do |config|
 
     config.vm.network 'private_network', ip: IO.read('IP').strip
 
-    config.vm.synced_folder "www", "/var/www"
+    # 0.17.0 and onwards.
+    config.vm.synced_folder ".", "/vagrant", disabled: true
+    config.vm.synced_folder ".", "/projects/wplib.box"
+    config.ssh.username = "boxuser"
+
+    # pre-0.17.0.
+    # config.vm.synced_folder "www", "/var/www"
+    # config.ssh.username = "vagrant"
 
     config.ssh.forward_agent = true
     config.ssh.insert_key = false
