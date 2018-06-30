@@ -400,6 +400,7 @@ Vagrant.configure(2) do |config|
 
     config.vm.hostname = hostname
     config.hostsupdater.aliases = [
+        "docs.wplib.box",
         "www.#{hostname}",
         "adminer.#{hostname}",
         "mailhog.#{hostname}"
