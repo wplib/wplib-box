@@ -2,7 +2,19 @@
 
 ## 0.17.0
 =======
-
++ Prebuilt PHP component containers for 5.2.4, 5.6.36, 7.0.30, 7.1.18 & 7.2.6. (5.3.29, 5.4.45 & 5.5.38 to follow in 0.17.1).
++ New project.json layout.
++ Merging of official project.json release file with user project.json file.
++ New sub-command `box component` with simpler command set.
++ Better handling of component stop/start.
++ Cleaner output from `box component` & `box container`.
++ Component Makefiles will now log build output.
++ Improved `box self-update` allowing same version updates.
++ Moved all Packer provisioning scripts to a new sub-command `box provision`.
++ Several `box container` bugs squashed.
++ Refactoring of several scripts.
++ Moved many common functions contained in scripts to central file.
++ General stability improvements.
 
 
 ## 0.16.2
