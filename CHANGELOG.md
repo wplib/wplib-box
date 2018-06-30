@@ -1,12 +1,17 @@
 # WPLib Box ChangeLog
 
+## 0.17.0
+=======
+
+
+
 ## 0.16.2
 =======
 This release allowed us to catch up on some of the things we missed with `0.16.1`:
 
-+ Details to be added soon.
 
 ## 0.16.1
+=======
 This release allowed us to catch up on some of the things we missed with `0.16.0`:
 
 + PHP `7.2`
@@ -19,7 +24,9 @@ This release allowed us to catch up on some of the things we missed with `0.16.0
 + Dropped support for older WP-CLI versions
 + Added basic `box test` command to test box functionality
 
+
 ## 0.16.0
+=======
 Numerically it was a small change, but functionality and stability-wise is was a **HUGE** update.
 
 ### Added:
