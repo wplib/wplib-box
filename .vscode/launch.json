@@ -7,7 +7,7 @@
             "request": "launch",
             "port": 9000,
             "localSourceRoot": "${workspaceRoot}/www",
-            "serverSourceRoot": "/var/www"
+            "serverSourceRoot": "/projects/wplib.box/www"
         },
         {
             "name": "Launch currently open script",
