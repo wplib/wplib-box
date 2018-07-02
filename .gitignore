@@ -5,15 +5,6 @@
 /IP
 /.vagrant
 /.vscode
-/.wplib-box.git
-/.save.git
 /logs
 /scripts
-/www/*
-!/www/content/
-/www/content/object-cache.php
-/www/content/mu-plugins/wp-redis
-/www/content/plugins/helpful-information
-/www/content/plugins/query-monitor
-/www/content/themes/twentysixteen
-/watchers
+
