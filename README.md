@@ -1,19 +1,8 @@
-![Latest Stable Version](https://img.shields.io/badge/stable-0.16.2-blue.svg)
-![Latest Testing Version](https://img.shields.io/badge/testing-0.17.0-red.svg)
+![Latest Stable Version](https://img.shields.io/badge/stable-0.17.0-blue.svg)
+![Latest Testing Version](https://img.shields.io/badge/testing-0.17.1-red.svg)
 [![License](https://poser.pugx.org/wplib/wplib-box/license)](https://packagist.org/packages/wplib/wplib-box)
 
 ![WPLib-Box](https://github.com/wplib/wplib.github.io/raw/master/WPLib-Box-100x.png)
-
-
-```
- __          _______  _      _ _       ____
- \ \        / /  __ \| |    (_) |     |  _ \
-  \ \  /\  / /| |__) | |     _| |__   | |_) | _____  __
-   \ \/  \/ / |  ___/| |    | | '_ \  |  _ < / _ \ \/ /
-    \  /\  /  | |    | |____| | |_) | | |_) | (_) >  <
-     \/  \/   |_|    |______|_|_.__/  |____/ \___/_/\_\
-```
-
 
 # WPLib Box
 

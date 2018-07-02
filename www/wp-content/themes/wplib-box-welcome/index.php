@@ -24,7 +24,7 @@ h2 {margin:0 auto 42px;font-style: italic;}
     <div id="outer">
         <img src="<?php echo get_template_directory_uri(); ?>/images/logo.png" width="100" height="100" alt="WPLib Box Logo"/>
         <h1>WPLib Box Welcome Theme</h1>
-        <h2>Version 0.16.2</h2>
+        <h2>Version 0.17.0</h2>
         <div id="content">
             <p>Hello and welcome to WPLib Box. This theme should help you get started.</p>
             <p>Things you will likely want to do, in order:</p>

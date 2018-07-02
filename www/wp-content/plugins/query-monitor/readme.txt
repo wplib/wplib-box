@@ -3,8 +3,9 @@ Contributors: johnbillion
 Tags: ajax, debug, debug-bar, debugging, development, developer, performance, profiler, profiling, queries, query monitor, rest-api
 Requires at least: 3.7
 Tested up to: 4.9
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: GPLv2 or later
+Requires PHP: 5.3
 
 Query Monitor is the Developer Tools panel for WordPress.
 
@@ -92,6 +93,16 @@ Currently this includes PHP errors and some overview information such as memory 
 By default, Query Monitor's output is only shown to Administrators on single-site installs, and Super Admins on Multisite installs.
 
 In addition to this, you can set an authentication cookie which allows you to view Query Monitor output when you're not logged in (or if you're logged in as a non-administrator). See the bottom of Query Monitor's output for details.
+
+= Privacy Statement =
+
+Query Monitor does not persistently store any of the data that it collects. It does not send data to any third party, nor does it include any third party resources.
+
+Query Monitor implements an optional browser cookie that allows users to view Query Monitor output when not logged in, or when logged in as another user who cannot usually view Query Monitor's output. This cookie can be set and cleared from the Settings panel in Query Monitor. This cookie operates using the same mechanism as the authentication cookies in WordPress core, and therefore it contains the user's `user_login` field in plain text which should be treated as potentially personally identifiable information. The name of the cookie is `query_monitor_{hash}` where `{hash}` is an identifier unique to the installation of WordPress.
+
+Query Monitor stores some user preferences in the browser's Local Storage. It stores the ID of the most recently accessed panel and the height of the panel if the user has resized it. This data is stored using the browser's `localStorage` API, does not get sent with HTTP requests, and does not contain any personally identifiable information.
+
+Please note that in a future version of Query Monitor, opt-in features may be introduced which allow a user to choose to persistently store data and/or send data to a third party service. Such features will only ever be opt-in.
 
 == Screenshots ==
 
