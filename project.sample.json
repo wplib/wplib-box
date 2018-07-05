@@ -11,6 +11,7 @@
         "wordpress/processvm":     "wplib/php:7.1.18",
         "wordpress/cacheserver":   "wplib/redis:4.0.9",
         "wordpress/cliapp":        "wplib/wp-cli:1.5.1",
+        "mkdocs/webserver":        "wplib/mkdocs:0.15.3",
         "pressboxx/mailsender":    "wplib/mailhog:1.0.0",
         "pressboxx/webproxy":      "wplib/proxy:1.15.0",
         "pressboxx/sqladmin":      "wplib/adminer:4.6.2"
