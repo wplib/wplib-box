@@ -2,11 +2,13 @@
 /box
 /.idea
 /sql/*
-!/sql/default.sql
+!/sql/README.sql.md
+!/sql/provision.sql
 /IP
 /.vagrant
 /.vscode
 /docs
+!/docs/README.mkdocs.md
 /logs
 /scripts
 
