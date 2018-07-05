@@ -12,6 +12,7 @@
 body { background: lightgray; font-size:18pt;}
 #main { margin: 50px auto; text-align: center;}
 #outer { padding: 50px; margin: 0 auto; width: 960px; background:white;;height:100%;}
+#outer img { margin-right: 2em;}
 p, li { font-family: Georgia, "Times New Roman", "Bitstream Charter", Times, serif }
 h1,h2 { font-family: "Helvetica Neue", Arial, Helvetica, "Nimbus Sans L", sans-serif; }
 h1 {margin-bottom:0;}
@@ -22,8 +23,8 @@ h2 {margin:0 auto 42px;font-style: italic;}
 <body>
 <div id="main">
     <div id="outer">
-        <img src="<?php echo get_template_directory_uri(); ?>/images/logo.png" width="100" height="100" alt="WPLib Box Logo"/>
-        <h1>WPLib Box Welcome Theme</h1>
+        <img src="<?php echo get_template_directory_uri(); ?>/images/logo.png" width="527" height="146" alt="WPLib Box Logo"/>
+        <h1>Welcome Theme</h1>
         <h2>Version 0.17.0</h2>
         <div id="content">
             <p>Hello and welcome to WPLib Box. This theme should help you get started.</p>
@@ -43,6 +44,7 @@ h2 {margin:0 auto 42px;font-style: italic;}
                 <li><a href="http://mailhog.wplib.box" target="_blank">View</a> emails sent out by WPLib Box in MailHog <em>(if any)</em></li>
                 <li><a href="#" target="_blank">Enable</a> a different stack <em>(vs. Nginx/MySQL/PHP7/Redis)</em></li>
                 <li><a href="#" target="_blank">Manage</a> your project dependencies using <a href="https://getcomposer.org" target="_blank">Composer</a></li>
+                <li><a href="http://docs.wplib.box" target="_blank">See MkDocs</a> in action, for documenting your plugin or theme.</li>
             </ul>
 
             <p>And to give feedback or get help:</p>
