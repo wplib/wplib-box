@@ -8,6 +8,4 @@
 /sql/*
 !/sql/README.sql.md
 !/sql/provision.sql
-/docs
-!/docs/README.docs.md
 
