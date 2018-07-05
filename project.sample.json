@@ -2,8 +2,9 @@
     "readme": [
         "This is just a sample.",
         "WPLib Box will create the working project.json for you on your initial `vagrant up`.",
-        "If you rename to project.json and modify it WPLib Box will your modifications instead.",
-        "Find available components by typing `vagrant ssh` followed by `box component available`."
+        "Rename this file to project.json and WPLib Box will use your modifications instead.",
+        "Find available components by typing `vagrant ssh` followed by `box component available`.",
+        "You can delete this `readme` section assuming it is still valid JSON after deletion."
     ],
     "stack" : {
         "wordpress/dbserver":      "wplib/mysql:5.5.60",
