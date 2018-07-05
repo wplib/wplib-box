@@ -1,14 +1,13 @@
 .*.swp
 /box
 /.idea
-/sql/*
-!/sql/README.sql.md
-!/sql/provision.sql
 /IP
 /.vagrant
 /.vscode
-/docs
-!/docs/README.mkdocs.md
 /logs
-/scripts
+/sql/*
+!/sql/README.sql.md
+!/sql/provision.sql
+/docs
+!/docs/README.docs.md
 
