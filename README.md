@@ -1,6 +1,6 @@
 ![Latest Stable Version](https://img.shields.io/badge/stable-0.17.0-blue.svg)
 ![Latest Testing Version](https://img.shields.io/badge/testing-0.17.1-red.svg)
-[![License](https://poser.pugx.org/wplib/wplib-box/license)](https://packagist.org/packages/wplib/wplib-box)
+![License](https://poser.pugx.org/wplib/wplib-box/license)
 
 ![WPLib-Box](https://github.com/wplib/wplib.github.io/raw/master/WPLib-Box-100x.png)
 
@@ -8,7 +8,7 @@
 
 **The Best Single-project Solution for Local WordPress Development**
 
-But, multi-project version coming very soon...
+But, multi-project coming very soon...
 
 ## New to WPLib Box?
 
@@ -20,7 +20,7 @@ But, multi-project version coming very soon...
  - [Hands-on Help](https://wplib.slack.com) via [Slack](https://slackhq.com) <em>(Join [here](https://launchpass.com/wplib))</em>
 
 ### A note about the `master` branch
-The `master` branch currently contains the contents of `0.16.2` branch as of 22 May 2018.    
+The `master` branch currently contains the contents of `0.17.0` branch as of 06 July 2018.    
 
 
 ## Troubleshooting, Questions and Feedback/Bug Reports
