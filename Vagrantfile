@@ -429,7 +429,10 @@ Vagrant.configure(2) do |config|
     end
 
     config.trigger.after [:up, :reload] do |trigger|
-        trigger.run_remote = {inline: "box first-time-provision"},
+        trigger.run_remote = {inline: "box first-time-provision"}
+    end
+
+    config.trigger.after [:up, :reload] do |trigger|
         trigger.run_remote = {inline: "box startup"}
     end
 end
