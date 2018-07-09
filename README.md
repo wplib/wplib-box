@@ -6,4 +6,4 @@
 
 We are in the middle of updating our documentation.  
 
-If you are interested in your progress you can [find it here](https://wplib.github.io/box-docs/).
+If you are interested in our progress you can [find it here](https://wplib.github.io/box-docs/).
