@@ -1,7 +1,15 @@
 <?php
 
+
+if ( getcwd()=='/var/www' && isset( $_SERVER[ 'HTTP_HOST' ] ) ) {
+	$hostname = $_SERVER[ 'HTTP_HOST' ];
+} else if ( is_file( __DIR__ . '/../HOSTNAME' ) ) {
+	$hostname = file_get_contents( __DIR__ . '/../HOSTNAME' );
+} else {
+	$hostname = 'wplib.box';
+}
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
-	$_SERVER[ 'HTTP_HOST' ] = 'wplib.box';
+	$_SERVER[ 'HTTP_HOST' ] = $hostname;
 } else {
 	define( 'WP_CLI', false );
 }
@@ -11,13 +19,16 @@ if ( ! isset( $_SERVER[ 'HTTP_HOST' ] ) ) {
 	exit;
 }
 
-define( 'WPLIB_BOX_HOST', preg_match( '#^www\.(.+)$#', $_SERVER[ 'HTTP_HOST' ] )
-	? preg_replace( '#^www\.(.+)$#', '$1', $_SERVER[ 'HTTP_HOST' ] )
-	: $_SERVER[ 'HTTP_HOST' ]
+define( 'WPLIB_BOX_HOST', preg_match( '#^www\.(.+)$#', $hostname )
+	? preg_replace( '#^www\.(.+)$#', '$1', $hostname )
+	: $hostname
 );
 
 define( 'WPLIB_BOX_LOCAL_CONFIG', '/wp-config-' . WPLIB_BOX_HOST . '.php' );
-
+if ( isset( $_ENV[ 'WPLIB_BOX' ] ) && ! is_file( WPLIB_BOX_LOCAL_CONFIG ) ) {
+	file_put_contents( WPLIB_BOX_LOCAL_CONFIG, "<?php\n#\n# Local configuration for {$hostname}\n#\n" );
+}
+unset( $hostname );
 
 /**
  * Search for a wp-config-{HTTP_HOST}.php in current
