@@ -30,8 +30,8 @@ em { font-size:0.85em; }
         <div id="content">
             <p>To get started with WPLib Box:</p>
             <ul>
-                <li><a href="<?php echo site_url( '/wp-login.php' ); ?>" target="_blank">Login</a> to the admin <em>(username and password will be provided)</em></li>
-                <li><a href="<?php echo site_url( '/wp-admin/themes.php?theme=wplib-box-welcome' ); ?>" target="_blank">Manage</a> this theme in the admin</li>
+                <li><a href="<?php echo site_url( '/wp-login.php' ); ?>" target="_blank">Login</a> to the WordPress admin <em>(username and password will be provided)</em></li>
+                <li><a href="<?php echo site_url( '/wp-admin/themes.php?theme=wplib-box-welcome' ); ?>" target="_blank">Manage</a> this theme in the WordPress admin</li>
                 <li><a href="<?php echo admin_url( '/themes.php' ); ?>" target="_blank">Switch</a> to a different WordPress theme</li>
                 <li><a href="<?php echo admin_url( '/plugins.php' ); ?>" target="_blank">Install and activate</a> plugins</li>
                 <!--
