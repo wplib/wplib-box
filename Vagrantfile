@@ -424,16 +424,16 @@ Vagrant.configure(2) do |config|
     config.ssh.forward_agent = true
     config.ssh.insert_key = false
 
-    config.trigger.before :halt do |trigger|
-        trigger.run_remote = {inline: "box database backup"}
-    end
-
-    config.trigger.after [:up, :reload] do |trigger|
-        trigger.run_remote = {inline: "box first-time-provision"}
-    end
-
-    config.trigger.after [:up, :reload] do |trigger|
-        trigger.run_remote = {inline: "box startup"}
-    end
+#    config.trigger.before :halt do |trigger|
+#        trigger.run_remote = {inline: "box database backup"}
+#    end
+#
+#    config.trigger.after [:up, :reload] do |trigger|
+#        trigger.run_remote = {inline: "box first-time-provision"}
+#    end
+#
+#    config.trigger.after [:up, :reload] do |trigger|
+#        trigger.run_remote = {inline: "box startup"}
+#    end
 end
 
