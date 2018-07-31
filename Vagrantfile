@@ -391,7 +391,7 @@ system "vagrant plugin install vagrant-hostsupdater" \
 Vagrant.configure(2) do |config|
 
     config.vm.box = "wplib/wplib"
-    config.vm.box_version = "0.17.0"
+    config.vm.box_version = IO.read('VERSION').strip;
 
     File.write('IP', "10.10.10.#{rand(10..250)}") if not File.exists?('IP')
     File.write('HOSTNAME', "wplib.box") if not File.exists?('HOSTNAME')
@@ -426,6 +426,10 @@ Vagrant.configure(2) do |config|
 
     config.trigger.before :halt do |trigger|
         trigger.run_remote = {inline: "box database backup"}
+    end
+
+    config.trigger.after [:up, :reload] do |trigger|
+        trigger.run_remote = {inline: "box comp ls"}
     end
 
 #    config.trigger.after [:up, :reload] do |trigger|
