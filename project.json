@@ -1,0 +1,29 @@
+{
+	"readme": [
+		"This file allows you to configure WPLib Box.",
+		"Find available components by typing 'vagrant ssh' in terminal followed by 'box component available'.",
+		"You can delete this `readme` section assuming it is still valid JSON after deletion."
+	],
+	"hostname": "wplib.box",
+	"aliases": [
+		"docs.{hostname}",
+		"www.{hostname}",
+		"adminer.{hostname}",
+		"mailhog.{hostname}"
+	],
+	"localdev": {
+		"name": "WPLib Box",
+		"version": "0.17.1",
+		"website": "wplib.org/box"
+	},
+	"stack": {
+		"wordpress/dbserver": "wplib/mysql:5.5.60",
+		"wordpress/webserver": "wplib/nginx:1.14.0",
+		"wordpress/processvm": "wplib/php:7.1.18",
+		"wordpress/cacheserver": "wplib/redis:4.0.9",
+		"mkdocs/webserver": "wplib/mkdocs:0.15.3",
+		"box/mailsender": "wplib/mailhog:1.0.0",
+		"box/webproxy": "wplib/proxy:1.14.0",
+		"box/sqladmin": "wplib/adminer:4.6.2"
+	}
+}

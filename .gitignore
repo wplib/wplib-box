@@ -2,7 +2,8 @@
 /box
 /.idea
 /IP
-/.vagrant
+/.vagrant/machines
+!/.vagrant/wplib-box.rb
 /.vscode
 /logs
 /sql/*
