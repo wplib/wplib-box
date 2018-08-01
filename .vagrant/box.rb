@@ -87,7 +87,7 @@ class Box
 
   end
 
-  def startup(config)
+  def start(config)
 
     config.vm.box = "wplib/wplib"
     config.vm.box_version = box_version

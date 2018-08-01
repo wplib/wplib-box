@@ -71,13 +71,7 @@ Vagrant.configure(2) do |config|
     require "./.vagrant/box.rb"
     box = Box.new()
     box.prerequisites()
-    box.add_aliases([
-        "www.{hostname}",
-        "adminer.{hostname}",
-        "mailhog.{hostname}",
-        "docs.{hostname}"
-    ])
-    box.startup(config)
+    box.start(config)
 
 end
 
