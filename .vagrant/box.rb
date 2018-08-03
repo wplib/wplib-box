@@ -71,8 +71,9 @@ class Box
 
     vboxmanage = Vagrant::Util::Which.which("VBoxManage") || Vagrant::Util::Which.which("VBoxManage.exe")
     if vboxmanage == nil
-      abort "\nWPLib Box needs VirtualBox 5.2 or greater.\n" \
-      "Please download and install VirtualBox from:\n\n\thttps://www.virtualbox.org/wiki/Downloads\n"
+      abort "\nWPLib Box could not find VirtualBox 5.2+. If you know it is installed please\n" \
+              "check your path to ensure we can find it. If not installed, please download\n" \
+              "version 5.2 or greater from:\n\n\thttps://www.virtualbox.org/wiki/Downloads\n"
     else
       version = Vagrant::Util::Subprocess.execute(vboxmanage, '--version')
       version = Gem::Version.create(version.stdout.strip!)
