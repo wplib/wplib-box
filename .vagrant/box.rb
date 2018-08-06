@@ -50,7 +50,7 @@ class Box
       @project['aliases'] = %w( docs.{hostname} www.{hostname} adminer.{hostname} mailhog.{hostname} )
       @project['localdev'] = {}
       @project['localdev']['name'] = "WPLib Box"
-      @project['localdev']['version'] = "0.17.1"
+      @project['localdev']['version'] = "0.17.0"
       @project['localdev']['website'] = "http://wplib.org/box/"
       @project['stack'] = {}
       @project['stack']['wordpress/dbserver'] = 'wplib/mysql:5.5.60'

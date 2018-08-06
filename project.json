@@ -14,7 +14,7 @@
 	"localdev": {
 		"name": "WPLib Box",
 		"version": "0.17.1",
-		"website": "wplib.org/box"
+		"website": "http://wplib.org/box"
 	},
 	"stack": {
 		"wordpress/dbserver": "wplib/mysql:5.5.60",
