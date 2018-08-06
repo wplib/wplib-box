@@ -125,9 +125,9 @@ class Box
       trigger.run_remote = {inline: "box database backup"}
     end
 
-#    config.trigger.after [:up, :reload] do |trigger|
-#      trigger.run_remote = {inline: "box status"}
-#    end
+    config.trigger.after [:up, :reload] do |trigger|
+      trigger.run_remote = {inline: "box status --short"}
+    end
   end
   
   
