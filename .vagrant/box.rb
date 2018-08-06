@@ -121,12 +121,15 @@ class Box
     config.ssh.forward_agent = true
     config.ssh.insert_key = false
 
-    config.trigger.before :halt do |trigger|
-      trigger.run_remote = {inline: "box database backup"}
+    config.trigger.after [:up, :reload] do |trigger|
+      trigger.run_remote = {inline: "box first-time-provision --short"}
+    end
+    config.trigger.after [:up, :reload] do |trigger|
+      trigger.run_remote = {inline: "box startup --short"}
     end
 
-    config.trigger.after [:up, :reload] do |trigger|
-      trigger.run_remote = {inline: "box status --short"}
+    config.trigger.before :halt do |trigger|
+      trigger.run_remote = {inline: "box database backup"}
     end
   end
   
