@@ -1,13 +1,23 @@
-.*.swp
-/box
-/.idea
-/IP
-/.vagrant
-/.vscode
-/logs
+#
+# THESE .gitignore FILES FOR THE WPLib Box REPO.
+# DELETE these to meet the needs of your project.
+#
 /sql/*
 !/sql/README.sql.md
-!/sql/provision.sql
+/sql/provision.sql
 /docs
 !/docs/README.docs.md
+/project.json.lock
+/www/wp-content/mu-plugins/wplib-box-db-provisioner/provisioned
+/box
+
+#
+# These are useful for any project that uses WPLib Box.
+#
+/.vagrant/machines
+!/.vagrant/box.rb
+.*.swp
+/.idea
+/IP
+/logs
 

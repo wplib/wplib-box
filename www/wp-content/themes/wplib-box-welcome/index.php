@@ -26,7 +26,7 @@ em { font-size:0.85em; }
     <div id="outer">
         <img src="<?php echo get_template_directory_uri(); ?>/images/logo.png" width="527" height="146" alt="WPLib Box Logo"/>
         <h1>Welcome Theme</h1>
-        <h2>Version 0.17.0</h2>
+        <h2>Box Version 0.17.1</h2>
         <div id="content">
             <p>To get started with WPLib Box:</p>
             <ul>
