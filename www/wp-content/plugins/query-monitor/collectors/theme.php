@@ -7,7 +7,7 @@
 
 class QM_Collector_Theme extends QM_Collector {
 
-	public $id = 'theme';
+	public $id = 'response';
 	protected $got_theme_compat = false;
 
 	public function name() {
@@ -118,8 +118,10 @@ class QM_Collector_Theme extends QM_Collector {
 			$this->data['template_path']       = $template_path;
 			$this->data['template_file']       = $template_file;
 			$this->data['theme_template_file'] = $theme_template_file;
+			$this->data['template_hierarchy']   = array_unique( $this->data['template_hierarchy'] );
 
 			foreach ( get_included_files() as $file ) {
+				$file = QM_Util::standard_dir( $file );
 				$filename = str_replace( array(
 					$stylesheet_directory,
 					$template_directory,
@@ -142,9 +144,9 @@ class QM_Collector_Theme extends QM_Collector {
 			}
 		}
 
-		$this->data['stylesheet']     = get_stylesheet();
-		$this->data['template']       = get_template();
-		$this->data['is_child_theme'] = ( $this->data['stylesheet'] !== $this->data['template'] );
+		$this->data['stylesheet']         = get_stylesheet();
+		$this->data['template']           = get_template();
+		$this->data['is_child_theme']     = ( $this->data['stylesheet'] !== $this->data['template'] );
 
 		if ( isset( $this->data['body_class'] ) ) {
 			asort( $this->data['body_class'] );
@@ -155,7 +157,7 @@ class QM_Collector_Theme extends QM_Collector {
 }
 
 function register_qm_collector_theme( array $collectors, QueryMonitor $qm ) {
-	$collectors['theme'] = new QM_Collector_Theme;
+	$collectors['response'] = new QM_Collector_Theme;
 	return $collectors;
 }
 

@@ -26,6 +26,96 @@ abstract class QM_Output_Html extends QM_Output {
 		return $out;
 	}
 
+	protected function before_tabular_output( $id = null, $name = null ) {
+		if ( null === $id ) {
+			$id = $this->collector->id();
+		}
+		if ( null === $name ) {
+			$name = $this->collector->name();
+		}
+
+		printf(
+			'<div class="qm" id="%1$s" role="group" aria-labelledby="%1$s-caption" tabindex="-1">',
+			esc_attr( $id )
+		);
+
+		echo '<table class="qm-sortable">';
+
+		printf(
+			'<caption class="qm-screen-reader-text"><h2 id="%1$s-caption">%2$s</h2></caption>',
+			esc_attr( $id ),
+			esc_html( $name )
+		);
+	}
+
+	protected function after_tabular_output() {
+		echo '</table>';
+		echo '</div>';
+	}
+
+	protected function before_non_tabular_output( $id = null, $name = null ) {
+		if ( null === $id ) {
+			$id = $this->collector->id();
+		}
+		if ( null === $name ) {
+			$name = $this->collector->name();
+		}
+
+		printf(
+			'<div class="qm qm-non-tabular" id="%1$s" role="group" aria-labelledby="%1$s-caption" tabindex="-1">',
+			esc_attr( $id )
+		);
+
+		echo '<div class="qm-boxed">';
+
+		printf(
+			'<h2 class="qm-screen-reader-text" id="%1$s-caption">%2$s</h2>',
+			esc_attr( $id ),
+			esc_html( $name )
+		);
+	}
+
+	protected function after_non_tabular_output() {
+		echo '</div>';
+		echo '</div>';
+	}
+
+	protected function before_debug_bar_output( $id = null, $name = null ) {
+		if ( null === $id ) {
+			$id = $this->collector->id();
+		}
+		if ( null === $name ) {
+			$name = $this->collector->name();
+		}
+
+		printf(
+			'<div class="qm qm-debug-bar" id="%1$s" role="group" aria-labelledby="%1$s-caption" tabindex="-1">',
+			esc_attr( $id )
+		);
+
+		printf(
+			'<h2 class="qm-screen-reader-text" id="%1$s-caption">%2$s</h2>',
+			esc_attr( $id ),
+			esc_html( $name )
+		);
+	}
+
+	protected function after_debug_bar_output() {
+		echo '</div>';
+	}
+
+	protected function build_notice( $notice ) {
+		$return = '<div class="qm-section">';
+		$return .= '<div class="qm-notice">';
+		$return .= '<p>';
+		$return .= $notice;
+		$return .= '</p>';
+		$return .= '</div>';
+		$return .= '</div>';
+
+		return $return;
+	}
+
 	public static function output_inner( $vars ) {
 
 		echo '<table class="qm-inner">';
@@ -62,14 +152,14 @@ abstract class QM_Output_Html extends QM_Output {
 	/**
 	 * Returns the table filter controls. Safe for output.
 	 *
-	 * @param  string $name      The name for the `data-` attributes that get filtered by this control.
-	 * @param  array  $values    Possible values for this control.
-	 * @param  string $label     Label text for the filter control.
-	 * @param  array  $args {
+	 * @param  string   $name   The name for the `data-` attributes that get filtered by this control.
+	 * @param  string[] $values Option values for this control.
+	 * @param  string   $label  Label text for the filter control.
+	 * @param  array    $args {
 	 *     @type string $highlihgt The name for the `data-` attributes that get highlighted by this control.
 	 *     @type array  $prepend   Associative array of options to prepend to the list of values.
 	 * }
-	 * @return string            Markup for the table filter controls.
+	 * @return string Markup for the table filter controls.
 	 */
 	protected function build_filter( $name, array $values, $label, $args = array() ) {
 
@@ -93,8 +183,6 @@ abstract class QM_Output_Html extends QM_Output {
 		if ( 'component' === $name && count( $values ) > 1 && in_array( $core, $values, true ) ) {
 			$args['prepend']['non-core'] = __( 'Non-Core', 'query-monitor' );
 		}
-
-		usort( $values, 'strcasecmp' );
 
 		$filter_id = 'qm-filter-' . $this->collector->id . '-' . $name;
 
@@ -123,23 +211,25 @@ abstract class QM_Output_Html extends QM_Output {
 	/**
 	 * Returns the column sorter controls. Safe for output.
 	 *
-	 * @TODO needs to be converted to use a button for semantics and a11y.
-	 *
 	 * @param string $heading Heading text for the column. Optional.
 	 * @return string Markup for the column sorter controls.
 	 */
 	protected function build_sorter( $heading = '' ) {
 		$out = '';
-		$out .= '<div class="qm-th">';
+		$out .= '<label class="qm-th">';
 		$out .= '<span class="qm-sort-heading">';
-		if ( $heading ) {
+
+		if ( '#' === $heading ) {
+			$out .= '<span class="qm-screen-reader-text">' . esc_html__( 'Sequence', 'query-monitor' ) . '</span>';
+		} elseif ( $heading ) {
 			$out .= esc_html( $heading );
 		}
+
 		$out .= '</span>';
-		$out .= '<span class="qm-sort-controls">';
-		$out .= '<span class="dashicons qm-sort-arrow" aria-hidden="true"></span>';
-		$out .= '</span>';
-		$out .= '</div>';
+		$out .= '<button class="qm-sort-controls">';
+		$out .= '<span class="qm-sort-arrow" aria-hidden="true"></span>';
+		$out .= '</button>';
+		$out .= '</label>';
 		return $out;
 	}
 
@@ -149,7 +239,7 @@ abstract class QM_Output_Html extends QM_Output {
 	 * @return string Markup for the column sorter controls.
 	 */
 	protected static function build_toggler() {
-		$out = '<button class="qm-toggle" data-on="+" data-off="-" aria-expanded="false">+<span class="screen-reader-text">' . esc_html__( ' Toggle button', 'query-monitor' ) . '</span></button>';
+		$out = '<button class="qm-toggle" data-on="+" data-off="-" aria-expanded="false"><span aria-hidden="true">+</span><span class="screen-reader-text">' . esc_html__( ' Toggle button', 'query-monitor' ) . '</span></button>';
 		return $out;
 	}
 

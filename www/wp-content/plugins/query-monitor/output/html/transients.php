@@ -16,18 +16,15 @@ class QM_Output_Html_Transients extends QM_Output_Html {
 
 		$data = $this->collector->get_data();
 
-		echo '<div class="qm" id="' . esc_attr( $this->collector->id() ) . '">';
-
 		if ( ! empty( $data['trans'] ) ) {
 
-			echo '<table>';
-			echo '<caption class="screen-reader-text">' . esc_html__( 'Transient Updates', 'query-monitor' ) . '</caption>';
+			$this->before_tabular_output();
 
 			echo '<thead>';
 			echo '<tr>';
 			echo '<th scope="col">' . esc_html__( 'Updated Transient', 'query-monitor' ) . '</th>';
 			if ( is_multisite() ) {
-				echo '<th>' . esc_html_x( 'Type', 'transient type', 'query-monitor' ) . '</th>';
+				echo '<th scope="col">' . esc_html_x( 'Type', 'transient type', 'query-monitor' ) . '</th>';
 			}
 			echo '<th scope="col">' . esc_html__( 'Expiration', 'query-monitor' ) . '</th>';
 			echo '<th scope="col">' . esc_html_x( 'Size', 'size of transient value', 'query-monitor' ) . '</th>';
@@ -53,25 +50,26 @@ class QM_Output_Html_Transients extends QM_Output_Html {
 				);
 				if ( is_multisite() ) {
 					printf(
-						'<td class="qm-ltr">%s</td>',
+						'<td class="qm-ltr qm-nowrap">%s</td>',
 						esc_html( $row['type'] )
 					);
 				}
 
 				if ( 0 === $row['expiration'] ) {
 					printf(
-						'<td><em>%s</em></td>',
+						'<td class="qm-nowrap"><em>%s</em></td>',
 						esc_html__( 'none', 'query-monitor' )
 					);
 				} else {
 					printf(
-						'<td>%s</td>',
-						esc_html( $row['expiration'] )
+						'<td class="qm-nowrap">%s <span class="qm-info">(~%s)</span></td>',
+						esc_html( $row['expiration'] ),
+						esc_html( human_time_diff( 0, $row['expiration'] ) )
 					);
 				}
 
 				printf(
-					'<td>~%s</td>',
+					'<td class="qm-nowrap">~%s</td>',
 					esc_html( size_format( $row['size'] ) )
 				);
 
@@ -105,19 +103,15 @@ class QM_Output_Html_Transients extends QM_Output_Html {
 
 			}
 
-			echo '</tbody>';
-			echo '</table>';
-
+			$this->after_tabular_output();
 		} else {
+			$this->before_non_tabular_output();
 
-			echo '<div class="qm-none">';
-			echo '<p>' . esc_html__( 'None', 'query-monitor' ) . '</p>';
-			echo '</div>';
+			$notice = __( 'No transients set.', 'query-monitor' );
+			echo $this->build_notice( $notice ); // WPCS: XSS ok.
 
+			$this->after_non_tabular_output();
 		}
-
-		echo '</div>';
-
 	}
 
 	public function admin_menu( array $menu ) {

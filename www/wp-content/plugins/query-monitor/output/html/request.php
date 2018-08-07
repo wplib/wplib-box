@@ -18,8 +18,7 @@ class QM_Output_Html_Request extends QM_Output_Html {
 
 		$db_queries = QM_Collectors::get( 'db_queries' );
 
-		echo '<div class="qm qm-non-tabular" id="' . esc_attr( $this->collector->id() ) . '">';
-		echo '<div class="qm-boxed qm-boxed-wrap">';
+		$this->before_non_tabular_output();
 
 		foreach ( array(
 			'request'       => __( 'Request', 'query-monitor' ),
@@ -42,7 +41,7 @@ class QM_Output_Html_Request extends QM_Output_Html {
 			}
 
 			echo '<div class="qm-section">';
-			echo '<h2>' . esc_html( $name ) . '</h2>';
+			echo '<h3>' . esc_html( $name ) . '</h3>';
 			echo '<p class="qm-ltr"><code>' . $value . '</code></p>'; // WPCS: XSS ok.
 			echo '</div>';
 		}
@@ -53,7 +52,7 @@ class QM_Output_Html_Request extends QM_Output_Html {
 
 		if ( ! empty( $data['matching_rewrites'] ) ) {
 			echo '<div class="qm-section">';
-			echo '<h2>' . esc_html__( 'All Matching Rewrite Rules', 'query-monitor' ) . '</h2>';
+			echo '<h3>' . esc_html__( 'All Matching Rewrite Rules', 'query-monitor' ) . '</h3>';
 			echo '<table>';
 
 			foreach ( $data['matching_rewrites'] as $rule => $query ) {
@@ -72,20 +71,19 @@ class QM_Output_Html_Request extends QM_Output_Html {
 		}
 
 		echo '<div class="qm-section">';
-		echo '<h2>';
+		echo '<h3>';
 		esc_html_e( 'Query Vars', 'query-monitor' );
+		echo '</h3>';
 
 		if ( $db_queries ) {
 			$db_queries_data = $db_queries->get_data();
 			if ( ! empty( $db_queries_data['dbs']['$wpdb']->has_main_query ) ) {
 				printf(
-					' <a href="#" class="qm-filter-trigger" data-qm-target="db_queries-wpdb" data-qm-filter="caller" data-qm-value="qm-main-query">%s</a>',
+					'<p><a href="#" class="qm-filter-trigger" data-qm-target="db_queries-wpdb" data-qm-filter="caller" data-qm-value="qm-main-query">%s</a></p>',
 					esc_html__( 'View Main Query', 'query-monitor' )
 				);
 			}
 		}
-
-		echo '</h2>';
 
 		if ( ! empty( $data['qvars'] ) ) {
 
@@ -96,9 +94,9 @@ class QM_Output_Html_Request extends QM_Output_Html {
 				echo '<tr>';
 
 				if ( isset( $data['plugin_qvars'][ $var ] ) ) {
-					echo '<td class="qm-ltr"><span class="qm-current">' . esc_html( $var ) . '</span></td>';
+					echo '<th scope="row" class="qm-ltr"><span class="qm-current">' . esc_html( $var ) . '</span></td>';
 				} else {
-					echo '<td class="qm-ltr">' . esc_html( $var ) . '</td>';
+					echo '<th scope="row" class="qm-ltr">' . esc_html( $var ) . '</td>';
 				}
 
 				if ( is_array( $value ) or is_object( $value ) ) {
@@ -123,7 +121,7 @@ class QM_Output_Html_Request extends QM_Output_Html {
 		echo '</div>';
 
 		echo '<div class="qm-section">';
-		echo '<h2>' . esc_html__( 'Queried Object', 'query-monitor' ) . '</h2>';
+		echo '<h3>' . esc_html__( 'Queried Object', 'query-monitor' ) . '</h3>';
 
 		if ( ! empty( $data['queried_object'] ) ) {
 			printf( // WPCS: XSS ok.
@@ -138,7 +136,7 @@ class QM_Output_Html_Request extends QM_Output_Html {
 		echo '</div>';
 
 		echo '<div class="qm-section">';
-		echo '<h2>' . esc_html__( 'Current User', 'query-monitor' ) . '</h2>';
+		echo '<h3>' . esc_html__( 'Current User', 'query-monitor' ) . '</h3>';
 
 		if ( ! empty( $data['user']['data'] ) ) {
 			printf( // WPCS: XSS ok.
@@ -153,7 +151,7 @@ class QM_Output_Html_Request extends QM_Output_Html {
 
 		if ( ! empty( $data['multisite'] ) ) {
 			echo '<div class="qm-section">';
-			echo '<h2>' . esc_html__( 'Multisite', 'query-monitor' ) . '</h2>';
+			echo '<h3>' . esc_html__( 'Multisite', 'query-monitor' ) . '</h3>';
 
 			foreach ( $data['multisite'] as $var => $value ) {
 				printf( // WPCS: XSS ok.
@@ -165,8 +163,7 @@ class QM_Output_Html_Request extends QM_Output_Html {
 			echo '</div>';
 		}
 
-		echo '</div>';
-		echo '</div>';
+		$this->after_non_tabular_output();
 	}
 
 	public function admin_menu( array $menu ) {

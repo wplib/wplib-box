@@ -20,9 +20,8 @@ class QM_Output_Html_DB_Dupes extends QM_Output_Html {
 			return;
 		}
 
-		echo '<div class="qm" id="' . esc_attr( $this->collector->id() ) . '">';
-		echo '<table>';
-		echo '<caption>' . esc_html( $this->collector->name() ) . '</caption>';
+		$this->before_tabular_output();
+
 		echo '<thead>';
 
 		echo '<tr>';
@@ -30,7 +29,7 @@ class QM_Output_Html_DB_Dupes extends QM_Output_Html {
 		echo '<th scope="col" class="qm-num">' . esc_html__( 'Count', 'query-monitor' ) . '</th>';
 		echo '<th scope="col">' . esc_html__( 'Callers', 'query-monitor' ) . '</th>';
 		if ( ! empty( $data['dupe_components'] ) ) {
-			echo '<th>' . esc_html__( 'Components', 'query-monitor' ) . '</th>';
+			echo '<th scope="col">' . esc_html__( 'Components', 'query-monitor' ) . '</th>';
 		}
 		echo '<th scope="col">' . esc_html__( 'Potential Troublemakers', 'query-monitor' ) . '</th>';
 		echo '</tr>';
@@ -102,9 +101,7 @@ class QM_Output_Html_DB_Dupes extends QM_Output_Html {
 		}
 		echo '</tbody>';
 
-		echo '</table>';
-		echo '</div>';
-
+		$this->after_tabular_output();
 	}
 
 	public function admin_menu( array $menu ) {

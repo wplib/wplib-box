@@ -22,22 +22,20 @@ class QM_Output_Html_DB_Callers extends QM_Output_Html {
 
 		$total_time  = 0;
 
-		echo '<div class="qm" id="' . esc_attr( $this->collector->id() ) . '">';
-
 		if ( ! empty( $data['times'] ) ) {
-			echo '<table class="qm-sortable">';
-			echo '<caption>' . esc_html( $this->collector->name() ) . '</caption>';
+			$this->before_tabular_output();
+
 			echo '<thead>';
 			echo '<tr>';
 			echo '<th scope="col">' . esc_html__( 'Caller', 'query-monitor' ) . '</th>';
 
 			foreach ( $data['types'] as $type_name => $type_count ) {
-				echo '<th scope="col" class="qm-num qm-ltr qm-sortable-column">';
+				echo '<th scope="col" class="qm-num qm-ltr qm-sortable-column" role="columnheader" aria-sort="none">';
 				echo $this->build_sorter( $type_name ); // WPCS: XSS ok;
 				echo '</th>';
 			}
 
-			echo '<th scope="col" class="qm-num qm-sorted-desc qm-sortable-column">';
+			echo '<th scope="col" class="qm-num qm-sorted-desc qm-sortable-column" role="columnheader" aria-sort="descending">';
 			echo $this->build_sorter( __( 'Time', 'query-monitor' ) ); // WPCS: XSS ok;
 			echo '</th>';
 			echo '</tr>';
@@ -81,18 +79,17 @@ class QM_Output_Html_DB_Callers extends QM_Output_Html {
 			echo '</tr>';
 
 			echo '</tfoot>';
-			echo '</table>';
 
+			$this->after_tabular_output();
 		} else {
+			$this->before_non_tabular_output();
 
 			echo '<div class="qm-none">';
 			echo '<p>' . esc_html__( 'None', 'query-monitor' ) . '</p>';
 			echo '</div>';
 
+			$this->after_non_tabular_output();
 		}
-
-		echo '</div>';
-
 	}
 
 	public function admin_menu( array $menu ) {

@@ -16,11 +16,10 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 
 		$data = $this->collector->get_data();
 
-		echo '<div class="qm qm-non-tabular" id="' . esc_attr( $this->collector->id() ) . '">';
-		echo '<div class="qm-boxed qm-boxed-wrap">';
+		$this->before_non_tabular_output();
 
 		echo '<div class="qm-section">';
-		echo '<h2>PHP</h2>';
+		echo '<h3>PHP</h3>';
 
 		echo '<table>';
 		echo '<tbody>';
@@ -31,7 +30,7 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 
 		if ( $php_warning ) {
 			$append .= sprintf(
-				'&nbsp;<span class="qm-info">(<a href="%s" target="_blank">%s</a>)</span>',
+				'&nbsp;<span class="qm-info">(<a href="%s" target="_blank" class="qm-external-link">%s</a>)</span>',
 				'https://wordpress.org/support/upgrade-php/',
 				esc_html__( 'Help', 'query-monitor' )
 			);
@@ -39,7 +38,7 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 		}
 
 		echo '<tr class="' . esc_attr( $class ) . '">';
-		echo '<th scope="row">version</th>';
+		echo '<th scope="row">' . esc_html__( 'Version', 'query-monitor' ) . '</th>';
 		echo '<td>';
 		echo esc_html( $data['php']['version'] );
 		echo $append; // WPCS: XSS ok.
@@ -47,12 +46,12 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 		echo '</tr>';
 
 		echo '<tr>';
-		echo '<th scope="row">sapi</th>';
+		echo '<th scope="row">SAPI</th>';
 		echo '<td>' . esc_html( $data['php']['sapi'] ) . '</td>';
 		echo '</tr>';
 
 		echo '<tr>';
-		echo '<th scope="row">user</th>';
+		echo '<th scope="row">' . esc_html__( 'User', 'query-monitor' ) . '</th>';
 		if ( ! empty( $data['php']['user'] ) ) {
 			echo '<td>' . esc_html( $data['php']['user'] ) . '</td>';
 		} else {
@@ -144,20 +143,30 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 				}
 
 				echo '<div class="qm-section">';
-				echo '<h2>' . esc_html( $name ) . '</h2>';
+				echo '<h3>' . esc_html( $name ) . '</h3>';
 
 				echo '<table>';
 				echo '<tbody>';
 
-				foreach ( $db['info'] as $key => $value ) {
+				$info = array(
+					'rdbms'          => __( 'RDBMS', 'query-monitor' ),
+					'server-version' => __( 'Server Version', 'query-monitor' ),
+					'extension'      => __( 'Extension', 'query-monitor' ),
+					'client-version' => __( 'Client Version', 'query-monitor' ),
+					'user'           => __( 'User', 'query-monitor' ),
+					'host'           => __( 'Host', 'query-monitor' ),
+					'database'       => __( 'Database', 'query-monitor' ),
+				);
+
+				foreach ( $info as $field => $label ) {
 
 					echo '<tr>';
-					echo '<th scope="row">' . esc_html( $key ) . '</th>';
+					echo '<th scope="row">' . esc_html( $label ) . '</th>';
 
-					if ( ! isset( $value ) ) {
+					if ( ! isset( $db['info'][ $field ] ) ) {
 						echo '<td><span class="qm-warn">' . esc_html__( 'Unknown', 'query-monitor' ) . '</span></td>';
 					} else {
-						echo '<td>' . esc_html( $value ) . '</td>';
+						echo '<td>' . esc_html( $db['info'][ $field ] ) . '</td>';
 					}
 
 					echo '</tr>';
@@ -187,7 +196,7 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 
 					if ( $show_warning ) {
 						$append .= sprintf(
-							'&nbsp;<span class="qm-info">(<a href="%s" target="_blank">%s</a>)</span>',
+							'&nbsp;<span class="qm-info">(<a href="%s" target="_blank" class="qm-external-link">%s</a>)</span>',
 							esc_url( sprintf( $search, rawurlencode( $key ) ) ),
 							esc_html__( 'Help', 'query-monitor' )
 						);
@@ -195,7 +204,7 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 
 					if ( is_numeric( $val ) and ( $val >= ( 1024 * 1024 ) ) ) {
 						$append .= sprintf(
-							'<br><span class="qm-info qm-supplemental">~%s</span>',
+							'&nbsp;<span class="qm-info">(~%s)</span>',
 							esc_html( size_format( $val ) )
 						);
 					}
@@ -227,12 +236,17 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 		}
 
 		echo '<div class="qm-section">';
-		echo '<h2>WordPress</h2>';
+		echo '<h3>WordPress</h3>';
 
 		echo '<table>';
 		echo '<tbody>';
 
-		foreach ( $data['wp'] as $key => $val ) {
+		echo '<tr>';
+		echo '<th scope="row">' . esc_html__( 'Version', 'query-monitor' ) . '</th>';
+		echo '<td>' . esc_html( $data['wp']['version'] ) . '</td>';
+		echo '</tr>';
+
+		foreach ( $data['wp']['constants'] as $key => $val ) {
 
 			echo '<tr>';
 			echo '<th scope="row">' . esc_html( $key ) . '</th>';
@@ -247,13 +261,13 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 		echo '</div>';
 
 		echo '<div class="qm-section">';
-		echo '<h2>' . esc_html( 'Server', 'query-monitor' ) . '</h2>';
+		echo '<h3>' . esc_html__( 'Server', 'query-monitor' ) . '</h3>';
 
 		$server = array(
-			'name'    => __( 'software', 'query-monitor' ),
-			'version' => __( 'version', 'query-monitor' ),
-			'address' => __( 'address', 'query-monitor' ),
-			'host'    => __( 'host', 'query-monitor' ),
+			'name'    => __( 'Software', 'query-monitor' ),
+			'version' => __( 'Version', 'query-monitor' ),
+			'address' => __( 'Address', 'query-monitor' ),
+			'host'    => __( 'Host', 'query-monitor' ),
 			'OS'      => __( 'OS', 'query-monitor' ),
 		);
 
@@ -275,8 +289,7 @@ class QM_Output_Html_Environment extends QM_Output_Html {
 		echo '</table>';
 		echo '</div>';
 
-		echo '</div>';
-		echo '</div>';
+		$this->after_non_tabular_output();
 	}
 
 }

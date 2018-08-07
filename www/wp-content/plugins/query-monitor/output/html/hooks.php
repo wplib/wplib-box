@@ -28,18 +28,23 @@ class QM_Output_Html_Hooks extends QM_Output_Html {
 			$screen = $data['screen'];
 		}
 
-		echo '<div class="qm" id="' . esc_attr( $this->collector->id() ) . '">';
-		echo '<table>';
-		echo '<caption class="screen-reader-text">' . esc_html__( 'Hooks', 'query-monitor' ) . '</caption>';
+		$parts = $data['parts'];
+		$components = $data['components'];
+
+		usort( $parts, 'strcasecmp' );
+		usort( $components, 'strcasecmp' );
+
+		$this->before_tabular_output();
+
 		echo '<thead>';
 		echo '<tr>';
 		echo '<th scope="col" class="qm-filterable-column">';
-		echo $this->build_filter( 'name', $data['parts'], __( 'Hook', 'query-monitor' ) ); // WPCS: XSS ok.
+		echo $this->build_filter( 'name', $parts, __( 'Hook', 'query-monitor' ) ); // WPCS: XSS ok.
 		echo '</th>';
 		echo '<th scope="col">' . esc_html__( 'Priority', 'query-monitor' ) . '</th>';
 		echo '<th scope="col">' . esc_html__( 'Action', 'query-monitor' ) . '</th>';
 		echo '<th scope="col" class="qm-filterable-column">';
-		echo $this->build_filter( 'component', $data['components'], __( 'Component', 'query-monitor' ), 'subject' ); // WPCS: XSS ok.
+		echo $this->build_filter( 'component', $components, __( 'Component', 'query-monitor' ), 'subject' ); // WPCS: XSS ok.
 		echo '</th>';
 		echo '</tr>';
 		echo '</thead>';
@@ -48,9 +53,7 @@ class QM_Output_Html_Hooks extends QM_Output_Html {
 		self::output_hook_table( $data['hooks'], $screen );
 		echo '</tbody>';
 
-		echo '</table>';
-		echo '</div>';
-
+		$this->after_tabular_output();
 	}
 
 	public static function output_hook_table( array $hooks, $screen = '' ) {
@@ -132,7 +135,7 @@ class QM_Output_Html_Hooks extends QM_Output_Html {
 
 					if ( isset( $action['callback']['file'] ) ) {
 						if ( self::has_clickable_links() ) {
-							echo '<td class="qm-wrap qm-ltr' . esc_attr( $class ) . '">';
+							echo '<td class="qm-nowrap qm-ltr' . esc_attr( $class ) . '">';
 							echo self::output_filename( $action['callback']['name'], $action['callback']['file'], $action['callback']['line'] ); // WPCS: XSS ok.
 							echo '</td>';
 						} else {
@@ -144,7 +147,7 @@ class QM_Output_Html_Hooks extends QM_Output_Html {
 							echo '</ol></td>';
 						}
 					} else {
-						echo '<td class="qm-ltr qm-wrap' . esc_attr( $class ) . '">';
+						echo '<td class="qm-ltr qm-nowrap' . esc_attr( $class ) . '">';
 						echo '<code>' . esc_html( $action['callback']['name'] ) . '</code>';
 					}
 
@@ -166,9 +169,9 @@ class QM_Output_Html_Hooks extends QM_Output_Html {
 				}
 			} else {
 				echo "<tr{$attr}>"; // WPCS: XSS ok.
-				echo '<th scope="row" class="qm-ltr">';
+				echo '<th scope="row" class="qm-ltr"><span class="qm-sticky">';
 				echo '<code>' . $hook_name . '</code>'; // WPCS: XSS ok.
-				echo '</th>';
+				echo '</span></th>';
 				echo '<td>&nbsp;</td>';
 				echo '<td>&nbsp;</td>';
 				echo '<td>&nbsp;</td>';
