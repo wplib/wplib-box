@@ -3,9 +3,21 @@
         "This is just a sample.",
         "WPLib Box will create the working project.json for you on your initial `vagrant up`.",
         "Rename this file to project.json and WPLib Box will use your modifications instead.",
-        "Find available components by typing `vagrant ssh` followed by `box component available`.",
+        "Find available components by typing 'vagrant ssh' in terminal followed by 'box component available'.",
         "You can delete this `readme` section assuming it is still valid JSON after deletion."
     ],
+    "hostname": "wplib.box",
+    "aliases": [
+        "docs.{hostname}",
+        "www.{hostname}",
+        "adminer.{hostname}",
+        "mailhog.{hostname}"
+    ],
+    "localdev": {
+        "name": "WPLib Box",
+        "version": "0.17.1",
+        "website": "http://wplib.org/box"
+    },
     "stack" : {
         "wordpress/dbserver":      "wplib/mysql:5.5.60",
         "wordpress/webserver":     "wplib/nginx:1.14.0",

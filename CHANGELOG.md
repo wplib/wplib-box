@@ -1,8 +1,27 @@
 # WPLib Box ChangeLog
 
+## 0.17.1
+=========
++ Greatly simplified Vagrantfile while expanding capabilities.
++ Expanded `project.json` to include `hostname` and `localdev.version`.
++ `services` in `project.json` renamed to `stack`
++ User experience improved and small fixes for `box self-update`
++ Fixed several broken aspects of WP CLI
++ Fixed several broken aspects of Composer 
++ Fixed WP CLI so it no longer requires being included in `stack` to run.
++ Elinated the creation of `/provision` directory in root of 
++ Added `$_ENV['CLI_HOST']` to contain `wplib.box` when running WP CLI.
++ Added `$_ENV['DB_HOST']` to contain `wplib.box` when running WP CLI.
++ Fixed `mkdocs` to be run without arguments to allow for help text.
++ `box startup` no longer has side-effect of backuping database.
++ Created `--short` version of `box status`, `box version`, etc.
++ Fixed bug in component install script.
++ Upgraded Docker to `18.06.0-ce`
+ 
+
 ## 0.17.0
-=======
-+ Prebuilt PHP component containers for 5.2.4, 5.6.36, 7.0.30, 7.1.18 & 7.2.6. (5.3.29, 5.4.45 & 5.5.38 to follow in 0.17.1).
+=========
++ Prebuilt PHP component containers for 5.2.4, 5.6.36, 7.0.30, 7.1.18 & 7.2.6. (5.3.29, 5.4.45 & 5.5.38 to follow soon.)
 + New project.json layout.
 + Merging of official project.json release file with user project.json file.
 + New sub-command `box component` with simpler command set.
