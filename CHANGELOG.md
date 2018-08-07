@@ -13,6 +13,7 @@
 + Added `$_ENV['CLI_HOST']` to contain `wplib.box` when running WP CLI.
 + Added `$_ENV['DB_HOST']` to contain `wplib.box` when running WP CLI.
 + Fixed `mkdocs` to be run without arguments to allow for help text.
++ Fixed Nginx and Apache to load `index.html` as default document.
 + `box startup` no longer has side-effect of backuping database.
 + Created `--short` version of `box status`, `box version`, etc.
 + Fixed bug in component install script.
