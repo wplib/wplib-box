@@ -16,11 +16,10 @@ class QM_Output_Html_Conditionals extends QM_Output_Html {
 	public function output() {
 		$data = $this->collector->get_data();
 
-		echo '<div class="qm qm-non-tabular" id="' . esc_attr( $this->collector->id() ) . '">';
-		echo '<div class="qm-boxed">';
+		$this->before_non_tabular_output();
 
 		echo '<div class="qm-section">';
-		echo '<h2>' . esc_html__( 'True Conditionals', 'query-monitor' ) . '</h2>';
+		echo '<h3>' . esc_html__( 'True Conditionals', 'query-monitor' ) . '</h3>';
 
 		foreach ( $data['conds']['true'] as $cond ) {
 			echo '<p class="qm-item qm-ltr qm-true"><code>' . esc_html( $cond ) . '()</code></p>';
@@ -28,15 +27,15 @@ class QM_Output_Html_Conditionals extends QM_Output_Html {
 
 		echo '</div>';
 		echo '<div class="qm-section">';
-		echo '<h2>' . esc_html__( 'False Conditionals', 'query-monitor' ) . '</h2>';
+		echo '<h3>' . esc_html__( 'False Conditionals', 'query-monitor' ) . '</h3>';
 
 		foreach ( $data['conds']['false'] as $cond ) {
 			echo '<p class="qm-item qm-ltr qm-false"><code>' . esc_html( $cond ) . '()</code></p>';
 		}
 
 		echo '</div>';
-		echo '</div>';
-		echo '</div>';
+
+		$this->after_non_tabular_output();
 	}
 
 	public function admin_menu( array $menu ) {

@@ -200,22 +200,25 @@ class QM_Util {
 					$access = '::';
 				}
 
-				$callback['name'] = $class . $access . $callback['function'][1] . '()';
+				$callback['name'] = QM_Util::shorten_fqn( $class . $access . $callback['function'][1] ) . '()';
 				$ref = new ReflectionMethod( $class, $callback['function'][1] );
 			} elseif ( is_object( $callback['function'] ) ) {
 				if ( is_a( $callback['function'], 'Closure' ) ) {
 					$ref  = new ReflectionFunction( $callback['function'] );
 					$file = QM_Util::standard_dir( $ref->getFileName(), '' );
+					if ( 0 === strpos( $file, '/' ) ) {
+						$file = basename( $ref->getFileName() );
+					}
 					/* translators: 1: Line number, 2: File name */
 					$callback['name'] = sprintf( __( 'Closure on line %1$d of %2$s', 'query-monitor' ), $ref->getStartLine(), $file );
 				} else {
 					// the object should have a __invoke() method
 					$class = get_class( $callback['function'] );
-					$callback['name'] = $class . '->__invoke()';
+					$callback['name'] = QM_Util::shorten_fqn( $class ) . '->__invoke()';
 					$ref = new ReflectionMethod( $class, '__invoke' );
 				}
 			} else {
-				$callback['name'] = $callback['function'] . '()';
+				$callback['name'] = QM_Util::shorten_fqn( $callback['function'] ) . '()';
 				$ref = new ReflectionFunction( $callback['function'] );
 			}
 
@@ -342,29 +345,73 @@ class QM_Util {
 			return $value;
 		} elseif ( is_object( $value ) ) {
 			$class = get_class( $value );
-			$id = false;
 
-			switch ( $class ) {
+			switch ( true ) {
 
-				case 'WP_Post':
-				case 'WP_User':
-					$id = $value->ID;
+				case ( $value instanceof WP_Post ):
+				case ( $value instanceof WP_User ):
+					return sprintf( '%s (ID: %s)', $class, $value->ID );
 					break;
 
-				case 'WP_Term':
-					$id = $value->term_id;
+				case ( $value instanceof WP_Term ):
+					return sprintf( '%s (term_id: %s)', $class, $value->term_id );
+					break;
+
+				case ( $value instanceof WP_Comment ):
+					return sprintf( '%s (comment_ID: %s)', $class, $value->comment_ID );
+					break;
+
+				case ( $value instanceof WP_Error ):
+					return sprintf( '%s (%s)', $class, $value->get_error_code() );
+					break;
+
+				case ( $value instanceof WP_Role ):
+				case ( $value instanceof WP_Post_Type ):
+				case ( $value instanceof WP_Taxonomy ):
+					return sprintf( '%s (%s)', $class, $value->name );
+					break;
+
+				case ( $value instanceof WP_Network ):
+					return sprintf( '%s (id: %s)', $class, $value->id );
+					break;
+
+				case ( $value instanceof WP_Site ):
+					return sprintf( '%s (blog_id: %s)', $class, $value->blog_id );
+					break;
+
+				case ( $value instanceof WP_Theme ):
+					return sprintf( '%s (%s)', $class, $value->get_stylesheet() );
+					break;
+
+				default:
+					return $class;
 					break;
 
 			}
-
-			if ( $id ) {
-				return sprintf( '%s (ID:%d)', $class, $id );
-			}
-
-			return $class;
 		} else {
 			return gettype( $value );
 		}
+	}
+
+	/**
+	 * Shortens a fully qualified name to reduce the length of the names of long namespaced symbols.
+	 *
+	 * This initialises portions that do not form the first or last portion of the name. For example:
+	 *
+	 *     Inpsyde\Wonolog\HookListener\HookListenersRegistry->hook_callback()
+	 *
+	 * becomes:
+	 *
+	 *     Inpsyde\W\H\HookListenersRegistry->hook_callback()
+	 *
+	 * @param string $fqn A fully qualified name.
+	 * @return string A shortened version of the name.
+	 */
+	public static function shorten_fqn( $fqn ) {
+		return preg_replace_callback( '#\\\\[a-zA-Z0-9_\\\\]{4,}\\\\#', function( array $matches ) {
+			preg_match_all( '#\\\\([a-zA-Z0-9_])#', $matches[0], $m );
+			return '\\' . implode( '\\', $m[1] ) . '\\';
+		}, $fqn );
 	}
 
 	public static function sort( array &$array, $field ) {

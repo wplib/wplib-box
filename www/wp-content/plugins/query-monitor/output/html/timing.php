@@ -20,10 +20,7 @@ class QM_Output_Html_Timing extends QM_Output_Html {
 			return;
 		}
 
-		echo '<div class="qm" id="' . esc_attr( $this->collector->id() ) . '">';
-		echo '<table>';
-
-		echo '<caption class="screen-reader-text">' . esc_html__( 'Function Timing', 'query-monitor' ) . '</caption>';
+		$this->before_tabular_output();
 
 		echo '<thead>';
 		echo '<tr>';
@@ -140,9 +137,8 @@ class QM_Output_Html_Timing extends QM_Output_Html {
 		}
 
 		echo '</tbody>';
-		echo '</table>';
-		echo '</div>';
 
+		$this->after_tabular_output();
 	}
 
 	public function admin_menu( array $menu ) {

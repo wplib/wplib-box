@@ -22,19 +22,14 @@ class QM_Output_Html_Languages extends QM_Output_Html {
 			return;
 		}
 
-		echo '<div class="qm" id="' . esc_attr( $this->collector->id() ) . '">';
-		echo '<table>';
-		echo '<caption>' . esc_html( sprintf(
-			/* translators: %s: Name of current language */
-			__( 'Language Setting: %s', 'query-monitor' ),
-			$data['locale']
-		) ) . '</caption>';
+		$this->before_tabular_output();
+
 		echo '<thead>';
 		echo '<tr>';
-		echo '<th>' . esc_html__( 'Text Domain', 'query-monitor' ) . '</th>';
-		echo '<th>' . esc_html__( 'Caller', 'query-monitor' ) . '</th>';
-		echo '<th>' . esc_html__( 'MO File', 'query-monitor' ) . '</th>';
-		echo '<th>' . esc_html__( 'Size', 'query-monitor' ) . '</th>';
+		echo '<th scope="col">' . esc_html__( 'Text Domain', 'query-monitor' ) . '</th>';
+		echo '<th scope="col">' . esc_html__( 'Caller', 'query-monitor' ) . '</th>';
+		echo '<th scope="col">' . esc_html__( 'MO File', 'query-monitor' ) . '</th>';
+		echo '<th scope="col">' . esc_html__( 'Size', 'query-monitor' ) . '</th>';
 		echo '</tr>';
 		echo '</thead>';
 
@@ -46,7 +41,7 @@ class QM_Output_Html_Languages extends QM_Output_Html {
 			foreach ( $mofiles as $mofile ) {
 				echo '<tr>';
 
-				echo '<th class="qm-ltr">' . esc_html( $mofile['domain'] ) . '</th>';
+				echo '<td class="qm-ltr">' . esc_html( $mofile['domain'] ) . '</td>';
 
 				if ( self::has_clickable_links() ) {
 					echo '<td class="qm-nowrap qm-ltr">';
@@ -82,9 +77,7 @@ class QM_Output_Html_Languages extends QM_Output_Html {
 
 		echo '</tbody>';
 
-		echo '</table>';
-		echo '</div>';
-
+		$this->after_tabular_output();
 	}
 
 	public function admin_menu( array $menu ) {

@@ -37,34 +37,49 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 		}
 
 		$qm_broken = __( 'A JavaScript problem on the page is preventing Query Monitor from working correctly. jQuery may have been blocked from loading.', 'query-monitor' );
+		$ajax_errors = __( 'PHP errors were triggered during an Ajax request. See your browser developer console for details.', 'query-monitor' );
 
-		echo '<div class="qm qm-non-tabular" id="' . esc_attr( $this->collector->id() ) . '">';
-		echo '<div class="qm-boxed" id="qm-broken">';
+		$this->before_non_tabular_output();
 
-		echo '<div class="qm-section">';
-		echo '<h2 class="qm-warn"><span class="dashicons dashicons-warning" aria-hidden="true"></span>' . esc_html( $qm_broken ) . '</h2>';
+		echo '<div class="qm-section" id="qm-broken">';
+		echo '<p class="qm-warn"><span class="dashicons dashicons-warning" aria-hidden="true"></span>' . esc_html( $qm_broken ) . '</p>';
+		echo '</div>';
+
+		echo '<div class="qm-section" id="qm-ajax-errors">';
+		echo '<p class="qm-warn"><span class="dashicons dashicons-warning" aria-hidden="true"></span>' . esc_html( $ajax_errors ) . '</p>';
 		echo '</div>';
 
 		echo '</div>';
-		echo '<div class="qm-boxed qm-boxed-wrap">';
+		echo '<div class="qm-boxed">';
 
 		echo '<div class="qm-section">';
-		echo '<h2>' . esc_html__( 'Page Generation Time', 'query-monitor' ) . '</h2>';
+		echo '<h3>' . esc_html__( 'Page Generation Time', 'query-monitor' ) . '</h3>';
 		echo '<p class="qm-item">';
 		echo esc_html( number_format_i18n( $data['time_taken'], 4 ) );
-		echo '<br><span class="qm-info">';
-		echo esc_html( sprintf(
-			/* translators: 1: Percentage of time limit used, 2: Time limit in seconds */
-			__( '%1$s%% of %2$ss limit', 'query-monitor' ),
-			number_format_i18n( $data['time_usage'], 1 ),
-			number_format_i18n( $data['time_limit'] )
-		) );
-		echo '</span>';
+
+		if ( $data['time_limit'] > 0 ) {
+			if ( $data['display_time_usage_warning'] ) {
+				echo '<br><span class="qm-warn">';
+			} else {
+				echo '<br><span class="qm-info">';
+			}
+			echo esc_html( sprintf(
+				/* translators: 1: Percentage of time limit used, 2: Time limit in seconds */
+				__( '%1$s%% of %2$ss limit', 'query-monitor' ),
+				number_format_i18n( $data['time_usage'], 1 ),
+				number_format_i18n( $data['time_limit'] )
+			) );
+			echo '</span>';
+		} else {
+			echo '<br><span class="qm-warn"><span class="dashicons dashicons-warning" aria-hidden="true"></span>';
+			esc_html_e( 'No execution time limit', 'query-monitor' );
+			echo '</span>';
+		}
 		echo '</p>';
 		echo '</div>';
 
 		echo '<div class="qm-section">';
-		echo '<h2>' . esc_html__( 'Peak Memory Usage', 'query-monitor' ) . '</h2>';
+		echo '<h3>' . esc_html__( 'Peak Memory Usage', 'query-monitor' ) . '</h3>';
 		echo '<p class="qm-item">';
 
 		if ( empty( $data['memory'] ) ) {
@@ -75,14 +90,25 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 				__( '%s kB', 'query-monitor' ),
 				number_format_i18n( $data['memory'] / 1024 )
 			) );
-			echo '<br><span class="qm-info">';
-			echo esc_html( sprintf(
-				/* translators: 1: Percentage of memory limit used, 2: Memory limit in kilobytes */
-				__( '%1$s%% of %2$s kB limit', 'query-monitor' ),
-				number_format_i18n( $data['memory_usage'], 1 ),
-				number_format_i18n( $data['memory_limit'] / 1024 )
-			) );
-			echo '</span>';
+
+			if ( $data['memory_limit'] > 0 ) {
+				if ( $data['display_memory_usage_warning'] ) {
+					echo '<br><span class="qm-warn">';
+				} else {
+					echo '<br><span class="qm-info">';
+				}
+				echo esc_html( sprintf(
+					/* translators: 1: Percentage of memory limit used, 2: Memory limit in kilobytes */
+					__( '%1$s%% of %2$s kB limit', 'query-monitor' ),
+					number_format_i18n( $data['memory_usage'], 1 ),
+					number_format_i18n( $data['memory_limit'] / 1024 )
+				) );
+				echo '</span>';
+			} else {
+				echo '<br><span class="qm-warn"><span class="dashicons dashicons-warning" aria-hidden="true"></span>';
+				esc_html_e( 'No memory limit', 'query-monitor' );
+				echo '</span>';
+			}
 		}
 
 		echo '</p>';
@@ -90,14 +116,14 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 
 		if ( isset( $db_query_num ) ) {
 			echo '<div class="qm-section">';
-			echo '<h2>' . esc_html__( 'Database Query Time', 'query-monitor' ) . '</h2>';
+			echo '<h3>' . esc_html__( 'Database Query Time', 'query-monitor' ) . '</h3>';
 			echo '<p class="qm-item">';
 			echo esc_html( number_format_i18n( $db_queries_data['total_time'], 4 ) );
 			echo '</p>';
 			echo '</div>';
 
 			echo '<div class="qm-section">';
-			echo '<h2>' . esc_html__( 'Database Queries', 'query-monitor' ) . '</h2>';
+			echo '<h3>' . esc_html__( 'Database Queries', 'query-monitor' ) . '</h3>';
 			echo '<p class="qm-item">';
 
 			if ( ! isset( $db_query_num['SELECT'] ) || count( $db_query_num ) > 1 ) {
@@ -118,7 +144,7 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 		}
 
 		echo '<div class="qm-section">';
-		echo '<h2>' . esc_html__( 'Object Cache', 'query-monitor' ) . '</h2>';
+		echo '<h3>' . esc_html__( 'Object Cache', 'query-monitor' ) . '</h3>';
 		echo '<p class="qm-item">';
 
 		if ( isset( $cache_hit_percentage ) ) {
@@ -131,7 +157,7 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 			) );
 			if ( $cache_data['display_hit_rate_warning'] ) {
 				printf(
-					'<br><a href="%s">%s</a>',
+					'<br><a href="%s" class="qm-external-link">%s</a>',
 					'https://github.com/johnbillion/query-monitor/wiki/Cache-Hit-Rate',
 					esc_html__( 'Why is this value 100%?', 'query-monitor' )
 				);
@@ -139,15 +165,31 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 			if ( $cache_data['ext_object_cache'] ) {
 				echo '<br><span class="qm-info">';
 				printf(
-					'<a href="%s">%s</a>',
+					'<a href="%s" class="qm-link">%s</a>',
 					esc_url( network_admin_url( 'plugins.php?plugin_status=dropins' ) ),
 					esc_html__( 'External object cache in use', 'query-monitor' )
 				);
 				echo '</span>';
 			} else {
-				echo '<br><span class="qm-warn">';
+				echo '<br><span class="qm-warn"><span class="dashicons dashicons-warning" aria-hidden="true"></span>';
 				echo esc_html__( 'External object cache not in use', 'query-monitor' );
 				echo '</span>';
+
+				$potentials = array_filter( $cache_data['extensions'] );
+
+				if ( ! empty( $potentials ) ) {
+					echo '<ul>';
+					foreach ( $potentials as $name => $value ) {
+						echo '<li class="qm-warn">';
+						echo esc_html( sprintf(
+							/* translators: %s: PHP extension name */
+							__( 'The %s extension for PHP is installed but is not in use by WordPress', 'query-monitor' ),
+							$name
+						) );
+						echo '</li>';
+					}
+					echo '</ul>';
+				}
 			}
 		} else {
 			echo '<span class="qm-info">';
@@ -158,8 +200,7 @@ class QM_Output_Html_Overview extends QM_Output_Html {
 		echo '</p>';
 		echo '</div>';
 
-		echo '</div>';
-		echo '</div>';
+		$this->after_non_tabular_output();
 	}
 
 	public function admin_title( array $title ) {
