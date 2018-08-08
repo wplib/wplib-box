@@ -24,9 +24,9 @@ define( 'BOX_HOST', preg_match( '#^www\.(.+)$#', $hostname )
 	: $hostname
 );
 
-define( 'BOX_LOCAL_CONFIG', __DIR__ . '/wp-config-' . BOX_HOST . '.php' );
-if ( isset( $_ENV[ 'WPLIB_BOX' ] ) && ! is_file( BOX_LOCAL_CONFIG ) ) {
-	file_put_contents( BOX_LOCAL_CONFIG, "<?php\n#\n# Local configuration for {$hostname}\n#\n" );
+define( 'BOX_LOCAL_CONFIG', '/wp-config-' . BOX_HOST . '.php' );
+if ( isset( $_ENV[ 'WPLIB_BOX' ] ) && ! is_file( dirname( __FILE__ ) . BOX_LOCAL_CONFIG ) ) {
+	file_put_contents( dirname( __FILE__ ) . BOX_LOCAL_CONFIG, "<?php\n#\n# Local configuration for {$hostname}\n#\n" );
 }
 unset( $hostname );
 
