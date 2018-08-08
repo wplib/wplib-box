@@ -3,22 +3,22 @@
 ## 0.17.1
 =========
 + Greatly simplified Vagrantfile while expanding capabilities.
-+ Expanded `project.json` to include `hostname` and `localdev.version`.
++ Expanded `project.json` to include `.hostname` and `.localdev.version`.
 + `services` in `project.json` renamed to `stack`
 + User experience improved and small fixes for `box self-update`
 + Fixed several broken aspects of WP CLI
 + Fixed several broken aspects of Composer 
-+ Fixed WP CLI so it no longer requires being included in `stack` to run.
-+ Elinated the creation of `/provision` directory in root of 
++ Fixed WP CLI so it no longer require to be included in `stack` to run.
++ Eliminated the creation of `/provision` directory in root of user's project.
 + Added `$_ENV['CLI_HOST']` to contain `wplib.box` when running WP CLI.
-+ Added `$_ENV['DB_HOST']` to contain `wplib.box` when running WP CLI.
++ Added `$_ENV['DB_HOST']` to contain `172.42.0.1` when running WP CLI.
 + Fixed `mkdocs` to be run without arguments to allow for help text.
 + Fixed Nginx and Apache to load `index.html` as default document.
 + `box startup` no longer has side-effect of backuping database.
-+ Created `--short` version of `box status`, `box version`, etc.
++ Created `--short` switch for `box status`, `box version`, etc.
 + Fixed bug in component install script.
 + Upgraded Docker to `18.06.0-ce`
- 
+
 
 ## 0.17.0
 =========
