@@ -23,12 +23,15 @@ define( 'BOX_HOST', preg_match( '#^www\.(.+)$#', $hostname )
 	? preg_replace( '#^www\.(.+)$#', '$1', $hostname )
 	: $hostname
 );
+unset( $hostname );
 
 define( 'BOX_LOCAL_CONFIG', '/wp-config-' . BOX_HOST . '.php' );
 if ( isset( $_ENV[ 'WPLIB_BOX' ] ) && ! is_file( dirname( __FILE__ ) . BOX_LOCAL_CONFIG ) ) {
-	file_put_contents( dirname( __FILE__ ) . BOX_LOCAL_CONFIG, "<?php\n#\n# Local configuration for {$hostname}\n#\n" );
+	$config = file_get_contents( dirname( __FILE__ ) . '/wp-config-wplib.box.php' );
+	file_put_contents( dirname( __FILE__ ) . BOX_LOCAL_CONFIG, $config );
 }
-unset( $hostname );
+unset( $config );
+
 
 /**
  * Search for a wp-config-{HTTP_HOST}.php in current
