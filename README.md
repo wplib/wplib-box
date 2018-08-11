@@ -10,4 +10,4 @@ If you are interested in our progress you can [find it here](https://wplib.githu
 
 ## WANT TO CONTRIBUTE?
 
-Help us [**write tests**](https://github.com/wplib/wplib-box/issues/538) for WPLib Box. _(It is actually really easy, assuming you know Bash.)
+Help us [**write tests**](https://github.com/wplib/wplib-box/issues/538) for WPLib Box. _(It is actually really easy, assuming you know Bash.)_
