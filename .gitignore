@@ -2,9 +2,9 @@
 # THESE .gitignore FILES FOR THE WPLib Box REPO.
 # DELETE these to meet the needs of your project.
 #
+.DS_Store
 /sql/*
 !/sql/README.sql.md
-/sql/provision.sql
 /docs
 !/docs/README.docs.md
 /project.json.lock
