@@ -14,9 +14,9 @@
 #       modify this Vagrantfile as most common configuration is
 #       designed to be handled in ./project.json.
 #
-#       ---------------------------------------------------------
-#       The next version of WPLib Box will no longer use Vagrant!
-#       ---------------------------------------------------------
+#       ---------------------------------------------------------------
+#       The next major version of WPLib Box will no longer use Vagrant!
+#       ---------------------------------------------------------------
 #
 #       Brought to you by The WPLib Team:
 #
@@ -68,6 +68,7 @@
 
 Vagrant.configure(2) do |config|
 
+    Dir.chdir File.dirname(__FILE__)
     require "./.vagrant/box.rb"
     box = Box.new()
     box.prerequisites()
