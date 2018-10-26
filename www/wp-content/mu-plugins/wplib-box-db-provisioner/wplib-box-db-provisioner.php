@@ -55,7 +55,7 @@ class WPLib_Box_DB_Provisioner {
 			self::update_option( 'template', self::WELCOME_THEME );
 			self::update_option( 'stylesheet', self::WELCOME_THEME );
 
-			self::update_option( 'blogname', 'WPLib Box Default WordPress Install' );
+			self::update_option( 'blogname', 'WPLib Box Default ClassicPress Install' );
 
 			self::update_option( 'siteurl', 'http://wplib.box' );
 			self::update_option( 'home', 'http://wplib.box' );

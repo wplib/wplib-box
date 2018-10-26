@@ -2,8 +2,8 @@
 /**
  * WP_HTTP_IXR_Client
  *
- * @package WordPress
- * @since 3.1.0
+ * @package ClassicPress
+ * @since WP-3.1.0
  *
  */
 class WP_HTTP_IXR_Client extends IXR_Client {
@@ -71,7 +71,7 @@ class WP_HTTP_IXR_Client extends IXR_Client {
 		/**
 		 * Filters the headers collection to be sent to the XML-RPC server.
 		 *
-		 * @since 4.4.0
+		 * @since WP-4.4.0
 		 *
 		 * @param array $headers Array of headers to be sent.
 		 */

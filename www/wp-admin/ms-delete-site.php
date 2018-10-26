@@ -2,9 +2,9 @@
 /**
  * Multisite delete site panel.
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Multisite
- * @since 3.0.0
+ * @since WP-3.0.0
  */
 
 require_once( dirname( __FILE__ ) . '/admin.php' );
@@ -45,7 +45,7 @@ if ( isset( $_POST['action'] ) && $_POST['action'] == 'deleteblog' && isset( $_P
 	$switched_locale = switch_to_locale( get_locale() );
 
 	/* translators: Do not translate USERNAME, URL_DELETE, SITE_NAME: those are placeholders. */
-	$content = __( "Howdy ###USERNAME###,
+	$content = __( "Hello ###USERNAME###,
 
 You recently clicked the 'Delete Site' link on your site and filled in a
 form on that page.
@@ -64,7 +64,7 @@ Webmaster
 	/**
 	 * Filters the email content sent when a site in a Multisite network is deleted.
 	 *
-	 * @since 3.0.0
+	 * @since WP-3.0.0
 	 *
 	 * @param string $content The email content that will be sent to the user who deleted a site in a Multisite network.
 	 */

@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugins may load this file to gain access to special helper functions for
- * plugin installation. This file is not included by WordPress and it is
+ * plugin installation. This file is not included by ClassicPress and it is
  * recommended, to prevent fatal errors, that this file is included using
  * require_once().
  *
@@ -30,20 +30,20 @@
  *         ++$error_count;
  *     }
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Plugin
  */
 
-/** Load WordPress Bootstrap */
+/** Load ClassicPress Bootstrap */
 require_once(dirname(dirname(__FILE__)).'/wp-load.php');
 
 if ( ! function_exists('maybe_create_table') ) :
 /**
  * Create database table, if it doesn't already exist.
  *
- * @since 1.0.0
+ * @since WP-1.0.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb ClassicPress database abstraction object.
  *
  * @param string $table_name Database table name.
  * @param string $create_ddl Create database table SQL.
@@ -73,9 +73,9 @@ if ( ! function_exists('maybe_add_column') ) :
 /**
  * Add column to database table, if column doesn't already exist in table.
  *
- * @since 1.0.0
+ * @since WP-1.0.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb ClassicPress database abstraction object.
  *
  * @param string $table_name Database table name
  * @param string $column_name Table column name
@@ -107,9 +107,9 @@ endif;
 /**
  * Drop column from database table, if it exists.
  *
- * @since 1.0.0
+ * @since WP-1.0.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb ClassicPress database abstraction object.
  *
  * @param string $table_name Table name
  * @param string $column_name Column name
@@ -152,9 +152,9 @@ function maybe_drop_column($table_name, $column_name, $drop_ddl) {
  *      Default
  *      Extra
  *
- * @since 1.0.0
+ * @since WP-1.0.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb ClassicPress database abstraction object.
  *
  * @param string $table_name Table name
  * @param string $col_name   Column name

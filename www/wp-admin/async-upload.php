@@ -2,7 +2,7 @@
 /**
  * Server-side file upload handler from wp-plupload or other asynchronous upload methods.
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
  */
 
@@ -100,7 +100,7 @@ if ( $_REQUEST['short'] ) {
 	 * The dynamic portion of the hook name, `$type`, refers to the attachment type,
 	 * such as 'image', 'audio', 'video', 'file', etc.
 	 *
-	 * @since 2.5.0
+	 * @since WP-2.5.0
 	 *
 	 * @param int $id Uploaded attachment ID.
 	 */

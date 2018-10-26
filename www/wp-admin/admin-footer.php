@@ -1,8 +1,8 @@
 <?php
 /**
- * WordPress Administration Template Footer
+ * ClassicPress Administration Template Footer
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
  */
 
@@ -25,17 +25,17 @@ global $hook_suffix;
 	/**
 	 * Fires after the opening tag for the admin footer.
 	 *
-	 * @since 2.5.0
+	 * @since WP-2.5.0
 	 */
 	do_action( 'in_admin_footer' );
 	?>
 	<p id="footer-left" class="alignleft">
 		<?php
-		$text = sprintf( __( 'Thank you for creating with <a href="%s">WordPress</a>.' ), __( 'https://wordpress.org/' ) );
+		$text = sprintf( __( 'Thank you for creating with <a href="%s">ClassicPress</a>.' ), __( 'https://www.classicpress.net/' ) );
 		/**
 		 * Filters the "Thank you" text displayed in the admin footer.
 		 *
-		 * @since 2.8.0
+		 * @since WP-2.8.0
 		 *
 		 * @param string $text The content that will be printed.
 		 */
@@ -47,10 +47,10 @@ global $hook_suffix;
 		/**
 		 * Filters the version/update text displayed in the admin footer.
 		 *
-		 * WordPress prints the current version and update information,
+		 * ClassicPress prints the current version and update information,
 		 * using core_update_footer() at priority 10.
 		 *
-		 * @since 2.3.0
+		 * @since WP-2.3.0
 		 *
 		 * @see core_update_footer()
 		 *
@@ -65,7 +65,7 @@ global $hook_suffix;
 /**
  * Prints scripts or data before the default footer scripts.
  *
- * @since 1.2.0
+ * @since WP-1.2.0
  *
  * @param string $data The data to print.
  */
@@ -77,14 +77,14 @@ do_action( 'admin_footer', '' );
  * The dynamic portion of the hook name, `$hook_suffix`,
  * refers to the global hook suffix of the current page.
  *
- * @since 4.6.0
+ * @since WP-4.6.0
  */
 do_action( "admin_print_footer_scripts-{$hook_suffix}" );
 
 /**
  * Prints any scripts and data queued for the footer.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  */
 do_action( 'admin_print_footer_scripts' );
 
@@ -94,7 +94,7 @@ do_action( 'admin_print_footer_scripts' );
  * The dynamic portion of the hook name, `$hook_suffix`,
  * refers to the global hook suffix of the current page.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  */
 do_action( "admin_footer-{$hook_suffix}" );
 

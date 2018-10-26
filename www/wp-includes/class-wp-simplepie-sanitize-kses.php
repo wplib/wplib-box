@@ -2,9 +2,9 @@
 /**
  * Feed API: WP_SimplePie_Sanitize_KSES class
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Feed
- * @since 4.7.0
+ * @since WP-4.7.0
  */
 
 /**
@@ -13,18 +13,18 @@
  * Extends the SimplePie_Sanitize class to use KSES, because
  * we cannot universally count on DOMDocument being available.
  *
- * @since 3.5.0
+ * @since WP-3.5.0
  *
  * @see SimplePie_Sanitize
  */
 class WP_SimplePie_Sanitize_KSES extends SimplePie_Sanitize {
 
 	/**
-	 * WordPress SimplePie sanitization using KSES.
+	 * ClassicPress SimplePie sanitization using KSES.
 	 *
 	 * Sanitizes the incoming data, to ensure that it matches the type of data expected, using KSES.
 	 *
-	 * @since 3.5.0
+	 * @since WP-3.5.0
 	 *
 	 * @param mixed   $data The data that needs to be sanitized.
 	 * @param integer $type The type of data that it's supposed to be.

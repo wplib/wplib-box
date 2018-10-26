@@ -1,14 +1,14 @@
 <?php
 /**
- * WordPress User Page
+ * ClassicPress User Page
  *
  * Handles authentication, registering, resetting passwords, forgot password,
  * and other user handling.
  *
- * @package WordPress
+ * @package ClassicPress
  */
 
-/** Make sure that the WordPress bootstrap has run before continuing. */
+/** Make sure that the ClassicPress bootstrap has run before continuing. */
 require( dirname(__FILE__) . '/wp-load.php' );
 
 // Redirect to https login if forced to use SSL
@@ -25,12 +25,12 @@ if ( force_ssl_admin() && ! is_ssl() ) {
 /**
  * Output the login page header.
  *
- * @param string   $title    Optional. WordPress login Page title to display in the `<title>` element.
+ * @param string   $title    Optional. ClassicPress login Page title to display in the `<title>` element.
  *                           Default 'Log In'.
  * @param string   $message  Optional. Message to display in header. Default empty.
- * @param WP_Error $wp_error Optional. The error to pass. Default empty.
+ * @param WP_Error $wp_error Optional. The error to pass. Default is a WP_Error instance.
  */
-function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
+function login_header( $title = 'Log In', $message = '', $wp_error = null ) {
 	global $error, $interim_login, $action;
 
 	// Don't index any of these forms
@@ -38,15 +38,16 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 
 	add_action( 'login_head', 'wp_login_viewport_meta' );
 
-	if ( empty($wp_error) )
+	if ( ! is_wp_error( $wp_error ) ) {
 		$wp_error = new WP_Error();
+	}
 
 	// Shake it!
 	$shake_error_codes = array( 'empty_password', 'empty_email', 'invalid_email', 'invalidcombo', 'empty_username', 'invalid_username', 'incorrect_password' );
 	/**
 	 * Filters the error codes array for shaking the login form.
 	 *
-	 * @since 3.0.0
+	 * @since WP-3.0.0
 	 *
 	 * @param array $shake_error_codes Error codes that shake the login form.
 	 */
@@ -58,12 +59,12 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 	$login_title = get_bloginfo( 'name', 'display' );
 
 	/* translators: Login screen title. 1: Login screen name, 2: Network or site name */
-	$login_title = sprintf( __( '%1$s &lsaquo; %2$s &#8212; WordPress' ), $title, $login_title );
+	$login_title = sprintf( __( '%1$s &lsaquo; %2$s &#8212; ClassicPress' ), $title, $login_title );
 
 	/**
 	 * Filters the title tag content for login page.
 	 *
-	 * @since 4.9.0
+	 * @since WP-4.9.0
 	 *
 	 * @param string $login_title The page title, with extra context added.
 	 * @param string $title       The original page title.
@@ -98,14 +99,14 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 	/**
 	 * Enqueue scripts and styles for the login page.
 	 *
-	 * @since 3.1.0
+	 * @since WP-3.1.0
 	 */
 	do_action( 'login_enqueue_scripts' );
 
 	/**
 	 * Fires in the login page header after scripts are enqueued.
 	 *
-	 * @since 2.1.0
+	 * @since WP-2.1.0
 	 */
 	do_action( 'login_head' );
 
@@ -113,14 +114,14 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 		$login_header_url   = network_home_url();
 		$login_header_title = get_network()->site_name;
 	} else {
-		$login_header_url   = __( 'https://wordpress.org/' );
-		$login_header_title = __( 'Powered by WordPress' );
+		$login_header_url   = __( 'https://www.classicpress.net/' );
+		$login_header_title = __( 'Powered by ClassicPress' );
 	}
 
 	/**
 	 * Filters link URL of the header logo above login form.
 	 *
-	 * @since 2.1.0
+	 * @since WP-2.1.0
 	 *
 	 * @param string $login_header_url Login header logo URL.
 	 */
@@ -129,7 +130,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 	/**
 	 * Filters the title attribute of the header logo above login form.
 	 *
-	 * @since 2.1.0
+	 * @since WP-2.1.0
 	 *
 	 * @param string $login_header_title Login header logo title attribute.
 	 */
@@ -162,7 +163,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 	/**
 	 * Filters the login page body classes.
 	 *
-	 * @since 3.5.0
+	 * @since WP-3.5.0
 	 *
 	 * @param array  $classes An array of body classes.
 	 * @param string $action  The action that brought the visitor to the login page.
@@ -176,7 +177,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 	/**
 	 * Fires in the login page header after the body tag is opened.
 	 *
-	 * @since 4.6.0
+	 * @since WP-4.6.0
 	 */
 	do_action( 'login_header' );
 	?>
@@ -189,7 +190,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 	/**
 	 * Filters the message to display above the login form.
 	 *
-	 * @since 2.1.0
+	 * @since WP-2.1.0
 	 *
 	 * @param string $message Login message text.
 	 */
@@ -219,7 +220,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 			/**
 			 * Filters the error messages displayed above the login form.
 			 *
-			 * @since 2.1.0
+			 * @since WP-2.1.0
 			 *
 			 * @param string $errors Login error message.
 			 */
@@ -229,7 +230,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 			/**
 			 * Filters instructional messages displayed above the login form.
 			 *
-			 * @since 2.5.0
+			 * @since WP-2.5.0
 			 *
 			 * @param string $messages Login messages.
 			 */
@@ -268,7 +269,7 @@ function login_footer($input_id = '') {
 	/**
 	 * Fires in the login page footer.
 	 *
-	 * @since 3.1.0
+	 * @since WP-3.1.0
 	 */
 	do_action( 'login_footer' ); ?>
 	<div class="clear"></div>
@@ -278,7 +279,7 @@ function login_footer($input_id = '') {
 }
 
 /**
- * @since 3.0.0
+ * @since WP-3.0.0
  */
 function wp_shake_js() {
 ?>
@@ -293,7 +294,7 @@ addLoadEvent(function(){ var p=new Array(15,30,15,0,-15,-30,-15,0);p=p.concat(p.
 }
 
 /**
- * @since 3.7.0
+ * @since WP-3.7.0
  */
 function wp_login_viewport_meta() {
 	?>
@@ -323,8 +324,8 @@ function retrieve_password() {
 	/**
 	 * Fires before errors are returned from a password reset request.
 	 *
-	 * @since 2.1.0
-	 * @since 4.4.0 Added the `$errors` parameter.
+	 * @since WP-2.1.0
+	 * @since WP-4.4.0 Added the `$errors` parameter.
 	 *
 	 * @param WP_Error $errors A WP_Error object containing any errors generated
 	 *                         by using invalid credentials.
@@ -373,8 +374,8 @@ function retrieve_password() {
 	/**
 	 * Filters the subject of the password reset email.
 	 *
-	 * @since 2.8.0
-	 * @since 4.4.0 Added the `$user_login` and `$user_data` parameters.
+	 * @since WP-2.8.0
+	 * @since WP-4.4.0 Added the `$user_login` and `$user_data` parameters.
 	 *
 	 * @param string  $title      Default email title.
 	 * @param string  $user_login The username for the user.
@@ -387,8 +388,8 @@ function retrieve_password() {
 	 *
 	 * If the filtered message is empty, the password reset email will not be sent.
 	 *
-	 * @since 2.8.0
-	 * @since 4.1.0 Added `$user_login` and `$user_data` parameters.
+	 * @since WP-2.8.0
+	 * @since WP-4.1.0 Added `$user_login` and `$user_data` parameters.
 	 *
 	 * @param string  $message    Default mail message.
 	 * @param string  $key        The activation key.
@@ -442,7 +443,7 @@ $switched_locale = switch_to_locale( $lang );
 /**
  * Fires when the login form is initialized.
  *
- * @since 3.2.0
+ * @since WP-3.2.0
  */
 do_action( 'login_init' );
 
@@ -453,7 +454,7 @@ do_action( 'login_init' );
  * that brought the visitor to the login form. Actions include 'postpass',
  * 'logout', 'lostpassword', etc.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  */
 do_action( "login_form_{$action}" );
 
@@ -463,7 +464,7 @@ $interim_login = isset($_REQUEST['interim-login']);
 /**
  * Filters the separator used between login form navigation links.
  *
- * @since 4.9.0
+ * @since WP-4.9.0
  *
  * @param string $login_link_separator The separator used between login form navigation links.
  */
@@ -486,7 +487,7 @@ case 'postpass' :
 	 * By default, the cookie expires 10 days from creation. To turn this
 	 * into a session cookie, return 0.
 	 *
-	 * @since 3.7.0
+	 * @since WP-3.7.0
 	 *
 	 * @param int $expires The expiry time, as passed to setcookie().
 	 */
@@ -527,7 +528,7 @@ case 'logout' :
 	/**
 	 * Filters the log out redirect URL.
 	 *
-	 * @since 4.2.0
+	 * @since WP-4.2.0
 	 *
 	 * @param string  $redirect_to           The redirect destination URL.
 	 * @param string  $requested_redirect_to The requested redirect destination URL passed as a parameter.
@@ -561,7 +562,7 @@ case 'retrievepassword' :
 	/**
 	 * Filters the URL redirected to after submitting the lostpassword/retrievepassword form.
 	 *
-	 * @since 3.0.0
+	 * @since WP-3.0.0
 	 *
 	 * @param string $lostpassword_redirect The redirect destination URL.
 	 */
@@ -570,7 +571,7 @@ case 'retrievepassword' :
 	/**
 	 * Fires before the lost password form.
 	 *
-	 * @since 1.5.1
+	 * @since WP-1.5.1
 	 */
 	do_action( 'lost_password' );
 
@@ -593,7 +594,7 @@ case 'retrievepassword' :
 	/**
 	 * Fires inside the lostpassword form tags, before the hidden fields.
 	 *
-	 * @since 2.1.0
+	 * @since WP-2.1.0
 	 */
 	do_action( 'lostpassword_form' ); ?>
 	<input type="hidden" name="redirect_to" value="<?php echo esc_attr( $redirect_to ); ?>" />
@@ -661,7 +662,7 @@ case 'rp' :
 	/**
 	 * Fires before the password reset procedure is validated.
 	 *
-	 * @since 3.5.0
+	 * @since WP-3.5.0
 	 *
 	 * @param object           $errors WP Error object.
 	 * @param WP_User|WP_Error $user   WP_User object if the login and reset key match. WP_Error object otherwise.
@@ -719,7 +720,7 @@ case 'rp' :
 	/**
 	 * Fires following the 'Strength indicator' meter in the user password reset form.
 	 *
-	 * @since 3.9.0
+	 * @since WP-3.9.0
 	 *
 	 * @param WP_User $user User object of the user whose password is being reset.
 	 */
@@ -757,7 +758,7 @@ case 'register' :
 		/**
 		 * Filters the Multisite sign up URL.
 		 *
-		 * @since 3.0.0
+		 * @since WP-3.0.0
 		 *
 		 * @param string $sign_up_url The sign up URL.
 		 */
@@ -794,7 +795,7 @@ case 'register' :
 	/**
 	 * Filters the registration redirect URL.
 	 *
-	 * @since 3.0.0
+	 * @since WP-3.0.0
 	 *
 	 * @param string $registration_redirect The redirect destination URL.
 	 */
@@ -814,7 +815,7 @@ case 'register' :
 	/**
 	 * Fires following the 'Email' field in the user registration form.
 	 *
-	 * @since 2.1.0
+	 * @since WP-2.1.0
 	 */
 	do_action( 'register_form' );
 	?>
@@ -856,13 +857,13 @@ case 'confirmaction' :
 	if ( is_wp_error( $result ) ) {
 		wp_die( $result );
 	}
-	
+
 	/**
 	 * Fires an action hook when the account action has been confirmed by the user.
-	 * 
+	 *
 	 * Using this you can assume the user has agreed to perform the action by
 	 * clicking on the link in the confirmation email.
-	 * 
+	 *
 	 * After firing this action hook the page will redirect to wp-login a callback
 	 * redirects or exits first.
 	 *
@@ -921,7 +922,7 @@ default:
 		} elseif ( isset( $_POST['testcookie'] ) && empty( $_COOKIE[ TEST_COOKIE ] ) ) {
 			// If cookies are disabled we can't log in even with a valid user+pass
 			/* translators: 1: Browser cookie documentation URL */
-			$user = new WP_Error( 'test_cookie', sprintf( __( '<strong>ERROR</strong>: Cookies are blocked or not supported by your browser. You must <a href="%s">enable cookies</a> to use WordPress.' ),
+			$user = new WP_Error( 'test_cookie', sprintf( __( '<strong>ERROR</strong>: Cookies are blocked or not supported by your browser. You must <a href="%s">enable cookies</a> to use ClassicPress.' ),
 				__( 'https://codex.wordpress.org/Cookies' ) ) );
 		}
 	}
@@ -930,7 +931,7 @@ default:
 	/**
 	 * Filters the login redirect URL.
 	 *
-	 * @since 3.0.0
+	 * @since WP-3.0.0
 	 *
 	 * @param string           $redirect_to           The redirect destination URL.
 	 * @param string           $requested_redirect_to The requested redirect destination URL passed as a parameter.
@@ -991,13 +992,13 @@ default:
 		elseif	( isset($_GET['checkemail']) && 'registered' == $_GET['checkemail'] )
 			$errors->add('registered', __('Registration complete. Please check your email.'), 'message');
 		elseif ( strpos( $redirect_to, 'about.php?updated' ) )
-			$errors->add('updated', __( '<strong>You have successfully updated WordPress!</strong> Please log back in to see what&#8217;s new.' ), 'message' );
+			$errors->add('updated', __( '<strong>You have successfully updated ClassicPress!</strong> Please log back in to see what&#8217;s new.' ), 'message' );
 	}
 
 	/**
 	 * Filters the login page errors.
 	 *
-	 * @since 3.6.0
+	 * @since WP-3.6.0
 	 *
 	 * @param object $errors      WP Error object.
 	 * @param string $redirect_to Redirect destination URL.
@@ -1034,7 +1035,7 @@ default:
 	/**
 	 * Fires following the 'Password' field in the login form.
 	 *
-	 * @since 2.1.0
+	 * @since WP-2.1.0
 	 */
 	do_action( 'login_form' );
 	?>
@@ -1094,7 +1095,7 @@ d.select();
 /**
  * Filters whether to print the call to `wp_attempt_focus()` on the login screen.
  *
- * @since 4.8.0
+ * @since WP-4.8.0
  *
  * @param bool $print Whether to print the function call. Default true.
  */

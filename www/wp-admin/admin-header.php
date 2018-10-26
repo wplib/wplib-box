@@ -1,8 +1,8 @@
 <?php
 /**
- * WordPress Administration Template Header
+ * ClassicPress Administration Template Header
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
  */
 
@@ -44,16 +44,16 @@ if ( is_network_admin() ) {
 
 if ( $admin_title == $title ) {
 	/* translators: Admin screen title. 1: Admin screen name */
-	$admin_title = sprintf( __( '%1$s &#8212; WordPress' ), $title );
+	$admin_title = sprintf( __( '%1$s &#8212; ClassicPress' ), $title );
 } else {
 	/* translators: Admin screen title. 1: Admin screen name, 2: Network or site name */
-	$admin_title = sprintf( __( '%1$s &lsaquo; %2$s &#8212; WordPress' ), $title, $admin_title );
+	$admin_title = sprintf( __( '%1$s &lsaquo; %2$s &#8212; ClassicPress' ), $title, $admin_title );
 }
 
 /**
  * Filters the title tag content for an admin page.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  *
  * @param string $admin_title The page title, with extra context added.
  * @param string $title       The original page title.
@@ -90,7 +90,7 @@ var ajaxurl = '<?php echo admin_url( 'admin-ajax.php', 'relative' ); ?>',
 /**
  * Enqueue scripts for all admin pages.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @param string $hook_suffix The current admin page.
  */
@@ -99,28 +99,28 @@ do_action( 'admin_enqueue_scripts', $hook_suffix );
 /**
  * Fires when styles are printed for a specific admin page based on $hook_suffix.
  *
- * @since 2.6.0
+ * @since WP-2.6.0
  */
 do_action( "admin_print_styles-{$hook_suffix}" );
 
 /**
  * Fires when styles are printed for all admin pages.
  *
- * @since 2.6.0
+ * @since WP-2.6.0
  */
 do_action( 'admin_print_styles' );
 
 /**
  * Fires when scripts are printed for a specific admin page based on $hook_suffix.
  *
- * @since 2.1.0
+ * @since WP-2.1.0
  */
 do_action( "admin_print_scripts-{$hook_suffix}" );
 
 /**
  * Fires when scripts are printed for all admin pages.
  *
- * @since 2.1.0
+ * @since WP-2.1.0
  */
 do_action( 'admin_print_scripts' );
 
@@ -130,14 +130,14 @@ do_action( 'admin_print_scripts' );
  * The dynamic portion of the hook, `$hook_suffix`, refers to the hook suffix
  * for the admin page.
  *
- * @since 2.1.0
+ * @since WP-2.1.0
  */
 do_action( "admin_head-{$hook_suffix}" );
 
 /**
  * Fires in head section for all admin pages.
  *
- * @since 2.1.0
+ * @since WP-2.1.0
  */
 do_action( 'admin_head' );
 
@@ -188,7 +188,7 @@ $admin_body_class .= ' no-customize-support no-svg';
  * 2. Not all core admin classes are filterable, notably: wp-admin, wp-core-ui,
  *    and no-js cannot be removed.
  *
- * @since 2.3.0
+ * @since WP-2.3.0
  *
  * @param string $classes Space-separated list of CSS classes.
  */
@@ -214,7 +214,7 @@ if ( current_user_can( 'customize' ) ) {
 /**
  * Fires at the beginning of the content section in an admin page.
  *
- * @since 3.0.0
+ * @since WP-3.0.0
  */
 do_action( 'in_admin_header' );
 ?>
@@ -236,21 +236,21 @@ if ( is_network_admin() ) {
 	/**
 	 * Prints network admin screen notices.
 	 *
-	 * @since 3.1.0
+	 * @since WP-3.1.0
 	 */
 	do_action( 'network_admin_notices' );
 } elseif ( is_user_admin() ) {
 	/**
 	 * Prints user admin screen notices.
 	 *
-	 * @since 3.1.0
+	 * @since WP-3.1.0
 	 */
 	do_action( 'user_admin_notices' );
 } else {
 	/**
 	 * Prints admin screen notices.
 	 *
-	 * @since 3.1.0
+	 * @since WP-3.1.0
 	 */
 	do_action( 'admin_notices' );
 }
@@ -258,7 +258,7 @@ if ( is_network_admin() ) {
 /**
  * Prints generic admin screen notices.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  */
 do_action( 'all_admin_notices' );
 

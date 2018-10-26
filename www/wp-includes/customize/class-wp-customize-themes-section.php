@@ -2,9 +2,9 @@
 /**
  * Customize API: WP_Customize_Themes_Section class
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Customize
- * @since 4.4.0
+ * @since WP-4.4.0
  */
 
 /**
@@ -12,7 +12,7 @@
  *
  * A UI container for theme controls, which are displayed within sections.
  *
- * @since 4.2.0
+ * @since WP-4.2.0
  *
  * @see WP_Customize_Section
  */
@@ -21,7 +21,7 @@ class WP_Customize_Themes_Section extends WP_Customize_Section {
 	/**
 	 * Section type.
 	 *
-	 * @since 4.2.0
+	 * @since WP-4.2.0
 	 * @var string
 	 */
 	public $type = 'themes';
@@ -31,7 +31,7 @@ class WP_Customize_Themes_Section extends WP_Customize_Section {
 	 *
 	 * Defines the type of themes to load (installed, wporg, etc.).
 	 *
-	 * @since 4.9.0
+	 * @since WP-4.9.0
 	 * @var string
 	 */
 	public $action = '';
@@ -42,7 +42,7 @@ class WP_Customize_Themes_Section extends WP_Customize_Section {
 	 * Determines whether filters are applied to loaded (local) themes or by initiating a new remote query (remote).
 	 * When filtering is local, the initial themes query is not paginated by default.
 	 *
-	 * @since 4.9.0
+	 * @since WP-4.9.0
 	 * @var string
 	 */
 	public $filter_type = 'local';
@@ -50,7 +50,7 @@ class WP_Customize_Themes_Section extends WP_Customize_Section {
 	/**
 	 * Get section parameters for JS.
 	 *
-	 * @since 4.9.0
+	 * @since WP-4.9.0
 	 * @return array Exported parameters.
 	 */
 	public function json() {
@@ -66,7 +66,7 @@ class WP_Customize_Themes_Section extends WP_Customize_Section {
 	 *
 	 * The template is only rendered by PHP once, so all actions are prepared at once on the server side.
 	 *
-	 * @since 4.9.0
+	 * @since WP-4.9.0
 	 */
 	protected function render_template() {
 		?>
@@ -81,7 +81,7 @@ class WP_Customize_Themes_Section extends WP_Customize_Section {
 						<?php $this->filter_bar_content_template(); ?>
 					</div>
 					<?php $this->filter_drawer_content_template(); ?>
-					<div class="error unexpected-error" style="display: none; "><p><?php _e( 'An unexpected error occurred. Something may be wrong with WordPress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="https://wordpress.org/support/">support forums</a>.' ); ?></p></div>
+					<div class="error unexpected-error" style="display: none; "><p><?php _e( 'An unexpected error occurred. Something may be wrong with ClassicPress.net or this server&#8217;s configuration. If you continue to have problems, please try the <a href="https://wordpress.org/support/">support forums</a>.' ); ?></p></div>
 					<ul class="themes">
 					</ul>
 					<p class="no-themes"><?php _e( 'No themes found. Try a different search.' ); ?></p>
@@ -106,7 +106,7 @@ class WP_Customize_Themes_Section extends WP_Customize_Section {
 	 * The template is only rendered by PHP once, so all actions are prepared at once on the server side.
 	 * The filter bar container is rendered by @see `render_template()`.
 	 *
-	 * @since 4.9.0
+	 * @since WP-4.9.0
 	 */
 	protected function filter_bar_content_template() {
 		?>
@@ -150,7 +150,7 @@ class WP_Customize_Themes_Section extends WP_Customize_Section {
 	 *
 	 * The filter bar container is rendered by @see `render_template()`.
 	 *
-	 * @since 4.9.0
+	 * @since WP-4.9.0
 	 */
 	protected function filter_drawer_content_template() {
 		$feature_list = get_theme_feature_list( false ); // @todo: Use the .org API instead of the local core feature list. The .org API is currently outdated and will be reconciled when the .org themes directory is next redesigned.

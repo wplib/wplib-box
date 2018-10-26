@@ -2,9 +2,9 @@
 /**
  * Customize API: WP_Customize_Filter_Setting class
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Customize
- * @since 4.4.0
+ * @since WP-4.4.0
  */
 
 /**
@@ -12,7 +12,7 @@
  *
  * Results should be properly handled using another setting or callback.
  *
- * @since 3.4.0
+ * @since WP-3.4.0
  *
  * @see WP_Customize_Setting
  */
@@ -21,7 +21,7 @@ class WP_Customize_Filter_Setting extends WP_Customize_Setting {
 	/**
 	 * Saves the value of the setting, using the related API.
 	 *
-	 * @since 3.4.0
+	 * @since WP-3.4.0
 	 *
 	 * @param mixed $value The value to update.
 	 */

@@ -2,7 +2,7 @@
 /**
  * Edit comment form for inclusion in another file.
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
  */
 
@@ -29,7 +29,11 @@ if ( 'approved' === wp_get_comment_status( $comment ) && $comment->comment_post_
 <div class="inside">
 	<div id="comment-link-box">
 		<strong><?php _ex( 'Permalink:', 'comment' ); ?></strong>
-		<span id="sample-permalink"><a href="<?php echo $comment_link; ?>"><?php echo $comment_link; ?></a></span>
+		<span id="sample-permalink">
+			<a href="<?php echo esc_url( $comment_link ); ?>">
+				<?php echo esc_html( $comment_link ); ?>
+			</a>
+		</span>
 	</div>
 </div>
 <?php endif; ?>
@@ -145,7 +149,7 @@ endif; ?>
 	/**
 	 * Filters miscellaneous actions for the edit comment form sidebar.
 	 *
-	 * @since 4.3.0
+	 * @since WP-4.3.0
 	 *
 	 * @param string $html    Output HTML to display miscellaneous action.
 	 * @param object $comment Current comment object.
@@ -179,7 +183,7 @@ do_action( 'add_meta_boxes', 'comment', $comment );
 /**
  * Fires when comment-specific meta boxes are added.
  *
- * @since 3.0.0
+ * @since WP-3.0.0
  *
  * @param WP_Comment $comment Comment object.
  */

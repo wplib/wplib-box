@@ -4,11 +4,11 @@
  *
  * Manage Post actions: post, edit, delete, etc.
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
  */
 
-/** WordPress Administration Bootstrap */
+/** ClassicPress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 $parent_file = 'edit.php';
@@ -147,7 +147,7 @@ case 'edit':
 	/**
 	 * Allows replacement of the editor.
 	 *
-	 * @since 4.9.0
+	 * @since WP-4.9.0
 	 *
 	 * @param boolean      Whether to replace the editor. Default false.
 	 * @param object $post Post object.
@@ -281,7 +281,7 @@ default:
 	 *
 	 * The dynamic portion of the hook name, `$action`, refers to the custom post action.
 	 *
-	 * @since 4.6.0
+	 * @since WP-4.6.0
 	 *
 	 * @param int $post_id Post ID sent with the request.
 	 */

@@ -2,11 +2,11 @@
 /**
  * Edit Posts Administration Screen.
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
  */
 
-/** WordPress Administration Bootstrap */
+/** ClassicPress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! $typenow )
@@ -291,7 +291,7 @@ $bulk_messages['page'] = array(
  *
  * By default, custom post types use the messages for the 'post' post type.
  *
- * @since 3.7.0
+ * @since WP-3.7.0
  *
  * @param array $bulk_messages Arrays of messages, each keyed by the corresponding post type. Messages are
  *                             keyed with 'updated', 'locked', 'deleted', 'trashed', and 'untrashed'.

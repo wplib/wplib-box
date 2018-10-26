@@ -1,15 +1,15 @@
 <?php
 /**
- * WordPress Administration for Navigation Menus
+ * ClassicPress Administration for Navigation Menus
  * Interface functions
  *
  * @version 2.0.0
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
  */
 
-/** Load WordPress Administration Bootstrap */
+/** Load ClassicPress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 // Load all the nav menu interface functions
@@ -665,7 +665,7 @@ require_once( ABSPATH . 'wp-admin/admin-header.php' );
 	/**
 	 * Fires after the menu locations table is displayed.
 	 *
-	 * @since 3.6.0
+	 * @since WP-3.6.0
 	 */
 	do_action( 'after_menu_locations_table' ); ?>
 	<?php else : ?>
@@ -698,7 +698,7 @@ require_once( ABSPATH . 'wp-admin/admin-header.php' );
 							/**
 							 * Filters the number of locations listed per menu in the drop-down select.
 							 *
-							 * @since 3.6.0
+							 * @since WP-3.6.0
 							 *
 							 * @param int $locations Number of menu locations to list. Default 3.
 							 */

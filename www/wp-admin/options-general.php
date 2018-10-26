@@ -2,14 +2,14 @@
 /**
  * General settings administration panel.
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
  */
 
-/** WordPress Administration Bootstrap */
+/** ClassicPress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
-/** WordPress Translation Installation API */
+/** ClassicPress Translation Installation API */
 require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
 
 if ( ! current_user_can( 'manage_options' ) )
@@ -26,7 +26,7 @@ $options_help = '<p>' . __('The fields on this screen determine some of the basi
 	'<p>' . __('Most themes display the site title at the top of every page, in the title bar of the browser, and as the identifying name for syndicated feeds. The tagline is also displayed by many themes.') . '</p>';
 
 if ( ! is_multisite() ) {
-	$options_help .= '<p>' . __('The WordPress URL and the Site URL can be the same (example.com) or different; for example, having the WordPress core files (example.com/wordpress) in a subdirectory instead of the root directory.') . '</p>' .
+	$options_help .= '<p>' . __('The ClassicPress URL and the Site URL can be the same (example.com) or different; for example, having the ClassicPress core files (example.com/classicpress) in a subdirectory instead of the root directory.') . '</p>' .
 		'<p>' . __('If you want site visitors to be able to register themselves, as opposed to by the site administrator, check the membership box. A default user role can be set for all new users, whether self-registered or registered by the site admin.') . '</p>';
 }
 
@@ -71,7 +71,7 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 <?php if ( !is_multisite() ) { ?>
 
 <tr>
-<th scope="row"><label for="siteurl"><?php _e('WordPress Address (URL)') ?></label></th>
+<th scope="row"><label for="siteurl"><?php _e('ClassicPress Address (URL)') ?></label></th>
 <td><input name="siteurl" type="url" id="siteurl" value="<?php form_option( 'siteurl' ); ?>"<?php disabled( defined( 'WP_SITEURL' ) ); ?> class="regular-text code<?php if ( defined( 'WP_SITEURL' ) ) echo ' disabled' ?>" /></td>
 </tr>
 
@@ -82,7 +82,7 @@ include( ABSPATH . 'wp-admin/admin-header.php' );
 <p class="description" id="home-description"><?php
 	printf(
 		/* translators: %s: Codex URL */
-		__( 'Enter the address here if you <a href="%s">want your site home page to be different from your WordPress installation directory</a>.' ),
+		__( 'Enter the address here if you <a href="%s">want your site home page to be different from your ClassicPress installation directory</a>.' ),
 		__( 'https://codex.wordpress.org/Giving_WordPress_Its_Own_Directory' )
 	);
 ?></p>
@@ -171,7 +171,7 @@ if ( ! empty( $languages ) || ! empty( $translations ) ) {
 					</p>
 					<?php
 				}
-				_deprecated_argument( 'define()', '4.0.0', sprintf( __( 'The %s constant in your %s file is no longer needed.' ), 'WPLANG', 'wp-config.php' ) );
+				_deprecated_argument( 'define()', 'WP-4.0.0', sprintf( __( 'The %s constant in your %s file is no longer needed.' ), 'WPLANG', 'wp-config.php' ) );
 			}
 			?>
 		</td>
@@ -291,8 +291,8 @@ if ( empty($tzstring) ) { // Create a UTC+- zone if no timezone string exists
 	/**
 	* Filters the default date formats.
 	*
-	* @since 2.7.0
-	* @since 4.0.0 Added ISO date standard YYYY-MM-DD format.
+	* @since WP-2.7.0
+	* @since WP-4.0.0 Added ISO date standard YYYY-MM-DD format.
 	*
 	* @param array $default_date_formats Array of default date formats.
 	*/
@@ -329,7 +329,7 @@ if ( empty($tzstring) ) { // Create a UTC+- zone if no timezone string exists
 	/**
 	* Filters the default time formats.
 	*
-	* @since 2.7.0
+	* @since WP-2.7.0
 	*
 	* @param array $default_time_formats Array of default time formats.
 	*/

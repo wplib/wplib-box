@@ -2,15 +2,15 @@
 /**
  * REST API: WP_REST_Users_Controller class
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage REST_API
- * @since 4.7.0
+ * @since WP-4.7.0
  */
 
 /**
  * Core class used to manage users via the REST API.
  *
- * @since 4.7.0
+ * @since WP-4.7.0
  *
  * @see WP_REST_Controller
  */
@@ -19,7 +19,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Instance of a user meta fields object.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 * @var WP_REST_User_Meta_Fields
 	 */
 	protected $meta;
@@ -27,7 +27,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Constructor.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 */
 	public function __construct() {
 		$this->namespace = 'wp/v2';
@@ -39,7 +39,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Registers the routes for the objects of the controller.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @see register_rest_route()
 	 */
@@ -144,7 +144,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	 *
 	 * The value can be an integer, 'false', false, or ''.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param int|bool        $value   The value passed to the reassign parameter.
 	 * @param WP_REST_Request $request Full details about the request.
@@ -167,7 +167,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Permissions check for getting all users.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return true|WP_Error True if the request has read access, otherwise WP_Error object.
@@ -206,7 +206,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Retrieves all users.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
@@ -278,7 +278,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 		 *
 		 * @link https://developer.wordpress.org/reference/classes/wp_user_query/
 		 *
-		 * @since 4.7.0
+		 * @since WP-4.7.0
 		 *
 		 * @param array           $prepared_args Array of arguments for WP_User_Query.
 		 * @param WP_REST_Request $request       The current request.
@@ -341,7 +341,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Get the user, if the ID is valid.
 	 *
-	 * @since 4.7.2
+	 * @since WP-4.7.2
 	 *
 	 * @param int $id Supplied ID.
 	 * @return WP_User|WP_Error True if ID is valid, WP_Error otherwise.
@@ -367,7 +367,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Checks if a given request has access to read a user.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return true|WP_Error True if the request has read access for the item, otherwise WP_Error object.
@@ -396,7 +396,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Retrieves a single user.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
@@ -416,7 +416,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Retrieves the current user.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
@@ -439,7 +439,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Checks if a given request has access create users.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return true|WP_Error True if the request has access to create items, WP_Error object otherwise.
@@ -456,7 +456,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Creates a single user.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
@@ -526,7 +526,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 		/**
 		 * Fires immediately after a user is created or updated via the REST API.
 		 *
-		 * @since 4.7.0
+		 * @since WP-4.7.0
 		 *
 		 * @param WP_User         $user     Inserted or updated user object.
 		 * @param WP_REST_Request $request  Request object.
@@ -567,7 +567,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Checks if a given request has access to update a user.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return true|WP_Error True if the request has access to update the item, WP_Error object otherwise.
@@ -602,7 +602,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Updates a single user.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
@@ -687,7 +687,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Checks if a given request has access to update the current user.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return true|WP_Error True if the request has access to update the item, WP_Error object otherwise.
@@ -701,7 +701,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Updates the current user.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
@@ -715,7 +715,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Checks if a given request has access delete a user.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return true|WP_Error True if the request has access to delete the item, WP_Error object otherwise.
@@ -736,7 +736,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Deletes a single user.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
@@ -786,7 +786,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 		/**
 		 * Fires immediately after a user is deleted via the REST API.
 		 *
-		 * @since 4.7.0
+		 * @since WP-4.7.0
 		 *
 		 * @param WP_User          $user     The user data.
 		 * @param WP_REST_Response $response The response returned from the API.
@@ -800,7 +800,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Checks if a given request has access to delete the current user.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return true|WP_Error True if the request has access to delete the item, WP_Error object otherwise.
@@ -814,7 +814,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Deletes the current user.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
@@ -828,7 +828,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Prepares a single user output for response.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_User         $user    User object.
 	 * @param WP_REST_Request $request Request object.
@@ -837,78 +837,78 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	public function prepare_item_for_response( $user, $request ) {
 
 		$data   = array();
-		$schema = $this->get_item_schema();
+		$fields = $this->get_fields_for_response( $request );
 
-		if ( ! empty( $schema['properties']['id'] ) ) {
+		if ( in_array( 'id', $fields, true ) ) {
 			$data['id'] = $user->ID;
 		}
 
-		if ( ! empty( $schema['properties']['username'] ) ) {
+		if ( in_array( 'username', $fields, true ) ) {
 			$data['username'] = $user->user_login;
 		}
 
-		if ( ! empty( $schema['properties']['name'] ) ) {
+		if ( in_array( 'name', $fields, true ) ) {
 			$data['name'] = $user->display_name;
 		}
 
-		if ( ! empty( $schema['properties']['first_name'] ) ) {
+		if ( in_array( 'first_name', $fields, true ) ) {
 			$data['first_name'] = $user->first_name;
 		}
 
-		if ( ! empty( $schema['properties']['last_name'] ) ) {
+		if ( in_array( 'last_name', $fields, true ) ) {
 			$data['last_name'] = $user->last_name;
 		}
 
-		if ( ! empty( $schema['properties']['email'] ) ) {
+		if ( in_array( 'email', $fields, true ) ) {
 			$data['email'] = $user->user_email;
 		}
 
-		if ( ! empty( $schema['properties']['url'] ) ) {
+		if ( in_array( 'url', $fields, true ) ) {
 			$data['url'] = $user->user_url;
 		}
 
-		if ( ! empty( $schema['properties']['description'] ) ) {
+		if ( in_array( 'description', $fields, true ) ) {
 			$data['description'] = $user->description;
 		}
 
-		if ( ! empty( $schema['properties']['link'] ) ) {
+		if ( in_array( 'link', $fields, true ) ) {
 			$data['link'] = get_author_posts_url( $user->ID, $user->user_nicename );
 		}
 
-		if ( ! empty( $schema['properties']['locale'] ) ) {
+		if ( in_array( 'locale', $fields, true ) ) {
 			$data['locale'] = get_user_locale( $user );
 		}
 
-		if ( ! empty( $schema['properties']['nickname'] ) ) {
+		if ( in_array( 'nickname', $fields, true ) ) {
 			$data['nickname'] = $user->nickname;
 		}
 
-		if ( ! empty( $schema['properties']['slug'] ) ) {
+		if ( in_array( 'slug', $fields, true ) ) {
 			$data['slug'] = $user->user_nicename;
 		}
 
-		if ( ! empty( $schema['properties']['roles'] ) ) {
+		if ( in_array( 'roles', $fields, true ) ) {
 			// Defensively call array_values() to ensure an array is returned.
 			$data['roles'] = array_values( $user->roles );
 		}
 
-		if ( ! empty( $schema['properties']['registered_date'] ) ) {
+		if ( in_array( 'registered_date', $fields, true ) ) {
 			$data['registered_date'] = date( 'c', strtotime( $user->user_registered ) );
 		}
 
-		if ( ! empty( $schema['properties']['capabilities'] ) ) {
+		if ( in_array( 'capabilities', $fields, true ) ) {
 			$data['capabilities'] = (object) $user->allcaps;
 		}
 
-		if ( ! empty( $schema['properties']['extra_capabilities'] ) ) {
+		if ( in_array( 'extra_capabilities', $fields, true ) ) {
 			$data['extra_capabilities'] = (object) $user->caps;
 		}
 
-		if ( ! empty( $schema['properties']['avatar_urls'] ) ) {
+		if ( in_array( 'avatar_urls', $fields, true ) ) {
 			$data['avatar_urls'] = rest_get_avatar_urls( $user->user_email );
 		}
 
-		if ( ! empty( $schema['properties']['meta'] ) ) {
+		if ( in_array( 'meta', $fields, true ) ) {
 			$data['meta'] = $this->meta->get_value( $user->ID, $request );
 		}
 
@@ -925,7 +925,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 		/**
 		 * Filters user data returned from the REST API.
 		 *
-		 * @since 4.7.0
+		 * @since WP-4.7.0
 		 *
 		 * @param WP_REST_Response $response The response object.
 		 * @param object           $user     User object used to create response.
@@ -937,7 +937,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Prepares links for the user request.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_Post $user User object.
 	 * @return array Links for the given user.
@@ -958,7 +958,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Prepares a single user for creation or update.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_REST_Request $request Request object.
 	 * @return object $prepared_user User object.
@@ -1026,7 +1026,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 		/**
 		 * Filters user data before insertion via the REST API.
 		 *
-		 * @since 4.7.0
+		 * @since WP-4.7.0
 		 *
 		 * @param object          $prepared_user User object.
 		 * @param WP_REST_Request $request       Request object.
@@ -1037,7 +1037,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Determines if the current user is allowed to make the desired roles change.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param integer $user_id User ID.
 	 * @param array   $roles   New user roles.
@@ -1087,7 +1087,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	 *
 	 * Performs a couple of checks like edit_user() in wp-admin/includes/user.php.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param  mixed            $value   The username submitted in the request.
 	 * @param  WP_REST_Request  $request Full details about the request.
@@ -1116,7 +1116,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	 *
 	 * Performs a couple of checks like edit_user() in wp-admin/includes/user.php.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param  mixed            $value   The password submitted in the request.
 	 * @param  WP_REST_Request  $request Full details about the request.
@@ -1140,7 +1140,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Retrieves the user's schema, conforming to JSON Schema.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @return array Item schema data.
 	 */
@@ -1307,7 +1307,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 	/**
 	 * Retrieves the query params for collections.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @return array Collection parameters.
 	 */
@@ -1393,7 +1393,7 @@ class WP_REST_Users_Controller extends WP_REST_Controller {
 		 * collection parameter to an internal WP_User_Query parameter.  Use the
 		 * `rest_user_query` filter to set WP_User_Query arguments.
 		 *
-		 * @since 4.7.0
+		 * @since WP-4.7.0
 		 *
 		 * @param array $query_params JSON Schema-formatted collection parameters.
 		 */

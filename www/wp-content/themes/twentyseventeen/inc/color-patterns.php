@@ -4,7 +4,7 @@
  *
  * @package WordPress
  * @subpackage Twenty_Seventeen
- * @since 1.0
+ * @since WP-1.0
  */
 
 /**
@@ -20,10 +20,10 @@ function twentyseventeen_custom_colors_css() {
 	 *
 	 * @param int $saturation Color saturation level.
 	 */
-	$saturation         = absint( apply_filters( 'twentyseventeen_custom_colors_saturation', 50 ) );
+	$saturation = absint( apply_filters( 'twentyseventeen_custom_colors_saturation', 50 ) );
 	$reduced_saturation = ( .8 * $saturation ) . '%';
-	$saturation         = $saturation . '%';
-	$css                = '
+	$saturation = $saturation . '%';
+	$css = '
 /**
  * Twenty Seventeen: Color Patterns
  *

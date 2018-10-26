@@ -3,7 +3,7 @@
  * A simple set of functions to check our version 1.0 update service.
  *
  * @package WordPress
- * @since 2.3.0
+ * @since WP-2.3.0
  */
 
 /**
@@ -13,8 +13,7 @@
  * WordPress server at api.wordpress.org server. Will only check if WordPress
  * isn't installing.
  *
- * @since 2.3.0
- * @global string $wp_version Used to check against the newest WordPress version.
+ * @since WP-2.3.0
  * @global wpdb   $wpdb
  * @global string $wp_local_package
  *
@@ -27,21 +26,21 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
 	}
 
 	global $wpdb, $wp_local_package;
-	// include an unmodified $wp_version
+	// include an unmodified $cp_version
 	include( ABSPATH . WPINC . '/version.php' );
 	$php_version = phpversion();
 
 	$current = get_site_transient( 'update_core' );
 	$translations = wp_get_installed_translations( 'core' );
 
-	// Invalidate the transient when $wp_version changes
-	if ( is_object( $current ) && $wp_version != $current->version_checked )
+	// Invalidate the transient when $cp_version changes
+	if ( is_object( $current ) && $cp_version != $current->version_checked )
 		$current = false;
 
 	if ( ! is_object($current) ) {
 		$current = new stdClass;
 		$current->updates = array();
-		$current->version_checked = $wp_version;
+		$current->version_checked = $cp_version;
 	}
 
 	if ( ! empty( $extra_stats ) )
@@ -57,7 +56,7 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
 	/**
 	 * Filters the locale requested for WordPress core translations.
 	 *
-	 * @since 2.8.0
+	 * @since WP-2.8.0
 	 *
 	 * @param string $locale Current locale.
 	 */
@@ -86,7 +85,7 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
 	}
 
 	$query = array(
-		'version'            => $wp_version,
+		'version'            => $cp_version,
 		'php'                => $php_version,
 		'locale'             => $locale,
 		'mysql'              => $mysql_version,
@@ -103,7 +102,7 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
 	 * WARNING: Changing this data may result in your site not receiving security updates.
 	 * Please exercise extreme caution.
 	 *
-	 * @since 4.9.0
+	 * @since WP-4.9.0
 	 *
 	 * @param array $query {
 	 *     Version check query arguments. 
@@ -128,7 +127,7 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
 	if ( is_array( $extra_stats ) )
 		$post_body = array_merge( $post_body, $extra_stats );
 
-	$url = $http_url = 'http://api.wordpress.org/core/version-check/1.7/?' . http_build_query( $query, null, '&' );
+	$url = $http_url = 'https://api-v1.classicpress.net/core/version-check/1.0/?' . http_build_query( $query, null, '&' );
 	if ( $ssl = wp_http_supports( array( 'ssl' ) ) )
 		$url = set_url_scheme( $url, 'https' );
 
@@ -136,7 +135,7 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
 
 	$options = array(
 		'timeout' => $doing_cron ? 30 : 3,
-		'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url( '/' ),
+		'user-agent' => 'ClassicPress/' . $cp_version . '; ' . home_url( '/' ),
 		'headers' => array(
 			'wp_install' => $wp_install,
 			'wp_blog' => home_url( '/' )
@@ -149,9 +148,9 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
 		trigger_error(
 			sprintf(
 				/* translators: %s: support forums URL */
-				__( 'An unexpected error occurred. Something may be wrong with WordPress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
-				__( 'https://wordpress.org/support/' )
-			) . ' ' . __( '(WordPress could not establish a secure connection to WordPress.org. Please contact your server administrator.)' ),
+				__( 'An unexpected error occurred. Something may be wrong with ClassicPress.net or this server&#8217;s configuration. If you continue to have problems, please join our <a href="%s">Slack group</a> and report this issue.' ),
+				__( 'https://www.classicpress.net/' )
+			) . ' ' . __( '(ClassicPress could not establish a secure connection to ClassicPress.net. Please contact your server administrator.)' ),
 			headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
 		);
 		$response = wp_remote_post( $http_url, $options );
@@ -187,7 +186,7 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
 	$updates = new stdClass();
 	$updates->updates = $offers;
 	$updates->last_checked = time();
-	$updates->version_checked = $wp_version;
+	$updates->version_checked = $cp_version;
 
 	if ( isset( $body['translations'] ) )
 		$updates->translations = $body['translations'];
@@ -215,7 +214,7 @@ function wp_version_check( $extra_stats = array(), $force_check = false ) {
  * all plugins installed. Checks against the WordPress server at
  * api.wordpress.org. Will only check if WordPress isn't installing.
  *
- * @since 2.3.0
+ * @since WP-2.3.0
  * @global string $wp_version Used to notify the WordPress version.
  *
  * @param array $extra_stats Extra statistics to report to the WordPress.org API.
@@ -302,8 +301,8 @@ function wp_update_plugins( $extra_stats = array() ) {
 	/**
 	 * Filters the locales requested for plugin translations.
 	 *
-	 * @since 3.7.0
-	 * @since 4.5.0 The default value of the `$locales` parameter changed to include all locales.
+	 * @since WP-3.7.0
+	 * @since WP-4.5.0 The default value of the `$locales` parameter changed to include all locales.
 	 *
 	 * @param array $locales Plugin locales. Default is all available locales of the site.
 	 */
@@ -390,7 +389,7 @@ function wp_update_plugins( $extra_stats = array() ) {
  * WordPress server at api.wordpress.org. Will only check if WordPress isn't
  * installing.
  *
- * @since 2.7.0
+ * @since WP-2.7.0
  *
  * @param array $extra_stats Extra statistics to report to the WordPress.org API.
  */
@@ -485,8 +484,8 @@ function wp_update_themes( $extra_stats = array() ) {
 	/**
 	 * Filters the locales requested for theme translations.
 	 *
-	 * @since 3.7.0
-	 * @since 4.5.0 The default value of the `$locales` parameter changed to include all locales.
+	 * @since WP-3.7.0
+	 * @since WP-4.5.0 The default value of the `$locales` parameter changed to include all locales.
 	 *
 	 * @param array $locales Theme locales. Default is all available locales of the site.
 	 */
@@ -552,7 +551,7 @@ function wp_update_themes( $extra_stats = array() ) {
 /**
  * Performs WordPress automatic background updates.
  *
- * @since 3.7.0
+ * @since WP-3.7.0
  */
 function wp_maybe_auto_update() {
 	include_once( ABSPATH . '/wp-admin/includes/admin.php' );
@@ -565,7 +564,7 @@ function wp_maybe_auto_update() {
 /**
  * Retrieves a list of all language updates available.
  *
- * @since 3.7.0
+ * @since WP-3.7.0
  *
  * @return array
  */
@@ -587,7 +586,7 @@ function wp_get_translation_updates() {
 /**
  * Collect counts and UI strings for available updates
  *
- * @since 3.3.0
+ * @since WP-3.3.0
  *
  * @return array
  */
@@ -639,7 +638,7 @@ function wp_get_update_data() {
 	/**
 	 * Filters the returned array of update data for plugins, themes, and WordPress core.
 	 *
-	 * @since 3.5.0
+	 * @since WP-3.5.0
 	 *
 	 * @param array $update_data {
 	 *     Fetched update data.
@@ -655,19 +654,19 @@ function wp_get_update_data() {
 /**
  * Determines whether core should be updated.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @global string $wp_version
  */
 function _maybe_update_core() {
-	// include an unmodified $wp_version
+	// include an unmodified $cp_version
 	include( ABSPATH . WPINC . '/version.php' );
 
 	$current = get_site_transient( 'update_core' );
 
 	if ( isset( $current->last_checked, $current->version_checked ) &&
 		12 * HOUR_IN_SECONDS > ( time() - $current->last_checked ) &&
-		$current->version_checked == $wp_version ) {
+		$current->version_checked == $cp_version ) {
 		return;
 	}
 	wp_version_check();
@@ -679,7 +678,7 @@ function _maybe_update_core() {
  * This is used for the wp-admin to check only so often instead of every page
  * load.
  *
- * @since 2.7.0
+ * @since WP-2.7.0
  * @access private
  */
 function _maybe_update_plugins() {
@@ -695,7 +694,7 @@ function _maybe_update_plugins() {
  * This is for performance reasons to make sure that on the theme version
  * checker is not run on every page load.
  *
- * @since 2.7.0
+ * @since WP-2.7.0
  * @access private
  */
 function _maybe_update_themes() {
@@ -708,7 +707,7 @@ function _maybe_update_themes() {
 /**
  * Schedule core, theme, and plugin update checks.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  */
 function wp_schedule_update_checks() {
 	if ( ! wp_next_scheduled( 'wp_version_check' ) && ! wp_installing() )
@@ -724,7 +723,7 @@ function wp_schedule_update_checks() {
 /**
  * Clear existing update caches for plugins, themes, and core.
  *
- * @since 4.1.0
+ * @since WP-4.1.0
  */
 function wp_clean_update_cache() {
 	if ( function_exists( 'wp_clean_plugins_cache' ) ) {

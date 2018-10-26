@@ -2,15 +2,15 @@
 /**
  * Toolbar API: WP_Admin_Bar class
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Toolbar
- * @since 3.1.0
+ * @since WP-3.1.0
  */
 
 /**
  * Core class used to implement the Toolbar API.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  */
 class WP_Admin_Bar {
 	private $nodes = array();
@@ -27,7 +27,7 @@ class WP_Admin_Bar {
 				return is_ssl() ? 'https://' : 'http://';
 
 			case 'menu' :
-				_deprecated_argument( 'WP_Admin_Bar', '3.3.0', 'Modify admin bar nodes with WP_Admin_Bar::get_node(), WP_Admin_Bar::add_node(), and WP_Admin_Bar::remove_node(), not the <code>menu</code> property.' );
+				_deprecated_argument( 'WP_Admin_Bar', 'WP-3.3.0', 'Modify admin bar nodes with WP_Admin_Bar::get_node(), WP_Admin_Bar::add_node(), and WP_Admin_Bar::remove_node(), not the <code>menu</code> property.' );
 				return array(); // Sorry, folks.
 		}
 	}
@@ -57,7 +57,7 @@ class WP_Admin_Bar {
 
 		if ( current_theme_supports( 'admin-bar' ) ) {
 			/**
-			 * To remove the default padding styles from WordPress for the Toolbar, use the following code:
+			 * To remove the default padding styles from ClassicPress for the Toolbar, use the following code:
 			 * add_theme_support( 'admin-bar', array( 'callback' => '__return_false' ) );
 			 */
 			$admin_bar_args = get_theme_support( 'admin-bar' );
@@ -75,7 +75,7 @@ class WP_Admin_Bar {
 		/**
 		 * Fires after WP_Admin_Bar is initialized.
 		 *
-		 * @since 3.1.0
+		 * @since WP-3.1.0
 		 */
 		do_action( 'admin_bar_init' );
 	}
@@ -97,8 +97,8 @@ class WP_Admin_Bar {
 	/**
 	 * Adds a node to the menu.
 	 *
-	 * @since 3.1.0
-	 * @since 4.5.0 Added the ability to pass 'lang' and 'dir' meta data.
+	 * @since WP-3.1.0
+	 * @since WP-4.5.0 Added the ability to pass 'lang' and 'dir' meta data.
 	 *
 	 * @param array $args {
 	 *     Arguments for adding a node.
@@ -125,7 +125,7 @@ class WP_Admin_Bar {
 			if ( empty( $args['title'] ) )
 				return;
 
-			_doing_it_wrong( __METHOD__, __( 'The menu ID should not be empty.' ), '3.3.0' );
+			_doing_it_wrong( __METHOD__, __( 'The menu ID should not be empty.' ), 'WP-3.3.0' );
 			// Deprecated: Generate an ID from the title.
 			$args['id'] = esc_attr( sanitize_title( trim( $args['title'] ) ) );
 		}
@@ -222,7 +222,7 @@ class WP_Admin_Bar {
 	/**
 	 * Add a group to a menu node.
 	 *
-	 * @since 3.3.0
+	 * @since WP-3.3.0
 	 *
 	 * @param array $args {
 	 *     Array of arguments for adding a group.
@@ -555,8 +555,8 @@ class WP_Admin_Bar {
 	/**
 	 * Renders toolbar items recursively.
 	 *
-	 * @since 3.1.0
-	 * @deprecated 3.3.0 Use WP_Admin_Bar::_render_item() or WP_Admin_bar::render() instead.
+	 * @since WP-3.1.0
+	 * @deprecated WP-3.3.0 Use WP_Admin_Bar::_render_item() or WP_Admin_bar::render() instead.
 	 * @see WP_Admin_Bar::_render_item()
 	 * @see WP_Admin_Bar::render()
 	 *
@@ -564,7 +564,7 @@ class WP_Admin_Bar {
 	 * @param object $node
 	 */
 	public function recursive_render( $id, $node ) {
-		_deprecated_function( __METHOD__, '3.3.0', 'WP_Admin_bar::render(), WP_Admin_Bar::_render_item()' );
+		_deprecated_function( __METHOD__, 'WP-3.3.0', 'WP_Admin_bar::render(), WP_Admin_Bar::_render_item()' );
 		$this->_render_item( $node );
 	}
 
@@ -596,7 +596,7 @@ class WP_Admin_Bar {
 		/**
 		 * Fires after menus are added to the menu bar.
 		 *
-		 * @since 3.1.0
+		 * @since WP-3.1.0
 		 */
 		do_action( 'add_admin_bar_menus' );
 	}

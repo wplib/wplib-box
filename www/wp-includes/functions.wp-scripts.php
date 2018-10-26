@@ -2,9 +2,9 @@
 /**
  * Dependencies API: Scripts functions
  *
- * @since 2.6.0
+ * @since WP-2.6.0
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Dependencies
  */
 
@@ -13,7 +13,7 @@
  *
  * @global WP_Scripts $wp_scripts
  *
- * @since 4.2.0
+ * @since WP-4.2.0
  *
  * @return WP_Scripts WP_Scripts instance.
  */
@@ -29,7 +29,7 @@ function wp_scripts() {
  * Helper function to output a _doing_it_wrong message when applicable.
  *
  * @ignore
- * @since 4.2.0
+ * @since WP-4.2.0
  *
  * @param string $function Function name.
  */
@@ -44,7 +44,7 @@ function _wp_scripts_maybe_doing_it_wrong( $function ) {
 		'<code>wp_enqueue_scripts</code>',
 		'<code>admin_enqueue_scripts</code>',
 		'<code>login_enqueue_scripts</code>'
-	), '3.3.0' );
+	), 'WP-3.3.0' );
 }
 
 /**
@@ -58,7 +58,7 @@ function _wp_scripts_maybe_doing_it_wrong( $function ) {
  * @see WP_Scripts::do_items()
  * @global WP_Scripts $wp_scripts The WP_Scripts object for printing scripts.
  *
- * @since 2.1.0
+ * @since WP-2.1.0
  *
  * @param string|bool|array $handles Optional. Scripts to be printed. Default 'false'.
  * @return array On success, a processed array of WP_Dependencies items; otherwise, an empty array.
@@ -67,7 +67,7 @@ function wp_print_scripts( $handles = false ) {
 	/**
 	 * Fires before scripts in the $handles queue are printed.
 	 *
-	 * @since 2.1.0
+	 * @since WP-2.1.0
 	 */
 	do_action( 'wp_print_scripts' );
 	if ( '' === $handles ) { // for wp_head
@@ -94,7 +94,7 @@ function wp_print_scripts( $handles = false ) {
  * are added to the same script $handle, they will be printed in the order
  * they were added, i.e. the latter added code can redeclare the previous.
  *
- * @since 4.5.0
+ * @since WP-4.5.0
  *
  * @see WP_Scripts::add_inline_script()
  *
@@ -113,7 +113,7 @@ function wp_add_inline_script( $handle, $data, $position = 'after' ) {
 			__( 'Do not pass %1$s tags to %2$s.' ),
 			'<code>&lt;script&gt;</code>',
 			'<code>wp_add_inline_script()</code>'
-		), '4.5.0' );
+		), 'WP-4.5.0' );
 		$data = trim( preg_replace( '#<script[^>]*>(.*)</script>#is', '$1', $data ) );
 	}
 
@@ -128,15 +128,15 @@ function wp_add_inline_script( $handle, $data, $position = 'after' ) {
  * @see WP_Dependencies::add()
  * @see WP_Dependencies::add_data()
  *
- * @since 2.1.0
- * @since 4.3.0 A return value was added.
+ * @since WP-2.1.0
+ * @since WP-4.3.0 A return value was added.
  *
  * @param string           $handle    Name of the script. Should be unique.
- * @param string           $src       Full URL of the script, or path of the script relative to the WordPress root directory.
+ * @param string           $src       Full URL of the script, or path of the script relative to the ClassicPress root directory.
  * @param array            $deps      Optional. An array of registered script handles this script depends on. Default empty array.
  * @param string|bool|null $ver       Optional. String specifying script version number, if it has one, which is added to the URL
  *                                    as a query string for cache busting purposes. If version is set to false, a version
- *                                    number is automatically added equal to current installed WordPress version.
+ *                                    number is automatically added equal to current installed ClassicPress version.
  *                                    If set to null, no version is added.
  * @param bool             $in_footer Optional. Whether to enqueue the script before </body> instead of in the <head>.
  *                                    Default 'false'.
@@ -172,7 +172,7 @@ function wp_register_script( $handle, $src, $deps = array(), $ver = false, $in_f
  * @link https://core.trac.wordpress.org/ticket/11520
  * @global WP_Scripts $wp_scripts The WP_Scripts object for printing scripts.
  *
- * @since 2.2.0
+ * @since WP-2.2.0
  *
  * @todo Documentation cleanup
  *
@@ -200,7 +200,7 @@ function wp_localize_script( $handle, $object_name, $l10n ) {
  *
  * @see WP_Dependencies::remove()
  *
- * @since 2.1.0
+ * @since WP-2.1.0
  *
  * @param string $handle Name of the script to be removed.
  */
@@ -231,7 +231,7 @@ function wp_deregister_script( $handle ) {
 				"<code>$handle</code>",
 				'<code>wp_enqueue_scripts</code>'
 			);
-			_doing_it_wrong( __FUNCTION__, $message, '3.6.0' );
+			_doing_it_wrong( __FUNCTION__, $message, 'WP-3.6.0' );
 			return;
 		}
 	}
@@ -248,15 +248,15 @@ function wp_deregister_script( $handle ) {
  * @see WP_Dependencies::add_data()
  * @see WP_Dependencies::enqueue()
  *
- * @since 2.1.0
+ * @since WP-2.1.0
  *
  * @param string           $handle    Name of the script. Should be unique.
- * @param string           $src       Full URL of the script, or path of the script relative to the WordPress root directory.
+ * @param string           $src       Full URL of the script, or path of the script relative to the ClassicPress root directory.
  *                                    Default empty.
  * @param array            $deps      Optional. An array of registered script handles this script depends on. Default empty array.
  * @param string|bool|null $ver       Optional. String specifying script version number, if it has one, which is added to the URL
  *                                    as a query string for cache busting purposes. If version is set to false, a version
- *                                    number is automatically added equal to current installed WordPress version.
+ *                                    number is automatically added equal to current installed ClassicPress version.
  *                                    If set to null, no version is added.
  * @param bool             $in_footer Optional. Whether to enqueue the script before </body> instead of in the <head>.
  *                                    Default 'false'.
@@ -287,7 +287,7 @@ function wp_enqueue_script( $handle, $src = '', $deps = array(), $ver = false, $
  *
  * @see WP_Dependencies::dequeue()
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  *
  * @param string $handle Name of the script to be removed.
  */
@@ -300,8 +300,8 @@ function wp_dequeue_script( $handle ) {
 /**
  * Check whether a script has been added to the queue.
  *
- * @since 2.8.0
- * @since 3.5.0 'enqueued' added as an alias of the 'queue' list.
+ * @since WP-2.8.0
+ * @since WP-3.5.0 'enqueued' added as an alias of the 'queue' list.
  *
  * @param string $handle Name of the script.
  * @param string $list   Optional. Status of the script to check. Default 'enqueued'.
@@ -322,7 +322,7 @@ function wp_script_is( $handle, $list = 'enqueued' ) {
  * Possible values for $key and $value:
  * 'conditional' string Comments for IE 6, lte IE 7, etc.
  *
- * @since 4.2.0
+ * @since WP-4.2.0
  *
  * @see WP_Dependency::add_data()
  *

@@ -2,15 +2,15 @@
 /**
  * User API: WP_User class
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Users
- * @since 4.4.0
+ * @since WP-4.4.0
  */
 
 /**
  * Core class used to implement the WP_User object.
  *
- * @since 2.0.0
+ * @since WP-2.0.0
  *
  * @property string $nickname
  * @property string $description
@@ -39,7 +39,7 @@ class WP_User {
 	/**
 	 * User data container.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 * @var object
 	 */
 	public $data;
@@ -47,7 +47,7 @@ class WP_User {
 	/**
 	 * The user's ID.
 	 *
-	 * @since 2.1.0
+	 * @since WP-2.1.0
 	 * @var int
 	 */
 	public $ID = 0;
@@ -55,7 +55,7 @@ class WP_User {
 	/**
 	 * The individual capabilities the user has been given.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 * @var array
 	 */
 	public $caps = array();
@@ -63,7 +63,7 @@ class WP_User {
 	/**
 	 * User metadata option name.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 * @var string
 	 */
 	public $cap_key;
@@ -71,7 +71,7 @@ class WP_User {
 	/**
 	 * The roles the user is part of.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 * @var array
 	 */
 	public $roles = array();
@@ -79,7 +79,7 @@ class WP_User {
 	/**
 	 * All capabilities the user has, including individual and role based.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 * @var array
 	 */
 	public $allcaps = array();
@@ -87,7 +87,7 @@ class WP_User {
 	/**
 	 * The filter context applied to user data fields.
 	 *
-	 * @since 2.9.0
+	 * @since WP-2.9.0
 	 * @var string
 	 */
 	public $filter = null;
@@ -95,14 +95,14 @@ class WP_User {
 	/**
 	 * The site ID the capabilities of this user are initialized for.
 	 *
-	 * @since 4.9.0
+	 * @since WP-4.9.0
 	 * @var int
 	 */
 	private $site_id = 0;
 
 	/**
 	 * @static
-	 * @since 3.3.0
+	 * @since WP-3.3.0
 	 * @var array
 	 */
 	private static $back_compat_keys;
@@ -112,9 +112,9 @@ class WP_User {
 	 *
 	 * Retrieves the userdata and passes it to WP_User::init().
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global wpdb $wpdb ClassicPress database abstraction object.
 	 *
 	 * @param int|string|stdClass|WP_User $id User's ID, a WP_User object, or a user object from the DB.
 	 * @param string $name Optional. User's username
@@ -162,7 +162,7 @@ class WP_User {
 	/**
 	 * Sets up object properties, including capabilities.
 	 *
-	 * @since  3.3.0
+	 * @since  WP-3.3.0
 	 *
 	 * @param object $data    User DB row object.
 	 * @param int    $site_id Optional. The site ID to initialize for.
@@ -177,12 +177,12 @@ class WP_User {
 	/**
 	 * Return only the main user fields
 	 *
-	 * @since 3.3.0
-	 * @since 4.4.0 Added 'ID' as an alias of 'id' for the `$field` parameter.
+	 * @since WP-3.3.0
+	 * @since WP-4.4.0 Added 'ID' as an alias of 'id' for the `$field` parameter.
 	 *
 	 * @static
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global wpdb $wpdb ClassicPress database abstraction object.
 	 *
 	 * @param string $field The field to query against: 'id', 'ID', 'slug', 'email' or 'login'.
 	 * @param string|int $value The field value
@@ -251,14 +251,14 @@ class WP_User {
 	/**
 	 * Magic method for checking the existence of a certain custom field.
 	 *
-	 * @since 3.3.0
+	 * @since WP-3.3.0
 	 *
 	 * @param string $key User meta key to check if set.
 	 * @return bool Whether the given user meta key is set.
 	 */
 	public function __isset( $key ) {
 		if ( 'id' == $key ) {
-			_deprecated_argument( 'WP_User->id', '2.1.0',
+			_deprecated_argument( 'WP_User->id', 'WP-2.1.0',
 				sprintf(
 					/* translators: %s: WP_User->ID */
 					__( 'Use %s instead.' ),
@@ -280,14 +280,14 @@ class WP_User {
 	/**
 	 * Magic method for accessing custom fields.
 	 *
-	 * @since 3.3.0
+	 * @since WP-3.3.0
 	 *
 	 * @param string $key User meta key to retrieve.
 	 * @return mixed Value of the given user meta key (if set). If `$key` is 'id', the user ID.
 	 */
 	public function __get( $key ) {
 		if ( 'id' == $key ) {
-			_deprecated_argument( 'WP_User->id', '2.1.0',
+			_deprecated_argument( 'WP_User->id', 'WP-2.1.0',
 				sprintf(
 					/* translators: %s: WP_User->ID */
 					__( 'Use %s instead.' ),
@@ -318,14 +318,14 @@ class WP_User {
 	 * This method does not update custom fields in the database. It only stores
 	 * the value on the WP_User instance.
 	 *
-	 * @since 3.3.0
+	 * @since WP-3.3.0
 	 *
 	 * @param string $key   User meta key.
 	 * @param mixed  $value User meta value.
 	 */
 	public function __set( $key, $value ) {
 		if ( 'id' == $key ) {
-			_deprecated_argument( 'WP_User->id', '2.1.0',
+			_deprecated_argument( 'WP_User->id', 'WP-2.1.0',
 				sprintf(
 					/* translators: %s: WP_User->ID */
 					__( 'Use %s instead.' ),
@@ -342,13 +342,13 @@ class WP_User {
 	/**
 	 * Magic method for unsetting a certain custom field.
 	 *
-	 * @since 4.4.0
+	 * @since WP-4.4.0
 	 *
 	 * @param string $key User meta key to unset.
 	 */
 	public function __unset( $key ) {
 		if ( 'id' == $key ) {
-			_deprecated_argument( 'WP_User->id', '2.1.0',
+			_deprecated_argument( 'WP_User->id', 'WP-2.1.0',
 				sprintf(
 					/* translators: %s: WP_User->ID */
 					__( 'Use %s instead.' ),
@@ -369,7 +369,7 @@ class WP_User {
 	/**
 	 * Determine whether the user exists in the database.
 	 *
-	 * @since 3.4.0
+	 * @since WP-3.4.0
 	 *
 	 * @return bool True if user exists in the database, false if not.
 	 */
@@ -382,7 +382,7 @@ class WP_User {
 	 *
 	 * Retrieves from the users and usermeta table.
 	 *
-	 * @since 3.3.0
+	 * @since WP-3.3.0
 	 *
 	 * @param string $key Property
 	 * @return mixed
@@ -396,7 +396,7 @@ class WP_User {
 	 *
 	 * Consults the users and usermeta tables.
 	 *
-	 * @since 3.3.0
+	 * @since WP-3.3.0
 	 *
 	 * @param string $key Property
 	 * @return bool
@@ -408,7 +408,7 @@ class WP_User {
 	/**
 	 * Return an array representation.
 	 *
-	 * @since 3.5.0
+	 * @since WP-3.5.0
 	 *
 	 * @return array Array representation.
 	 */
@@ -419,7 +419,7 @@ class WP_User {
 	/**
 	 * Makes private/protected methods readable for backward compatibility.
 	 *
-	 * @since 4.3.0
+	 * @since WP-4.3.0
 	 *
 	 * @param callable $name      Method to call.
 	 * @param array    $arguments Arguments to pass when calling.
@@ -440,17 +440,17 @@ class WP_User {
 	 * property matching the 'cap_key' exists and is an array. If so, it will be
 	 * used.
 	 *
-	 * @since 2.1.0
-	 * @deprecated 4.9.0 Use WP_User::for_site()
+	 * @since WP-2.1.0
+	 * @deprecated WP-4.9.0 Use WP_User::for_site()
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global wpdb $wpdb ClassicPress database abstraction object.
 	 *
 	 * @param string $cap_key Optional capability key
 	 */
 	protected function _init_caps( $cap_key = '' ) {
 		global $wpdb;
 
-		_deprecated_function( __METHOD__, '4.9.0', 'WP_User::for_site()' );
+		_deprecated_function( __METHOD__, 'WP-4.9.0', 'WP_User::for_site()' );
 
 		if ( empty( $cap_key ) ) {
 			$this->cap_key = $wpdb->get_blog_prefix( $this->site_id ) . 'capabilities';
@@ -471,7 +471,7 @@ class WP_User {
 	 * specific roles that their role might have, but the specific user isn't
 	 * granted permission to.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 *
 	 * @return array List of all capabilities for the user.
 	 */
@@ -509,7 +509,7 @@ class WP_User {
 	 *
 	 * Updates the user's meta data option with capabilities and roles.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 *
 	 * @param string $role Role name.
 	 */
@@ -526,7 +526,7 @@ class WP_User {
 		/**
 		 * Fires immediately after the user has been given a new role.
 		 *
-		 * @since 4.3.0
+		 * @since WP-4.3.0
 		 *
 		 * @param int    $user_id The user ID.
 		 * @param string $role    The new role.
@@ -537,7 +537,7 @@ class WP_User {
 	/**
 	 * Remove role from user.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 *
 	 * @param string $role Role name.
 	 */
@@ -552,7 +552,7 @@ class WP_User {
 		/**
 		 * Fires immediately after a role as been removed from a user.
 		 *
-		 * @since 4.3.0
+		 * @since WP-4.3.0
 		 *
 		 * @param int    $user_id The user ID.
 		 * @param string $role    The removed role.
@@ -567,7 +567,7 @@ class WP_User {
 	 * new one. You can set the role to an empty string and it will remove all
 	 * of the roles from the user.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 *
 	 * @param string $role Role name.
 	 */
@@ -592,8 +592,8 @@ class WP_User {
 		/**
 		 * Fires after the user's role has changed.
 		 *
-		 * @since 2.9.0
-		 * @since 3.6.0 Added $old_roles to include an array of the user's previous roles.
+		 * @since WP-2.9.0
+		 * @since WP-3.6.0 Added $old_roles to include an array of the user's previous roles.
 		 *
 		 * @param int    $user_id   The user ID.
 		 * @param string $role      The new role.
@@ -614,7 +614,7 @@ class WP_User {
 	 * then the capability 'level_10' will exist and the user will get that
 	 * value.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 *
 	 * @param int $max Max level of user.
 	 * @param string $item Level capability name.
@@ -636,9 +636,9 @@ class WP_User {
 	 * database table prefix) with the maximum user level. Gets the value from
 	 * the all of the capabilities that the user has.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global wpdb $wpdb ClassicPress database abstraction object.
 	 */
 	public function update_user_level_from_caps() {
 		global $wpdb;
@@ -649,7 +649,7 @@ class WP_User {
 	/**
 	 * Add capability and grant or deny access to capability.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 *
 	 * @param string $cap Capability name.
 	 * @param bool $grant Whether to grant capability to user.
@@ -664,7 +664,7 @@ class WP_User {
 	/**
 	 * Remove capability from user.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 *
 	 * @param string $cap Capability name.
 	 */
@@ -681,9 +681,9 @@ class WP_User {
 	/**
 	 * Remove all of the capabilities of the user.
 	 *
-	 * @since 2.1.0
+	 * @since WP-2.1.0
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global wpdb $wpdb ClassicPress database abstraction object.
 	 */
 	public function remove_all_caps() {
 		global $wpdb;
@@ -699,7 +699,7 @@ class WP_User {
 	 * While checking against a role in place of a capability is supported in part, this practice is discouraged as it
 	 * may produce unreliable results.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 *
 	 * @see map_meta_cap()
 	 *
@@ -713,7 +713,7 @@ class WP_User {
 	 */
 	public function has_cap( $cap ) {
 		if ( is_numeric( $cap ) ) {
-			_deprecated_argument( __FUNCTION__, '2.0.0', __( 'Usage of user levels is deprecated. Use capabilities instead.' ) );
+			_deprecated_argument( __FUNCTION__, 'WP-2.0.0', __( 'Usage of user levels is deprecated. Use capabilities instead.' ) );
 			$cap = $this->translate_level_to_cap( $cap );
 		}
 
@@ -731,8 +731,8 @@ class WP_User {
 		/**
 		 * Dynamically filter a user's capabilities.
 		 *
-		 * @since 2.0.0
-		 * @since 3.7.0 Added the user object.
+		 * @since WP-2.0.0
+		 * @since WP-3.7.0 Added the user object.
 		 *
 		 * @param array   $allcaps An array of all the user's capabilities.
 		 * @param array   $caps    Actual capabilities for meta capability.
@@ -761,7 +761,7 @@ class WP_User {
 	 *
 	 * Prepends 'level_' to level number.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 *
 	 * @param int $level Level number, 1 to 10.
 	 * @return string
@@ -773,15 +773,15 @@ class WP_User {
 	/**
 	 * Set the site to operate on. Defaults to the current site.
 	 *
-	 * @since 3.0.0
-	 * @deprecated 4.9.0 Use WP_User::for_site()
+	 * @since WP-3.0.0
+	 * @deprecated WP-4.9.0 Use WP_User::for_site()
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global wpdb $wpdb ClassicPress database abstraction object.
 	 *
 	 * @param int $blog_id Optional. Site ID, defaults to current site.
 	 */
 	public function for_blog( $blog_id = '' ) {
-		_deprecated_function( __METHOD__, '4.9.0', 'WP_User::for_site()' );
+		_deprecated_function( __METHOD__, 'WP-4.9.0', 'WP_User::for_site()' );
 
 		$this->for_site( $blog_id );
 	}
@@ -789,9 +789,9 @@ class WP_User {
 	/**
 	 * Sets the site to operate on. Defaults to the current site.
 	 *
-	 * @since 4.9.0
+	 * @since WP-4.9.0
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global wpdb $wpdb ClassicPress database abstraction object.
 	 *
 	 * @param int $site_id Site ID to initialize user capabilities for. Default is the current site.
 	 */
@@ -814,7 +814,7 @@ class WP_User {
 	/**
 	 * Gets the ID of the site for which the user's capabilities are currently initialized.
 	 *
-	 * @since 4.9.0
+	 * @since WP-4.9.0
 	 *
 	 * @return int Site ID.
 	 */
@@ -825,7 +825,7 @@ class WP_User {
 	/**
 	 * Gets the available user capabilities data.
 	 *
-	 * @since 4.9.0
+	 * @since WP-4.9.0
 	 *
 	 * @return array User capabilities array.
 	 */

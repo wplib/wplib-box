@@ -2,15 +2,15 @@
 /**
  * REST API: WP_REST_Post_Types_Controller class
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage REST_API
- * @since 4.7.0
+ * @since WP-4.7.0
  */
 
 /**
  * Core class to access post types via the REST API.
  *
- * @since 4.7.0
+ * @since WP-4.7.0
  *
  * @see WP_REST_Controller
  */
@@ -19,7 +19,7 @@ class WP_REST_Post_Types_Controller extends WP_REST_Controller {
 	/**
 	 * Constructor.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 */
 	public function __construct() {
 		$this->namespace = 'wp/v2';
@@ -29,7 +29,7 @@ class WP_REST_Post_Types_Controller extends WP_REST_Controller {
 	/**
 	 * Registers the routes for the objects of the controller.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @see register_rest_route()
 	 */
@@ -66,7 +66,7 @@ class WP_REST_Post_Types_Controller extends WP_REST_Controller {
 	/**
 	 * Checks whether a given request has permission to read types.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return WP_Error|true True if the request has read access, WP_Error object otherwise.
@@ -88,7 +88,7 @@ class WP_REST_Post_Types_Controller extends WP_REST_Controller {
 	/**
 	 * Retrieves all public post types.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return WP_Error|WP_REST_Response Response object on success, or WP_Error object on failure.
@@ -111,7 +111,7 @@ class WP_REST_Post_Types_Controller extends WP_REST_Controller {
 	/**
 	 * Retrieves a specific post type.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 * @return WP_Error|WP_REST_Response Response object on success, or WP_Error object on failure.
@@ -139,7 +139,7 @@ class WP_REST_Post_Types_Controller extends WP_REST_Controller {
 	/**
 	 * Prepares a post type object for serialization.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param stdClass        $post_type Post type data.
 	 * @param WP_REST_Request $request   Full details about the request.
@@ -151,18 +151,49 @@ class WP_REST_Post_Types_Controller extends WP_REST_Controller {
 		$base = ! empty( $post_type->rest_base ) ? $post_type->rest_base : $post_type->name;
 		$supports = get_all_post_type_supports( $post_type->name );
 
-		$data = array(
-			'capabilities' => $post_type->cap,
-			'description'  => $post_type->description,
-			'hierarchical' => $post_type->hierarchical,
-			'viewable'     => is_post_type_viewable( $post_type ),
-			'labels'       => $post_type->labels,
-			'name'         => $post_type->label,
-			'slug'         => $post_type->name,
-			'supports'     => $supports,
-			'taxonomies'   => array_values( $taxonomies ),
-			'rest_base'    => $base,
-		);
+		$fields = $this->get_fields_for_response( $request );
+		$data   = array();
+
+		if ( in_array( 'capabilities', $fields, true ) ) {
+			$data['capabilities'] = $post_type->cap;
+		}
+
+		if ( in_array( 'description', $fields, true ) ) {
+			$data['description'] = $post_type->description;
+		}
+
+		if ( in_array( 'hierarchical', $fields, true ) ) {
+			$data['hierarchical'] = $post_type->hierarchical;
+		}
+
+		if ( in_array( 'viewable', $fields, true ) ) {
+			$data['viewable'] = is_post_type_viewable( $post_type );
+		}
+
+		if ( in_array( 'labels', $fields, true ) ) {
+			$data['labels'] = $post_type->labels;
+		}
+
+		if ( in_array( 'name', $fields, true ) ) {
+			$data['name'] = $post_type->label;
+		}
+
+		if ( in_array( 'slug', $fields, true ) ) {
+			$data['slug'] = $post_type->name;
+		}
+
+		if ( in_array( 'supports', $fields, true ) ) {
+			$data['supports'] = $supports;
+		}
+
+		if ( in_array( 'taxonomies', $fields, true ) ) {
+			$data['taxonomies'] = array_values( $taxonomies );
+		}
+
+		if ( in_array( 'rest_base', $fields, true ) ) {
+			$data['rest_base'] = $base;
+		}
+
 		$context = ! empty( $request['context'] ) ? $request['context'] : 'view';
 		$data    = $this->add_additional_fields_to_object( $data, $request );
 		$data    = $this->filter_response_by_context( $data, $context );
@@ -184,7 +215,7 @@ class WP_REST_Post_Types_Controller extends WP_REST_Controller {
 		 *
 		 * Allows modification of the post type data right before it is returned.
 		 *
-		 * @since 4.7.0
+		 * @since WP-4.7.0
 		 *
 		 * @param WP_REST_Response $response The response object.
 		 * @param object           $item     The original post type object.
@@ -196,7 +227,7 @@ class WP_REST_Post_Types_Controller extends WP_REST_Controller {
 	/**
 	 * Retrieves the post type's schema, conforming to JSON Schema.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @return array Item schema data.
 	 */
@@ -277,7 +308,7 @@ class WP_REST_Post_Types_Controller extends WP_REST_Controller {
 	/**
 	 * Retrieves the query params for collections.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @return array Collection parameters.
 	 */

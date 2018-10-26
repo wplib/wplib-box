@@ -2,14 +2,14 @@
 /**
  * Outputs the OPML XML format for getting the links defined in the link
  * administration. This can be used to export links from one blog over to
- * another. Links aren't exported by the WordPress export, so this file handles
+ * another. Links aren't exported by the ClassicPress export, so this file handles
  * that.
  *
- * This file is not added by default to WordPress theme pages when outputting
+ * This file is not added by default to ClassicPress theme pages when outputting
  * feed links. It will have to be added manually for browsers and users to pick
  * up that this file exists.
  *
- * @package WordPress
+ * @package ClassicPress
  */
 
 require_once( dirname( __FILE__ ) . '/wp-load.php' );
@@ -35,7 +35,7 @@ echo '<?xml version="1.0"?'.">\n";
 		/**
 		 * Fires in the OPML header.
 		 *
-		 * @since 3.0.0
+		 * @since WP-3.0.0
 		 */
 		do_action( 'opml_head' );
 		?>
@@ -51,7 +51,7 @@ foreach ( (array)$cats as $cat ) :
 	/**
 	 * Filters the OPML outline link category name.
 	 *
-	 * @since 2.2.0
+	 * @since WP-2.2.0
 	 *
 	 * @param string $catname The OPML outline category name.
 	 */
@@ -65,7 +65,7 @@ foreach ( (array)$cats as $cat ) :
 		/**
 		 * Filters the OPML outline link title text.
 		 *
-		 * @since 2.2.0
+		 * @since WP-2.2.0
 		 *
 		 * @param string $title The OPML outline title text.
 		 */

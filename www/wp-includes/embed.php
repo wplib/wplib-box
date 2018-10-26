@@ -2,9 +2,9 @@
 /**
  * oEmbed API: Top-level oEmbed functionality
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage oEmbed
- * @since 4.4.0
+ * @since WP-4.4.0
  */
 
 /**
@@ -12,7 +12,7 @@
  *
  * Should probably only be used for sites that do not support oEmbed.
  *
- * @since 2.9.0
+ * @since WP-2.9.0
  *
  * @global WP_Embed $wp_embed
  *
@@ -30,7 +30,7 @@ function wp_embed_register_handler( $id, $regex, $callback, $priority = 10 ) {
 /**
  * Unregisters a previously-registered embed handler.
  *
- * @since 2.9.0
+ * @since WP-2.9.0
  *
  * @global WP_Embed $wp_embed
  *
@@ -52,7 +52,7 @@ function wp_embed_unregister_handler( $id, $priority = 10 ) {
  *
  * The {@see 'embed_defaults'} filter can be used to adjust either of these values.
  *
- * @since 2.9.0
+ * @since WP-2.9.0
  *
  * @global int $content_width
  *
@@ -72,7 +72,7 @@ function wp_embed_defaults( $url = '' ) {
 	/**
 	 * Filters the default array of embed dimensions.
 	 *
-	 * @since 2.9.0
+	 * @since WP-2.9.0
 	 *
 	 * @param array  $size An array of embed width and height values
 	 *                     in pixels (in that order).
@@ -84,7 +84,7 @@ function wp_embed_defaults( $url = '' ) {
 /**
  * Attempts to fetch the embed HTML for a provided URL using oEmbed.
  *
- * @since 2.9.0
+ * @since WP-2.9.0
  *
  * @see WP_oEmbed
  *
@@ -101,7 +101,7 @@ function wp_oembed_get( $url, $args = '' ) {
 /**
  * Returns the initialized WP_oEmbed object.
  *
- * @since 2.9.0
+ * @since WP-2.9.0
  * @access private
  *
  * @staticvar WP_oEmbed $wp_oembed
@@ -120,7 +120,7 @@ function _wp_oembed_get_object() {
 /**
  * Adds a URL format and oEmbed provider URL pair.
  *
- * @since 2.9.0
+ * @since WP-2.9.0
  *
  * @see WP_oEmbed
  *
@@ -141,7 +141,7 @@ function wp_oembed_add_provider( $format, $provider, $regex = false ) {
 /**
  * Removes an oEmbed provider.
  *
- * @since 3.5.0
+ * @since WP-3.5.0
  *
  * @see WP_oEmbed
  *
@@ -169,7 +169,7 @@ function wp_oembed_remove_provider( $format ) {
  * Checks to make sure that the embeds library hasn't already been loaded. If
  * it hasn't, then it will load the embeds library.
  *
- * @since 2.9.0
+ * @since WP-2.9.0
  *
  * @see wp_embed_register_handler()
  */
@@ -179,7 +179,7 @@ function wp_maybe_load_embeds() {
 	 *
 	 * Returning a falsey value will prevent loading the default embed handlers.
 	 *
-	 * @since 2.9.0
+	 * @since WP-2.9.0
 	 *
 	 * @param bool $maybe_load_embeds Whether to load the embeds library. Default true.
 	 */
@@ -192,7 +192,7 @@ function wp_maybe_load_embeds() {
 	/**
 	 * Filters the audio embed handler callback.
 	 *
-	 * @since 3.6.0
+	 * @since WP-3.6.0
 	 *
 	 * @param callable $handler Audio embed handler callback function.
 	 */
@@ -201,7 +201,7 @@ function wp_maybe_load_embeds() {
 	/**
 	 * Filters the video embed handler callback.
 	 *
-	 * @since 3.6.0
+	 * @since WP-3.6.0
 	 *
 	 * @param callable $handler Video embed handler callback function.
 	 */
@@ -213,7 +213,7 @@ function wp_maybe_load_embeds() {
  *
  * Catches YouTube iframe embed URLs that are not parsable by oEmbed but can be translated into a URL that is.
  *
- * @since 4.0.0
+ * @since WP-4.0.0
  *
  * @global WP_Embed $wp_embed
  *
@@ -231,7 +231,7 @@ function wp_embed_handler_youtube( $matches, $attr, $url, $rawattr ) {
 	/**
 	 * Filters the YoutTube embed output.
 	 *
-	 * @since 4.0.0
+	 * @since WP-4.0.0
 	 *
 	 * @see wp_embed_handler_youtube()
 	 *
@@ -246,7 +246,7 @@ function wp_embed_handler_youtube( $matches, $attr, $url, $rawattr ) {
 /**
  * Audio embed handler callback.
  *
- * @since 3.6.0
+ * @since WP-3.6.0
  *
  * @param array  $matches The RegEx matches from the provided regex when calling wp_embed_register_handler().
  * @param array  $attr Embed attributes.
@@ -260,7 +260,7 @@ function wp_embed_handler_audio( $matches, $attr, $url, $rawattr ) {
 	/**
 	 * Filters the audio embed output.
 	 *
-	 * @since 3.6.0
+	 * @since WP-3.6.0
 	 *
 	 * @param string $audio   Audio embed output.
 	 * @param array  $attr    An array of embed attributes.
@@ -273,7 +273,7 @@ function wp_embed_handler_audio( $matches, $attr, $url, $rawattr ) {
 /**
  * Video embed handler callback.
  *
- * @since 3.6.0
+ * @since WP-3.6.0
  *
  * @param array  $matches The RegEx matches from the provided regex when calling wp_embed_register_handler().
  * @param array  $attr    Embed attributes.
@@ -292,7 +292,7 @@ function wp_embed_handler_video( $matches, $attr, $url, $rawattr ) {
 	/**
 	 * Filters the video embed output.
 	 *
-	 * @since 3.6.0
+	 * @since WP-3.6.0
 	 *
 	 * @param string $video   Video embed output.
 	 * @param array  $attr    An array of embed attributes.
@@ -305,7 +305,7 @@ function wp_embed_handler_video( $matches, $attr, $url, $rawattr ) {
 /**
  * Registers the oEmbed REST API route.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  */
 function wp_oembed_register_route() {
 	$controller = new WP_oEmbed_Controller();
@@ -315,7 +315,7 @@ function wp_oembed_register_route() {
 /**
  * Adds oEmbed discovery links in the website <head>.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  */
 function wp_oembed_add_discovery_links() {
 	$output = '';
@@ -331,7 +331,7 @@ function wp_oembed_add_discovery_links() {
 	/**
 	 * Filters the oEmbed discovery links HTML.
 	 *
-	 * @since 4.4.0
+	 * @since WP-4.4.0
 	 *
 	 * @param string $output HTML of the discovery links.
 	 */
@@ -341,7 +341,7 @@ function wp_oembed_add_discovery_links() {
 /**
  * Adds the necessary JavaScript to communicate with the embedded iframes.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  */
 function wp_oembed_add_host_js() {
 	wp_enqueue_script( 'wp-embed' );
@@ -350,7 +350,7 @@ function wp_oembed_add_host_js() {
 /**
  * Retrieves the URL to embed a specific post in an iframe.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  *
  * @param int|WP_Post $post Optional. Post ID or object. Defaults to the current post.
  * @return string|false The post embed URL on success, false if the post doesn't exist.
@@ -372,7 +372,7 @@ function get_post_embed_url( $post = null ) {
 	/**
 	 * Filters the URL to embed a specific post.
 	 *
-	 * @since 4.4.0
+	 * @since WP-4.4.0
 	 *
 	 * @param string  $embed_url The post embed URL.
 	 * @param WP_Post $post      The corresponding post object.
@@ -385,7 +385,7 @@ function get_post_embed_url( $post = null ) {
  *
  * Pass an empty string as the first argument to get the endpoint base URL.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  *
  * @param string $permalink Optional. The permalink used for the `url` query arg. Default empty.
  * @param string $format    Optional. The requested response format. Default 'json'.
@@ -404,7 +404,7 @@ function get_oembed_endpoint_url( $permalink = '', $format = 'json' ) {
 	/**
 	 * Filters the oEmbed endpoint URL.
 	 *
-	 * @since 4.4.0
+	 * @since WP-4.4.0
 	 *
 	 * @param string $url       The URL to the oEmbed endpoint.
 	 * @param string $permalink The permalink used for the `url` query arg.
@@ -416,7 +416,7 @@ function get_oembed_endpoint_url( $permalink = '', $format = 'json' ) {
 /**
  * Retrieves the embed code for a specific post.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  *
  * @param int         $width  The width for the response.
  * @param int         $height The height for the response.
@@ -450,7 +450,7 @@ function get_post_embed_html( $width, $height, $post = null ) {
 		 * and edit wp-embed.js directly.
 		 */
 		$output .=<<<JS
-		!function(a,b){"use strict";function c(){if(!e){e=!0;var a,c,d,f,g=-1!==navigator.appVersion.indexOf("MSIE 10"),h=!!navigator.userAgent.match(/Trident.*rv:11\./),i=b.querySelectorAll("iframe.wp-embedded-content");for(c=0;c<i.length;c++){if(d=i[c],!d.getAttribute("data-secret"))f=Math.random().toString(36).substr(2,10),d.src+="#?secret="+f,d.setAttribute("data-secret",f);if(g||h)a=d.cloneNode(!0),a.removeAttribute("security"),d.parentNode.replaceChild(a,d)}}}var d=!1,e=!1;if(b.querySelector)if(a.addEventListener)d=!0;if(a.wp=a.wp||{},!a.wp.receiveEmbedMessage)if(a.wp.receiveEmbedMessage=function(c){var d=c.data;if(d.secret||d.message||d.value)if(!/[^a-zA-Z0-9]/.test(d.secret)){var e,f,g,h,i,j=b.querySelectorAll('iframe[data-secret="'+d.secret+'"]'),k=b.querySelectorAll('blockquote[data-secret="'+d.secret+'"]');for(e=0;e<k.length;e++)k[e].style.display="none";for(e=0;e<j.length;e++)if(f=j[e],c.source===f.contentWindow){if(f.removeAttribute("style"),"height"===d.message){if(g=parseInt(d.value,10),g>1e3)g=1e3;else if(~~g<200)g=200;f.height=g}if("link"===d.message)if(h=b.createElement("a"),i=b.createElement("a"),h.href=f.getAttribute("src"),i.href=d.value,i.host===h.host)if(b.activeElement===f)a.top.location.href=d.value}else;}},d)a.addEventListener("message",a.wp.receiveEmbedMessage,!1),b.addEventListener("DOMContentLoaded",c,!1),a.addEventListener("load",c,!1)}(window,document);
+		!function(d,l){"use strict";var e=!1,o=!1;if(l.querySelector)if(d.addEventListener)e=!0;if(d.wp=d.wp||{},!d.wp.receiveEmbedMessage)if(d.wp.receiveEmbedMessage=function(e){var t=e.data;if(t.secret||t.message||t.value)if(!/[^a-zA-Z0-9]/.test(t.secret)){var r,a,i,s,n,o=l.querySelectorAll('iframe[data-secret="'+t.secret+'"]'),c=l.querySelectorAll('blockquote[data-secret="'+t.secret+'"]');for(r=0;r<c.length;r++)c[r].style.display="none";for(r=0;r<o.length;r++)if(a=o[r],e.source===a.contentWindow){if(a.removeAttribute("style"),"height"===t.message){if(1e3<(i=parseInt(t.value,10)))i=1e3;else if(~~i<200)i=200;a.height=i}if("link"===t.message)if(s=l.createElement("a"),n=l.createElement("a"),s.href=a.getAttribute("src"),n.href=t.value,n.host===s.host)if(l.activeElement===a)d.top.location.href=t.value}}},e)d.addEventListener("message",d.wp.receiveEmbedMessage,!1),l.addEventListener("DOMContentLoaded",t,!1),d.addEventListener("load",t,!1);function t(){if(!o){o=!0;var e,t,r,a,i=-1!==navigator.appVersion.indexOf("MSIE 10"),s=!!navigator.userAgent.match(/Trident.*rv:11\./),n=l.querySelectorAll("iframe.wp-embedded-content");for(t=0;t<n.length;t++){if(!(r=n[t]).getAttribute("data-secret"))a=Math.random().toString(36).substr(2,10),r.src+="#?secret="+a,r.setAttribute("data-secret",a);if(i||s)(e=r.cloneNode(!0)).removeAttribute("security"),r.parentNode.replaceChild(e,r)}}}}(window,document);
 JS;
 	}
 	$output .= "\n//--><!]]>";
@@ -474,7 +474,7 @@ JS;
 	/**
 	 * Filters the embed HTML output for a given post.
 	 *
-	 * @since 4.4.0
+	 * @since WP-4.4.0
 	 *
 	 * @param string  $output The default iframe tag to display embedded content.
 	 * @param WP_Post $post   Current post object.
@@ -487,7 +487,7 @@ JS;
 /**
  * Retrieves the oEmbed response data for a given post.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  *
  * @param WP_Post|int $post  Post object or ID.
  * @param int         $width The requested width.
@@ -508,7 +508,7 @@ function get_oembed_response_data( $post, $width ) {
 	/**
 	 * Filters the allowed minimum and maximum widths for the oEmbed response.
 	 *
-	 * @since 4.4.0
+	 * @since WP-4.4.0
 	 *
 	 * @param array $min_max_width {
 	 *     Minimum and maximum widths for the oEmbed response.
@@ -545,7 +545,7 @@ function get_oembed_response_data( $post, $width ) {
 	/**
 	 * Filters the oEmbed response data.
 	 *
-	 * @since 4.4.0
+	 * @since WP-4.4.0
 	 *
 	 * @param array   $data   The response data.
 	 * @param WP_Post $post   The post object.
@@ -558,7 +558,7 @@ function get_oembed_response_data( $post, $width ) {
 /**
  * Filters the oEmbed response data to return an iframe embed code.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  *
  * @param array   $data   The response data.
  * @param WP_Post $post   The post object.
@@ -601,7 +601,7 @@ function get_oembed_response_data_rich( $data, $post, $width, $height ) {
 /**
  * Ensures that the specified format is either 'json' or 'xml'.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  *
  * @param string $format The oEmbed response format. Accepts 'json' or 'xml'.
  * @return string The format, either 'xml' or 'json'. Default 'json'.
@@ -621,7 +621,7 @@ function wp_oembed_ensure_format( $format ) {
  * which supports both formats.
  *
  * @access private
- * @since 4.4.0
+ * @since WP-4.4.0
  *
  * @param bool                      $served  Whether the request has already been served.
  * @param WP_HTTP_ResponseInterface $result  Result to send to the client. Usually a WP_REST_Response.
@@ -668,7 +668,7 @@ function _oembed_rest_pre_serve_request( $served, $result, $request, $server ) {
 /**
  * Creates an XML string from a given array.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  * @access private
  *
  * @param array            $data The original oEmbed response data.
@@ -708,7 +708,7 @@ function _oembed_create_xml( $data, $node = null ) {
  *
  * Only filters 'rich' and 'html' response types.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  *
  * @param string $result The oEmbed HTML result.
  * @param object $data   A data object result from an oEmbed provider.
@@ -787,7 +787,7 @@ function wp_filter_oembed_result( $result, $data, $url ) {
  * Replaces '[...]' (appended to automatically generated excerpts) with an
  * ellipsis and a "Continue reading" link in the embed template.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  *
  * @param string $more_string Default 'more' string.
  * @return string 'Continue reading' link prepended with an ellipsis.
@@ -810,7 +810,7 @@ function wp_embed_excerpt_more( $more_string ) {
  *
  * Intended to be used in 'The Loop'.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  */
 function the_excerpt_embed() {
 	$output = get_the_excerpt();
@@ -818,7 +818,7 @@ function the_excerpt_embed() {
 	/**
 	 * Filters the post excerpt for the embed template.
 	 *
-	 * @since 4.4.0
+	 * @since WP-4.4.0
 	 *
 	 * @param string $output The current post excerpt.
 	 */
@@ -830,7 +830,7 @@ function the_excerpt_embed() {
  *
  * Shows players for video and audio attachments.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  *
  * @param string $content The current post excerpt.
  * @return string The modified post excerpt.
@@ -851,7 +851,7 @@ function wp_embed_excerpt_attachment( $content ) {
  * Allows plugins to queue scripts for the embed iframe end using wp_enqueue_script().
  * Runs first in oembed_head().
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  */
 function enqueue_embed_scripts() {
 	wp_enqueue_style( 'wp-embed-template-ie' );
@@ -859,7 +859,7 @@ function enqueue_embed_scripts() {
 	/**
 	 * Fires when scripts and styles are enqueued for the embed iframe.
 	 *
-	 * @since 4.4.0
+	 * @since WP-4.4.0
 	 */
 	do_action( 'enqueue_embed_scripts' );
 }
@@ -867,7 +867,7 @@ function enqueue_embed_scripts() {
 /**
  * Prints the CSS in the embed iframe header.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  */
 function print_embed_styles() {
 	?>
@@ -887,7 +887,7 @@ function print_embed_styles() {
 			 * and edit wp-embed-template.css directly.
 			 */
 			?>
-			body,html{padding:0;margin:0}body{font-family:sans-serif}.wp-embed,.wp-embed-share-input{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif}.screen-reader-text{border:0;clip:rect(1px,1px,1px,1px);-webkit-clip-path:inset(50%);clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-wrap:normal!important}.dashicons{display:inline-block;width:20px;height:20px;background-color:transparent;background-repeat:no-repeat;background-size:20px;background-position:center;transition:background .1s ease-in;position:relative;top:5px}.dashicons-no{background-image:url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M15.55%2013.7l-2.19%202.06-3.42-3.65-3.64%203.43-2.06-2.18%203.64-3.43-3.42-3.64%202.18-2.06%203.43%203.64%203.64-3.42%202.05%202.18-3.64%203.43z%27%20fill%3D%27%23fff%27%2F%3E%3C%2Fsvg%3E")}.dashicons-admin-comments{background-image:url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M5%202h9q.82%200%201.41.59T16%204v7q0%20.82-.59%201.41T14%2013h-2l-5%205v-5H5q-.82%200-1.41-.59T3%2011V4q0-.82.59-1.41T5%202z%27%20fill%3D%27%2382878c%27%2F%3E%3C%2Fsvg%3E")}.wp-embed-comments a:hover .dashicons-admin-comments{background-image:url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M5%202h9q.82%200%201.41.59T16%204v7q0%20.82-.59%201.41T14%2013h-2l-5%205v-5H5q-.82%200-1.41-.59T3%2011V4q0-.82.59-1.41T5%202z%27%20fill%3D%27%230073aa%27%2F%3E%3C%2Fsvg%3E")}.dashicons-share{background-image:url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M14.5%2012q1.24%200%202.12.88T17.5%2015t-.88%202.12-2.12.88-2.12-.88T11.5%2015q0-.34.09-.69l-4.38-2.3Q6.32%2013%205%2013q-1.24%200-2.12-.88T2%2010t.88-2.12T5%207q1.3%200%202.21.99l4.38-2.3q-.09-.35-.09-.69%200-1.24.88-2.12T14.5%202t2.12.88T17.5%205t-.88%202.12T14.5%208q-1.3%200-2.21-.99l-4.38%202.3Q8%209.66%208%2010t-.09.69l4.38%202.3q.89-.99%202.21-.99z%27%20fill%3D%27%2382878c%27%2F%3E%3C%2Fsvg%3E");display:none}.js .dashicons-share{display:inline-block}.wp-embed-share-dialog-open:hover .dashicons-share{background-image:url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M14.5%2012q1.24%200%202.12.88T17.5%2015t-.88%202.12-2.12.88-2.12-.88T11.5%2015q0-.34.09-.69l-4.38-2.3Q6.32%2013%205%2013q-1.24%200-2.12-.88T2%2010t.88-2.12T5%207q1.3%200%202.21.99l4.38-2.3q-.09-.35-.09-.69%200-1.24.88-2.12T14.5%202t2.12.88T17.5%205t-.88%202.12T14.5%208q-1.3%200-2.21-.99l-4.38%202.3Q8%209.66%208%2010t-.09.69l4.38%202.3q.89-.99%202.21-.99z%27%20fill%3D%27%230073aa%27%2F%3E%3C%2Fsvg%3E")}.wp-embed{padding:25px;font-size:14px;font-weight:400;line-height:1.5;color:#82878c;background:#fff;border:1px solid #e5e5e5;box-shadow:0 1px 1px rgba(0,0,0,.05);overflow:auto;zoom:1}.wp-embed a{color:#82878c;text-decoration:none}.wp-embed a:hover{text-decoration:underline}.wp-embed-featured-image{margin-bottom:20px}.wp-embed-featured-image img{width:100%;height:auto;border:none}.wp-embed-featured-image.square{float:left;max-width:160px;margin-right:20px}.wp-embed p{margin:0}p.wp-embed-heading{margin:0 0 15px;font-weight:600;font-size:22px;line-height:1.3}.wp-embed-heading a{color:#32373c}.wp-embed .wp-embed-more{color:#b4b9be}.wp-embed-footer{display:table;width:100%;margin-top:30px}.wp-embed-site-icon{position:absolute;top:50%;left:0;-webkit-transform:translateY(-50%);transform:translateY(-50%);height:25px;width:25px;border:0}.wp-embed-site-title{font-weight:600;line-height:25px}.wp-embed-site-title a{position:relative;display:inline-block;padding-left:35px}.wp-embed-meta,.wp-embed-site-title{display:table-cell}.wp-embed-meta{text-align:right;white-space:nowrap;vertical-align:middle}.wp-embed-comments,.wp-embed-share{display:inline}.wp-embed-comments a,.wp-embed-share-tab-button{display:inline-block}.wp-embed-meta a:hover{text-decoration:none;color:#0073aa}.wp-embed-comments a{line-height:25px}.wp-embed-comments+.wp-embed-share{margin-left:10px}.wp-embed-share-dialog{position:absolute;top:0;left:0;right:0;bottom:0;background-color:#222;background-color:rgba(10,10,10,.9);color:#fff;opacity:1;transition:opacity .25s ease-in-out}.wp-embed-share-dialog.hidden{opacity:0;visibility:hidden}.wp-embed-share-dialog-close,.wp-embed-share-dialog-open{margin:-8px 0 0;padding:0;background:0 0;border:none;cursor:pointer;outline:0}.wp-embed-share-dialog-close .dashicons,.wp-embed-share-dialog-open .dashicons{padding:4px}.wp-embed-share-dialog-open .dashicons{top:8px}.wp-embed-share-dialog-close:focus .dashicons,.wp-embed-share-dialog-open:focus .dashicons{box-shadow:0 0 0 1px #5b9dd9,0 0 2px 1px rgba(30,140,190,.8);border-radius:100%}.wp-embed-share-dialog-close{position:absolute;top:20px;right:20px;font-size:22px}.wp-embed-share-dialog-close:hover{text-decoration:none}.wp-embed-share-dialog-close .dashicons{height:24px;width:24px;background-size:24px}.wp-embed-share-dialog-content{height:100%;-webkit-transform-style:preserve-3d;transform-style:preserve-3d;overflow:hidden}.wp-embed-share-dialog-text{margin-top:25px;padding:20px}.wp-embed-share-tabs{margin:0 0 20px;padding:0;list-style:none}.wp-embed-share-tab-button button{margin:0;padding:0;border:none;background:0 0;font-size:16px;line-height:1.3;color:#aaa;cursor:pointer;transition:color .1s ease-in}.wp-embed-share-tab-button [aria-selected=true],.wp-embed-share-tab-button button:hover{color:#fff}.wp-embed-share-tab-button+.wp-embed-share-tab-button{margin:0 0 0 10px;padding:0 0 0 11px;border-left:1px solid #aaa}.wp-embed-share-tab[aria-hidden=true]{display:none}p.wp-embed-share-description{margin:0;font-size:14px;line-height:1;font-style:italic;color:#aaa}.wp-embed-share-input{box-sizing:border-box;width:100%;border:none;height:28px;margin:0 0 10px;padding:0 5px;font-size:14px;font-weight:400;line-height:1.5;resize:none;cursor:text}textarea.wp-embed-share-input{height:72px}html[dir=rtl] .wp-embed-featured-image.square{float:right;margin-right:0;margin-left:20px}html[dir=rtl] .wp-embed-site-title a{padding-left:0;padding-right:35px}html[dir=rtl] .wp-embed-site-icon{margin-right:0;margin-left:10px;left:auto;right:0}html[dir=rtl] .wp-embed-meta{text-align:left}html[dir=rtl] .wp-embed-share{margin-left:0;margin-right:10px}html[dir=rtl] .wp-embed-share-dialog-close{right:auto;left:20px}html[dir=rtl] .wp-embed-share-tab-button+.wp-embed-share-tab-button{margin:0 10px 0 0;padding:0 11px 0 0;border-left:none;border-right:1px solid #aaa}
+			body,html{padding:0;margin:0}body{font-family:sans-serif}.screen-reader-text{border:0;clip:rect(1px,1px,1px,1px);-webkit-clip-path:inset(50%);clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-wrap:normal!important}.dashicons{display:inline-block;width:20px;height:20px;background-color:transparent;background-repeat:no-repeat;background-size:20px;background-position:center;transition:background .1s ease-in;position:relative;top:5px}.dashicons-no{background-image:url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M15.55%2013.7l-2.19%202.06-3.42-3.65-3.64%203.43-2.06-2.18%203.64-3.43-3.42-3.64%202.18-2.06%203.43%203.64%203.64-3.42%202.05%202.18-3.64%203.43z%27%20fill%3D%27%23fff%27%2F%3E%3C%2Fsvg%3E")}.dashicons-admin-comments{background-image:url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M5%202h9q.82%200%201.41.59T16%204v7q0%20.82-.59%201.41T14%2013h-2l-5%205v-5H5q-.82%200-1.41-.59T3%2011V4q0-.82.59-1.41T5%202z%27%20fill%3D%27%2382878c%27%2F%3E%3C%2Fsvg%3E")}.wp-embed-comments a:hover .dashicons-admin-comments{background-image:url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M5%202h9q.82%200%201.41.59T16%204v7q0%20.82-.59%201.41T14%2013h-2l-5%205v-5H5q-.82%200-1.41-.59T3%2011V4q0-.82.59-1.41T5%202z%27%20fill%3D%27%230073aa%27%2F%3E%3C%2Fsvg%3E")}.dashicons-share{background-image:url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M14.5%2012q1.24%200%202.12.88T17.5%2015t-.88%202.12-2.12.88-2.12-.88T11.5%2015q0-.34.09-.69l-4.38-2.3Q6.32%2013%205%2013q-1.24%200-2.12-.88T2%2010t.88-2.12T5%207q1.3%200%202.21.99l4.38-2.3q-.09-.35-.09-.69%200-1.24.88-2.12T14.5%202t2.12.88T17.5%205t-.88%202.12T14.5%208q-1.3%200-2.21-.99l-4.38%202.3Q8%209.66%208%2010t-.09.69l4.38%202.3q.89-.99%202.21-.99z%27%20fill%3D%27%2382878c%27%2F%3E%3C%2Fsvg%3E");display:none}.js .dashicons-share{display:inline-block}.wp-embed-share-dialog-open:hover .dashicons-share{background-image:url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M14.5%2012q1.24%200%202.12.88T17.5%2015t-.88%202.12-2.12.88-2.12-.88T11.5%2015q0-.34.09-.69l-4.38-2.3Q6.32%2013%205%2013q-1.24%200-2.12-.88T2%2010t.88-2.12T5%207q1.3%200%202.21.99l4.38-2.3q-.09-.35-.09-.69%200-1.24.88-2.12T14.5%202t2.12.88T17.5%205t-.88%202.12T14.5%208q-1.3%200-2.21-.99l-4.38%202.3Q8%209.66%208%2010t-.09.69l4.38%202.3q.89-.99%202.21-.99z%27%20fill%3D%27%230073aa%27%2F%3E%3C%2Fsvg%3E")}.wp-embed{padding:25px;font-size:14px;font-weight:400;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;line-height:1.5;color:#82878c;background:#fff;border:1px solid #e5e5e5;box-shadow:0 1px 1px rgba(0,0,0,.05);overflow:auto;zoom:1}.wp-embed a{color:#82878c;text-decoration:none}.wp-embed a:hover{text-decoration:underline}.wp-embed-featured-image{margin-bottom:20px}.wp-embed-featured-image img{width:100%;height:auto;border:none}.wp-embed-featured-image.square{float:left;max-width:160px;margin-right:20px}.wp-embed p{margin:0}p.wp-embed-heading{margin:0 0 15px;font-weight:600;font-size:22px;line-height:1.3}.wp-embed-heading a{color:#32373c}.wp-embed .wp-embed-more{color:#b4b9be}.wp-embed-footer{display:table;width:100%;margin-top:30px}.wp-embed-site-icon{position:absolute;top:50%;left:0;transform:translateY(-50%);height:25px;width:25px;border:0}.wp-embed-site-title{font-weight:600;line-height:25px}.wp-embed-site-title a{position:relative;display:inline-block;padding-left:35px}.wp-embed-meta,.wp-embed-site-title{display:table-cell}.wp-embed-meta{text-align:right;white-space:nowrap;vertical-align:middle}.wp-embed-comments,.wp-embed-share{display:inline}.wp-embed-meta a:hover{text-decoration:none;color:#0073aa}.wp-embed-comments a{line-height:25px;display:inline-block}.wp-embed-comments+.wp-embed-share{margin-left:10px}.wp-embed-share-dialog{position:absolute;top:0;left:0;right:0;bottom:0;background-color:#222;background-color:rgba(10,10,10,.9);color:#fff;opacity:1;transition:opacity .25s ease-in-out}.wp-embed-share-dialog.hidden{opacity:0;visibility:hidden}.wp-embed-share-dialog-close,.wp-embed-share-dialog-open{margin:-8px 0 0;padding:0;background:0 0;border:none;cursor:pointer;outline:0}.wp-embed-share-dialog-close .dashicons,.wp-embed-share-dialog-open .dashicons{padding:4px}.wp-embed-share-dialog-open .dashicons{top:8px}.wp-embed-share-dialog-close:focus .dashicons,.wp-embed-share-dialog-open:focus .dashicons{box-shadow:0 0 0 1px #5b9dd9,0 0 2px 1px rgba(30,140,190,.8);border-radius:100%}.wp-embed-share-dialog-close{position:absolute;top:20px;right:20px;font-size:22px}.wp-embed-share-dialog-close:hover{text-decoration:none}.wp-embed-share-dialog-close .dashicons{height:24px;width:24px;background-size:24px}.wp-embed-share-dialog-content{height:100%;transform-style:preserve-3d;overflow:hidden}.wp-embed-share-dialog-text{margin-top:25px;padding:20px}.wp-embed-share-tabs{margin:0 0 20px;padding:0;list-style:none}.wp-embed-share-tab-button{display:inline-block}.wp-embed-share-tab-button button{margin:0;padding:0;border:none;background:0 0;font-size:16px;line-height:1.3;color:#aaa;cursor:pointer;transition:color .1s ease-in}.wp-embed-share-tab-button [aria-selected=true]{color:#fff}.wp-embed-share-tab-button button:hover{color:#fff}.wp-embed-share-tab-button+.wp-embed-share-tab-button{margin:0 0 0 10px;padding:0 0 0 11px;border-left:1px solid #aaa}.wp-embed-share-tab[aria-hidden=true]{display:none}p.wp-embed-share-description{margin:0;font-size:14px;line-height:1;font-style:italic;color:#aaa}.wp-embed-share-input{box-sizing:border-box;width:100%;border:none;height:28px;margin:0 0 10px 0;padding:0 5px;font-size:14px;font-weight:400;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;line-height:1.5;resize:none;cursor:text}textarea.wp-embed-share-input{height:72px}html[dir=rtl] .wp-embed-featured-image.square{float:right;margin-right:0;margin-left:20px}html[dir=rtl] .wp-embed-site-title a{padding-left:0;padding-right:35px}html[dir=rtl] .wp-embed-site-icon{margin-right:0;margin-left:10px;left:auto;right:0}html[dir=rtl] .wp-embed-meta{text-align:left}html[dir=rtl] .wp-embed-share{margin-left:0;margin-right:10px}html[dir=rtl] .wp-embed-share-dialog-close{right:auto;left:20px}html[dir=rtl] .wp-embed-share-tab-button+.wp-embed-share-tab-button{margin:0 10px 0 0;padding:0 11px 0 0;border-left:none;border-right:1px solid #aaa}
 			<?php
 		}
 	?>
@@ -898,7 +898,7 @@ function print_embed_styles() {
 /**
  * Prints the JavaScript in the embed iframe header.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  */
 function print_embed_scripts() {
 	?>
@@ -918,7 +918,7 @@ function print_embed_scripts() {
 			 * and edit wp-embed-template.js directly.
 			 */
 			?>
-			!function(a,b){"use strict";function c(b,c){a.parent.postMessage({message:b,value:c,secret:g},"*")}function d(){function d(){l.className=l.className.replace("hidden",""),b.querySelector('.wp-embed-share-tab-button [aria-selected="true"]').focus()}function e(){l.className+=" hidden",b.querySelector(".wp-embed-share-dialog-open").focus()}function f(a){var c=b.querySelector('.wp-embed-share-tab-button [aria-selected="true"]');c.setAttribute("aria-selected","false"),b.querySelector("#"+c.getAttribute("aria-controls")).setAttribute("aria-hidden","true"),a.target.setAttribute("aria-selected","true"),b.querySelector("#"+a.target.getAttribute("aria-controls")).setAttribute("aria-hidden","false")}function g(a){var c,d,e=a.target,f=e.parentElement.previousElementSibling,g=e.parentElement.nextElementSibling;if(37===a.keyCode)c=f;else{if(39!==a.keyCode)return!1;c=g}"rtl"===b.documentElement.getAttribute("dir")&&(c=c===f?g:f),c&&(d=c.firstElementChild,e.setAttribute("tabindex","-1"),e.setAttribute("aria-selected",!1),b.querySelector("#"+e.getAttribute("aria-controls")).setAttribute("aria-hidden","true"),d.setAttribute("tabindex","0"),d.setAttribute("aria-selected","true"),d.focus(),b.querySelector("#"+d.getAttribute("aria-controls")).setAttribute("aria-hidden","false"))}function h(a){var c=b.querySelector('.wp-embed-share-tab-button [aria-selected="true"]');n!==a.target||a.shiftKey?c===a.target&&a.shiftKey&&(n.focus(),a.preventDefault()):(c.focus(),a.preventDefault())}function i(a){var b,d=a.target;b=d.hasAttribute("href")?d.getAttribute("href"):d.parentElement.getAttribute("href"),b&&(c("link",b),a.preventDefault())}if(!k){k=!0;var j,l=b.querySelector(".wp-embed-share-dialog"),m=b.querySelector(".wp-embed-share-dialog-open"),n=b.querySelector(".wp-embed-share-dialog-close"),o=b.querySelectorAll(".wp-embed-share-input"),p=b.querySelectorAll(".wp-embed-share-tab-button button"),q=b.querySelector(".wp-embed-featured-image img");if(o)for(j=0;j<o.length;j++)o[j].addEventListener("click",function(a){a.target.select()});if(m&&m.addEventListener("click",function(){d()}),n&&n.addEventListener("click",function(){e()}),p)for(j=0;j<p.length;j++)p[j].addEventListener("click",f),p[j].addEventListener("keydown",g);b.addEventListener("keydown",function(a){27===a.keyCode&&-1===l.className.indexOf("hidden")?e():9===a.keyCode&&h(a)},!1),a.self!==a.top&&(c("height",Math.ceil(b.body.getBoundingClientRect().height)),q&&q.addEventListener("load",function(){c("height",Math.ceil(b.body.getBoundingClientRect().height))}),b.addEventListener("click",i))}}function e(){a.self!==a.top&&(clearTimeout(i),i=setTimeout(function(){c("height",Math.ceil(b.body.getBoundingClientRect().height))},100))}function f(){a.self===a.top||g||(g=a.location.hash.replace(/.*secret=([\d\w]{10}).*/,"$1"),clearTimeout(h),h=setTimeout(function(){f()},100))}var g,h,i,j=b.querySelector&&a.addEventListener,k=!1;j&&(f(),b.documentElement.className=b.documentElement.className.replace(/\bno-js\b/,"")+" js",b.addEventListener("DOMContentLoaded",d,!1),a.addEventListener("load",d,!1),a.addEventListener("resize",e,!1))}(window,document);
+			!function(c,f){"use strict";var r,e,t,n=f.querySelector&&c.addEventListener,b=!1;function h(e,t){c.parent.postMessage({message:e,value:t,secret:r},"*")}function i(){if(!b){b=!0;var e,t=f.querySelector(".wp-embed-share-dialog"),r=f.querySelector(".wp-embed-share-dialog-open"),n=f.querySelector(".wp-embed-share-dialog-close"),i=f.querySelectorAll(".wp-embed-share-input"),a=f.querySelectorAll(".wp-embed-share-tab-button button"),o=f.querySelector(".wp-embed-featured-image img");if(i)for(e=0;e<i.length;e++)i[e].addEventListener("click",function(e){e.target.select()});if(r&&r.addEventListener("click",function(){!function e(){t.className=t.className.replace("hidden",""),f.querySelector('.wp-embed-share-tab-button [aria-selected="true"]').focus()}()}),n&&n.addEventListener("click",function(){l()}),a)for(e=0;e<a.length;e++)a[e].addEventListener("click",s),a[e].addEventListener("keydown",u);f.addEventListener("keydown",function(e){27===e.keyCode&&-1===t.className.indexOf("hidden")?l():9===e.keyCode&&function r(e){var t=f.querySelector('.wp-embed-share-tab-button [aria-selected="true"]');n!==e.target||e.shiftKey?t===e.target&&e.shiftKey&&(n.focus(),e.preventDefault()):(t.focus(),e.preventDefault())}(e)},!1),c.self!==c.top&&(h("height",Math.ceil(f.body.getBoundingClientRect().height)),o&&o.addEventListener("load",function(){h("height",Math.ceil(f.body.getBoundingClientRect().height))}),f.addEventListener("click",function d(e){var t,r=e.target;(t=r.hasAttribute("href")?r.getAttribute("href"):r.parentElement.getAttribute("href"))&&(h("link",t),e.preventDefault())}))}function l(){t.className+=" hidden",f.querySelector(".wp-embed-share-dialog-open").focus()}function s(e){var t=f.querySelector('.wp-embed-share-tab-button [aria-selected="true"]');t.setAttribute("aria-selected","false"),f.querySelector("#"+t.getAttribute("aria-controls")).setAttribute("aria-hidden","true"),e.target.setAttribute("aria-selected","true"),f.querySelector("#"+e.target.getAttribute("aria-controls")).setAttribute("aria-hidden","false")}function u(e){var t,r,n=e.target,i=n.parentElement.previousElementSibling,a=n.parentElement.nextElementSibling;if(37===e.keyCode)t=i;else{if(39!==e.keyCode)return!1;t=a}"rtl"===f.documentElement.getAttribute("dir")&&(t=t===i?a:i),t&&(r=t.firstElementChild,n.setAttribute("tabindex","-1"),n.setAttribute("aria-selected",!1),f.querySelector("#"+n.getAttribute("aria-controls")).setAttribute("aria-hidden","true"),r.setAttribute("tabindex","0"),r.setAttribute("aria-selected","true"),r.focus(),f.querySelector("#"+r.getAttribute("aria-controls")).setAttribute("aria-hidden","false"))}}n&&(!function a(){c.self===c.top||r||(r=c.location.hash.replace(/.*secret=([\d\w]{10}).*/,"$1"),clearTimeout(e),e=setTimeout(function(){a()},100))}(),f.documentElement.className=f.documentElement.className.replace(/\bno-js\b/,"")+" js",f.addEventListener("DOMContentLoaded",i,!1),c.addEventListener("load",i,!1),c.addEventListener("resize",function o(){c.self!==c.top&&(clearTimeout(t),t=setTimeout(function(){h("height",Math.ceil(f.body.getBoundingClientRect().height))},100))},!1))}(window,document);
 			<?php
 		}
 	?>
@@ -929,7 +929,7 @@ function print_embed_scripts() {
 /**
  * Prepare the oembed HTML to be displayed in an RSS feed.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  * @access private
  *
  * @param string $content The content to filter.
@@ -942,7 +942,7 @@ function _oembed_filter_feed_content( $content ) {
 /**
  * Prints the necessary markup for the embed comments button.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  */
 function print_embed_comments_button() {
 	if ( is_404() || ! ( get_comments_number() || comments_open() ) ) {
@@ -970,7 +970,7 @@ function print_embed_comments_button() {
 /**
  * Prints the necessary markup for the embed sharing button.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  */
 function print_embed_sharing_button() {
 	if ( is_404() ) {
@@ -988,7 +988,7 @@ function print_embed_sharing_button() {
 /**
  * Prints the necessary markup for the embed sharing dialog.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  */
 function print_embed_sharing_dialog() {
 	if ( is_404() ) {
@@ -1000,7 +1000,7 @@ function print_embed_sharing_dialog() {
 			<div class="wp-embed-share-dialog-text">
 				<ul class="wp-embed-share-tabs" role="tablist">
 					<li class="wp-embed-share-tab-button wp-embed-share-tab-button-wordpress" role="presentation">
-						<button type="button" role="tab" aria-controls="wp-embed-share-tab-wordpress" aria-selected="true" tabindex="0"><?php esc_html_e( 'WordPress Embed' ); ?></button>
+						<button type="button" role="tab" aria-controls="wp-embed-share-tab-wordpress" aria-selected="true" tabindex="0"><?php esc_html_e( 'ClassicPress Embed' ); ?></button>
 					</li>
 					<li class="wp-embed-share-tab-button wp-embed-share-tab-button-html" role="presentation">
 						<button type="button" role="tab" aria-controls="wp-embed-share-tab-html" aria-selected="false" tabindex="-1"><?php esc_html_e( 'HTML Embed' ); ?></button>
@@ -1010,7 +1010,7 @@ function print_embed_sharing_dialog() {
 					<input type="text" value="<?php the_permalink(); ?>" class="wp-embed-share-input" aria-describedby="wp-embed-share-description-wordpress" tabindex="0" readonly/>
 
 					<p class="wp-embed-share-description" id="wp-embed-share-description-wordpress">
-						<?php _e( 'Copy and paste this URL into your WordPress site to embed' ); ?>
+						<?php _e( 'Copy and paste this URL into your ClassicPress site to embed' ); ?>
 					</p>
 				</div>
 				<div id="wp-embed-share-tab-html" class="wp-embed-share-tab" role="tabpanel" aria-hidden="true">
@@ -1033,7 +1033,7 @@ function print_embed_sharing_dialog() {
 /**
  * Prints the necessary markup for the site title in an embed template.
  *
- * @since 4.5.0
+ * @since WP-4.5.0
  */
 function the_embed_site_title() {
 	$site_title = sprintf(
@@ -1049,7 +1049,7 @@ function the_embed_site_title() {
 	/**
 	 * Filters the site title HTML in the embed footer.
 	 *
-	 * @since 4.4.0
+	 * @since WP-4.4.0
 	 *
 	 * @param string $site_title The site title HTML.
 	 */
@@ -1062,7 +1062,7 @@ function the_embed_site_title() {
  * If the URL belongs to the current site, the result is fetched directly instead of
  * going through the oEmbed discovery process.
  *
- * @since 4.5.3
+ * @since WP-4.5.3
  *
  * @param null|string $result The UNSANITIZED (and potentially unsafe) HTML that should be used to embed. Default null.
  * @param string      $url    The URL that should be inspected for discovery `<link>` tags.

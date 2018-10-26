@@ -1,6 +1,6 @@
 <?php
 /**
- * WordPress implementation for PHP functions either missing from older PHP versions or not included by default.
+ * ClassicPress implementation for PHP functions either missing from older PHP versions or not included by default.
  *
  * @package PHP
  * @access private
@@ -17,7 +17,7 @@ if ( !function_exists('_') ) {
  * Returns whether PCRE/u (PCRE_UTF8 modifier) is available for use.
  *
  * @ignore
- * @since 4.2.2
+ * @since WP-4.2.2
  * @access private
  *
  * @staticvar string $utf8_pcre
@@ -46,7 +46,7 @@ if ( ! function_exists( 'mb_substr' ) ) :
 	 * Compat function to mimic mb_substr().
 	 *
 	 * @ignore
-	 * @since 3.2.0
+	 * @since WP-3.2.0
 	 *
 	 * @see _mb_substr()
 	 *
@@ -70,7 +70,7 @@ endif;
  * The behavior of this function for invalid inputs is undefined.
  *
  * @ignore
- * @since 3.2.0
+ * @since WP-3.2.0
  *
  * @param string      $str      The string to extract the substring from.
  * @param int         $start    Position to being extraction from in `$str`.
@@ -136,7 +136,7 @@ if ( ! function_exists( 'mb_strlen' ) ) :
 	 * Compat function to mimic mb_strlen().
 	 *
 	 * @ignore
-	 * @since 4.2.0
+	 * @since WP-4.2.0
 	 *
 	 * @see _mb_strlen()
 	 *
@@ -157,7 +157,7 @@ endif;
  * sequence. The behavior of this function for invalid inputs is undefined.
  *
  * @ignore
- * @since 4.2.0
+ * @since WP-4.2.0
  *
  * @param string      $str      The string to retrieve the character length from.
  * @param string|null $encoding Optional. Character encoding to use. Default null.
@@ -221,7 +221,7 @@ if ( !function_exists('hash_hmac') ):
  * Compat function to mimic hash_hmac().
  *
  * @ignore
- * @since 3.2.0
+ * @since WP-3.2.0
  *
  * @see _hash_hmac()
  *
@@ -242,7 +242,7 @@ endif;
  * Internal compat function to mimic hash_hmac().
  *
  * @ignore
- * @since 3.2.0
+ * @since WP-3.2.0
  *
  * @param string $algo       Hash algorithm. Accepts 'md5' or 'sha1'.
  * @param string $data       Data to be hashed.
@@ -330,7 +330,7 @@ if ( ! function_exists( 'hash_equals' ) ) :
  *
  * Note: It can leak the length of a string when arguments of differing length are supplied.
  *
- * @since 3.9.2
+ * @since WP-3.9.2
  *
  * @param string $a Expected string.
  * @param string $b Actual, user supplied, string.
@@ -362,7 +362,7 @@ if ( ! function_exists( 'json_last_error_msg' ) ) :
 	/**
 	 * Retrieves the error string of the last json_encode() or json_decode() call.
 	 *
-	 * @since 4.4.0
+	 * @since WP-4.4.0
 	 *
 	 * @internal This is a compatibility function for PHP <5.5
 	 *
@@ -423,7 +423,7 @@ if ( ! interface_exists( 'JsonSerializable' ) ) {
 	 *
 	 * @link https://secure.php.net/jsonserializable
 	 *
-	 * @since 4.4.0
+	 * @since WP-4.4.0
 	 */
 	interface JsonSerializable {
 		public function jsonSerialize();
@@ -439,16 +439,16 @@ if ( ! function_exists( 'array_replace_recursive' ) ) :
 	/**
 	 * PHP-agnostic version of {@link array_replace_recursive()}.
 	 *
-	 * The array_replace_recursive() function is a PHP 5.3 function. WordPress
+	 * The array_replace_recursive() function is a PHP 5.3 function. ClassicPress
 	 * currently supports down to PHP 5.2, so this method is a workaround
 	 * for PHP 5.2.
 	 *
 	 * Note: array_replace_recursive() supports infinite arguments, but for our use-
 	 * case, we only need to support two arguments.
 	 *
-	 * Subject to removal once WordPress makes PHP 5.3.0 the minimum requirement.
+	 * Subject to removal once ClassicPress makes PHP 5.3.0 the minimum requirement.
 	 *
-	 * @since 4.5.3
+	 * @since WP-4.5.3
 	 *
 	 * @see https://secure.php.net/manual/en/function.array-replace-recursive.php#109390
 	 *
@@ -505,7 +505,7 @@ if ( ! function_exists( 'is_countable' ) ) {
 	 * Verify that the content of a variable is an array or an object
 	 * implementing the Countable interface.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @param mixed $var The value to check.
 	 *
@@ -527,7 +527,7 @@ if ( ! function_exists( 'is_iterable' ) ) {
 	 * Verify that the content of a variable is an array or an object
 	 * implementing the Traversable interface.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @param mixed $var The value to check.
 	 *

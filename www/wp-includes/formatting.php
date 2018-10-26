@@ -1,10 +1,10 @@
 <?php
 /**
- * Main WordPress Formatting API.
+ * Main ClassicPress Formatting API.
  *
  * Handles many functions for formatting output.
  *
- * @package WordPress
+ * @package ClassicPress
  */
 
 /**
@@ -22,7 +22,7 @@
  *
  * Do not use this function before the {@see 'init'} action hook; everything will break.
  *
- * @since 0.71
+ * @since WP-0.71
  *
  * @global array $wp_cockneyreplace Array of formatted entities for certain common phrases
  * @global array $shortcode_tags
@@ -83,7 +83,7 @@ function wptexturize( $text, $reset = false ) {
 		 *
 		 * The filter runs only once, the first time wptexturize() is called.
 		 *
-		 * @since 4.0.0
+		 * @since WP-4.0.0
 		 *
 		 * @see wptexturize()
 		 *
@@ -207,7 +207,7 @@ function wptexturize( $text, $reset = false ) {
 	/**
 	 * Filters the list of HTML elements not to texturize.
 	 *
-	 * @since 2.8.0
+	 * @since WP-2.8.0
 	 *
 	 * @param array $default_no_texturize_tags An array of HTML element names.
 	 */
@@ -215,7 +215,7 @@ function wptexturize( $text, $reset = false ) {
 	/**
 	 * Filters the list of shortcodes not to texturize.
 	 *
-	 * @since 2.8.0
+	 * @since WP-2.8.0
 	 *
 	 * @param array $default_no_texturize_shortcodes An array of shortcode names.
 	 */
@@ -303,7 +303,7 @@ function wptexturize( $text, $reset = false ) {
  * Implements a logic tree to determine whether or not "7'." represents seven feet,
  * then converts the special char into either a prime char or a closing quote char.
  *
- * @since 4.3.0
+ * @since WP-4.3.0
  *
  * @param string $haystack    The plain text to be searched.
  * @param string $needle      The character to search for such as ' or ".
@@ -375,7 +375,7 @@ function wptexturize_primes( $haystack, $needle, $prime, $open_quote, $close_quo
  * Assumes first char of $text is tag opening and last char is tag closing.
  * Assumes second char of $text is optionally '/' to indicate closing as in </html>.
  *
- * @since 2.9.0
+ * @since WP-2.9.0
  * @access private
  *
  * @param string $text Text to check. Must be a tag like `<html>` or `[shortcode]`.
@@ -429,7 +429,7 @@ function _wptexturize_pushpop_element( $text, &$stack, $disabled_elements ) {
  * replace double line-breaks with HTML paragraph tags. The remaining line-breaks
  * after conversion become <<br />> tags, unless $br is set to '0' or 'false'.
  *
- * @since 0.71
+ * @since WP-0.71
  *
  * @param string $pee The text which has to be formatted.
  * @param bool   $br  Optional. If set, this will convert all remaining line-breaks
@@ -595,7 +595,7 @@ function wpautop( $pee, $br = true ) {
 /**
  * Separate HTML elements and comments from the text.
  *
- * @since 4.2.4
+ * @since WP-4.2.4
  *
  * @param string $input The text which has to be formatted.
  * @return array The formatted text.
@@ -607,7 +607,7 @@ function wp_html_split( $input ) {
 /**
  * Retrieve the regular expression for an HTML element.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  *
  * @staticvar string $regex
  *
@@ -666,7 +666,7 @@ function get_html_split_regex() {
  * @access private
  * @ignore
  * @internal This function will be removed in 4.5.0 per Shortcode API Roadmap.
- * @since 4.4.0
+ * @since WP-4.4.0
  *
  * @staticvar string $html_regex
  *
@@ -709,7 +709,7 @@ function _get_wptexturize_split_regex( $shortcode_regex = '' ) {
  * @access private
  * @ignore
  * @internal This function will be removed in 4.5.0 per Shortcode API Roadmap.
- * @since 4.4.0
+ * @since WP-4.4.0
  *
  * @param array $tagnames List of shortcodes to find.
  * @return string The regular expression
@@ -735,7 +735,7 @@ function _get_wptexturize_shortcode_regex( $tagnames ) {
 /**
  * Replace characters or phrases within HTML elements only.
  *
- * @since 4.2.3
+ * @since WP-4.2.3
  *
  * @param string $haystack The text which has to be formatted.
  * @param array $replace_pairs In the form array('from' => 'to', ...).
@@ -785,7 +785,7 @@ function wp_replace_in_html_tags( $haystack, $replace_pairs ) {
 /**
  * Newline preservation help function for wpautop
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  * @access private
  *
  * @param array $matches preg_replace_callback matches array
@@ -800,7 +800,7 @@ function _autop_newline_preservation_helper( $matches ) {
  *
  * Ensures that shortcodes are not wrapped in `<p>...</p>`.
  *
- * @since 2.9.0
+ * @since WP-2.9.0
  *
  * @global array $shortcode_tags
  *
@@ -859,7 +859,7 @@ function shortcode_unautop( $pee ) {
  *       has Bytes Sequences with a maximum length of 4.
  *
  * @author bmorel at ssi dot fr (modified)
- * @since 1.2.1
+ * @since WP-1.2.1
  *
  * @param string $str The string to be checked
  * @return bool True if $str fits a UTF-8 model, false otherwise.
@@ -893,7 +893,7 @@ function seems_utf8( $str ) {
  * $quote_style can be set to ENT_COMPAT to encode " to
  * &quot;, or ENT_QUOTES to do both. Default is ENT_NOQUOTES where no quotes are encoded.
  *
- * @since 1.2.2
+ * @since WP-1.2.2
  * @access private
  *
  * @staticvar string $_charset
@@ -969,7 +969,7 @@ function _wp_specialchars( $string, $quote_style = ENT_NOQUOTES, $charset = fals
  * $quote_style can be set to ENT_COMPAT to decode " entities,
  * or ENT_QUOTES to do both " and '. Default is ENT_NOQUOTES where no quotes are decoded.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @param string     $string The text which is to be decoded.
  * @param string|int $quote_style Optional. Converts double quotes if set to ENT_COMPAT,
@@ -1032,7 +1032,7 @@ function wp_specialchars_decode( $string, $quote_style = ENT_NOQUOTES ) {
 /**
  * Checks for invalid UTF8 in a string.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @staticvar bool $is_utf8
  * @staticvar bool $utf8_pcre
@@ -1083,7 +1083,7 @@ function wp_check_invalid_utf8( $string, $strip = false ) {
 /**
  * Encode the Unicode values to be used in the URI.
  *
- * @since 1.5.0
+ * @since WP-1.5.0
  *
  * @param string $utf8_string
  * @param int    $length Max  length of the string
@@ -1517,10 +1517,10 @@ function utf8_uri_encode( $utf8_string, $length = 0 ) {
  * | U+0110   | Đ     | DJ          | Latin capital letter D with stroke      |
  * | U+0111   | đ     | dj          | Latin small letter d with stroke        |
  *
- * @since 1.2.1
- * @since 4.6.0 Added locale support for `de_CH`, `de_CH_informal`, and `ca`.
- * @since 4.7.0 Added locale support for `sr_RS`.
- * @since 4.8.0 Added locale support for `bs_BA`.
+ * @since WP-1.2.1
+ * @since WP-4.6.0 Added locale support for `de_CH`, `de_CH_informal`, and `ca`.
+ * @since WP-4.7.0 Added locale support for `sr_RS`.
+ * @since WP-4.8.0 Added locale support for `bs_BA`.
  *
  * @param string $string Text that might have accent characters
  * @return string Filtered string with replaced "nice" characters.
@@ -1768,7 +1768,7 @@ function remove_accents( $string ) {
  * and end of filename. It is not guaranteed that this function will return a
  * filename that is allowed to be uploaded.
  *
- * @since 2.1.0
+ * @since WP-2.1.0
  *
  * @param string $filename The filename to be sanitized
  * @return string The sanitized filename
@@ -1779,7 +1779,7 @@ function sanitize_file_name( $filename ) {
 	/**
 	 * Filters the list of characters to remove from a filename.
 	 *
-	 * @since 2.8.0
+	 * @since WP-2.8.0
 	 *
 	 * @param array  $special_chars Characters to remove.
 	 * @param string $filename_raw  Filename as it was passed into sanitize_file_name().
@@ -1807,7 +1807,7 @@ function sanitize_file_name( $filename ) {
 		/**
 		 * Filters a sanitized filename string.
 		 *
-		 * @since 2.8.0
+		 * @since WP-2.8.0
 		 *
 		 * @param string $filename     Sanitized filename.
 		 * @param string $filename_raw The filename prior to sanitization.
@@ -1853,7 +1853,7 @@ function sanitize_file_name( $filename ) {
  * raw username (the username in the parameter), and the value of $strict as
  * parameters for the {@see 'sanitize_user'} filter.
  *
- * @since 2.0.0
+ * @since WP-2.0.0
  *
  * @param string $username The username to be sanitized.
  * @param bool   $strict   If set limits $username to specific characters. Default false.
@@ -1878,7 +1878,7 @@ function sanitize_user( $username, $strict = false ) {
 	/**
 	 * Filters a sanitized username string.
 	 *
-	 * @since 2.0.1
+	 * @since WP-2.0.1
 	 *
 	 * @param string $username     Sanitized username.
 	 * @param string $raw_username The username prior to sanitization.
@@ -1892,7 +1892,7 @@ function sanitize_user( $username, $strict = false ) {
  *
  * Keys are used as internal identifiers. Lowercase alphanumeric characters, dashes and underscores are allowed.
  *
- * @since 3.0.0
+ * @since WP-3.0.0
  *
  * @param string $key String key
  * @return string Sanitized key
@@ -1905,7 +1905,7 @@ function sanitize_key( $key ) {
 	/**
 	 * Filters a sanitized key string.
 	 *
-	 * @since 3.0.0
+	 * @since WP-3.0.0
 	 *
 	 * @param string $key     Sanitized key.
 	 * @param string $raw_key The key prior to sanitization.
@@ -1920,7 +1920,7 @@ function sanitize_key( $key ) {
  * via the plugin API. If $title is empty and $fallback_title is set, the latter
  * will be used.
  *
- * @since 1.0.0
+ * @since WP-1.0.0
  *
  * @param string $title          The string to be sanitized.
  * @param string $fallback_title Optional. A title to use if $title is empty.
@@ -1936,7 +1936,7 @@ function sanitize_title( $title, $fallback_title = '', $context = 'save' ) {
 	/**
 	 * Filters a sanitized title string.
 	 *
-	 * @since 1.2.0
+	 * @since WP-1.2.0
 	 *
 	 * @param string $title     Sanitized title.
 	 * @param string $raw_title The title prior to sanitization.
@@ -1955,7 +1955,7 @@ function sanitize_title( $title, $fallback_title = '', $context = 'save' ) {
  *
  * Used for querying the database for a value from URL.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  *
  * @param string $title The string to be sanitized.
  * @return string The sanitized string.
@@ -1970,7 +1970,7 @@ function sanitize_title_for_query( $title ) {
  * Limits the output to alphanumeric characters, underscore (_) and dash (-).
  * Whitespace becomes a dash.
  *
- * @since 1.2.0
+ * @since WP-1.2.0
  *
  * @param string $title     The title to be sanitized.
  * @param string $raw_title Optional. Not used.
@@ -2043,7 +2043,7 @@ function sanitize_title_with_dashes( $title, $raw_title = '', $context = 'displa
  *
  * Also accepts 'RAND()'.
  *
- * @since 2.5.1
+ * @since WP-2.5.1
  *
  * @param string $orderby Order by clause to be validated.
  * @return string|false Returns $orderby if valid, false otherwise.
@@ -2063,7 +2063,7 @@ function sanitize_sql_orderby( $orderby ) {
  *
  * @todo Expand to support the full range of CDATA that a class attribute can contain.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @param string $class    The classname to be sanitized
  * @param string $fallback Optional. The value to return if the sanitization ends up as an empty string.
@@ -2083,7 +2083,7 @@ function sanitize_html_class( $class, $fallback = '' ) {
 	/**
 	 * Filters a sanitized HTML class string.
 	 *
-	 * @since 2.8.0
+	 * @since WP-2.8.0
 	 *
 	 * @param string $sanitized The sanitized HTML class.
 	 * @param string $class     HTML class before sanitization.
@@ -2095,7 +2095,7 @@ function sanitize_html_class( $class, $fallback = '' ) {
 /**
  * Converts lone & characters into `&#038;` (a.k.a. `&amp;`)
  *
- * @since 0.71
+ * @since WP-0.71
  *
  * @param string $content    String of characters to be converted.
  * @param string $deprecated Not used.
@@ -2103,7 +2103,7 @@ function sanitize_html_class( $class, $fallback = '' ) {
  */
 function convert_chars( $content, $deprecated = '' ) {
 	if ( ! empty( $deprecated ) ) {
-		_deprecated_argument( __FUNCTION__, '0.71' );
+		_deprecated_argument( __FUNCTION__, 'WP-0.71' );
 	}
 
 	if ( strpos( $content, '&' ) !== false ) {
@@ -2116,7 +2116,7 @@ function convert_chars( $content, $deprecated = '' ) {
 /**
  * Converts invalid Unicode references range to valid range.
  *
- * @since 4.3.0
+ * @since WP-4.3.0
  *
  * @param string $content String with entities that need converting.
  * @return string Converted string.
@@ -2167,7 +2167,7 @@ function convert_invalid_entities( $content ) {
 /**
  * Balances tags if forced to, or if the 'use_balanceTags' option is set to true.
  *
- * @since 0.71
+ * @since WP-0.71
  *
  * @param string $text  Text to be balanced
  * @param bool   $force If true, forces balancing, ignoring the value of the option. Default false.
@@ -2184,7 +2184,7 @@ function balanceTags( $text, $force = false ) {
 /**
  * Balances tags of string using a modified stack.
  *
- * @since 2.0.4
+ * @since WP-2.0.4
  *
  * @author Leonard Lin <leonard@acm.org>
  * @license GPL
@@ -2319,8 +2319,8 @@ function force_balance_tags( $text ) {
  * to convert special characters to HTML entities. If `$richedit` is set to true,
  * it is simply a holder for the {@see 'format_to_edit'} filter.
  *
- * @since 0.71
- * @since 4.4.0 The `$richedit` parameter was renamed to `$rich_text` for clarity.
+ * @since WP-0.71
+ * @since WP-4.4.0 The `$richedit` parameter was renamed to `$rich_text` for clarity.
  *
  * @param string $content   The text about to be edited.
  * @param bool   $rich_text Optional. Whether `$content` should be considered rich text,
@@ -2332,7 +2332,7 @@ function format_to_edit( $content, $rich_text = false ) {
 	/**
 	 * Filters the text to be formatted for editing.
 	 *
-	 * @since 1.2.0
+	 * @since WP-1.2.0
 	 *
 	 * @param string $content The text, prior to formatting for editing.
 	 */
@@ -2353,7 +2353,7 @@ function format_to_edit( $content, $rich_text = false ) {
  * and the size of the number. If the number is large enough, then no zeros will
  * be appended.
  *
- * @since 0.71
+ * @since WP-0.71
  *
  * @param int $number     Number to append zeros to if not greater than threshold.
  * @param int $threshold  Digit places number needs to be to not have zeros added.
@@ -2366,7 +2366,7 @@ function zeroise( $number, $threshold ) {
 /**
  * Adds backslashes before letters and before a number at the start of a string.
  *
- * @since 0.71
+ * @since WP-0.71
  *
  * @param string $string Value to which backslashes will be added.
  * @return string String with backslashes inserted.
@@ -2386,7 +2386,7 @@ function backslashit( $string ) {
  * The primary use of this is for paths and thus should be used for paths. It is
  * not restricted to paths and offers no specific path support.
  *
- * @since 1.2.0
+ * @since WP-1.2.0
  *
  * @param string $string What to add the trailing slash to.
  * @return string String with trailing slash added.
@@ -2401,7 +2401,7 @@ function trailingslashit( $string ) {
  * The primary use of this is for paths and thus should be used for paths. It is
  * not restricted to paths and offers no specific path support.
  *
- * @since 2.2.0
+ * @since WP-2.2.0
  *
  * @param string $string What to remove the trailing slashes from.
  * @return string String without the trailing slashes.
@@ -2416,7 +2416,7 @@ function untrailingslashit( $string ) {
  * Slashes will first be removed if magic_quotes_gpc is set, see {@link
  * https://secure.php.net/magic_quotes} for more details.
  *
- * @since 0.71
+ * @since WP-0.71
  *
  * @param string $gpc The string returned from HTTP request data.
  * @return string Returns a string escaped with slashes.
@@ -2431,7 +2431,7 @@ function addslashes_gpc($gpc) {
 /**
  * Navigates through an array, object, or scalar, and removes slashes from the values.
  *
- * @since 2.0.0
+ * @since WP-2.0.0
  *
  * @param mixed $value The value to be stripped.
  * @return mixed Stripped value.
@@ -2443,7 +2443,7 @@ function stripslashes_deep( $value ) {
 /**
  * Callback function for `stripslashes_deep()` which strips slashes from strings.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  *
  * @param mixed $value The array or string to be stripped.
  * @return mixed $value The stripped value.
@@ -2455,7 +2455,7 @@ function stripslashes_from_strings_only( $value ) {
 /**
  * Navigates through an array, object, or scalar, and encodes the values to be used in a URL.
  *
- * @since 2.2.0
+ * @since WP-2.2.0
  *
  * @param mixed $value The array or string to be encoded.
  * @return mixed $value The encoded value.
@@ -2467,7 +2467,7 @@ function urlencode_deep( $value ) {
 /**
  * Navigates through an array, object, or scalar, and raw-encodes the values to be used in a URL.
  *
- * @since 3.4.0
+ * @since WP-3.4.0
  *
  * @param mixed $value The array or string to be encoded.
  * @return mixed $value The encoded value.
@@ -2479,7 +2479,7 @@ function rawurlencode_deep( $value ) {
 /**
  * Navigates through an array, object, or scalar, and decodes URL-encoded values
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  *
  * @param mixed $value The array or string to be decoded.
  * @return mixed $value The decoded value.
@@ -2491,7 +2491,7 @@ function urldecode_deep( $value ) {
 /**
  * Converts email addresses characters to HTML entities to block spam bots.
  *
- * @since 0.71
+ * @since WP-0.71
  *
  * @param string $email_address Email address.
  * @param int    $hex_encoding  Optional. Set to 1 to enable hex encoding.
@@ -2518,7 +2518,7 @@ function antispambot( $email_address, $hex_encoding = 0 ) {
  *
  * This function was backported from 2.5.0 to 2.3.2. Regex callback for make_clickable().
  *
- * @since 2.3.2
+ * @since WP-2.3.2
  * @access private
  *
  * @param array $matches Single Regex Match.
@@ -2554,7 +2554,7 @@ function _make_url_clickable_cb( $matches ) {
  *
  * This function was backported from 2.5.0 to 2.3.2. Regex callback for make_clickable().
  *
- * @since 2.3.2
+ * @since WP-2.3.2
  * @access private
  *
  * @param array $matches Single Regex Match.
@@ -2583,7 +2583,7 @@ function _make_web_ftp_clickable_cb( $matches ) {
  *
  * This function was backported from 2.5.0 to 2.3.2. Regex callback for make_clickable().
  *
- * @since 2.3.2
+ * @since WP-2.3.2
  * @access private
  *
  * @param array $matches Single Regex Match.
@@ -2600,7 +2600,7 @@ function _make_email_clickable_cb( $matches ) {
  * Converts URI, www and ftp, and email addresses. Finishes by fixing links
  * within links.
  *
- * @since 0.71
+ * @since WP-0.71
  *
  * @param string $text Content to convert URIs.
  * @return string Content with converted URIs.
@@ -2685,7 +2685,7 @@ function make_clickable( $text ) {
  *         7 => '1 3 5 7 90 ',  // 11 characters: End of $string
  *     );
  *
- * @since 3.4.0
+ * @since WP-3.4.0
  * @access private
  *
  * @param string $string The string to split.
@@ -2722,7 +2722,7 @@ function _split_str_by_whitespace( $string, $goal ) {
 /**
  * Adds rel nofollow string to all HTML A elements in content.
  *
- * @since 1.5.0
+ * @since WP-1.5.0
  *
  * @param string $text Content that may contain HTML A elements.
  * @return string Converted content.
@@ -2740,7 +2740,7 @@ function wp_rel_nofollow( $text ) {
  * Will remove already existing rel="nofollow" and rel='nofollow' from the
  * string to prevent from invalidating (X)HTML.
  *
- * @since 2.3.0
+ * @since WP-2.3.0
  *
  * @param array $matches Single Match
  * @return string HTML A Element with rel nofollow.
@@ -2781,7 +2781,7 @@ function wp_rel_nofollow_callback( $matches ) {
  * Looks up one smiley code in the $wpsmiliestrans global array and returns an
  * `<img>` string for that smiley.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @global array $wpsmiliestrans
  *
@@ -2809,7 +2809,7 @@ function translate_smiley( $matches ) {
 	/**
 	 * Filters the Smiley image URL before it's used in the image element.
 	 *
-	 * @since 2.9.0
+	 * @since WP-2.9.0
 	 *
 	 * @param string $smiley_url URL for the smiley image.
 	 * @param string $img        Filename for the smiley image.
@@ -2826,7 +2826,7 @@ function translate_smiley( $matches ) {
  * Will only convert smilies if the option 'use_smilies' is true and the global
  * used in the function isn't empty.
  *
- * @since 0.71
+ * @since WP-0.71
  *
  * @global string|array $wp_smiliessearch
  *
@@ -2877,7 +2877,7 @@ function convert_smilies( $text ) {
  *
  * Does not grok i18n domains. Not RFC compliant.
  *
- * @since 0.71
+ * @since WP-0.71
  *
  * @param string $email      Email address to verify.
  * @param bool   $deprecated Deprecated.
@@ -2885,7 +2885,7 @@ function convert_smilies( $text ) {
  */
 function is_email( $email, $deprecated = false ) {
 	if ( ! empty( $deprecated ) )
-		_deprecated_argument( __FUNCTION__, '3.0.0' );
+		_deprecated_argument( __FUNCTION__, 'WP-3.0.0' );
 
 	// Test for the minimum length the email can be
 	if ( strlen( $email ) < 6 ) {
@@ -2896,7 +2896,7 @@ function is_email( $email, $deprecated = false ) {
 		 * 'email_no_at', 'local_invalid_chars', 'domain_period_sequence', 'domain_period_limits',
 		 * 'domain_no_periods', 'sub_hyphen_limits', 'sub_invalid_chars', or no specific context.
 		 *
-		 * @since 2.8.0
+		 * @since WP-2.8.0
 		 *
 		 * @param bool   $is_email Whether the email address has passed the is_email() checks. Default false.
 		 * @param string $email    The email address being checked.
@@ -2966,7 +2966,7 @@ function is_email( $email, $deprecated = false ) {
 /**
  * Convert to ASCII from email subjects.
  *
- * @since 1.2.0
+ * @since WP-1.2.0
  *
  * @param string $string Subject line
  * @return string Converted string to ASCII
@@ -2984,7 +2984,7 @@ function wp_iso_descrambler( $string ) {
 /**
  * Helper function to convert hex encoded chars to ASCII
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  * @access private
  *
  * @param array $match The preg_replace_callback matches array
@@ -3002,7 +3002,7 @@ function _wp_iso_convert( $match ) {
  * otherwise it simply subtracts the value of the 'gmt_offset' option. Return
  * format can be overridden using the $format parameter.
  *
- * @since 1.2.0
+ * @since WP-1.2.0
  *
  * @param string $string The date to be converted.
  * @param string $format The format string for the returned date (default is Y-m-d H:i:s)
@@ -3039,7 +3039,7 @@ function get_gmt_from_date( $string, $format = 'Y-m-d H:i:s' ) {
  * it simply adds the value of gmt_offset. Return format can be overridden
  * using the $format parameter
  *
- * @since 1.2.0
+ * @since WP-1.2.0
  *
  * @param string $string The date to be converted.
  * @param string $format The format string for the returned date (default is Y-m-d H:i:s)
@@ -3065,7 +3065,7 @@ function get_date_from_gmt( $string, $format = 'Y-m-d H:i:s' ) {
 /**
  * Computes an offset in seconds from an iso8601 timezone.
  *
- * @since 1.5.0
+ * @since WP-1.5.0
  *
  * @param string $timezone Either 'Z' for 0 offset or '±hhmm'.
  * @return int|float The offset in seconds.
@@ -3086,7 +3086,7 @@ function iso8601_timezone_to_offset( $timezone ) {
 /**
  * Converts an iso8601 date to MySQL DateTime format used by post_date[_gmt].
  *
- * @since 1.5.0
+ * @since WP-1.5.0
  *
  * @param string $date_string Date and time in ISO 8601 format {@link https://en.wikipedia.org/wiki/ISO_8601}.
  * @param string $timezone    Optional. If set to GMT returns the time minus gmt_offset. Default is 'user'.
@@ -3118,7 +3118,7 @@ function iso8601_to_datetime( $date_string, $timezone = 'user' ) {
 /**
  * Strips out all characters that are not allowable in an email.
  *
- * @since 1.5.0
+ * @since WP-1.5.0
  *
  * @param string $email Email address to filter.
  * @return string Filtered email address.
@@ -3133,7 +3133,7 @@ function sanitize_email( $email ) {
 		 * 'email_no_at', 'local_invalid_chars', 'domain_period_sequence', 'domain_period_limits',
 		 * 'domain_no_periods', 'domain_no_valid_subs', or no context.
 		 *
-		 * @since 2.8.0
+		 * @since WP-2.8.0
 		 *
 		 * @param string $email   The sanitized email address.
 		 * @param string $email   The email address, as provided to sanitize_email().
@@ -3223,7 +3223,7 @@ function sanitize_email( $email ) {
  * The difference is returned in a human readable format such as "1 hour",
  * "5 mins", "2 days".
  *
- * @since 1.5.0
+ * @since WP-1.5.0
  *
  * @param int $from Unix timestamp from which the difference begins.
  * @param int $to   Optional. Unix timestamp to end the time difference. Default becomes time() if not set.
@@ -3277,7 +3277,7 @@ function human_time_diff( $from, $to = '' ) {
 	/**
 	 * Filters the human readable difference between two timestamps.
 	 *
-	 * @since 4.0.0
+	 * @since WP-4.0.0
 	 *
 	 * @param string $since The difference in human readable text.
 	 * @param int    $diff  The difference in seconds.
@@ -3297,7 +3297,7 @@ function human_time_diff( $from, $to = '' ) {
  * The 55 word limit can be modified by plugins/themes using the {@see 'excerpt_length'} filter
  * The ' [&hellip;]' string can be modified by plugins/themes using the {@see 'excerpt_more'} filter
  *
- * @since 1.5.0
+ * @since WP-1.5.0
  *
  * @param string $text Optional. The excerpt. If set to empty, an excerpt is generated.
  * @return string The excerpt.
@@ -3316,7 +3316,7 @@ function wp_trim_excerpt( $text = '' ) {
 		/**
 		 * Filters the number of words in an excerpt.
 		 *
-		 * @since 2.7.0
+		 * @since WP-2.7.0
 		 *
 		 * @param int $number The number of words. Default 55.
 		 */
@@ -3324,7 +3324,7 @@ function wp_trim_excerpt( $text = '' ) {
 		/**
 		 * Filters the string in the "more" link displayed after a trimmed excerpt.
 		 *
-		 * @since 2.9.0
+		 * @since WP-2.9.0
 		 *
 		 * @param string $more_string The string shown within the more link.
 		 */
@@ -3334,7 +3334,7 @@ function wp_trim_excerpt( $text = '' ) {
 	/**
 	 * Filters the trimmed excerpt string.
 	 *
-	 * @since 2.8.0
+	 * @since WP-2.8.0
 	 *
 	 * @param string $text        The trimmed text.
 	 * @param string $raw_excerpt The text prior to trimming.
@@ -3349,7 +3349,7 @@ function wp_trim_excerpt( $text = '' ) {
  * character (such as East Asian languages), the $num_words argument will apply
  * to the number of individual characters.
  *
- * @since 3.3.0
+ * @since WP-3.3.0
  *
  * @param string $text      Text to trim.
  * @param int    $num_words Number of words. Default 55.
@@ -3390,7 +3390,7 @@ function wp_trim_words( $text, $num_words = 55, $more = null ) {
 	/**
 	 * Filters the text content after words have been trimmed.
 	 *
-	 * @since 3.3.0
+	 * @since WP-3.3.0
 	 *
 	 * @param string $text          The trimmed text.
 	 * @param int    $num_words     The number of words to trim the text to. Default 55.
@@ -3403,7 +3403,7 @@ function wp_trim_words( $text, $num_words = 55, $more = null ) {
 /**
  * Converts named entities into numbered entities.
  *
- * @since 1.5.1
+ * @since WP-1.5.1
  *
  * @param string $text The text within which entities will be converted.
  * @return string Text with converted entities.
@@ -3415,7 +3415,7 @@ function ent2ncr( $text ) {
 	 *
 	 * A non-null string must be returned for the filter to be evaluated.
 	 *
-	 * @since 3.3.0
+	 * @since WP-3.3.0
 	 *
 	 * @param null   $converted_text The text to be converted. Default null.
 	 * @param string $text           The text prior to entity conversion.
@@ -3695,7 +3695,7 @@ function ent2ncr( $text ) {
  * The filter {@see 'format_for_editor'} is applied here. If `$text` is empty the
  * filter will be applied to an empty string.
  *
- * @since 4.3.0
+ * @since WP-4.3.0
  *
  * @see _WP_Editors::editor()
  *
@@ -3712,7 +3712,7 @@ function format_for_editor( $text, $default_editor = null ) {
 	/**
 	 * Filters the text after it is formatted for the editor.
 	 *
-	 * @since 4.3.0
+	 * @since WP-4.3.0
 	 *
 	 * @param string $text           The formatted text.
 	 * @param string $default_editor The default editor for the current user.
@@ -3728,7 +3728,7 @@ function format_for_editor( $text, $default_editor = null ) {
  * e.g. $subject = '%0%0%0DDD', $search ='%0D', $result ='' rather than the '%0%0DD' that
  * str_replace would return
  *
- * @since 2.8.1
+ * @since WP-2.8.1
  * @access private
  *
  * @param string|array $search  The value being searched for, otherwise known as the needle.
@@ -3759,9 +3759,9 @@ function _deep_replace( $search, $subject ) {
  * may cause issues for code that expects the return value of esc_sql() to be useable
  * for other purposes.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb ClassicPress database abstraction object.
  *
  * @param string|array $data Unescaped data
  * @return string|array Escaped data
@@ -3778,7 +3778,7 @@ function esc_sql( $data ) {
  * (the default behaviour) ampersands are also replaced. The {@see 'clean_url'} filter
  * is applied to the returned cleaned URL.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @param string $url       The URL to be cleaned.
  * @param array  $protocols Optional. An array of acceptable protocols.
@@ -3870,7 +3870,7 @@ function esc_url( $url, $protocols = null, $_context = 'display' ) {
 	/**
 	 * Filters a string cleaned and escaped for output as a URL.
 	 *
-	 * @since 2.3.0
+	 * @since WP-2.3.0
 	 *
 	 * @param string $good_protocol_url The cleaned URL to be returned.
 	 * @param string $original_url      The URL prior to cleaning.
@@ -3882,7 +3882,7 @@ function esc_url( $url, $protocols = null, $_context = 'display' ) {
 /**
  * Performs esc_url() for database usage.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @param string $url       The URL to be cleaned.
  * @param array  $protocols An array of acceptable protocols.
@@ -3897,7 +3897,7 @@ function esc_url_raw( $url, $protocols = null ) {
  *
  * @link https://secure.php.net/htmlentities Borrowed from the PHP Manual user notes.
  *
- * @since 1.2.2
+ * @since WP-1.2.2
  *
  * @param string $myHTML The text to be converted.
  * @return string Converted text.
@@ -3915,7 +3915,7 @@ function htmlentities2( $myHTML ) {
  * (in a tag attribute, for example onclick="..."). Note that the strings have to
  * be in single quotes. The {@see 'js_escape'} filter is also applied here.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @param string $text The text to be escaped.
  * @return string Escaped text.
@@ -3932,7 +3932,7 @@ function esc_js( $text ) {
 	 * Text passed to esc_js() is stripped of invalid or special characters,
 	 * and properly slashed for output.
 	 *
-	 * @since 2.0.6
+	 * @since WP-2.0.6
 	 *
 	 * @param string $safe_text The text after it has been escaped.
  	 * @param string $text      The text prior to being escaped.
@@ -3943,7 +3943,7 @@ function esc_js( $text ) {
 /**
  * Escaping for HTML blocks.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @param string $text
  * @return string
@@ -3957,7 +3957,7 @@ function esc_html( $text ) {
 	 * Text passed to esc_html() is stripped of invalid or special characters
 	 * before output.
 	 *
-	 * @since 2.8.0
+	 * @since WP-2.8.0
 	 *
 	 * @param string $safe_text The text after it has been escaped.
  	 * @param string $text      The text prior to being escaped.
@@ -3968,7 +3968,7 @@ function esc_html( $text ) {
 /**
  * Escaping for HTML attributes.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @param string $text
  * @return string
@@ -3982,7 +3982,7 @@ function esc_attr( $text ) {
 	 * Text passed to esc_attr() is stripped of invalid or special characters
 	 * before output.
 	 *
-	 * @since 2.0.6
+	 * @since WP-2.0.6
 	 *
 	 * @param string $safe_text The text after it has been escaped.
  	 * @param string $text      The text prior to being escaped.
@@ -3993,7 +3993,7 @@ function esc_attr( $text ) {
 /**
  * Escaping for textarea values.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  *
  * @param string $text
  * @return string
@@ -4003,7 +4003,7 @@ function esc_textarea( $text ) {
 	/**
 	 * Filters a string cleaned and escaped for output in a textarea element.
 	 *
-	 * @since 3.1.0
+	 * @since WP-3.1.0
 	 *
 	 * @param string $safe_text The text after it has been escaped.
  	 * @param string $text      The text prior to being escaped.
@@ -4014,7 +4014,7 @@ function esc_textarea( $text ) {
 /**
  * Escape an HTML tag name.
  *
- * @since 2.5.0
+ * @since WP-2.5.0
  *
  * @param string $tag_name
  * @return string
@@ -4024,7 +4024,7 @@ function tag_escape( $tag_name ) {
 	/**
 	 * Filters a string cleaned and escaped for output as an HTML tag.
 	 *
-	 * @since 2.8.0
+	 * @since WP-2.8.0
 	 *
 	 * @param string $safe_tag The tag name after it has been escaped.
  	 * @param string $tag_name The text before it was escaped.
@@ -4038,8 +4038,8 @@ function tag_escape( $tag_name ) {
  * Removes the http or https protocols and the domain. Keeps the path '/' at the
  * beginning, so it isn't a true relative link, but from the web root base.
  *
- * @since 2.1.0
- * @since 4.1.0 Support was added for relative URLs.
+ * @since WP-2.1.0
+ * @since WP-4.1.0 Support was added for relative URLs.
  *
  * @param string $link Full URL path.
  * @return string Absolute path.
@@ -4054,9 +4054,9 @@ function wp_make_link_relative( $link ) {
  * This is basically a switch statement which will pass $value through a number
  * of functions depending on the $option.
  *
- * @since 2.0.5
+ * @since WP-2.0.5
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb ClassicPress database abstraction object.
  *
  * @param string $option The name of the option.
  * @param string $value  The unsanitised value.
@@ -4183,7 +4183,7 @@ function sanitize_option( $option, $value ) {
 				if ( preg_match( '#http(s?)://(.+)#i', $value ) ) {
 					$value = esc_url_raw( $value );
 				} else {
-					$error = __( 'The WordPress address you entered did not appear to be a valid URL. Please enter a valid URL.' );
+					$error = __( 'The ClassicPress address you entered did not appear to be a valid URL. Please enter a valid URL.' );
 				}
 			}
 			break;
@@ -4304,8 +4304,8 @@ function sanitize_option( $option, $value ) {
 	/**
 	 * Filters an option value following sanitization.
 	 *
-	 * @since 2.3.0
-	 * @since 4.3.0 Added the `$original_value` parameter.
+	 * @since WP-2.3.0
+	 * @since WP-4.3.0 Added the `$original_value` parameter.
 	 *
 	 * @param string $value          The sanitized option value.
 	 * @param string $option         The option name.
@@ -4319,7 +4319,7 @@ function sanitize_option( $option, $value ) {
  *
  * This is similar to `array_walk_recursive()` but acts upon objects too.
  *
- * @since 4.4.0
+ * @since WP-4.4.0
  *
  * @param mixed    $value    The array, object, or scalar.
  * @param callable $callback The function to map onto $value.
@@ -4348,7 +4348,7 @@ function map_deep( $value, $callback ) {
  * Uses {@link https://secure.php.net/parse_str parse_str()} and stripslashes if
  * {@link https://secure.php.net/magic_quotes magic_quotes_gpc} is on.
  *
- * @since 2.2.1
+ * @since WP-2.2.1
  *
  * @param string $string The string to be parsed.
  * @param array  $array  Variables will be stored in this array.
@@ -4360,7 +4360,7 @@ function wp_parse_str( $string, &$array ) {
 	/**
 	 * Filters the array of variables derived from a parsed string.
 	 *
-	 * @since 2.3.0
+	 * @since WP-2.3.0
 	 *
 	 * @param array $array The array populated with variables.
 	 */
@@ -4372,7 +4372,7 @@ function wp_parse_str( $string, &$array ) {
  *
  * KSES already converts lone greater than signs.
  *
- * @since 2.3.0
+ * @since WP-2.3.0
  *
  * @param string $text Text to be converted.
  * @return string Converted text.
@@ -4384,7 +4384,7 @@ function wp_pre_kses_less_than( $text ) {
 /**
  * Callback function used by preg_replace.
  *
- * @since 2.3.0
+ * @since WP-2.3.0
  *
  * @param array $matches Populated by matches to preg_replace.
  * @return string The text returned after esc_html if needed.
@@ -4396,9 +4396,9 @@ function wp_pre_kses_less_than_callback( $matches ) {
 }
 
 /**
- * WordPress implementation of PHP sprintf() with filters.
+ * ClassicPress implementation of PHP sprintf() with filters.
  *
- * @since 2.5.0
+ * @since WP-2.5.0
  * @link https://secure.php.net/sprintf
  *
  * @param string $pattern   The string which formatted args are inserted.
@@ -4447,7 +4447,7 @@ function wp_sprintf( $pattern ) {
 			 *
 			 * If the fragment is unchanged, then sprintf() will be run on the fragment.
 			 *
-			 * @since 2.5.0
+			 * @since WP-2.5.0
 			 *
 			 * @param string $fragment A fragment from the pattern.
 			 * @param string $arg      The argument.
@@ -4473,7 +4473,7 @@ function wp_sprintf( $pattern ) {
  * content. The list items will have ', ', ', and', and ' and ' added depending
  * on the amount of list items in the $args parameter.
  *
- * @since 2.5.0
+ * @since WP-2.5.0
  *
  * @param string $pattern Content containing '%l' at the beginning.
  * @param array  $args    List items to prepend to the content and replace '%l'.
@@ -4495,7 +4495,7 @@ function wp_sprintf_l( $pattern, $args ) {
 	 *
 	 * Please note: Ampersands and entities should be avoided here.
 	 *
-	 * @since 2.5.0
+	 * @since WP-2.5.0
 	 *
 	 * @param array $delimiters An array of translated delimiters.
 	 */
@@ -4532,7 +4532,7 @@ function wp_sprintf_l( $pattern, $args ) {
  * be counted as one character. For example &amp; will be counted as 4, &lt; as
  * 3, etc.
  *
- * @since 2.5.0
+ * @since WP-2.5.0
  *
  * @param string $str   String to get the excerpt from.
  * @param int    $count Maximum number of characters to take.
@@ -4557,7 +4557,7 @@ function wp_html_excerpt( $str, $count, $more = null ) {
  * By default it supports the 'src' and 'href' attributes. However this can be
  * changed via the 3rd param.
  *
- * @since 2.7.0
+ * @since WP-2.7.0
  *
  * @global string $_links_add_base
  *
@@ -4576,7 +4576,7 @@ function links_add_base_url( $content, $base, $attrs = array('src', 'href') ) {
 /**
  * Callback to add a base url to relative links in passed content.
  *
- * @since 2.7.0
+ * @since WP-2.7.0
  * @access private
  *
  * @global string $_links_add_base
@@ -4603,7 +4603,7 @@ function _links_add_base( $m ) {
  *
  * *NOTE:* Any current target attributed will be stripped and replaced.
  *
- * @since 2.7.0
+ * @since WP-2.7.0
  *
  * @global string $_links_add_target
  *
@@ -4622,7 +4622,7 @@ function links_add_target( $content, $target = '_blank', $tags = array('a') ) {
 /**
  * Callback to add a target attribute to all links in passed content.
  *
- * @since 2.7.0
+ * @since WP-2.7.0
  * @access private
  *
  * @global string $_links_add_target
@@ -4640,7 +4640,7 @@ function _links_add_target( $m ) {
 /**
  * Normalize EOL characters and strip duplicate whitespace.
  *
- * @since 2.7.0
+ * @since WP-2.7.0
  *
  * @param string $str The string to normalize.
  * @return string The normalized string.
@@ -4659,7 +4659,7 @@ function normalize_whitespace( $str ) {
  * the `<script>` and `<style>` tags. E.g. `strip_tags( '<script>something</script>' )`
  * will return 'something'. wp_strip_all_tags will return ''
  *
- * @since 2.9.0
+ * @since WP-2.9.0
  *
  * @param string $string        String containing HTML tags
  * @param bool   $remove_breaks Optional. Whether to remove left over line breaks and white space chars
@@ -4684,7 +4684,7 @@ function wp_strip_all_tags($string, $remove_breaks = false) {
  * - Removes line breaks, tabs, and extra whitespace
  * - Strips octets
  *
- * @since 2.9.0
+ * @since WP-2.9.0
  *
  * @see sanitize_textarea_field()
  * @see wp_check_invalid_utf8()
@@ -4699,7 +4699,7 @@ function sanitize_text_field( $str ) {
 	/**
 	 * Filters a sanitized text field string.
 	 *
-	 * @since 2.9.0
+	 * @since WP-2.9.0
 	 *
 	 * @param string $filtered The sanitized string.
 	 * @param string $str      The string prior to being sanitized.
@@ -4716,7 +4716,7 @@ function sanitize_text_field( $str ) {
  *
  * @see sanitize_text_field()
  *
- * @since 4.7.0
+ * @since WP-4.7.0
  *
  * @param string $str String to sanitize.
  * @return string Sanitized string.
@@ -4727,7 +4727,7 @@ function sanitize_textarea_field( $str ) {
 	/**
 	 * Filters a sanitized textarea field string.
 	 *
-	 * @since 4.7.0
+	 * @since WP-4.7.0
 	 *
 	 * @param string $filtered The sanitized string.
 	 * @param string $str      The string prior to being sanitized.
@@ -4738,7 +4738,7 @@ function sanitize_textarea_field( $str ) {
 /**
  * Internal helper function to sanitize a string from user input or from the db
  *
- * @since 4.7.0
+ * @since WP-4.7.0
  * @access private
  *
  * @param string $str String to sanitize.
@@ -4780,7 +4780,7 @@ function _sanitize_text_fields( $str, $keep_newlines = false ) {
 /**
  * i18n friendly version of basename()
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  *
  * @param string $path   A path.
  * @param string $suffix If the filename ends in suffix this will also be cut off.
@@ -4791,11 +4791,11 @@ function wp_basename( $path, $suffix = '' ) {
 }
 
 /**
- * Forever eliminate "Wordpress" from the planet (or at least the little bit we can influence).
+ * Forever eliminate "Classicpress" from the planet (or at least the little bit we can influence).
  *
  * Violating our coding standards for a good function name.
  *
- * @since 3.0.0
+ * @since WP-3.0.0
  *
  * @staticvar string|false $dblq
  *
@@ -4806,22 +4806,22 @@ function capital_P_dangit( $text ) {
 	// Simple replacement for titles
 	$current_filter = current_filter();
 	if ( 'the_title' === $current_filter || 'wp_title' === $current_filter )
-		return str_replace( 'Wordpress', 'WordPress', $text );
+		return str_replace( 'Classicpress', 'ClassicPress', $text );
 	// Still here? Use the more judicious replacement
 	static $dblq = false;
 	if ( false === $dblq ) {
 		$dblq = _x( '&#8220;', 'opening curly double quote' );
 	}
 	return str_replace(
-		array( ' Wordpress', '&#8216;Wordpress', $dblq . 'Wordpress', '>Wordpress', '(Wordpress' ),
-		array( ' WordPress', '&#8216;WordPress', $dblq . 'WordPress', '>WordPress', '(WordPress' ),
+		array( ' Classicpress', '&#8216;Classicpress', $dblq . 'Classicpress', '>Classicpress', '(Classicpress' ),
+		array( ' ClassicPress', '&#8216;ClassicPress', $dblq . 'ClassicPress', '>ClassicPress', '(ClassicPress' ),
 	$text );
 }
 
 /**
  * Sanitize a mime type
  *
- * @since 3.1.3
+ * @since WP-3.1.3
  *
  * @param string $mime_type Mime type
  * @return string Sanitized mime type
@@ -4831,7 +4831,7 @@ function sanitize_mime_type( $mime_type ) {
 	/**
 	 * Filters a mime type following sanitization.
 	 *
-	 * @since 3.1.3
+	 * @since WP-3.1.3
 	 *
 	 * @param string $sani_mime_type The sanitized mime type.
 	 * @param string $mime_type      The mime type prior to sanitization.
@@ -4842,7 +4842,7 @@ function sanitize_mime_type( $mime_type ) {
 /**
  * Sanitize space or carriage return separated URLs that are used to send trackbacks.
  *
- * @since 3.4.0
+ * @since WP-3.4.0
  *
  * @param string $to_ping Space or carriage return separated URLs
  * @return string URLs starting with the http or https protocol, separated by a carriage return.
@@ -4861,7 +4861,7 @@ function sanitize_trackback_urls( $to_ping ) {
 	 * The string returned here consists of a space or carriage return-delimited list
 	 * of trackback URLs.
 	 *
-	 * @since 3.4.0
+	 * @since WP-3.4.0
 	 *
 	 * @param string $urls_to_ping Sanitized space or carriage return separated URLs.
 	 * @param string $to_ping      Space or carriage return separated URLs before sanitization.
@@ -4875,7 +4875,7 @@ function sanitize_trackback_urls( $to_ping ) {
  * This should be used when preparing data for core API that expects slashed data.
  * This should not be used to escape data going directly into an SQL query.
  *
- * @since 3.6.0
+ * @since WP-3.6.0
  *
  * @param string|array $value String or array of strings to slash.
  * @return string|array Slashed $value
@@ -4902,7 +4902,7 @@ function wp_slash( $value ) {
  * This should be used to remove slashes from data passed to core API that
  * expects data to be unslashed.
  *
- * @since 3.6.0
+ * @since WP-3.6.0
  *
  * @param string|array $value String or array of strings to unslash.
  * @return string|array Unslashed $value
@@ -4914,7 +4914,7 @@ function wp_unslash( $value ) {
 /**
  * Extract and return the first URL from passed content.
  *
- * @since 3.6.0
+ * @since WP-3.6.0
  *
  * @param string $content A string which might contain a URL.
  * @return string|false The found URL.
@@ -4938,7 +4938,7 @@ function get_url_in_content( $content ) {
  * This is designed to replace the PCRE \s sequence.  In ticket #22692, that
  * sequence was found to be unreliable due to random inclusion of the A0 byte.
  *
- * @since 4.0.0
+ * @since WP-4.0.0
  *
  * @staticvar string $spaces
  *
@@ -4956,7 +4956,7 @@ function wp_spaces_regexp() {
 		 * may represent whitespace. For websites not encoded in UTF-8, the 0xC2 0xA0
 		 * sequence may not be in use.
 		 *
-		 * @since 4.0.0
+		 * @since WP-4.0.0
 		 *
 		 * @param string $spaces Regexp pattern for matching common whitespace characters.
 		 */
@@ -4969,7 +4969,7 @@ function wp_spaces_regexp() {
 /**
  * Print the important emoji-related styles.
  *
- * @since 4.2.0
+ * @since WP-4.2.0
  *
  * @staticvar bool $printed
  */
@@ -5002,7 +5002,7 @@ img.emoji {
 /**
  * Print the inline Emoji detection script if it is not already printed.
  *
- * @since 4.2.0
+ * @since WP-4.2.0
  * @staticvar bool $printed
  */
 function print_emoji_detection_script() {
@@ -5021,7 +5021,7 @@ function print_emoji_detection_script() {
  * Prints inline Emoji dection script
  *
  * @ignore
- * @since 4.6.0
+ * @since WP-4.6.0
  * @access private
  */
 function _print_emoji_detection_script() {
@@ -5029,16 +5029,16 @@ function _print_emoji_detection_script() {
 		/**
 		 * Filters the URL where emoji png images are hosted.
 		 *
-		 * @since 4.2.0
+		 * @since WP-4.2.0
 		 *
 		 * @param string The emoji base URL for png images.
 		 */
-		'baseUrl' => apply_filters( 'emoji_url', 'https://s.w.org/images/core/emoji/2.4/72x72/' ),
+		'baseUrl' => apply_filters( 'emoji_url', 'https://s.w.org/images/core/emoji/11/72x72/' ),
 
 		/**
 		 * Filters the extension of the emoji png files.
 		 *
-		 * @since 4.2.0
+		 * @since WP-4.2.0
 		 *
 		 * @param string The emoji extension for png files. Default .png.
 		 */
@@ -5047,16 +5047,16 @@ function _print_emoji_detection_script() {
 		/**
 		 * Filters the URL where emoji SVG images are hosted.
 		 *
-		 * @since 4.6.0
+		 * @since WP-4.6.0
 		 *
 		 * @param string The emoji base URL for svg images.
 		 */
-		'svgUrl' => apply_filters( 'emoji_svg_url', 'https://s.w.org/images/core/emoji/2.4/svg/' ),
+		'svgUrl' => apply_filters( 'emoji_svg_url', 'https://s.w.org/images/core/emoji/11/svg/' ),
 
 		/**
 		 * Filters the extension of the emoji SVG files.
 		 *
-		 * @since 4.6.0
+		 * @since WP-4.6.0
 		 *
 		 * @param string The emoji extension for svg files. Default .svg.
 		 */
@@ -5098,7 +5098,7 @@ function _print_emoji_detection_script() {
 		?>
 		<script type="text/javascript">
 			window._wpemojiSettings = <?php echo wp_json_encode( $settings ); ?>;
-			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55357,56692,8205,9792,65039],[55357,56692,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+			!function(e,a,t){var r,n,o,i,p=a.createElement("canvas"),s=p.getContext&&p.getContext("2d");function c(e,t){var a=String.fromCharCode;s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,e),0,0);var r=p.toDataURL();return s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,t),0,0),r===p.toDataURL()}function l(e){if(!s||!s.fillText)return!1;switch(s.textBaseline="top",s.font="600 32px Arial",e){case"flag":return!c([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!c([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]);case"emoji":return!c([55358,56760,9792,65039],[55358,56760,8203,9792,65039])}return!1}function d(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(i=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},o=0;o<i.length;o++)t.supports[i[o]]=l(i[o]),t.supports.everything=t.supports.everything&&t.supports[i[o]],"flag"!==i[o]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[i[o]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(r=t.source||{}).concatemoji?d(r.concatemoji):r.wpemoji&&r.twemoji&&(d(r.twemoji),d(r.wpemoji)))}(window,document,window._wpemojiSettings);
 		</script>
 		<?php
 	}
@@ -5109,7 +5109,7 @@ function _print_emoji_detection_script() {
  *
  * This allows us to store emoji in a DB using the utf8 character set.
  *
- * @since 4.2.0
+ * @since WP-4.2.0
  *
  * @param string $content The content to encode.
  * @return string The encoded content.
@@ -5134,7 +5134,7 @@ function wp_encode_emoji( $content ) {
 /**
  * Convert emoji to a static img element.
  *
- * @since 4.2.0
+ * @since WP-4.2.0
  *
  * @param string $text The content to encode.
  * @return string The encoded content.
@@ -5173,7 +5173,7 @@ function wp_staticize_emoji( $text ) {
 	}
 
 	/** This filter is documented in wp-includes/formatting.php */
-	$cdn_url = apply_filters( 'emoji_url', 'https://s.w.org/images/core/emoji/2.4/72x72/' );
+	$cdn_url = apply_filters( 'emoji_url', 'https://s.w.org/images/core/emoji/11/72x72/' );
 
 	/** This filter is documented in wp-includes/formatting.php */
 	$ext = apply_filters( 'emoji_ext', '.png' );
@@ -5233,7 +5233,7 @@ function wp_staticize_emoji( $text ) {
 /**
  * Convert emoji in emails into static images.
  *
- * @since 4.2.0
+ * @since WP-4.2.0
  *
  * @param array $mail The email data array.
  * @return array The email data array, with emoji in the message staticized.
@@ -5303,18 +5303,18 @@ function wp_staticize_emoji_for_email( $mail ) {
  * These arrays automatically built from the regex in twemoji.js - if they need to be updated,
  * you should update the regex there, then run the `grunt precommit:emoji` job.
  *
- * @since 4.9.0
+ * @since WP-4.9.0
  * @access private
  *
  * @param string $type Optional. Which array type to return. Accepts 'partials' or 'entities', default 'entities'.
- * @return array An array to match all emoji that WordPress recognises.
+ * @return array An array to match all emoji that ClassicPress recognises.
  */
 function _wp_emoji_list( $type = 'entities' ) {
 	// Do not remove the START/END comments - they're used to find where to insert the arrays.
 
 	// START: emoji arrays
-	$entities = array('&#x1f469;&#x200d;&#x2764;&#xfe0f;&#x200d;&#x1f48b;&#x200d;&#x1f469;','&#x1f469;&#x200d;&#x2764;&#xfe0f;&#x200d;&#x1f48b;&#x200d;&#x1f468;','&#x1f468;&#x200d;&#x2764;&#xfe0f;&#x200d;&#x1f48b;&#x200d;&#x1f468;','&#x1f3f4;&#xe0067;&#xe0062;&#xe0073;&#xe0063;&#xe0074;&#xe007f;','&#x1f3f4;&#xe0067;&#xe0062;&#xe0077;&#xe006c;&#xe0073;&#xe007f;','&#x1f3f4;&#xe0067;&#xe0062;&#xe0065;&#xe006e;&#xe0067;&#xe007f;','&#x1f469;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f466;','&#x1f468;&#x200d;&#x1f468;&#x200d;&#x1f466;&#x200d;&#x1f466;','&#x1f469;&#x200d;&#x1f469;&#x200d;&#x1f466;&#x200d;&#x1f466;','&#x1f468;&#x200d;&#x1f468;&#x200d;&#x1f467;&#x200d;&#x1f466;','&#x1f468;&#x200d;&#x1f468;&#x200d;&#x1f467;&#x200d;&#x1f467;','&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467;','&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f466;&#x200d;&#x1f466;','&#x1f469;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467;','&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f466;','&#x1f468;&#x200d;&#x2764;&#xfe0f;&#x200d;&#x1f468;','&#x1f469;&#x200d;&#x2764;&#xfe0f;&#x200d;&#x1f468;','&#x1f469;&#x200d;&#x2764;&#xfe0f;&#x200d;&#x1f469;','&#x1f469;&#x200d;&#x1f469;&#x200d;&#x1f466;','&#x1f469;&#x200d;&#x1f466;&#x200d;&#x1f466;','&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f466;','&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467;','&#x1f468;&#x200d;&#x1f468;&#x200d;&#x1f466;','&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;','&#x1f468;&#x200d;&#x1f467;&#x200d;&#x1f467;','&#x1f468;&#x200d;&#x1f467;&#x200d;&#x1f466;','&#x1f469;&#x200d;&#x1f469;&#x200d;&#x1f467;','&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f466;','&#x1f468;&#x200d;&#x1f468;&#x200d;&#x1f467;','&#x1f468;&#x200d;&#x1f466;&#x200d;&#x1f466;','&#x1f469;&#x1f3fe;&#x200d;&#x2708;&#xfe0f;','&#x1f3cb;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f3cb;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f3cb;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f3cb;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f3cb;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f3cb;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f3cb;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f3cb;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f3cb;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f3cc;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f3cc;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f3cc;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f3cc;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f3cc;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f3cc;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f3cc;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f3cc;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f3cc;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f3cc;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f486;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f3c3;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f3c3;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f9dd;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f9dd;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f9dd;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f9dd;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f9dd;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f9dd;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f9dd;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f9dd;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f9dd;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f9dd;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f9dc;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f9dc;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f9dc;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f9dc;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f468;&#x1f3fb;&#x200d;&#x2695;&#xfe0f;','&#x1f468;&#x1f3fb;&#x200d;&#x2696;&#xfe0f;','&#x1f468;&#x1f3fb;&#x200d;&#x2708;&#xfe0f;','&#x1f9dc;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f9dc;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f9dc;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f9dc;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f9dc;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f9dc;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f9db;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f9db;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f9db;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f9db;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f9db;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f9db;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f9db;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f468;&#x1f3fc;&#x200d;&#x2695;&#xfe0f;','&#x1f468;&#x1f3fc;&#x200d;&#x2696;&#xfe0f;','&#x1f468;&#x1f3fc;&#x200d;&#x2708;&#xfe0f;','&#x1f9db;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f9db;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f9db;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f9da;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f9da;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f9da;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f9da;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f9da;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f9da;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f9da;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f9da;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f9da;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f9da;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f468;&#x1f3fd;&#x200d;&#x2695;&#xfe0f;','&#x1f468;&#x1f3fd;&#x200d;&#x2696;&#xfe0f;','&#x1f468;&#x1f3fd;&#x200d;&#x2708;&#xfe0f;','&#x1f9d9;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f9d9;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f9d9;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f9d9;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f9d9;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f9d9;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f9d9;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f9d9;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f9d9;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f9d9;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f9d8;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f9d8;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f9d8;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f468;&#x1f3fe;&#x200d;&#x2695;&#xfe0f;','&#x1f468;&#x1f3fe;&#x200d;&#x2696;&#xfe0f;','&#x1f468;&#x1f3fe;&#x200d;&#x2708;&#xfe0f;','&#x1f9d8;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f9d8;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f9d8;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f9d8;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f9d8;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f9d8;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f9d8;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f9d7;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f9d7;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f9d7;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f9d7;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f9d7;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f9d7;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f468;&#x1f3ff;&#x200d;&#x2695;&#xfe0f;','&#x1f468;&#x1f3ff;&#x200d;&#x2696;&#xfe0f;','&#x1f468;&#x1f3ff;&#x200d;&#x2708;&#xfe0f;','&#x1f9d7;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f9d7;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f9d7;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f9d7;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f9d6;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f9d6;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f9d6;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f3c3;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f9d6;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f3c3;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f3c3;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f9d6;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f3c3;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f3c3;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f3c3;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f3c4;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f3c4;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f3c4;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f3c4;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f3c4;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f3c4;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f3c4;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f9d6;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f9d6;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f9d6;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f9d6;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f9d6;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f93e;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f93e;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f93e;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f93e;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f3c4;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f3c4;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f93e;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f93e;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f93e;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f93e;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f93e;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f93e;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f93d;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f93d;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f93d;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f93d;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f93d;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f93d;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f93d;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f469;&#x1f3fb;&#x200d;&#x2695;&#xfe0f;','&#x1f469;&#x1f3fb;&#x200d;&#x2696;&#xfe0f;','&#x1f469;&#x1f3fb;&#x200d;&#x2708;&#xfe0f;','&#x1f93d;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f93d;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f93d;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f939;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f939;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f939;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f939;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f939;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f939;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f939;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f939;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f939;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f939;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f469;&#x1f3fc;&#x200d;&#x2695;&#xfe0f;','&#x1f469;&#x1f3fc;&#x200d;&#x2696;&#xfe0f;','&#x1f469;&#x1f3fc;&#x200d;&#x2708;&#xfe0f;','&#x1f938;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f938;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f938;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f938;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f938;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f938;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f938;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f938;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f938;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f938;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f937;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f937;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f937;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f469;&#x1f3fd;&#x200d;&#x2695;&#xfe0f;','&#x1f469;&#x1f3fd;&#x200d;&#x2696;&#xfe0f;','&#x1f469;&#x1f3fd;&#x200d;&#x2708;&#xfe0f;','&#x1f937;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f937;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f937;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f937;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f937;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f937;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f937;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f935;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f935;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f935;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f935;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f935;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f935;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f469;&#x1f3fe;&#x200d;&#x2695;&#xfe0f;','&#x1f469;&#x1f3fe;&#x200d;&#x2696;&#xfe0f;','&#x1f3c3;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f935;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f935;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f935;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f935;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f926;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f926;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f926;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f926;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f926;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f926;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f926;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f926;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f926;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f469;&#x1f3ff;&#x200d;&#x2695;&#xfe0f;','&#x1f469;&#x1f3ff;&#x200d;&#x2696;&#xfe0f;','&#x1f469;&#x1f3ff;&#x200d;&#x2708;&#xfe0f;','&#x1f926;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f6b6;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f6b6;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f6b6;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f6b6;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f6b6;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f6b6;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f3c4;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f6b6;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f3ca;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f3ca;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f6b6;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f3ca;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f3ca;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f3ca;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f3ca;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f3ca;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f6b6;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f6b6;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f6b5;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f6b5;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f6b5;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f6b5;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f6b5;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f6b5;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f6b5;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f3ca;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f3ca;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f3ca;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f3cb;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f46e;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f46e;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f46e;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f46e;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f46e;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f46e;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f46e;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f46e;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f46e;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f46e;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f6b5;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f6b5;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f6b5;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f6b4;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f471;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f471;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f471;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f471;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f471;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f471;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f471;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f471;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f471;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f471;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f6b4;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f6b4;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f473;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f473;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f473;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f473;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f473;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f473;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f473;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f473;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f473;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f473;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f6b4;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f6b4;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f477;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f477;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f477;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f477;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f477;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f477;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f477;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f477;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f477;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f477;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f6b4;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f6b4;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f481;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f481;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f481;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f481;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f481;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f481;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f481;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f481;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f481;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f481;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f6b4;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f6b4;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f482;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f482;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f482;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f482;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f482;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f482;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f482;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f482;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f482;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f482;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f6b4;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f6a3;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f3c3;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f486;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f486;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f486;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f486;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f486;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f486;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f486;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f486;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f486;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f6a3;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f6a3;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f487;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f487;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f487;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f487;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f487;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f487;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f487;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f487;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f487;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f487;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f6a3;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f6a3;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f574;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f574;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f574;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f574;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f574;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f574;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f574;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f574;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f574;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f574;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f575;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f575;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f575;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f575;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f575;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f575;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f575;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f575;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f575;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f575;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f645;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f645;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f645;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f645;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f645;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f645;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f645;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f645;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f645;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f645;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f6a3;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f6a3;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f646;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f646;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f646;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f646;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f646;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f646;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f646;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f646;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f646;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f646;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f6a3;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f6a3;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f647;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f647;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f647;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f647;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f647;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f647;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f647;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f647;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f647;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f647;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f6a3;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f64e;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f64b;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f64b;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f64b;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f64b;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f64b;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f64b;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f64b;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f64b;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f64b;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f64b;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f64e;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f64e;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f64d;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f64d;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f64d;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f64d;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f64d;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f64d;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f64d;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f64d;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f64d;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f64d;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f64e;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f64e;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f64e;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f64e;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f64e;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f64e;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f64e;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f3cb;&#xfe0f;&#x200d;&#x2640;&#xfe0f;','&#x1f575;&#xfe0f;&#x200d;&#x2640;&#xfe0f;','&#x1f575;&#xfe0f;&#x200d;&#x2642;&#xfe0f;','&#x1f3cb;&#xfe0f;&#x200d;&#x2642;&#xfe0f;','&#x26f9;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f3cc;&#xfe0f;&#x200d;&#x2640;&#xfe0f;','&#x1f574;&#xfe0f;&#x200d;&#x2640;&#xfe0f;','&#x1f574;&#xfe0f;&#x200d;&#x2642;&#xfe0f;','&#x1f3cc;&#xfe0f;&#x200d;&#x2642;&#xfe0f;','&#x26f9;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x26f9;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x26f9;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x26f9;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x26f9;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x26f9;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x26f9;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x26f9;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x26f9;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x26f9;&#xfe0f;&#x200d;&#x2640;&#xfe0f;','&#x26f9;&#xfe0f;&#x200d;&#x2642;&#xfe0f;','&#x1f469;&#x1f3fb;&#x200d;&#x1f3ed;','&#x1f468;&#x1f3fb;&#x200d;&#x1f33e;','&#x1f468;&#x1f3fb;&#x200d;&#x1f373;','&#x1f468;&#x1f3fb;&#x200d;&#x1f393;','&#x1f468;&#x1f3fb;&#x200d;&#x1f3a4;','&#x1f468;&#x1f3fb;&#x200d;&#x1f3a8;','&#x1f468;&#x1f3fb;&#x200d;&#x1f3eb;','&#x1f468;&#x1f3fb;&#x200d;&#x1f3ed;','&#x1f468;&#x1f3fb;&#x200d;&#x1f4bb;','&#x1f468;&#x1f3fb;&#x200d;&#x1f4bc;','&#x1f468;&#x1f3fb;&#x200d;&#x1f527;','&#x1f468;&#x1f3fb;&#x200d;&#x1f52c;','&#x1f468;&#x1f3fb;&#x200d;&#x1f680;','&#x1f468;&#x1f3fb;&#x200d;&#x1f692;','&#x1f468;&#x1f3fc;&#x200d;&#x1f33e;','&#x1f468;&#x1f3fc;&#x200d;&#x1f373;','&#x1f468;&#x1f3fc;&#x200d;&#x1f393;','&#x1f468;&#x1f3fc;&#x200d;&#x1f3a4;','&#x1f468;&#x1f3fc;&#x200d;&#x1f3a8;','&#x1f468;&#x1f3fc;&#x200d;&#x1f3eb;','&#x1f468;&#x1f3fc;&#x200d;&#x1f3ed;','&#x1f468;&#x1f3fc;&#x200d;&#x1f4bb;','&#x1f468;&#x1f3fc;&#x200d;&#x1f4bc;','&#x1f468;&#x1f3fc;&#x200d;&#x1f527;','&#x1f468;&#x1f3fc;&#x200d;&#x1f52c;','&#x1f468;&#x1f3fc;&#x200d;&#x1f680;','&#x1f468;&#x1f3fc;&#x200d;&#x1f692;','&#x1f468;&#x1f3fd;&#x200d;&#x1f33e;','&#x1f468;&#x1f3fd;&#x200d;&#x1f373;','&#x1f468;&#x1f3fd;&#x200d;&#x1f393;','&#x1f468;&#x1f3fd;&#x200d;&#x1f3a4;','&#x1f468;&#x1f3fd;&#x200d;&#x1f3a8;','&#x1f468;&#x1f3fd;&#x200d;&#x1f3eb;','&#x1f468;&#x1f3fd;&#x200d;&#x1f3ed;','&#x1f468;&#x1f3fd;&#x200d;&#x1f4bb;','&#x1f468;&#x1f3fd;&#x200d;&#x1f4bc;','&#x1f468;&#x1f3fd;&#x200d;&#x1f527;','&#x1f468;&#x1f3fd;&#x200d;&#x1f52c;','&#x1f468;&#x1f3fd;&#x200d;&#x1f680;','&#x1f468;&#x1f3fd;&#x200d;&#x1f692;','&#x1f468;&#x1f3fe;&#x200d;&#x1f33e;','&#x1f468;&#x1f3fe;&#x200d;&#x1f373;','&#x1f468;&#x1f3fe;&#x200d;&#x1f393;','&#x1f468;&#x1f3fe;&#x200d;&#x1f3a4;','&#x1f468;&#x1f3fe;&#x200d;&#x1f3a8;','&#x1f468;&#x1f3fe;&#x200d;&#x1f3eb;','&#x1f468;&#x1f3fe;&#x200d;&#x1f3ed;','&#x1f468;&#x1f3fe;&#x200d;&#x1f4bb;','&#x1f468;&#x1f3fe;&#x200d;&#x1f4bc;','&#x1f468;&#x1f3fe;&#x200d;&#x1f527;','&#x1f468;&#x1f3fe;&#x200d;&#x1f52c;','&#x1f468;&#x1f3fe;&#x200d;&#x1f680;','&#x1f468;&#x1f3fe;&#x200d;&#x1f692;','&#x1f469;&#x1f3ff;&#x200d;&#x1f692;','&#x1f469;&#x1f3ff;&#x200d;&#x1f680;','&#x1f469;&#x1f3ff;&#x200d;&#x1f52c;','&#x1f469;&#x1f3ff;&#x200d;&#x1f527;','&#x1f469;&#x1f3ff;&#x200d;&#x1f4bc;','&#x1f469;&#x1f3ff;&#x200d;&#x1f4bb;','&#x1f469;&#x1f3ff;&#x200d;&#x1f3ed;','&#x1f469;&#x1f3ff;&#x200d;&#x1f3eb;','&#x1f469;&#x1f3ff;&#x200d;&#x1f3a8;','&#x1f468;&#x1f3ff;&#x200d;&#x1f33e;','&#x1f468;&#x1f3ff;&#x200d;&#x1f373;','&#x1f469;&#x1f3ff;&#x200d;&#x1f3a4;','&#x1f469;&#x1f3ff;&#x200d;&#x1f393;','&#x1f469;&#x1f3ff;&#x200d;&#x1f373;','&#x1f469;&#x1f3ff;&#x200d;&#x1f33e;','&#x1f469;&#x1f3fe;&#x200d;&#x1f692;','&#x1f469;&#x1f3fe;&#x200d;&#x1f680;','&#x1f469;&#x1f3fe;&#x200d;&#x1f52c;','&#x1f469;&#x1f3fe;&#x200d;&#x1f527;','&#x1f469;&#x1f3fe;&#x200d;&#x1f4bc;','&#x1f469;&#x1f3fe;&#x200d;&#x1f4bb;','&#x1f468;&#x1f3ff;&#x200d;&#x1f393;','&#x1f468;&#x1f3ff;&#x200d;&#x1f3a4;','&#x1f469;&#x1f3fe;&#x200d;&#x1f3ed;','&#x1f469;&#x1f3fe;&#x200d;&#x1f3eb;','&#x1f469;&#x1f3fe;&#x200d;&#x1f3a8;','&#x1f469;&#x1f3fe;&#x200d;&#x1f3a4;','&#x1f469;&#x1f3fe;&#x200d;&#x1f393;','&#x1f469;&#x1f3fe;&#x200d;&#x1f373;','&#x1f469;&#x1f3fe;&#x200d;&#x1f33e;','&#x1f469;&#x1f3fd;&#x200d;&#x1f692;','&#x1f469;&#x1f3fd;&#x200d;&#x1f680;','&#x1f469;&#x1f3fd;&#x200d;&#x1f52c;','&#x1f468;&#x1f3ff;&#x200d;&#x1f3a8;','&#x1f468;&#x1f3ff;&#x200d;&#x1f3eb;','&#x1f469;&#x1f3fd;&#x200d;&#x1f527;','&#x1f469;&#x1f3fd;&#x200d;&#x1f4bc;','&#x1f469;&#x1f3fd;&#x200d;&#x1f4bb;','&#x1f469;&#x1f3fd;&#x200d;&#x1f3ed;','&#x1f469;&#x1f3fd;&#x200d;&#x1f3eb;','&#x1f469;&#x1f3fd;&#x200d;&#x1f3a8;','&#x1f469;&#x1f3fd;&#x200d;&#x1f3a4;','&#x1f469;&#x1f3fd;&#x200d;&#x1f393;','&#x1f469;&#x1f3fd;&#x200d;&#x1f373;','&#x1f469;&#x1f3fd;&#x200d;&#x1f33e;','&#x1f468;&#x1f3ff;&#x200d;&#x1f3ed;','&#x1f468;&#x1f3ff;&#x200d;&#x1f4bb;','&#x1f469;&#x1f3fc;&#x200d;&#x1f692;','&#x1f469;&#x1f3fc;&#x200d;&#x1f680;','&#x1f469;&#x1f3fc;&#x200d;&#x1f52c;','&#x1f469;&#x1f3fc;&#x200d;&#x1f527;','&#x1f469;&#x1f3fc;&#x200d;&#x1f4bc;','&#x1f469;&#x1f3fc;&#x200d;&#x1f4bb;','&#x1f469;&#x1f3fc;&#x200d;&#x1f3ed;','&#x1f469;&#x1f3fc;&#x200d;&#x1f3eb;','&#x1f469;&#x1f3fc;&#x200d;&#x1f3a8;','&#x1f469;&#x1f3fc;&#x200d;&#x1f3a4;','&#x1f468;&#x1f3ff;&#x200d;&#x1f4bc;','&#x1f468;&#x1f3ff;&#x200d;&#x1f527;','&#x1f468;&#x1f3ff;&#x200d;&#x1f52c;','&#x1f468;&#x1f3ff;&#x200d;&#x1f680;','&#x1f469;&#x1f3fc;&#x200d;&#x1f393;','&#x1f469;&#x1f3fc;&#x200d;&#x1f373;','&#x1f469;&#x1f3fc;&#x200d;&#x1f33e;','&#x1f469;&#x1f3fb;&#x200d;&#x1f692;','&#x1f469;&#x1f3fb;&#x200d;&#x1f680;','&#x1f469;&#x1f3fb;&#x200d;&#x1f52c;','&#x1f469;&#x1f3fb;&#x200d;&#x1f527;','&#x1f469;&#x1f3fb;&#x200d;&#x1f4bc;','&#x1f469;&#x1f3fb;&#x200d;&#x1f4bb;','&#x1f468;&#x1f3ff;&#x200d;&#x1f692;','&#x1f469;&#x1f3fb;&#x200d;&#x1f33e;','&#x1f469;&#x1f3fb;&#x200d;&#x1f373;','&#x1f469;&#x1f3fb;&#x200d;&#x1f3eb;','&#x1f469;&#x1f3fb;&#x200d;&#x1f3a8;','&#x1f469;&#x1f3fb;&#x200d;&#x1f3a4;','&#x1f469;&#x1f3fb;&#x200d;&#x1f393;','&#x1f3f3;&#xfe0f;&#x200d;&#x1f308;','&#x1f93d;&#x200d;&#x2642;&#xfe0f;','&#x1f468;&#x200d;&#x2708;&#xfe0f;','&#x1f468;&#x200d;&#x2696;&#xfe0f;','&#x1f468;&#x200d;&#x2695;&#xfe0f;','&#x1f3c3;&#x200d;&#x2640;&#xfe0f;','&#x1f93e;&#x200d;&#x2640;&#xfe0f;','&#x1f93e;&#x200d;&#x2642;&#xfe0f;','&#x1f3c3;&#x200d;&#x2642;&#xfe0f;','&#x1f3c4;&#x200d;&#x2640;&#xfe0f;','&#x1f3c4;&#x200d;&#x2642;&#xfe0f;','&#x1f3ca;&#x200d;&#x2640;&#xfe0f;','&#x1f3ca;&#x200d;&#x2642;&#xfe0f;','&#x1f64b;&#x200d;&#x2642;&#xfe0f;','&#x1f64b;&#x200d;&#x2640;&#xfe0f;','&#x1f64d;&#x200d;&#x2642;&#xfe0f;','&#x1f3f4;&#x200d;&#x2620;&#xfe0f;','&#x1f9df;&#x200d;&#x2642;&#xfe0f;','&#x1f9d6;&#x200d;&#x2640;&#xfe0f;','&#x1f9d6;&#x200d;&#x2642;&#xfe0f;','&#x1f9df;&#x200d;&#x2640;&#xfe0f;','&#x1f9de;&#x200d;&#x2642;&#xfe0f;','&#x1f9de;&#x200d;&#x2640;&#xfe0f;','&#x1f9dd;&#x200d;&#x2642;&#xfe0f;','&#x1f64d;&#x200d;&#x2640;&#xfe0f;','&#x1f93c;&#x200d;&#x2642;&#xfe0f;','&#x1f93c;&#x200d;&#x2640;&#xfe0f;','&#x1f939;&#x200d;&#x2642;&#xfe0f;','&#x1f939;&#x200d;&#x2640;&#xfe0f;','&#x1f938;&#x200d;&#x2642;&#xfe0f;','&#x1f9d7;&#x200d;&#x2640;&#xfe0f;','&#x1f9d7;&#x200d;&#x2642;&#xfe0f;','&#x1f938;&#x200d;&#x2640;&#xfe0f;','&#x1f937;&#x200d;&#x2642;&#xfe0f;','&#x1f937;&#x200d;&#x2640;&#xfe0f;','&#x1f935;&#x200d;&#x2642;&#xfe0f;','&#x1f935;&#x200d;&#x2640;&#xfe0f;','&#x1f926;&#x200d;&#x2642;&#xfe0f;','&#x1f926;&#x200d;&#x2640;&#xfe0f;','&#x1f9dd;&#x200d;&#x2640;&#xfe0f;','&#x1f6b6;&#x200d;&#x2642;&#xfe0f;','&#x1f6b6;&#x200d;&#x2640;&#xfe0f;','&#x1f9d8;&#x200d;&#x2640;&#xfe0f;','&#x1f9d8;&#x200d;&#x2642;&#xfe0f;','&#x1f647;&#x200d;&#x2642;&#xfe0f;','&#x1f64e;&#x200d;&#x2640;&#xfe0f;','&#x1f64e;&#x200d;&#x2642;&#xfe0f;','&#x1f647;&#x200d;&#x2640;&#xfe0f;','&#x1f646;&#x200d;&#x2642;&#xfe0f;','&#x1f646;&#x200d;&#x2640;&#xfe0f;','&#x1f645;&#x200d;&#x2642;&#xfe0f;','&#x1f645;&#x200d;&#x2640;&#xfe0f;','&#x1f487;&#x200d;&#x2642;&#xfe0f;','&#x1f9dc;&#x200d;&#x2642;&#xfe0f;','&#x1f9d9;&#x200d;&#x2640;&#xfe0f;','&#x1f9d9;&#x200d;&#x2642;&#xfe0f;','&#x1f6b5;&#x200d;&#x2642;&#xfe0f;','&#x1f6b5;&#x200d;&#x2640;&#xfe0f;','&#x1f9dc;&#x200d;&#x2640;&#xfe0f;','&#x1f93d;&#x200d;&#x2640;&#xfe0f;','&#x1f487;&#x200d;&#x2640;&#xfe0f;','&#x1f486;&#x200d;&#x2642;&#xfe0f;','&#x1f469;&#x200d;&#x2695;&#xfe0f;','&#x1f469;&#x200d;&#x2696;&#xfe0f;','&#x1f469;&#x200d;&#x2708;&#xfe0f;','&#x1f46e;&#x200d;&#x2640;&#xfe0f;','&#x1f9da;&#x200d;&#x2640;&#xfe0f;','&#x1f9da;&#x200d;&#x2642;&#xfe0f;','&#x1f46e;&#x200d;&#x2642;&#xfe0f;','&#x1f46f;&#x200d;&#x2640;&#xfe0f;','&#x1f6b4;&#x200d;&#x2642;&#xfe0f;','&#x1f6b4;&#x200d;&#x2640;&#xfe0f;','&#x1f46f;&#x200d;&#x2642;&#xfe0f;','&#x1f471;&#x200d;&#x2640;&#xfe0f;','&#x1f471;&#x200d;&#x2642;&#xfe0f;','&#x1f473;&#x200d;&#x2640;&#xfe0f;','&#x1f473;&#x200d;&#x2642;&#xfe0f;','&#x1f477;&#x200d;&#x2640;&#xfe0f;','&#x1f9db;&#x200d;&#x2640;&#xfe0f;','&#x1f9db;&#x200d;&#x2642;&#xfe0f;','&#x1f477;&#x200d;&#x2642;&#xfe0f;','&#x1f481;&#x200d;&#x2640;&#xfe0f;','&#x1f481;&#x200d;&#x2642;&#xfe0f;','&#x1f482;&#x200d;&#x2640;&#xfe0f;','&#x1f6a3;&#x200d;&#x2642;&#xfe0f;','&#x1f6a3;&#x200d;&#x2640;&#xfe0f;','&#x1f482;&#x200d;&#x2642;&#xfe0f;','&#x1f486;&#x200d;&#x2640;&#xfe0f;','&#x1f468;&#x200d;&#x1f33e;','&#x1f469;&#x200d;&#x1f692;','&#x1f469;&#x200d;&#x1f527;','&#x1f469;&#x200d;&#x1f4bc;','&#x1f469;&#x200d;&#x1f4bb;','&#x1f469;&#x200d;&#x1f467;','&#x1f469;&#x200d;&#x1f466;','&#x1f469;&#x200d;&#x1f3ed;','&#x1f469;&#x200d;&#x1f3eb;','&#x1f469;&#x200d;&#x1f3a8;','&#x1f469;&#x200d;&#x1f3a4;','&#x1f469;&#x200d;&#x1f393;','&#x1f469;&#x200d;&#x1f373;','&#x1f441;&#x200d;&#x1f5e8;','&#x1f469;&#x200d;&#x1f33e;','&#x1f469;&#x200d;&#x1f680;','&#x1f468;&#x200d;&#x1f373;','&#x1f468;&#x200d;&#x1f393;','&#x1f468;&#x200d;&#x1f3a4;','&#x1f468;&#x200d;&#x1f3a8;','&#x1f468;&#x200d;&#x1f3eb;','&#x1f468;&#x200d;&#x1f3ed;','&#x1f468;&#x200d;&#x1f466;','&#x1f468;&#x200d;&#x1f467;','&#x1f468;&#x200d;&#x1f4bb;','&#x1f468;&#x200d;&#x1f4bc;','&#x1f468;&#x200d;&#x1f527;','&#x1f468;&#x200d;&#x1f52c;','&#x1f468;&#x200d;&#x1f680;','&#x1f468;&#x200d;&#x1f692;','&#x1f469;&#x200d;&#x1f52c;','&#x1f473;&#x1f3fe;','&#x1f1e7;&#x1f1ff;','&#x1f1e8;&#x1f1e6;','&#x1f473;&#x1f3ff;','&#x1f3cb;&#x1f3fb;','&#x1f1e8;&#x1f1e8;','&#x1f474;&#x1f3fb;','&#x1f474;&#x1f3fc;','&#x1f474;&#x1f3fd;','&#x1f474;&#x1f3fe;','&#x1f474;&#x1f3ff;','&#x1f475;&#x1f3fb;','&#x1f475;&#x1f3fc;','&#x1f475;&#x1f3fd;','&#x1f475;&#x1f3fe;','&#x1f475;&#x1f3ff;','&#x1f476;&#x1f3fb;','&#x1f476;&#x1f3fc;','&#x1f476;&#x1f3fd;','&#x1f476;&#x1f3fe;','&#x1f476;&#x1f3ff;','&#x1f1e8;&#x1f1e9;','&#x1f3cb;&#x1f3fc;','&#x1f477;&#x1f3fb;','&#x1f1e8;&#x1f1eb;','&#x1f1e8;&#x1f1ec;','&#x1f477;&#x1f3fc;','&#x1f3cb;&#x1f3fd;','&#x1f1e8;&#x1f1ed;','&#x1f477;&#x1f3fd;','&#x1f1e8;&#x1f1ee;','&#x1f3cb;&#x1f3fe;','&#x1f477;&#x1f3fe;','&#x1f1e8;&#x1f1f0;','&#x1f1e8;&#x1f1f1;','&#x1f477;&#x1f3ff;','&#x1f3cb;&#x1f3ff;','&#x1f1e8;&#x1f1f2;','&#x1f478;&#x1f3fb;','&#x1f478;&#x1f3fc;','&#x1f478;&#x1f3fd;','&#x1f478;&#x1f3fe;','&#x1f478;&#x1f3ff;','&#x1f47c;&#x1f3fb;','&#x1f47c;&#x1f3fc;','&#x1f47c;&#x1f3fd;','&#x1f47c;&#x1f3fe;','&#x1f47c;&#x1f3ff;','&#x1f1e8;&#x1f1f3;','&#x1f1e8;&#x1f1f4;','&#x1f481;&#x1f3fb;','&#x1f1e8;&#x1f1f5;','&#x1f3cc;&#x1f3fb;','&#x1f481;&#x1f3fc;','&#x1f1e8;&#x1f1f7;','&#x1f1e8;&#x1f1fa;','&#x1f481;&#x1f3fd;','&#x1f3cc;&#x1f3fc;','&#x1f1e8;&#x1f1fb;','&#x1f481;&#x1f3fe;','&#x1f1e8;&#x1f1fc;','&#x1f3cc;&#x1f3fd;','&#x1f481;&#x1f3ff;','&#x1f1e8;&#x1f1fd;','&#x1f1e8;&#x1f1fe;','&#x1f3cc;&#x1f3fe;','&#x1f1e8;&#x1f1ff;','&#x1f482;&#x1f3fb;','&#x1f1e9;&#x1f1ea;','&#x1f3cc;&#x1f3ff;','&#x1f482;&#x1f3fc;','&#x1f1e9;&#x1f1ec;','&#x1f1e9;&#x1f1ef;','&#x1f482;&#x1f3fd;','&#x1f1e9;&#x1f1f0;','&#x1f1e9;&#x1f1f2;','&#x1f482;&#x1f3fe;','&#x1f1e9;&#x1f1f4;','&#x1f1e9;&#x1f1ff;','&#x1f482;&#x1f3ff;','&#x1f1ea;&#x1f1e6;','&#x1f1ea;&#x1f1e8;','&#x1f483;&#x1f3fb;','&#x1f483;&#x1f3fc;','&#x1f483;&#x1f3fd;','&#x1f483;&#x1f3fe;','&#x1f483;&#x1f3ff;','&#x1f485;&#x1f3fb;','&#x1f485;&#x1f3fc;','&#x1f485;&#x1f3fd;','&#x1f485;&#x1f3fe;','&#x1f485;&#x1f3ff;','&#x1f442;&#x1f3fb;','&#x1f442;&#x1f3fc;','&#x1f486;&#x1f3fb;','&#x1f442;&#x1f3fd;','&#x1f442;&#x1f3fe;','&#x1f486;&#x1f3fc;','&#x1f442;&#x1f3ff;','&#x1f443;&#x1f3fb;','&#x1f486;&#x1f3fd;','&#x1f443;&#x1f3fc;','&#x1f443;&#x1f3fd;','&#x1f486;&#x1f3fe;','&#x1f443;&#x1f3fe;','&#x1f443;&#x1f3ff;','&#x1f486;&#x1f3ff;','&#x1f446;&#x1f3fb;','&#x1f446;&#x1f3fc;','&#x1f446;&#x1f3fd;','&#x1f446;&#x1f3fe;','&#x1f487;&#x1f3fb;','&#x1f446;&#x1f3ff;','&#x1f447;&#x1f3fb;','&#x1f487;&#x1f3fc;','&#x1f447;&#x1f3fc;','&#x1f447;&#x1f3fd;','&#x1f487;&#x1f3fd;','&#x1f447;&#x1f3fe;','&#x1f447;&#x1f3ff;','&#x1f487;&#x1f3fe;','&#x1f448;&#x1f3fb;','&#x1f448;&#x1f3fc;','&#x1f487;&#x1f3ff;','&#x1f448;&#x1f3fd;','&#x1f448;&#x1f3fe;','&#x1f4aa;&#x1f3fb;','&#x1f4aa;&#x1f3fc;','&#x1f4aa;&#x1f3fd;','&#x1f4aa;&#x1f3fe;','&#x1f4aa;&#x1f3ff;','&#x1f448;&#x1f3ff;','&#x1f449;&#x1f3fb;','&#x1f574;&#x1f3fb;','&#x1f449;&#x1f3fc;','&#x1f449;&#x1f3fd;','&#x1f574;&#x1f3fc;','&#x1f449;&#x1f3fe;','&#x1f449;&#x1f3ff;','&#x1f574;&#x1f3fd;','&#x1f44a;&#x1f3fb;','&#x1f44a;&#x1f3fc;','&#x1f574;&#x1f3fe;','&#x1f44a;&#x1f3fd;','&#x1f44a;&#x1f3fe;','&#x1f574;&#x1f3ff;','&#x1f44a;&#x1f3ff;','&#x1f44b;&#x1f3fb;','&#x1f44b;&#x1f3fc;','&#x1f44b;&#x1f3fd;','&#x1f575;&#x1f3fb;','&#x1f44b;&#x1f3fe;','&#x1f44b;&#x1f3ff;','&#x1f575;&#x1f3fc;','&#x1f44c;&#x1f3fb;','&#x1f44c;&#x1f3fc;','&#x1f575;&#x1f3fd;','&#x1f44c;&#x1f3fd;','&#x1f44c;&#x1f3fe;','&#x1f575;&#x1f3fe;','&#x1f44c;&#x1f3ff;','&#x1f44d;&#x1f3fb;','&#x1f575;&#x1f3ff;','&#x1f44d;&#x1f3fc;','&#x1f44d;&#x1f3fd;','&#x1f57a;&#x1f3fb;','&#x1f57a;&#x1f3fc;','&#x1f57a;&#x1f3fd;','&#x1f57a;&#x1f3fe;','&#x1f57a;&#x1f3ff;','&#x1f590;&#x1f3fb;','&#x1f590;&#x1f3fc;','&#x1f590;&#x1f3fd;','&#x1f590;&#x1f3fe;','&#x1f590;&#x1f3ff;','&#x1f595;&#x1f3fb;','&#x1f595;&#x1f3fc;','&#x1f595;&#x1f3fd;','&#x1f595;&#x1f3fe;','&#x1f595;&#x1f3ff;','&#x1f596;&#x1f3fb;','&#x1f596;&#x1f3fc;','&#x1f596;&#x1f3fd;','&#x1f596;&#x1f3fe;','&#x1f596;&#x1f3ff;','&#x1f44d;&#x1f3fe;','&#x1f44d;&#x1f3ff;','&#x1f645;&#x1f3fb;','&#x1f44e;&#x1f3fb;','&#x1f44e;&#x1f3fc;','&#x1f645;&#x1f3fc;','&#x1f44e;&#x1f3fd;','&#x1f44e;&#x1f3fe;','&#x1f645;&#x1f3fd;','&#x1f44e;&#x1f3ff;','&#x1f44f;&#x1f3fb;','&#x1f645;&#x1f3fe;','&#x1f44f;&#x1f3fc;','&#x1f44f;&#x1f3fd;','&#x1f645;&#x1f3ff;','&#x1f44f;&#x1f3fe;','&#x1f44f;&#x1f3ff;','&#x1f450;&#x1f3fb;','&#x1f450;&#x1f3fc;','&#x1f646;&#x1f3fb;','&#x1f450;&#x1f3fd;','&#x1f450;&#x1f3fe;','&#x1f646;&#x1f3fc;','&#x1f450;&#x1f3ff;','&#x1f466;&#x1f3fb;','&#x1f646;&#x1f3fd;','&#x1f466;&#x1f3fc;','&#x1f466;&#x1f3fd;','&#x1f646;&#x1f3fe;','&#x1f466;&#x1f3fe;','&#x1f466;&#x1f3ff;','&#x1f646;&#x1f3ff;','&#x1f467;&#x1f3fb;','&#x1f467;&#x1f3fc;','&#x1f467;&#x1f3fd;','&#x1f467;&#x1f3fe;','&#x1f647;&#x1f3fb;','&#x1f467;&#x1f3ff;','&#x1f1ea;&#x1f1ea;','&#x1f647;&#x1f3fc;','&#x1f1ea;&#x1f1ec;','&#x1f1ea;&#x1f1ed;','&#x1f647;&#x1f3fd;','&#x1f1ea;&#x1f1f7;','&#x1f1ea;&#x1f1f8;','&#x1f647;&#x1f3fe;','&#x1f1ea;&#x1f1f9;','&#x1f1ea;&#x1f1fa;','&#x1f647;&#x1f3ff;','&#x1f1eb;&#x1f1ee;','&#x1f1eb;&#x1f1ef;','&#x1f1eb;&#x1f1f0;','&#x1f1eb;&#x1f1f2;','&#x1f64b;&#x1f3fb;','&#x1f1eb;&#x1f1f4;','&#x1f1eb;&#x1f1f7;','&#x1f64b;&#x1f3fc;','&#x1f1ec;&#x1f1e6;','&#x1f1ec;&#x1f1e7;','&#x1f64b;&#x1f3fd;','&#x1f1ec;&#x1f1e9;','&#x1f468;&#x1f3fb;','&#x1f64b;&#x1f3fe;','&#x1f1ec;&#x1f1ea;','&#x1f1ec;&#x1f1eb;','&#x1f64b;&#x1f3ff;','&#x1f1ec;&#x1f1ec;','&#x1f1ec;&#x1f1ed;','&#x1f64c;&#x1f3fb;','&#x1f64c;&#x1f3fc;','&#x1f64c;&#x1f3fd;','&#x1f64c;&#x1f3fe;','&#x1f64c;&#x1f3ff;','&#x1f1ec;&#x1f1ee;','&#x1f1ec;&#x1f1f1;','&#x1f64d;&#x1f3fb;','&#x1f1ec;&#x1f1f2;','&#x1f1ec;&#x1f1f3;','&#x1f64d;&#x1f3fc;','&#x1f1ec;&#x1f1f5;','&#x1f1ec;&#x1f1f6;','&#x1f64d;&#x1f3fd;','&#x1f1ec;&#x1f1f7;','&#x1f1ec;&#x1f1f8;','&#x1f64d;&#x1f3fe;','&#x1f1ec;&#x1f1f9;','&#x1f1ec;&#x1f1fa;','&#x1f64d;&#x1f3ff;','&#x1f1ec;&#x1f1fc;','&#x1f1ec;&#x1f1fe;','&#x1f468;&#x1f3fc;','&#x1f1ed;&#x1f1f0;','&#x1f64e;&#x1f3fb;','&#x1f1ed;&#x1f1f2;','&#x1f1ed;&#x1f1f3;','&#x1f64e;&#x1f3fc;','&#x1f1ed;&#x1f1f7;','&#x1f1ed;&#x1f1f9;','&#x1f64e;&#x1f3fd;','&#x1f1ed;&#x1f1fa;','&#x1f1ee;&#x1f1e8;','&#x1f64e;&#x1f3fe;','&#x1f1ee;&#x1f1e9;','&#x1f1ee;&#x1f1ea;','&#x1f64e;&#x1f3ff;','&#x1f1ee;&#x1f1f1;','&#x1f1ee;&#x1f1f2;','&#x1f64f;&#x1f3fb;','&#x1f64f;&#x1f3fc;','&#x1f64f;&#x1f3fd;','&#x1f64f;&#x1f3fe;','&#x1f64f;&#x1f3ff;','&#x1f1ee;&#x1f1f3;','&#x1f1ee;&#x1f1f4;','&#x1f6a3;&#x1f3fb;','&#x1f1ee;&#x1f1f6;','&#x1f1ee;&#x1f1f7;','&#x1f6a3;&#x1f3fc;','&#x1f1ee;&#x1f1f8;','&#x1f468;&#x1f3fd;','&#x1f6a3;&#x1f3fd;','&#x1f1ee;&#x1f1f9;','&#x1f1ef;&#x1f1ea;','&#x1f6a3;&#x1f3fe;','&#x1f1ef;&#x1f1f2;','&#x1f1ef;&#x1f1f4;','&#x1f6a3;&#x1f3ff;','&#x1f1ef;&#x1f1f5;','&#x1f1f0;&#x1f1ea;','&#x1f1f0;&#x1f1ec;','&#x1f1f0;&#x1f1ed;','&#x1f6b4;&#x1f3fb;','&#x1f1f0;&#x1f1ee;','&#x1f1f0;&#x1f1f2;','&#x1f6b4;&#x1f3fc;','&#x1f1f0;&#x1f1f3;','&#x1f1f0;&#x1f1f5;','&#x1f6b4;&#x1f3fd;','&#x1f1f0;&#x1f1f7;','&#x1f1f0;&#x1f1fc;','&#x1f6b4;&#x1f3fe;','&#x1f1f0;&#x1f1fe;','&#x1f1f0;&#x1f1ff;','&#x1f6b4;&#x1f3ff;','&#x1f468;&#x1f3fe;','&#x1f1f1;&#x1f1e6;','&#x1f1f1;&#x1f1e7;','&#x1f1f1;&#x1f1e8;','&#x1f6b5;&#x1f3fb;','&#x1f1f1;&#x1f1ee;','&#x1f1f1;&#x1f1f0;','&#x1f6b5;&#x1f3fc;','&#x1f1f1;&#x1f1f7;','&#x1f1f1;&#x1f1f8;','&#x1f6b5;&#x1f3fd;','&#x1f1f1;&#x1f1f9;','&#x1f1f1;&#x1f1fa;','&#x1f6b5;&#x1f3fe;','&#x1f1f1;&#x1f1fb;','&#x1f1f1;&#x1f1fe;','&#x1f6b5;&#x1f3ff;','&#x1f1f2;&#x1f1e6;','&#x1f1f2;&#x1f1e8;','&#x1f1f2;&#x1f1e9;','&#x1f1f2;&#x1f1ea;','&#x1f6b6;&#x1f3fb;','&#x1f1f2;&#x1f1eb;','&#x1f468;&#x1f3ff;','&#x1f6b6;&#x1f3fc;','&#x1f1f2;&#x1f1ec;','&#x1f1f2;&#x1f1ed;','&#x1f6b6;&#x1f3fd;','&#x1f1f2;&#x1f1f0;','&#x1f1f2;&#x1f1f1;','&#x1f6b6;&#x1f3fe;','&#x1f1f2;&#x1f1f2;','&#x1f1f2;&#x1f1f3;','&#x1f6b6;&#x1f3ff;','&#x1f1f2;&#x1f1f4;','&#x1f1f2;&#x1f1f5;','&#x1f6c0;&#x1f3fb;','&#x1f6c0;&#x1f3fc;','&#x1f6c0;&#x1f3fd;','&#x1f6c0;&#x1f3fe;','&#x1f6c0;&#x1f3ff;','&#x1f6cc;&#x1f3fb;','&#x1f6cc;&#x1f3fc;','&#x1f6cc;&#x1f3fd;','&#x1f6cc;&#x1f3fe;','&#x1f6cc;&#x1f3ff;','&#x1f918;&#x1f3fb;','&#x1f918;&#x1f3fc;','&#x1f918;&#x1f3fd;','&#x1f918;&#x1f3fe;','&#x1f918;&#x1f3ff;','&#x1f919;&#x1f3fb;','&#x1f919;&#x1f3fc;','&#x1f919;&#x1f3fd;','&#x1f919;&#x1f3fe;','&#x1f919;&#x1f3ff;','&#x1f91a;&#x1f3fb;','&#x1f91a;&#x1f3fc;','&#x1f91a;&#x1f3fd;','&#x1f91a;&#x1f3fe;','&#x1f91a;&#x1f3ff;','&#x1f91b;&#x1f3fb;','&#x1f91b;&#x1f3fc;','&#x1f91b;&#x1f3fd;','&#x1f91b;&#x1f3fe;','&#x1f91b;&#x1f3ff;','&#x1f91c;&#x1f3fb;','&#x1f91c;&#x1f3fc;','&#x1f91c;&#x1f3fd;','&#x1f91c;&#x1f3fe;','&#x1f91c;&#x1f3ff;','&#x1f91e;&#x1f3fb;','&#x1f91e;&#x1f3fc;','&#x1f91e;&#x1f3fd;','&#x1f91e;&#x1f3fe;','&#x1f91e;&#x1f3ff;','&#x1f91f;&#x1f3fb;','&#x1f91f;&#x1f3fc;','&#x1f91f;&#x1f3fd;','&#x1f91f;&#x1f3fe;','&#x1f91f;&#x1f3ff;','&#x1f1f2;&#x1f1f6;','&#x1f1f2;&#x1f1f7;','&#x1f926;&#x1f3fb;','&#x1f1f2;&#x1f1f8;','&#x1f1f2;&#x1f1f9;','&#x1f926;&#x1f3fc;','&#x1f1f2;&#x1f1fa;','&#x1f1f2;&#x1f1fb;','&#x1f926;&#x1f3fd;','&#x1f1f2;&#x1f1fc;','&#x1f1f2;&#x1f1fd;','&#x1f926;&#x1f3fe;','&#x1f1f2;&#x1f1fe;','&#x1f1f2;&#x1f1ff;','&#x1f926;&#x1f3ff;','&#x1f1f3;&#x1f1e6;','&#x1f1f3;&#x1f1e8;','&#x1f930;&#x1f3fb;','&#x1f930;&#x1f3fc;','&#x1f930;&#x1f3fd;','&#x1f930;&#x1f3fe;','&#x1f930;&#x1f3ff;','&#x1f931;&#x1f3fb;','&#x1f931;&#x1f3fc;','&#x1f931;&#x1f3fd;','&#x1f931;&#x1f3fe;','&#x1f931;&#x1f3ff;','&#x1f932;&#x1f3fb;','&#x1f932;&#x1f3fc;','&#x1f932;&#x1f3fd;','&#x1f932;&#x1f3fe;','&#x1f932;&#x1f3ff;','&#x1f933;&#x1f3fb;','&#x1f933;&#x1f3fc;','&#x1f933;&#x1f3fd;','&#x1f933;&#x1f3fe;','&#x1f933;&#x1f3ff;','&#x1f934;&#x1f3fb;','&#x1f934;&#x1f3fc;','&#x1f934;&#x1f3fd;','&#x1f934;&#x1f3fe;','&#x1f934;&#x1f3ff;','&#x1f1f3;&#x1f1ea;','&#x1f1f3;&#x1f1eb;','&#x1f935;&#x1f3fb;','&#x1f1f3;&#x1f1ec;','&#x1f1f3;&#x1f1ee;','&#x1f935;&#x1f3fc;','&#x1f1f3;&#x1f1f1;','&#x1f1f3;&#x1f1f4;','&#x1f935;&#x1f3fd;','&#x1f1f3;&#x1f1f5;','&#x1f1f3;&#x1f1f7;','&#x1f935;&#x1f3fe;','&#x1f1f3;&#x1f1fa;','&#x1f1f3;&#x1f1ff;','&#x1f935;&#x1f3ff;','&#x1f1f4;&#x1f1f2;','&#x1f1f5;&#x1f1e6;','&#x1f936;&#x1f3fb;','&#x1f936;&#x1f3fc;','&#x1f936;&#x1f3fd;','&#x1f936;&#x1f3fe;','&#x1f936;&#x1f3ff;','&#x1f1f5;&#x1f1ea;','&#x1f1f5;&#x1f1eb;','&#x1f937;&#x1f3fb;','&#x1f1f5;&#x1f1ec;','&#x1f1f5;&#x1f1ed;','&#x1f937;&#x1f3fc;','&#x1f1f5;&#x1f1f0;','&#x1f1f5;&#x1f1f1;','&#x1f937;&#x1f3fd;','&#x1f1f5;&#x1f1f2;','&#x1f1f5;&#x1f1f3;','&#x1f937;&#x1f3fe;','&#x1f1f5;&#x1f1f7;','&#x1f1f5;&#x1f1f8;','&#x1f937;&#x1f3ff;','&#x1f1f5;&#x1f1f9;','&#x1f1f5;&#x1f1fc;','&#x1f1f5;&#x1f1fe;','&#x1f1f6;&#x1f1e6;','&#x1f938;&#x1f3fb;','&#x1f1f7;&#x1f1ea;','&#x1f1f7;&#x1f1f4;','&#x1f938;&#x1f3fc;','&#x1f1f7;&#x1f1f8;','&#x1f469;&#x1f3fb;','&#x1f938;&#x1f3fd;','&#x1f1f7;&#x1f1fa;','&#x1f1f7;&#x1f1fc;','&#x1f938;&#x1f3fe;','&#x1f1f8;&#x1f1e6;','&#x1f1f8;&#x1f1e7;','&#x1f938;&#x1f3ff;','&#x1f1f8;&#x1f1e8;','&#x1f1f8;&#x1f1e9;','&#x1f1f8;&#x1f1ea;','&#x1f1f8;&#x1f1ec;','&#x1f939;&#x1f3fb;','&#x1f1f8;&#x1f1ed;','&#x1f1f8;&#x1f1ee;','&#x1f939;&#x1f3fc;','&#x1f1f8;&#x1f1ef;','&#x1f1f8;&#x1f1f0;','&#x1f939;&#x1f3fd;','&#x1f1f8;&#x1f1f1;','&#x1f1f8;&#x1f1f2;','&#x1f939;&#x1f3fe;','&#x1f1f8;&#x1f1f3;','&#x1f1f8;&#x1f1f4;','&#x1f939;&#x1f3ff;','&#x1f469;&#x1f3fc;','&#x1f1f8;&#x1f1f7;','&#x1f1f8;&#x1f1f8;','&#x1f1f8;&#x1f1f9;','&#x1f1f8;&#x1f1fb;','&#x1f1f8;&#x1f1fd;','&#x1f93d;&#x1f3fb;','&#x1f1f8;&#x1f1fe;','&#x1f1f8;&#x1f1ff;','&#x1f93d;&#x1f3fc;','&#x1f1f9;&#x1f1e6;','&#x1f1f9;&#x1f1e8;','&#x1f93d;&#x1f3fd;','&#x1f1f9;&#x1f1e9;','&#x1f1f9;&#x1f1eb;','&#x1f93d;&#x1f3fe;','&#x1f1f9;&#x1f1ec;','&#x1f1f9;&#x1f1ed;','&#x1f93d;&#x1f3ff;','&#x1f1f9;&#x1f1ef;','&#x1f1f9;&#x1f1f0;','&#x1f1f9;&#x1f1f1;','&#x1f469;&#x1f3fd;','&#x1f93e;&#x1f3fb;','&#x1f1f9;&#x1f1f2;','&#x1f1f9;&#x1f1f3;','&#x1f93e;&#x1f3fc;','&#x1f1f9;&#x1f1f4;','&#x1f1f9;&#x1f1f7;','&#x1f93e;&#x1f3fd;','&#x1f1f9;&#x1f1f9;','&#x1f1f9;&#x1f1fb;','&#x1f93e;&#x1f3fe;','&#x1f1f9;&#x1f1fc;','&#x1f1f9;&#x1f1ff;','&#x1f93e;&#x1f3ff;','&#x1f1fa;&#x1f1e6;','&#x1f1fa;&#x1f1ec;','&#x1f9d1;&#x1f3fb;','&#x1f9d1;&#x1f3fc;','&#x1f9d1;&#x1f3fd;','&#x1f9d1;&#x1f3fe;','&#x1f9d1;&#x1f3ff;','&#x1f9d2;&#x1f3fb;','&#x1f9d2;&#x1f3fc;','&#x1f9d2;&#x1f3fd;','&#x1f9d2;&#x1f3fe;','&#x1f9d2;&#x1f3ff;','&#x1f9d3;&#x1f3fb;','&#x1f9d3;&#x1f3fc;','&#x1f9d3;&#x1f3fd;','&#x1f9d3;&#x1f3fe;','&#x1f9d3;&#x1f3ff;','&#x1f9d4;&#x1f3fb;','&#x1f9d4;&#x1f3fc;','&#x1f9d4;&#x1f3fd;','&#x1f9d4;&#x1f3fe;','&#x1f9d4;&#x1f3ff;','&#x1f9d5;&#x1f3fb;','&#x1f9d5;&#x1f3fc;','&#x1f9d5;&#x1f3fd;','&#x1f9d5;&#x1f3fe;','&#x1f9d5;&#x1f3ff;','&#x1f1fa;&#x1f1f2;','&#x1f1fa;&#x1f1f3;','&#x1f9d6;&#x1f3fb;','&#x1f1fa;&#x1f1f8;','&#x1f1fa;&#x1f1fe;','&#x1f9d6;&#x1f3fc;','&#x1f1fa;&#x1f1ff;','&#x1f1fb;&#x1f1e6;','&#x1f9d6;&#x1f3fd;','&#x1f469;&#x1f3fe;','&#x1f1fb;&#x1f1e8;','&#x1f9d6;&#x1f3fe;','&#x1f1fb;&#x1f1ea;','&#x1f1fb;&#x1f1ec;','&#x1f9d6;&#x1f3ff;','&#x1f1fb;&#x1f1ee;','&#x1f1fb;&#x1f1f3;','&#x1f1fb;&#x1f1fa;','&#x1f1fc;&#x1f1eb;','&#x1f9d7;&#x1f3fb;','&#x1f1fc;&#x1f1f8;','&#x1f1fd;&#x1f1f0;','&#x1f9d7;&#x1f3fc;','&#x1f1fe;&#x1f1ea;','&#x1f1fe;&#x1f1f9;','&#x1f9d7;&#x1f3fd;','&#x1f1ff;&#x1f1e6;','&#x1f1ff;&#x1f1f2;','&#x1f9d7;&#x1f3fe;','&#x1f1ff;&#x1f1fc;','&#x1f385;&#x1f3fb;','&#x1f9d7;&#x1f3ff;','&#x1f385;&#x1f3fc;','&#x1f469;&#x1f3ff;','&#x1f385;&#x1f3fd;','&#x1f385;&#x1f3fe;','&#x1f9d8;&#x1f3fb;','&#x1f385;&#x1f3ff;','&#x1f3c2;&#x1f3fb;','&#x1f9d8;&#x1f3fc;','&#x1f3c2;&#x1f3fc;','&#x1f3c2;&#x1f3fd;','&#x1f9d8;&#x1f3fd;','&#x1f3c2;&#x1f3fe;','&#x1f3c2;&#x1f3ff;','&#x1f9d8;&#x1f3fe;','&#x1f1e6;&#x1f1e8;','&#x1f1e6;&#x1f1ea;','&#x1f9d8;&#x1f3ff;','&#x1f3c3;&#x1f3fb;','&#x1f1e6;&#x1f1eb;','&#x1f1e6;&#x1f1ec;','&#x1f3c3;&#x1f3fc;','&#x1f9d9;&#x1f3fb;','&#x1f1e6;&#x1f1ee;','&#x1f1e6;&#x1f1f1;','&#x1f9d9;&#x1f3fc;','&#x1f3c3;&#x1f3fd;','&#x1f1e6;&#x1f1f2;','&#x1f9d9;&#x1f3fd;','&#x1f1e6;&#x1f1f4;','&#x1f3c3;&#x1f3fe;','&#x1f9d9;&#x1f3fe;','&#x1f1e6;&#x1f1f6;','&#x1f1e6;&#x1f1f7;','&#x1f9d9;&#x1f3ff;','&#x1f3c3;&#x1f3ff;','&#x1f1e6;&#x1f1f8;','&#x1f1e6;&#x1f1f9;','&#x1f1e6;&#x1f1fa;','&#x1f9da;&#x1f3fb;','&#x1f1e6;&#x1f1fc;','&#x1f3c4;&#x1f3fb;','&#x1f9da;&#x1f3fc;','&#x1f1e6;&#x1f1fd;','&#x1f1e6;&#x1f1ff;','&#x1f9da;&#x1f3fd;','&#x1f3c4;&#x1f3fc;','&#x1f1e7;&#x1f1e6;','&#x1f9da;&#x1f3fe;','&#x1f46e;&#x1f3fb;','&#x1f1e7;&#x1f1e7;','&#x1f9da;&#x1f3ff;','&#x1f3c4;&#x1f3fd;','&#x1f46e;&#x1f3fc;','&#x1f1e7;&#x1f1e9;','&#x1f1e7;&#x1f1ea;','&#x1f9db;&#x1f3fb;','&#x1f46e;&#x1f3fd;','&#x1f3c4;&#x1f3fe;','&#x1f9db;&#x1f3fc;','&#x1f1e7;&#x1f1eb;','&#x1f46e;&#x1f3fe;','&#x1f9db;&#x1f3fd;','&#x1f1e7;&#x1f1ec;','&#x1f3c4;&#x1f3ff;','&#x1f9db;&#x1f3fe;','&#x1f46e;&#x1f3ff;','&#x1f1e7;&#x1f1ed;','&#x1f9db;&#x1f3ff;','&#x1f1e7;&#x1f1ee;','&#x1f3c7;&#x1f3fb;','&#x1f3c7;&#x1f3fc;','&#x1f470;&#x1f3fb;','&#x1f9dc;&#x1f3fb;','&#x1f470;&#x1f3fc;','&#x1f470;&#x1f3fd;','&#x1f9dc;&#x1f3fc;','&#x1f470;&#x1f3fe;','&#x1f470;&#x1f3ff;','&#x1f9dc;&#x1f3fd;','&#x1f3c7;&#x1f3fd;','&#x1f3c7;&#x1f3fe;','&#x1f9dc;&#x1f3fe;','&#x1f471;&#x1f3fb;','&#x1f3c7;&#x1f3ff;','&#x1f9dc;&#x1f3ff;','&#x1f1e7;&#x1f1ef;','&#x1f471;&#x1f3fc;','&#x1f1e7;&#x1f1f1;','&#x1f3ca;&#x1f3fb;','&#x1f9dd;&#x1f3fb;','&#x1f471;&#x1f3fd;','&#x1f1e7;&#x1f1f2;','&#x1f9dd;&#x1f3fc;','&#x1f1e7;&#x1f1f3;','&#x1f471;&#x1f3fe;','&#x1f9dd;&#x1f3fd;','&#x1f3ca;&#x1f3fc;','&#x1f1e7;&#x1f1f4;','&#x1f9dd;&#x1f3fe;','&#x1f471;&#x1f3ff;','&#x1f1e7;&#x1f1f6;','&#x1f9dd;&#x1f3ff;','&#x1f3ca;&#x1f3fd;','&#x1f472;&#x1f3fb;','&#x1f472;&#x1f3fc;','&#x1f472;&#x1f3fd;','&#x1f472;&#x1f3fe;','&#x1f472;&#x1f3ff;','&#x1f1e7;&#x1f1f7;','&#x1f1e7;&#x1f1f8;','&#x1f473;&#x1f3fb;','&#x1f3ca;&#x1f3fe;','&#x1f1e7;&#x1f1f9;','&#x1f473;&#x1f3fc;','&#x1f1e7;&#x1f1fb;','&#x1f3ca;&#x1f3ff;','&#x1f473;&#x1f3fd;','&#x1f1e7;&#x1f1fc;','&#x1f1e7;&#x1f1fe;','&#x1f1e6;&#x1f1e9;','&#x270d;&#x1f3ff;','&#x26f9;&#x1f3fb;','&#x270d;&#x1f3fe;','&#x270d;&#x1f3fd;','&#x270d;&#x1f3fc;','&#x270d;&#x1f3fb;','&#x270c;&#x1f3ff;','&#x270c;&#x1f3fe;','&#x270c;&#x1f3fd;','&#x270c;&#x1f3fc;','&#x270c;&#x1f3fb;','&#x270b;&#x1f3ff;','&#x270b;&#x1f3fe;','&#x270b;&#x1f3fd;','&#x270b;&#x1f3fc;','&#x270b;&#x1f3fb;','&#x270a;&#x1f3ff;','&#x270a;&#x1f3fe;','&#x270a;&#x1f3fd;','&#x270a;&#x1f3fc;','&#x270a;&#x1f3fb;','&#x26f7;&#x1f3fd;','&#x26f7;&#x1f3fe;','&#x26f9;&#x1f3ff;','&#x261d;&#x1f3ff;','&#x261d;&#x1f3fe;','&#x26f9;&#x1f3fe;','&#x261d;&#x1f3fd;','&#x261d;&#x1f3fc;','&#x26f9;&#x1f3fd;','&#x261d;&#x1f3fb;','&#x26f7;&#x1f3ff;','&#x26f9;&#x1f3fc;','&#x26f7;&#x1f3fb;','&#x26f7;&#x1f3fc;','&#x34;&#x20e3;','&#x23;&#x20e3;','&#x30;&#x20e3;','&#x31;&#x20e3;','&#x32;&#x20e3;','&#x33;&#x20e3;','&#x2a;&#x20e3;','&#x35;&#x20e3;','&#x36;&#x20e3;','&#x37;&#x20e3;','&#x38;&#x20e3;','&#x39;&#x20e3;','&#x1f3ea;','&#x1f388;','&#x1f389;','&#x1f38a;','&#x1f38b;','&#x1f38c;','&#x1f38d;','&#x1f38e;','&#x1f38f;','&#x1f390;','&#x1f391;','&#x1f392;','&#x1f393;','&#x1f396;','&#x1f397;','&#x1f399;','&#x1f39a;','&#x1f574;','&#x1f39b;','&#x1f39e;','&#x1f39f;','&#x1f3a0;','&#x1f3a1;','&#x1f3a2;','&#x1f3a3;','&#x1f3a4;','&#x1f3a5;','&#x1f3a6;','&#x1f3a7;','&#x1f3a8;','&#x1f3a9;','&#x1f3aa;','&#x1f3ab;','&#x1f3ac;','&#x1f3ad;','&#x1f575;','&#x1f576;','&#x1f577;','&#x1f578;','&#x1f579;','&#x1f3ae;','&#x1f3af;','&#x1f3b0;','&#x1f3b1;','&#x1f3b2;','&#x1f57a;','&#x1f587;','&#x1f58a;','&#x1f58b;','&#x1f58c;','&#x1f58d;','&#x1f3b3;','&#x1f3b4;','&#x1f3b5;','&#x1f3b6;','&#x1f3b7;','&#x1f590;','&#x1f3b8;','&#x1f3b9;','&#x1f3ba;','&#x1f3bb;','&#x1f3bc;','&#x1f595;','&#x1f3bd;','&#x1f3be;','&#x1f3bf;','&#x1f3c0;','&#x1f3c1;','&#x1f596;','&#x1f5a4;','&#x1f5a5;','&#x1f5a8;','&#x1f5b1;','&#x1f5b2;','&#x1f5bc;','&#x1f5c2;','&#x1f5c3;','&#x1f5c4;','&#x1f5d1;','&#x1f5d2;','&#x1f5d3;','&#x1f5dc;','&#x1f5dd;','&#x1f5de;','&#x1f5e1;','&#x1f5e3;','&#x1f5e8;','&#x1f5ef;','&#x1f5f3;','&#x1f5fa;','&#x1f5fb;','&#x1f5fc;','&#x1f5fd;','&#x1f5fe;','&#x1f5ff;','&#x1f600;','&#x1f601;','&#x1f602;','&#x1f603;','&#x1f604;','&#x1f605;','&#x1f606;','&#x1f607;','&#x1f608;','&#x1f609;','&#x1f60a;','&#x1f60b;','&#x1f60c;','&#x1f60d;','&#x1f60e;','&#x1f60f;','&#x1f610;','&#x1f611;','&#x1f612;','&#x1f613;','&#x1f614;','&#x1f615;','&#x1f616;','&#x1f617;','&#x1f618;','&#x1f619;','&#x1f61a;','&#x1f61b;','&#x1f61c;','&#x1f61d;','&#x1f61e;','&#x1f61f;','&#x1f620;','&#x1f621;','&#x1f622;','&#x1f623;','&#x1f624;','&#x1f625;','&#x1f626;','&#x1f627;','&#x1f628;','&#x1f629;','&#x1f62a;','&#x1f62b;','&#x1f62c;','&#x1f62d;','&#x1f62e;','&#x1f62f;','&#x1f630;','&#x1f631;','&#x1f632;','&#x1f633;','&#x1f634;','&#x1f635;','&#x1f636;','&#x1f637;','&#x1f638;','&#x1f639;','&#x1f63a;','&#x1f63b;','&#x1f63c;','&#x1f63d;','&#x1f63e;','&#x1f63f;','&#x1f640;','&#x1f641;','&#x1f642;','&#x1f643;','&#x1f644;','&#x1f1e7;','&#x1f1ee;','&#x1f1ea;','&#x1f1f7;','&#x1f1f1;','&#x1f3c2;','&#x1f18e;','&#x1f191;','&#x1f1e8;','&#x1f1f9;','&#x1f1ef;','&#x1f192;','&#x1f1ec;','&#x1f193;','&#x1f1f3;','&#x1f194;','&#x1f1f4;','&#x1f645;','&#x1f1fa;','&#x1f1eb;','&#x1f195;','&#x1f196;','&#x1f197;','&#x1f1ed;','&#x1f3c3;','&#x1f198;','&#x1f1e9;','&#x1f1fb;','&#x1f1f0;','&#x1f199;','&#x1f1fc;','&#x1f19a;','&#x1f1fd;','&#x1f1f8;','&#x1f004;','&#x1f646;','&#x1f1fe;','&#x1f1e6;','&#x1f170;','&#x1f171;','&#x1f1ff;','&#x1f201;','&#x1f202;','&#x1f3c4;','&#x1f3c5;','&#x1f3c6;','&#x1f21a;','&#x1f22f;','&#x1f232;','&#x1f233;','&#x1f234;','&#x1f3c7;','&#x1f468;','&#x1f647;','&#x1f648;','&#x1f649;','&#x1f64a;','&#x1f3c8;','&#x1f3c9;','&#x1f235;','&#x1f236;','&#x1f237;','&#x1f238;','&#x1f239;','&#x1f23a;','&#x1f250;','&#x1f251;','&#x1f300;','&#x1f301;','&#x1f302;','&#x1f303;','&#x1f304;','&#x1f305;','&#x1f306;','&#x1f64b;','&#x1f307;','&#x1f308;','&#x1f3ca;','&#x1f309;','&#x1f30a;','&#x1f64c;','&#x1f30b;','&#x1f30c;','&#x1f30d;','&#x1f30e;','&#x1f30f;','&#x1f310;','&#x1f311;','&#x1f312;','&#x1f313;','&#x1f314;','&#x1f315;','&#x1f316;','&#x1f317;','&#x1f318;','&#x1f319;','&#x1f3cb;','&#x1f31a;','&#x1f64d;','&#x1f31b;','&#x1f31c;','&#x1f31d;','&#x1f31e;','&#x1f31f;','&#x1f320;','&#x1f321;','&#x1f324;','&#x1f325;','&#x1f326;','&#x1f327;','&#x1f328;','&#x1f329;','&#x1f32a;','&#x1f32b;','&#x1f32c;','&#x1f3cc;','&#x1f64e;','&#x1f3cd;','&#x1f3ce;','&#x1f3cf;','&#x1f3d0;','&#x1f3d1;','&#x1f64f;','&#x1f680;','&#x1f681;','&#x1f682;','&#x1f683;','&#x1f684;','&#x1f685;','&#x1f686;','&#x1f687;','&#x1f688;','&#x1f689;','&#x1f68a;','&#x1f68b;','&#x1f68c;','&#x1f68d;','&#x1f68e;','&#x1f68f;','&#x1f690;','&#x1f691;','&#x1f692;','&#x1f693;','&#x1f694;','&#x1f695;','&#x1f696;','&#x1f697;','&#x1f698;','&#x1f699;','&#x1f69a;','&#x1f69b;','&#x1f69c;','&#x1f69d;','&#x1f69e;','&#x1f69f;','&#x1f6a0;','&#x1f6a1;','&#x1f6a2;','&#x1f3d2;','&#x1f3d3;','&#x1f3d4;','&#x1f3d5;','&#x1f3d6;','&#x1f3d7;','&#x1f3d8;','&#x1f3d9;','&#x1f3da;','&#x1f3db;','&#x1f3dc;','&#x1f3dd;','&#x1f3de;','&#x1f3df;','&#x1f3e0;','&#x1f3e1;','&#x1f3e2;','&#x1f6a3;','&#x1f6a4;','&#x1f6a5;','&#x1f6a6;','&#x1f6a7;','&#x1f6a8;','&#x1f6a9;','&#x1f6aa;','&#x1f6ab;','&#x1f6ac;','&#x1f6ad;','&#x1f6ae;','&#x1f6af;','&#x1f6b0;','&#x1f6b1;','&#x1f6b2;','&#x1f6b3;','&#x1f3e3;','&#x1f3e4;','&#x1f3e5;','&#x1f3e6;','&#x1f3e7;','&#x1f3e8;','&#x1f3e9;','&#x1f0cf;','&#x1f3eb;','&#x1f3ec;','&#x1f3ed;','&#x1f3ee;','&#x1f3ef;','&#x1f3f0;','&#x1f32d;','&#x1f3f3;','&#x1f32e;','&#x1f6b4;','&#x1f32f;','&#x1f330;','&#x1f331;','&#x1f3f4;','&#x1f3f5;','&#x1f3f7;','&#x1f3f8;','&#x1f3f9;','&#x1f3fa;','&#x1f3fb;','&#x1f3fc;','&#x1f3fd;','&#x1f3fe;','&#x1f3ff;','&#x1f400;','&#x1f401;','&#x1f402;','&#x1f6b5;','&#x1f403;','&#x1f404;','&#x1f405;','&#x1f469;','&#x1f46a;','&#x1f46b;','&#x1f46c;','&#x1f46d;','&#x1f406;','&#x1f407;','&#x1f408;','&#x1f409;','&#x1f40a;','&#x1f40b;','&#x1f40c;','&#x1f40d;','&#x1f40e;','&#x1f6b6;','&#x1f6b7;','&#x1f6b8;','&#x1f6b9;','&#x1f6ba;','&#x1f6bb;','&#x1f6bc;','&#x1f6bd;','&#x1f6be;','&#x1f6bf;','&#x1f40f;','&#x1f410;','&#x1f411;','&#x1f412;','&#x1f413;','&#x1f6c0;','&#x1f6c1;','&#x1f6c2;','&#x1f6c3;','&#x1f6c4;','&#x1f6c5;','&#x1f6cb;','&#x1f414;','&#x1f415;','&#x1f416;','&#x1f46e;','&#x1f417;','&#x1f6cc;','&#x1f6cd;','&#x1f6ce;','&#x1f6cf;','&#x1f6d0;','&#x1f6d1;','&#x1f6d2;','&#x1f6e0;','&#x1f6e1;','&#x1f6e2;','&#x1f6e3;','&#x1f6e4;','&#x1f6e5;','&#x1f6e9;','&#x1f6eb;','&#x1f6ec;','&#x1f6f0;','&#x1f6f3;','&#x1f6f4;','&#x1f6f5;','&#x1f6f6;','&#x1f6f7;','&#x1f6f8;','&#x1f910;','&#x1f911;','&#x1f912;','&#x1f913;','&#x1f914;','&#x1f915;','&#x1f916;','&#x1f917;','&#x1f418;','&#x1f46f;','&#x1f419;','&#x1f41a;','&#x1f41b;','&#x1f918;','&#x1f41c;','&#x1f41d;','&#x1f470;','&#x1f41e;','&#x1f41f;','&#x1f919;','&#x1f420;','&#x1f421;','&#x1f422;','&#x1f423;','&#x1f424;','&#x1f91a;','&#x1f425;','&#x1f426;','&#x1f427;','&#x1f428;','&#x1f429;','&#x1f91b;','&#x1f42a;','&#x1f42b;','&#x1f42c;','&#x1f42d;','&#x1f42e;','&#x1f91c;','&#x1f91d;','&#x1f471;','&#x1f42f;','&#x1f430;','&#x1f431;','&#x1f432;','&#x1f91e;','&#x1f433;','&#x1f472;','&#x1f434;','&#x1f435;','&#x1f436;','&#x1f91f;','&#x1f920;','&#x1f921;','&#x1f922;','&#x1f923;','&#x1f924;','&#x1f925;','&#x1f437;','&#x1f438;','&#x1f439;','&#x1f43a;','&#x1f43b;','&#x1f43c;','&#x1f43d;','&#x1f43e;','&#x1f43f;','&#x1f440;','&#x1f332;','&#x1f441;','&#x1f333;','&#x1f334;','&#x1f473;','&#x1f335;','&#x1f336;','&#x1f926;','&#x1f927;','&#x1f928;','&#x1f929;','&#x1f92a;','&#x1f92b;','&#x1f92c;','&#x1f92d;','&#x1f92e;','&#x1f92f;','&#x1f337;','&#x1f442;','&#x1f338;','&#x1f474;','&#x1f339;','&#x1f930;','&#x1f33a;','&#x1f33b;','&#x1f33c;','&#x1f443;','&#x1f475;','&#x1f931;','&#x1f444;','&#x1f445;','&#x1f33d;','&#x1f33e;','&#x1f33f;','&#x1f932;','&#x1f476;','&#x1f340;','&#x1f341;','&#x1f446;','&#x1f342;','&#x1f933;','&#x1f343;','&#x1f344;','&#x1f345;','&#x1f346;','&#x1f447;','&#x1f934;','&#x1f347;','&#x1f348;','&#x1f349;','&#x1f34a;','&#x1f34b;','&#x1f448;','&#x1f34c;','&#x1f34d;','&#x1f477;','&#x1f34e;','&#x1f34f;','&#x1f350;','&#x1f449;','&#x1f351;','&#x1f478;','&#x1f479;','&#x1f47a;','&#x1f935;','&#x1f47b;','&#x1f352;','&#x1f353;','&#x1f354;','&#x1f355;','&#x1f936;','&#x1f44a;','&#x1f47c;','&#x1f47d;','&#x1f47e;','&#x1f47f;','&#x1f480;','&#x1f356;','&#x1f357;','&#x1f358;','&#x1f359;','&#x1f35a;','&#x1f44b;','&#x1f35b;','&#x1f35c;','&#x1f35d;','&#x1f35e;','&#x1f35f;','&#x1f937;','&#x1f44c;','&#x1f360;','&#x1f361;','&#x1f362;','&#x1f363;','&#x1f364;','&#x1f481;','&#x1f44d;','&#x1f365;','&#x1f366;','&#x1f367;','&#x1f368;','&#x1f369;','&#x1f44e;','&#x1f36a;','&#x1f36b;','&#x1f36c;','&#x1f938;','&#x1f36d;','&#x1f36e;','&#x1f44f;','&#x1f36f;','&#x1f370;','&#x1f371;','&#x1f372;','&#x1f482;','&#x1f373;','&#x1f450;','&#x1f451;','&#x1f452;','&#x1f453;','&#x1f483;','&#x1f484;','&#x1f454;','&#x1f455;','&#x1f939;','&#x1f93a;','&#x1f456;','&#x1f457;','&#x1f93c;','&#x1f458;','&#x1f485;','&#x1f459;','&#x1f45a;','&#x1f45b;','&#x1f45c;','&#x1f45d;','&#x1f45e;','&#x1f45f;','&#x1f460;','&#x1f461;','&#x1f462;','&#x1f463;','&#x1f464;','&#x1f465;','&#x1f374;','&#x1f375;','&#x1f93d;','&#x1f376;','&#x1f377;','&#x1f486;','&#x1f378;','&#x1f466;','&#x1f379;','&#x1f37a;','&#x1f37b;','&#x1f37c;','&#x1f37d;','&#x1f467;','&#x1f37e;','&#x1f37f;','&#x1f380;','&#x1f381;','&#x1f382;','&#x1f383;','&#x1f93e;','&#x1f940;','&#x1f941;','&#x1f942;','&#x1f943;','&#x1f944;','&#x1f945;','&#x1f947;','&#x1f948;','&#x1f949;','&#x1f94a;','&#x1f94b;','&#x1f94c;','&#x1f950;','&#x1f951;','&#x1f952;','&#x1f953;','&#x1f954;','&#x1f955;','&#x1f956;','&#x1f957;','&#x1f958;','&#x1f959;','&#x1f95a;','&#x1f95b;','&#x1f95c;','&#x1f95d;','&#x1f95e;','&#x1f95f;','&#x1f960;','&#x1f961;','&#x1f962;','&#x1f963;','&#x1f964;','&#x1f965;','&#x1f966;','&#x1f967;','&#x1f968;','&#x1f969;','&#x1f96a;','&#x1f96b;','&#x1f980;','&#x1f981;','&#x1f982;','&#x1f983;','&#x1f984;','&#x1f985;','&#x1f986;','&#x1f987;','&#x1f988;','&#x1f989;','&#x1f98a;','&#x1f98b;','&#x1f98c;','&#x1f98d;','&#x1f98e;','&#x1f98f;','&#x1f990;','&#x1f991;','&#x1f992;','&#x1f993;','&#x1f994;','&#x1f995;','&#x1f996;','&#x1f997;','&#x1f9c0;','&#x1f9d0;','&#x1f384;','&#x1f1f5;','&#x1f17e;','&#x1f487;','&#x1f488;','&#x1f9d1;','&#x1f489;','&#x1f48a;','&#x1f48b;','&#x1f48c;','&#x1f48d;','&#x1f9d2;','&#x1f48e;','&#x1f48f;','&#x1f490;','&#x1f491;','&#x1f492;','&#x1f9d3;','&#x1f493;','&#x1f494;','&#x1f495;','&#x1f496;','&#x1f497;','&#x1f9d4;','&#x1f498;','&#x1f499;','&#x1f49a;','&#x1f49b;','&#x1f49c;','&#x1f9d5;','&#x1f49d;','&#x1f49e;','&#x1f49f;','&#x1f4a0;','&#x1f4a1;','&#x1f4a2;','&#x1f4a3;','&#x1f4a4;','&#x1f4a5;','&#x1f4a6;','&#x1f4a7;','&#x1f4a8;','&#x1f4a9;','&#x1f1f6;','&#x1f1f2;','&#x1f17f;','&#x1f385;','&#x1f9d6;','&#x1f386;','&#x1f4aa;','&#x1f4ab;','&#x1f4ac;','&#x1f4ad;','&#x1f4ae;','&#x1f4af;','&#x1f4b0;','&#x1f4b1;','&#x1f4b2;','&#x1f4b3;','&#x1f4b4;','&#x1f4b5;','&#x1f4b6;','&#x1f4b7;','&#x1f4b8;','&#x1f4b9;','&#x1f9d7;','&#x1f4ba;','&#x1f4bb;','&#x1f4bc;','&#x1f4bd;','&#x1f4be;','&#x1f4bf;','&#x1f4c0;','&#x1f4c1;','&#x1f4c2;','&#x1f4c3;','&#x1f4c4;','&#x1f4c5;','&#x1f4c6;','&#x1f4c7;','&#x1f4c8;','&#x1f4c9;','&#x1f4ca;','&#x1f9d8;','&#x1f4cb;','&#x1f4cc;','&#x1f4cd;','&#x1f4ce;','&#x1f4cf;','&#x1f4d0;','&#x1f4d1;','&#x1f4d2;','&#x1f4d3;','&#x1f4d4;','&#x1f4d5;','&#x1f4d6;','&#x1f4d7;','&#x1f4d8;','&#x1f4d9;','&#x1f4da;','&#x1f4db;','&#x1f9d9;','&#x1f4dc;','&#x1f4dd;','&#x1f4de;','&#x1f4df;','&#x1f4e0;','&#x1f4e1;','&#x1f4e2;','&#x1f4e3;','&#x1f4e4;','&#x1f4e5;','&#x1f4e6;','&#x1f4e7;','&#x1f4e8;','&#x1f4e9;','&#x1f4ea;','&#x1f4eb;','&#x1f4ec;','&#x1f9da;','&#x1f4ed;','&#x1f4ee;','&#x1f4ef;','&#x1f4f0;','&#x1f4f1;','&#x1f4f2;','&#x1f4f3;','&#x1f4f4;','&#x1f4f5;','&#x1f4f6;','&#x1f4f7;','&#x1f4f8;','&#x1f4f9;','&#x1f4fa;','&#x1f4fb;','&#x1f4fc;','&#x1f4fd;','&#x1f9db;','&#x1f4ff;','&#x1f500;','&#x1f501;','&#x1f502;','&#x1f503;','&#x1f504;','&#x1f505;','&#x1f506;','&#x1f507;','&#x1f508;','&#x1f509;','&#x1f50a;','&#x1f50b;','&#x1f50c;','&#x1f50d;','&#x1f50e;','&#x1f50f;','&#x1f9dc;','&#x1f510;','&#x1f511;','&#x1f512;','&#x1f513;','&#x1f514;','&#x1f515;','&#x1f516;','&#x1f517;','&#x1f518;','&#x1f519;','&#x1f51a;','&#x1f51b;','&#x1f51c;','&#x1f51d;','&#x1f51e;','&#x1f51f;','&#x1f520;','&#x1f9dd;','&#x1f521;','&#x1f522;','&#x1f9de;','&#x1f523;','&#x1f524;','&#x1f9df;','&#x1f9e0;','&#x1f9e1;','&#x1f9e2;','&#x1f9e3;','&#x1f9e4;','&#x1f9e5;','&#x1f9e6;','&#x1f525;','&#x1f526;','&#x1f527;','&#x1f528;','&#x1f529;','&#x1f52a;','&#x1f52b;','&#x1f52c;','&#x1f52d;','&#x1f52e;','&#x1f52f;','&#x1f530;','&#x1f531;','&#x1f532;','&#x1f533;','&#x1f534;','&#x1f535;','&#x1f536;','&#x1f537;','&#x1f538;','&#x1f539;','&#x1f53a;','&#x1f53b;','&#x1f53c;','&#x1f53d;','&#x1f549;','&#x1f54a;','&#x1f54b;','&#x1f54c;','&#x1f54d;','&#x1f54e;','&#x1f550;','&#x1f551;','&#x1f552;','&#x1f553;','&#x1f554;','&#x1f555;','&#x1f556;','&#x1f557;','&#x1f558;','&#x1f559;','&#x1f55a;','&#x1f55b;','&#x1f55c;','&#x1f55d;','&#x1f55e;','&#x1f55f;','&#x1f560;','&#x1f561;','&#x1f562;','&#x1f563;','&#x1f564;','&#x1f565;','&#x1f566;','&#x1f567;','&#x1f56f;','&#x1f570;','&#x1f573;','&#x1f387;','&#x25aa;','&#x2626;','&#x262e;','&#x262f;','&#x2638;','&#x2639;','&#x263a;','&#x2640;','&#x2642;','&#x2648;','&#x2649;','&#x264a;','&#x264b;','&#x264c;','&#x264d;','&#x264e;','&#x264f;','&#x2650;','&#x2651;','&#x2652;','&#x2653;','&#x2660;','&#x2663;','&#x2665;','&#x2666;','&#x2668;','&#x267b;','&#x267f;','&#x2692;','&#x2693;','&#x2694;','&#x2695;','&#x2696;','&#x2697;','&#x2699;','&#x269b;','&#x269c;','&#x26a0;','&#x26a1;','&#x26aa;','&#x26ab;','&#x26b0;','&#x26b1;','&#x26bd;','&#x26be;','&#x26c4;','&#x26c5;','&#x26c8;','&#x26ce;','&#x26cf;','&#x26d1;','&#x26d3;','&#x26d4;','&#x26e9;','&#x26ea;','&#x26f0;','&#x26f1;','&#x26f2;','&#x26f3;','&#x26f4;','&#x26f5;','&#x2623;','&#x2622;','&#x2620;','&#x261d;','&#x2618;','&#x26f7;','&#x26f8;','&#x2615;','&#x2614;','&#x2611;','&#x260e;','&#x2604;','&#x2603;','&#x2602;','&#x2601;','&#x2600;','&#x25fe;','&#x25fd;','&#x25fc;','&#x25fb;','&#x25c0;','&#x25b6;','&#x25ab;','&#x262a;','&#x26f9;','&#x26fa;','&#x26fd;','&#x2702;','&#x2705;','&#x2708;','&#x2709;','&#x24c2;','&#x23fa;','&#x23f9;','&#x23f8;','&#x23f3;','&#x270a;','&#x23f2;','&#x23f1;','&#x23f0;','&#x23ef;','&#x23ee;','&#x270b;','&#x23ed;','&#x23ec;','&#x23eb;','&#x23ea;','&#x23e9;','&#x270c;','&#x23cf;','&#x2328;','&#x231b;','&#x231a;','&#x21aa;','&#x270d;','&#x270f;','&#x2712;','&#x2714;','&#x2716;','&#x271d;','&#x2721;','&#x2728;','&#x2733;','&#x2734;','&#x2744;','&#x2747;','&#x274c;','&#x274e;','&#x2753;','&#x2754;','&#x2755;','&#x2757;','&#x2763;','&#x2764;','&#x2795;','&#x2796;','&#x2797;','&#x27a1;','&#x27b0;','&#x27bf;','&#x2934;','&#x2935;','&#x21a9;','&#x2b05;','&#x2b06;','&#x2b07;','&#x2b1b;','&#x2b1c;','&#x2b50;','&#x2b55;','&#x2199;','&#x3030;','&#x303d;','&#x2198;','&#x2197;','&#x3297;','&#x3299;','&#x2196;','&#x2195;','&#x2194;','&#x2139;','&#x2122;','&#x2049;','&#x203c;','&#xe50a;');
-	$partials = array('&#x1f004;','&#x1f0cf;','&#x1f170;','&#x1f171;','&#x1f17e;','&#x1f17f;','&#x1f18e;','&#x1f191;','&#x1f192;','&#x1f193;','&#x1f194;','&#x1f195;','&#x1f196;','&#x1f197;','&#x1f198;','&#x1f199;','&#x1f19a;','&#x1f1e6;','&#x1f1e8;','&#x1f1e9;','&#x1f1ea;','&#x1f1eb;','&#x1f1ec;','&#x1f1ee;','&#x1f1f1;','&#x1f1f2;','&#x1f1f4;','&#x1f1f6;','&#x1f1f7;','&#x1f1f8;','&#x1f1f9;','&#x1f1fa;','&#x1f1fc;','&#x1f1fd;','&#x1f1ff;','&#x1f1e7;','&#x1f1ed;','&#x1f1ef;','&#x1f1f3;','&#x1f1fb;','&#x1f1fe;','&#x1f1f0;','&#x1f1f5;','&#x1f201;','&#x1f202;','&#x1f21a;','&#x1f22f;','&#x1f232;','&#x1f233;','&#x1f234;','&#x1f235;','&#x1f236;','&#x1f237;','&#x1f238;','&#x1f239;','&#x1f23a;','&#x1f250;','&#x1f251;','&#x1f300;','&#x1f301;','&#x1f302;','&#x1f303;','&#x1f304;','&#x1f305;','&#x1f306;','&#x1f307;','&#x1f308;','&#x1f309;','&#x1f30a;','&#x1f30b;','&#x1f30c;','&#x1f30d;','&#x1f30e;','&#x1f30f;','&#x1f310;','&#x1f311;','&#x1f312;','&#x1f313;','&#x1f314;','&#x1f315;','&#x1f316;','&#x1f317;','&#x1f318;','&#x1f319;','&#x1f31a;','&#x1f31b;','&#x1f31c;','&#x1f31d;','&#x1f31e;','&#x1f31f;','&#x1f320;','&#x1f321;','&#x1f324;','&#x1f325;','&#x1f326;','&#x1f327;','&#x1f328;','&#x1f329;','&#x1f32a;','&#x1f32b;','&#x1f32c;','&#x1f32d;','&#x1f32e;','&#x1f32f;','&#x1f330;','&#x1f331;','&#x1f332;','&#x1f333;','&#x1f334;','&#x1f335;','&#x1f336;','&#x1f337;','&#x1f338;','&#x1f339;','&#x1f33a;','&#x1f33b;','&#x1f33c;','&#x1f33d;','&#x1f33e;','&#x1f33f;','&#x1f340;','&#x1f341;','&#x1f342;','&#x1f343;','&#x1f344;','&#x1f345;','&#x1f346;','&#x1f347;','&#x1f348;','&#x1f349;','&#x1f34a;','&#x1f34b;','&#x1f34c;','&#x1f34d;','&#x1f34e;','&#x1f34f;','&#x1f350;','&#x1f351;','&#x1f352;','&#x1f353;','&#x1f354;','&#x1f355;','&#x1f356;','&#x1f357;','&#x1f358;','&#x1f359;','&#x1f35a;','&#x1f35b;','&#x1f35c;','&#x1f35d;','&#x1f35e;','&#x1f35f;','&#x1f360;','&#x1f361;','&#x1f362;','&#x1f363;','&#x1f364;','&#x1f365;','&#x1f366;','&#x1f367;','&#x1f368;','&#x1f369;','&#x1f36a;','&#x1f36b;','&#x1f36c;','&#x1f36d;','&#x1f36e;','&#x1f36f;','&#x1f370;','&#x1f371;','&#x1f372;','&#x1f373;','&#x1f374;','&#x1f375;','&#x1f376;','&#x1f377;','&#x1f378;','&#x1f379;','&#x1f37a;','&#x1f37b;','&#x1f37c;','&#x1f37d;','&#x1f37e;','&#x1f37f;','&#x1f380;','&#x1f381;','&#x1f382;','&#x1f383;','&#x1f384;','&#x1f385;','&#x1f3fb;','&#x1f3fc;','&#x1f3fd;','&#x1f3fe;','&#x1f3ff;','&#x1f386;','&#x1f387;','&#x1f388;','&#x1f389;','&#x1f38a;','&#x1f38b;','&#x1f38c;','&#x1f38d;','&#x1f38e;','&#x1f38f;','&#x1f390;','&#x1f391;','&#x1f392;','&#x1f393;','&#x1f396;','&#x1f397;','&#x1f399;','&#x1f39a;','&#x1f39b;','&#x1f39e;','&#x1f39f;','&#x1f3a0;','&#x1f3a1;','&#x1f3a2;','&#x1f3a3;','&#x1f3a4;','&#x1f3a5;','&#x1f3a6;','&#x1f3a7;','&#x1f3a8;','&#x1f3a9;','&#x1f3aa;','&#x1f3ab;','&#x1f3ac;','&#x1f3ad;','&#x1f3ae;','&#x1f3af;','&#x1f3b0;','&#x1f3b1;','&#x1f3b2;','&#x1f3b3;','&#x1f3b4;','&#x1f3b5;','&#x1f3b6;','&#x1f3b7;','&#x1f3b8;','&#x1f3b9;','&#x1f3ba;','&#x1f3bb;','&#x1f3bc;','&#x1f3bd;','&#x1f3be;','&#x1f3bf;','&#x1f3c0;','&#x1f3c1;','&#x1f3c2;','&#x1f3c3;','&#x200d;','&#x2640;','&#xfe0f;','&#x2642;','&#x1f3c4;','&#x1f3c5;','&#x1f3c6;','&#x1f3c7;','&#x1f3c8;','&#x1f3c9;','&#x1f3ca;','&#x1f3cb;','&#x1f3cc;','&#x1f3cd;','&#x1f3ce;','&#x1f3cf;','&#x1f3d0;','&#x1f3d1;','&#x1f3d2;','&#x1f3d3;','&#x1f3d4;','&#x1f3d5;','&#x1f3d6;','&#x1f3d7;','&#x1f3d8;','&#x1f3d9;','&#x1f3da;','&#x1f3db;','&#x1f3dc;','&#x1f3dd;','&#x1f3de;','&#x1f3df;','&#x1f3e0;','&#x1f3e1;','&#x1f3e2;','&#x1f3e3;','&#x1f3e4;','&#x1f3e5;','&#x1f3e6;','&#x1f3e7;','&#x1f3e8;','&#x1f3e9;','&#x1f3ea;','&#x1f3eb;','&#x1f3ec;','&#x1f3ed;','&#x1f3ee;','&#x1f3ef;','&#x1f3f0;','&#x1f3f3;','&#x1f3f4;','&#x2620;','&#xe0067;','&#xe0062;','&#xe0065;','&#xe006e;','&#xe007f;','&#xe0073;','&#xe0063;','&#xe0074;','&#xe0077;','&#xe006c;','&#x1f3f5;','&#x1f3f7;','&#x1f3f8;','&#x1f3f9;','&#x1f3fa;','&#x1f400;','&#x1f401;','&#x1f402;','&#x1f403;','&#x1f404;','&#x1f405;','&#x1f406;','&#x1f407;','&#x1f408;','&#x1f409;','&#x1f40a;','&#x1f40b;','&#x1f40c;','&#x1f40d;','&#x1f40e;','&#x1f40f;','&#x1f410;','&#x1f411;','&#x1f412;','&#x1f413;','&#x1f414;','&#x1f415;','&#x1f416;','&#x1f417;','&#x1f418;','&#x1f419;','&#x1f41a;','&#x1f41b;','&#x1f41c;','&#x1f41d;','&#x1f41e;','&#x1f41f;','&#x1f420;','&#x1f421;','&#x1f422;','&#x1f423;','&#x1f424;','&#x1f425;','&#x1f426;','&#x1f427;','&#x1f428;','&#x1f429;','&#x1f42a;','&#x1f42b;','&#x1f42c;','&#x1f42d;','&#x1f42e;','&#x1f42f;','&#x1f430;','&#x1f431;','&#x1f432;','&#x1f433;','&#x1f434;','&#x1f435;','&#x1f436;','&#x1f437;','&#x1f438;','&#x1f439;','&#x1f43a;','&#x1f43b;','&#x1f43c;','&#x1f43d;','&#x1f43e;','&#x1f43f;','&#x1f440;','&#x1f441;','&#x1f5e8;','&#x1f442;','&#x1f443;','&#x1f444;','&#x1f445;','&#x1f446;','&#x1f447;','&#x1f448;','&#x1f449;','&#x1f44a;','&#x1f44b;','&#x1f44c;','&#x1f44d;','&#x1f44e;','&#x1f44f;','&#x1f450;','&#x1f451;','&#x1f452;','&#x1f453;','&#x1f454;','&#x1f455;','&#x1f456;','&#x1f457;','&#x1f458;','&#x1f459;','&#x1f45a;','&#x1f45b;','&#x1f45c;','&#x1f45d;','&#x1f45e;','&#x1f45f;','&#x1f460;','&#x1f461;','&#x1f462;','&#x1f463;','&#x1f464;','&#x1f465;','&#x1f466;','&#x1f467;','&#x1f468;','&#x1f4bb;','&#x1f4bc;','&#x1f527;','&#x1f52c;','&#x1f680;','&#x1f692;','&#x2695;','&#x2696;','&#x2708;','&#x1f469;','&#x2764;','&#x1f48b;','&#x1f46a;','&#x1f46b;','&#x1f46c;','&#x1f46d;','&#x1f46e;','&#x1f46f;','&#x1f470;','&#x1f471;','&#x1f472;','&#x1f473;','&#x1f474;','&#x1f475;','&#x1f476;','&#x1f477;','&#x1f478;','&#x1f479;','&#x1f47a;','&#x1f47b;','&#x1f47c;','&#x1f47d;','&#x1f47e;','&#x1f47f;','&#x1f480;','&#x1f481;','&#x1f482;','&#x1f483;','&#x1f484;','&#x1f485;','&#x1f486;','&#x1f487;','&#x1f488;','&#x1f489;','&#x1f48a;','&#x1f48c;','&#x1f48d;','&#x1f48e;','&#x1f48f;','&#x1f490;','&#x1f491;','&#x1f492;','&#x1f493;','&#x1f494;','&#x1f495;','&#x1f496;','&#x1f497;','&#x1f498;','&#x1f499;','&#x1f49a;','&#x1f49b;','&#x1f49c;','&#x1f49d;','&#x1f49e;','&#x1f49f;','&#x1f4a0;','&#x1f4a1;','&#x1f4a2;','&#x1f4a3;','&#x1f4a4;','&#x1f4a5;','&#x1f4a6;','&#x1f4a7;','&#x1f4a8;','&#x1f4a9;','&#x1f4aa;','&#x1f4ab;','&#x1f4ac;','&#x1f4ad;','&#x1f4ae;','&#x1f4af;','&#x1f4b0;','&#x1f4b1;','&#x1f4b2;','&#x1f4b3;','&#x1f4b4;','&#x1f4b5;','&#x1f4b6;','&#x1f4b7;','&#x1f4b8;','&#x1f4b9;','&#x1f4ba;','&#x1f4bd;','&#x1f4be;','&#x1f4bf;','&#x1f4c0;','&#x1f4c1;','&#x1f4c2;','&#x1f4c3;','&#x1f4c4;','&#x1f4c5;','&#x1f4c6;','&#x1f4c7;','&#x1f4c8;','&#x1f4c9;','&#x1f4ca;','&#x1f4cb;','&#x1f4cc;','&#x1f4cd;','&#x1f4ce;','&#x1f4cf;','&#x1f4d0;','&#x1f4d1;','&#x1f4d2;','&#x1f4d3;','&#x1f4d4;','&#x1f4d5;','&#x1f4d6;','&#x1f4d7;','&#x1f4d8;','&#x1f4d9;','&#x1f4da;','&#x1f4db;','&#x1f4dc;','&#x1f4dd;','&#x1f4de;','&#x1f4df;','&#x1f4e0;','&#x1f4e1;','&#x1f4e2;','&#x1f4e3;','&#x1f4e4;','&#x1f4e5;','&#x1f4e6;','&#x1f4e7;','&#x1f4e8;','&#x1f4e9;','&#x1f4ea;','&#x1f4eb;','&#x1f4ec;','&#x1f4ed;','&#x1f4ee;','&#x1f4ef;','&#x1f4f0;','&#x1f4f1;','&#x1f4f2;','&#x1f4f3;','&#x1f4f4;','&#x1f4f5;','&#x1f4f6;','&#x1f4f7;','&#x1f4f8;','&#x1f4f9;','&#x1f4fa;','&#x1f4fb;','&#x1f4fc;','&#x1f4fd;','&#x1f4ff;','&#x1f500;','&#x1f501;','&#x1f502;','&#x1f503;','&#x1f504;','&#x1f505;','&#x1f506;','&#x1f507;','&#x1f508;','&#x1f509;','&#x1f50a;','&#x1f50b;','&#x1f50c;','&#x1f50d;','&#x1f50e;','&#x1f50f;','&#x1f510;','&#x1f511;','&#x1f512;','&#x1f513;','&#x1f514;','&#x1f515;','&#x1f516;','&#x1f517;','&#x1f518;','&#x1f519;','&#x1f51a;','&#x1f51b;','&#x1f51c;','&#x1f51d;','&#x1f51e;','&#x1f51f;','&#x1f520;','&#x1f521;','&#x1f522;','&#x1f523;','&#x1f524;','&#x1f525;','&#x1f526;','&#x1f528;','&#x1f529;','&#x1f52a;','&#x1f52b;','&#x1f52d;','&#x1f52e;','&#x1f52f;','&#x1f530;','&#x1f531;','&#x1f532;','&#x1f533;','&#x1f534;','&#x1f535;','&#x1f536;','&#x1f537;','&#x1f538;','&#x1f539;','&#x1f53a;','&#x1f53b;','&#x1f53c;','&#x1f53d;','&#x1f549;','&#x1f54a;','&#x1f54b;','&#x1f54c;','&#x1f54d;','&#x1f54e;','&#x1f550;','&#x1f551;','&#x1f552;','&#x1f553;','&#x1f554;','&#x1f555;','&#x1f556;','&#x1f557;','&#x1f558;','&#x1f559;','&#x1f55a;','&#x1f55b;','&#x1f55c;','&#x1f55d;','&#x1f55e;','&#x1f55f;','&#x1f560;','&#x1f561;','&#x1f562;','&#x1f563;','&#x1f564;','&#x1f565;','&#x1f566;','&#x1f567;','&#x1f56f;','&#x1f570;','&#x1f573;','&#x1f574;','&#x1f575;','&#x1f576;','&#x1f577;','&#x1f578;','&#x1f579;','&#x1f57a;','&#x1f587;','&#x1f58a;','&#x1f58b;','&#x1f58c;','&#x1f58d;','&#x1f590;','&#x1f595;','&#x1f596;','&#x1f5a4;','&#x1f5a5;','&#x1f5a8;','&#x1f5b1;','&#x1f5b2;','&#x1f5bc;','&#x1f5c2;','&#x1f5c3;','&#x1f5c4;','&#x1f5d1;','&#x1f5d2;','&#x1f5d3;','&#x1f5dc;','&#x1f5dd;','&#x1f5de;','&#x1f5e1;','&#x1f5e3;','&#x1f5ef;','&#x1f5f3;','&#x1f5fa;','&#x1f5fb;','&#x1f5fc;','&#x1f5fd;','&#x1f5fe;','&#x1f5ff;','&#x1f600;','&#x1f601;','&#x1f602;','&#x1f603;','&#x1f604;','&#x1f605;','&#x1f606;','&#x1f607;','&#x1f608;','&#x1f609;','&#x1f60a;','&#x1f60b;','&#x1f60c;','&#x1f60d;','&#x1f60e;','&#x1f60f;','&#x1f610;','&#x1f611;','&#x1f612;','&#x1f613;','&#x1f614;','&#x1f615;','&#x1f616;','&#x1f617;','&#x1f618;','&#x1f619;','&#x1f61a;','&#x1f61b;','&#x1f61c;','&#x1f61d;','&#x1f61e;','&#x1f61f;','&#x1f620;','&#x1f621;','&#x1f622;','&#x1f623;','&#x1f624;','&#x1f625;','&#x1f626;','&#x1f627;','&#x1f628;','&#x1f629;','&#x1f62a;','&#x1f62b;','&#x1f62c;','&#x1f62d;','&#x1f62e;','&#x1f62f;','&#x1f630;','&#x1f631;','&#x1f632;','&#x1f633;','&#x1f634;','&#x1f635;','&#x1f636;','&#x1f637;','&#x1f638;','&#x1f639;','&#x1f63a;','&#x1f63b;','&#x1f63c;','&#x1f63d;','&#x1f63e;','&#x1f63f;','&#x1f640;','&#x1f641;','&#x1f642;','&#x1f643;','&#x1f644;','&#x1f645;','&#x1f646;','&#x1f647;','&#x1f648;','&#x1f649;','&#x1f64a;','&#x1f64b;','&#x1f64c;','&#x1f64d;','&#x1f64e;','&#x1f64f;','&#x1f681;','&#x1f682;','&#x1f683;','&#x1f684;','&#x1f685;','&#x1f686;','&#x1f687;','&#x1f688;','&#x1f689;','&#x1f68a;','&#x1f68b;','&#x1f68c;','&#x1f68d;','&#x1f68e;','&#x1f68f;','&#x1f690;','&#x1f691;','&#x1f693;','&#x1f694;','&#x1f695;','&#x1f696;','&#x1f697;','&#x1f698;','&#x1f699;','&#x1f69a;','&#x1f69b;','&#x1f69c;','&#x1f69d;','&#x1f69e;','&#x1f69f;','&#x1f6a0;','&#x1f6a1;','&#x1f6a2;','&#x1f6a3;','&#x1f6a4;','&#x1f6a5;','&#x1f6a6;','&#x1f6a7;','&#x1f6a8;','&#x1f6a9;','&#x1f6aa;','&#x1f6ab;','&#x1f6ac;','&#x1f6ad;','&#x1f6ae;','&#x1f6af;','&#x1f6b0;','&#x1f6b1;','&#x1f6b2;','&#x1f6b3;','&#x1f6b4;','&#x1f6b5;','&#x1f6b6;','&#x1f6b7;','&#x1f6b8;','&#x1f6b9;','&#x1f6ba;','&#x1f6bb;','&#x1f6bc;','&#x1f6bd;','&#x1f6be;','&#x1f6bf;','&#x1f6c0;','&#x1f6c1;','&#x1f6c2;','&#x1f6c3;','&#x1f6c4;','&#x1f6c5;','&#x1f6cb;','&#x1f6cc;','&#x1f6cd;','&#x1f6ce;','&#x1f6cf;','&#x1f6d0;','&#x1f6d1;','&#x1f6d2;','&#x1f6e0;','&#x1f6e1;','&#x1f6e2;','&#x1f6e3;','&#x1f6e4;','&#x1f6e5;','&#x1f6e9;','&#x1f6eb;','&#x1f6ec;','&#x1f6f0;','&#x1f6f3;','&#x1f6f4;','&#x1f6f5;','&#x1f6f6;','&#x1f6f7;','&#x1f6f8;','&#x1f910;','&#x1f911;','&#x1f912;','&#x1f913;','&#x1f914;','&#x1f915;','&#x1f916;','&#x1f917;','&#x1f918;','&#x1f919;','&#x1f91a;','&#x1f91b;','&#x1f91c;','&#x1f91d;','&#x1f91e;','&#x1f91f;','&#x1f920;','&#x1f921;','&#x1f922;','&#x1f923;','&#x1f924;','&#x1f925;','&#x1f926;','&#x1f927;','&#x1f928;','&#x1f929;','&#x1f92a;','&#x1f92b;','&#x1f92c;','&#x1f92d;','&#x1f92e;','&#x1f92f;','&#x1f930;','&#x1f931;','&#x1f932;','&#x1f933;','&#x1f934;','&#x1f935;','&#x1f936;','&#x1f937;','&#x1f938;','&#x1f939;','&#x1f93a;','&#x1f93c;','&#x1f93d;','&#x1f93e;','&#x1f940;','&#x1f941;','&#x1f942;','&#x1f943;','&#x1f944;','&#x1f945;','&#x1f947;','&#x1f948;','&#x1f949;','&#x1f94a;','&#x1f94b;','&#x1f94c;','&#x1f950;','&#x1f951;','&#x1f952;','&#x1f953;','&#x1f954;','&#x1f955;','&#x1f956;','&#x1f957;','&#x1f958;','&#x1f959;','&#x1f95a;','&#x1f95b;','&#x1f95c;','&#x1f95d;','&#x1f95e;','&#x1f95f;','&#x1f960;','&#x1f961;','&#x1f962;','&#x1f963;','&#x1f964;','&#x1f965;','&#x1f966;','&#x1f967;','&#x1f968;','&#x1f969;','&#x1f96a;','&#x1f96b;','&#x1f980;','&#x1f981;','&#x1f982;','&#x1f983;','&#x1f984;','&#x1f985;','&#x1f986;','&#x1f987;','&#x1f988;','&#x1f989;','&#x1f98a;','&#x1f98b;','&#x1f98c;','&#x1f98d;','&#x1f98e;','&#x1f98f;','&#x1f990;','&#x1f991;','&#x1f992;','&#x1f993;','&#x1f994;','&#x1f995;','&#x1f996;','&#x1f997;','&#x1f9c0;','&#x1f9d0;','&#x1f9d1;','&#x1f9d2;','&#x1f9d3;','&#x1f9d4;','&#x1f9d5;','&#x1f9d6;','&#x1f9d7;','&#x1f9d8;','&#x1f9d9;','&#x1f9da;','&#x1f9db;','&#x1f9dc;','&#x1f9dd;','&#x1f9de;','&#x1f9df;','&#x1f9e0;','&#x1f9e1;','&#x1f9e2;','&#x1f9e3;','&#x1f9e4;','&#x1f9e5;','&#x1f9e6;','&#x203c;','&#x2049;','&#x2122;','&#x2139;','&#x2194;','&#x2195;','&#x2196;','&#x2197;','&#x2198;','&#x2199;','&#x21a9;','&#x21aa;','&#x20e3;','&#x231a;','&#x231b;','&#x2328;','&#x23cf;','&#x23e9;','&#x23ea;','&#x23eb;','&#x23ec;','&#x23ed;','&#x23ee;','&#x23ef;','&#x23f0;','&#x23f1;','&#x23f2;','&#x23f3;','&#x23f8;','&#x23f9;','&#x23fa;','&#x24c2;','&#x25aa;','&#x25ab;','&#x25b6;','&#x25c0;','&#x25fb;','&#x25fc;','&#x25fd;','&#x25fe;','&#x2600;','&#x2601;','&#x2602;','&#x2603;','&#x2604;','&#x260e;','&#x2611;','&#x2614;','&#x2615;','&#x2618;','&#x261d;','&#x2622;','&#x2623;','&#x2626;','&#x262a;','&#x262e;','&#x262f;','&#x2638;','&#x2639;','&#x263a;','&#x2648;','&#x2649;','&#x264a;','&#x264b;','&#x264c;','&#x264d;','&#x264e;','&#x264f;','&#x2650;','&#x2651;','&#x2652;','&#x2653;','&#x2660;','&#x2663;','&#x2665;','&#x2666;','&#x2668;','&#x267b;','&#x267f;','&#x2692;','&#x2693;','&#x2694;','&#x2697;','&#x2699;','&#x269b;','&#x269c;','&#x26a0;','&#x26a1;','&#x26aa;','&#x26ab;','&#x26b0;','&#x26b1;','&#x26bd;','&#x26be;','&#x26c4;','&#x26c5;','&#x26c8;','&#x26ce;','&#x26cf;','&#x26d1;','&#x26d3;','&#x26d4;','&#x26e9;','&#x26ea;','&#x26f0;','&#x26f1;','&#x26f2;','&#x26f3;','&#x26f4;','&#x26f5;','&#x26f7;','&#x26f8;','&#x26f9;','&#x26fa;','&#x26fd;','&#x2702;','&#x2705;','&#x2709;','&#x270a;','&#x270b;','&#x270c;','&#x270d;','&#x270f;','&#x2712;','&#x2714;','&#x2716;','&#x271d;','&#x2721;','&#x2728;','&#x2733;','&#x2734;','&#x2744;','&#x2747;','&#x274c;','&#x274e;','&#x2753;','&#x2754;','&#x2755;','&#x2757;','&#x2763;','&#x2795;','&#x2796;','&#x2797;','&#x27a1;','&#x27b0;','&#x27bf;','&#x2934;','&#x2935;','&#x2b05;','&#x2b06;','&#x2b07;','&#x2b1b;','&#x2b1c;','&#x2b50;','&#x2b55;','&#x3030;','&#x303d;','&#x3297;','&#x3299;','&#xe50a;');
+	$entities = array('&#x1f469;&#x200d;&#x2764;&#xfe0f;&#x200d;&#x1f48b;&#x200d;&#x1f469;','&#x1f469;&#x200d;&#x2764;&#xfe0f;&#x200d;&#x1f48b;&#x200d;&#x1f468;','&#x1f468;&#x200d;&#x2764;&#xfe0f;&#x200d;&#x1f48b;&#x200d;&#x1f468;','&#x1f3f4;&#xe0067;&#xe0062;&#xe0073;&#xe0063;&#xe0074;&#xe007f;','&#x1f3f4;&#xe0067;&#xe0062;&#xe0077;&#xe006c;&#xe0073;&#xe007f;','&#x1f3f4;&#xe0067;&#xe0062;&#xe0065;&#xe006e;&#xe0067;&#xe007f;','&#x1f469;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f466;','&#x1f468;&#x200d;&#x1f468;&#x200d;&#x1f466;&#x200d;&#x1f466;','&#x1f469;&#x200d;&#x1f469;&#x200d;&#x1f466;&#x200d;&#x1f466;','&#x1f468;&#x200d;&#x1f468;&#x200d;&#x1f467;&#x200d;&#x1f466;','&#x1f468;&#x200d;&#x1f468;&#x200d;&#x1f467;&#x200d;&#x1f467;','&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467;','&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f466;&#x200d;&#x1f466;','&#x1f469;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467;','&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f466;','&#x1f468;&#x200d;&#x2764;&#xfe0f;&#x200d;&#x1f468;','&#x1f469;&#x200d;&#x2764;&#xfe0f;&#x200d;&#x1f468;','&#x1f469;&#x200d;&#x2764;&#xfe0f;&#x200d;&#x1f469;','&#x1f469;&#x200d;&#x1f469;&#x200d;&#x1f466;','&#x1f469;&#x200d;&#x1f466;&#x200d;&#x1f466;','&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f466;','&#x1f469;&#x200d;&#x1f467;&#x200d;&#x1f467;','&#x1f468;&#x200d;&#x1f468;&#x200d;&#x1f466;','&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f467;','&#x1f468;&#x200d;&#x1f467;&#x200d;&#x1f467;','&#x1f468;&#x200d;&#x1f467;&#x200d;&#x1f466;','&#x1f469;&#x200d;&#x1f469;&#x200d;&#x1f467;','&#x1f468;&#x200d;&#x1f469;&#x200d;&#x1f466;','&#x1f468;&#x200d;&#x1f468;&#x200d;&#x1f467;','&#x1f468;&#x200d;&#x1f466;&#x200d;&#x1f466;','&#x1f935;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f3cb;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f3cb;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f3cb;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f3cb;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f3cb;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f3cb;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f3cb;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f3cb;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f3cb;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f3cc;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f3cc;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f3cc;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f3cc;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f3cc;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f3cc;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f3cc;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f3cc;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f3cc;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f3cc;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f482;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f3c3;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f3c3;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f9dd;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f9dd;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f9dd;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f9dd;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f9dd;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f9dd;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f9dd;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f9dd;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f9dd;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f9dd;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f9dc;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f9dc;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f9dc;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f9dc;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f9dc;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f9dc;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f9dc;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f9dc;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f468;&#x1f3fb;&#x200d;&#x2695;&#xfe0f;','&#x1f468;&#x1f3fb;&#x200d;&#x2696;&#xfe0f;','&#x1f468;&#x1f3fb;&#x200d;&#x2708;&#xfe0f;','&#x1f9dc;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f9dc;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f9db;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f9db;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f9db;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f9db;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f9db;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f9db;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f9db;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f9db;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f9db;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f9db;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f9da;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f9da;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f9da;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f9da;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f9da;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f468;&#x1f3fc;&#x200d;&#x2695;&#xfe0f;','&#x1f468;&#x1f3fc;&#x200d;&#x2696;&#xfe0f;','&#x1f468;&#x1f3fc;&#x200d;&#x2708;&#xfe0f;','&#x1f9da;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f9da;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f9da;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f9da;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f9da;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f9d9;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f9d9;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f9d9;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f9d9;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f9d9;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f9d9;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f9d9;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f9d9;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f9d9;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f9d9;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f9d8;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f9d8;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f468;&#x1f3fd;&#x200d;&#x2695;&#xfe0f;','&#x1f468;&#x1f3fd;&#x200d;&#x2696;&#xfe0f;','&#x1f468;&#x1f3fd;&#x200d;&#x2708;&#xfe0f;','&#x1f9d8;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f9d8;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f9d8;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f9d8;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f9d8;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f9d8;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f9d8;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f9d8;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f9d7;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f9d7;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f9d7;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f9d7;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f9d7;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f9d7;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f9d7;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f9d7;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f9d7;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f468;&#x1f3fe;&#x200d;&#x2695;&#xfe0f;','&#x1f468;&#x1f3fe;&#x200d;&#x2696;&#xfe0f;','&#x1f468;&#x1f3fe;&#x200d;&#x2708;&#xfe0f;','&#x1f9d7;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f9d6;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f9d6;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f9d6;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f9d6;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f9d6;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f9d6;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f9d6;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f9d6;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f9d6;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f9d6;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f9b9;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f9b9;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f9b9;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f9b9;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f9b9;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f9b9;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f468;&#x1f3ff;&#x200d;&#x2695;&#xfe0f;','&#x1f468;&#x1f3ff;&#x200d;&#x2696;&#xfe0f;','&#x1f468;&#x1f3ff;&#x200d;&#x2708;&#xfe0f;','&#x1f9b9;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f9b9;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f9b9;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f9b9;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f9b8;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f9b8;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f9b8;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f3c3;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f9b8;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f3c3;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f3c3;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f9b8;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f3c3;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f3c3;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f3c3;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f3c4;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f3c4;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f3c4;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f3c4;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f3c4;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f3c4;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f3c4;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f9b8;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f9b8;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f9b8;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f9b8;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f9b8;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f93e;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f93e;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f93e;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f93e;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f93e;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f93e;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f93e;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f93e;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f3c4;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f3c4;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f93e;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f93e;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f93d;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f93d;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f93d;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f93d;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f93d;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f93d;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f93d;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f93d;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f93d;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f93d;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f939;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f939;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f939;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f939;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f939;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f469;&#x1f3fb;&#x200d;&#x2695;&#xfe0f;','&#x1f469;&#x1f3fb;&#x200d;&#x2696;&#xfe0f;','&#x1f469;&#x1f3fb;&#x200d;&#x2708;&#xfe0f;','&#x1f939;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f939;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f939;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f939;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f939;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f938;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f938;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f938;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f938;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f938;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f938;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f938;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f938;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f938;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f938;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f937;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f937;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f469;&#x1f3fc;&#x200d;&#x2695;&#xfe0f;','&#x1f469;&#x1f3fc;&#x200d;&#x2696;&#xfe0f;','&#x1f469;&#x1f3fc;&#x200d;&#x2708;&#xfe0f;','&#x1f937;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f937;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f937;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f937;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f937;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f937;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f937;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f937;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f935;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f3c3;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f935;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f935;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f935;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f935;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f935;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f935;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f935;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f469;&#x1f3fd;&#x200d;&#x2695;&#xfe0f;','&#x1f469;&#x1f3fd;&#x200d;&#x2696;&#xfe0f;','&#x1f469;&#x1f3fd;&#x200d;&#x2708;&#xfe0f;','&#x1f935;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f926;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f926;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f926;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f926;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f926;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f926;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f926;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f926;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f926;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f926;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f6b6;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f6b6;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f6b6;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f6b6;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f6b6;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f6b6;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f469;&#x1f3fe;&#x200d;&#x2695;&#xfe0f;','&#x1f469;&#x1f3fe;&#x200d;&#x2696;&#xfe0f;','&#x1f469;&#x1f3fe;&#x200d;&#x2708;&#xfe0f;','&#x1f6b6;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f6b6;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f6b6;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f6b6;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f6b5;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f6b5;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f6b5;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f6b5;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f6b5;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f6b5;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f6b5;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f6b5;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f6b5;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f6b5;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f6b4;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f6b4;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f6b4;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f469;&#x1f3ff;&#x200d;&#x2695;&#xfe0f;','&#x1f469;&#x1f3ff;&#x200d;&#x2696;&#xfe0f;','&#x1f469;&#x1f3ff;&#x200d;&#x2708;&#xfe0f;','&#x1f6b4;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f6b4;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f6b4;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f6b4;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f6b4;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f6b4;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f6b4;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f3c4;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f6a3;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f3ca;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f3ca;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f6a3;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f3ca;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f3ca;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f3ca;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f3ca;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f3ca;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f6a3;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f6a3;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f6a3;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f6a3;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f6a3;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f6a3;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f6a3;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f6a3;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f64e;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f64e;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f64e;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f64e;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f64e;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f3ca;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f3ca;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f3ca;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f3cb;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f46e;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f46e;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f46e;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f46e;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f46e;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f46e;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f46e;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f46e;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f46e;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f46e;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f64e;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f64e;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f64e;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f64e;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f471;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f471;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f471;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f471;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f471;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f471;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f471;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f471;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f471;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f471;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f64e;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f64d;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f473;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f473;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f473;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f473;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f473;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f473;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f473;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f473;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f473;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f473;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f64d;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f64d;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f477;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f477;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f477;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f477;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f477;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f477;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f477;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f477;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f477;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f477;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f64d;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f64d;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f481;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f481;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f481;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f481;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f481;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f481;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f481;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f481;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f481;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f481;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f64d;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f64d;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f3c3;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f482;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f482;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f482;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f482;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f482;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f482;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f482;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f482;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f482;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f64d;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f64d;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f486;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f486;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f486;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f486;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f486;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f486;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f486;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f486;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f486;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f486;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f64d;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f64b;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f487;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f487;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f487;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f487;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f487;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f487;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f487;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f487;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f487;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f487;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f64b;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f64b;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f574;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f574;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f574;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f574;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f574;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f574;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f574;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f574;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f574;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f574;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f575;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f575;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f575;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f575;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f575;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f575;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f575;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f575;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f575;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f575;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f645;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f645;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f645;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f645;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f645;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f645;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f645;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f645;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f645;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f645;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f64b;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f64b;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f646;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f646;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f646;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f646;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f646;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f646;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f646;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f646;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f646;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f646;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f64b;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f64b;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f647;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f647;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f647;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f647;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x1f647;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x1f647;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x1f647;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f647;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x1f647;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x1f647;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f64b;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x1f64b;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x1f64b;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x1f574;&#xfe0f;&#x200d;&#x2640;&#xfe0f;','&#x1f574;&#xfe0f;&#x200d;&#x2642;&#xfe0f;','&#x1f3cb;&#xfe0f;&#x200d;&#x2640;&#xfe0f;','&#x1f3cb;&#xfe0f;&#x200d;&#x2642;&#xfe0f;','&#x26f9;&#x1f3fe;&#x200d;&#x2640;&#xfe0f;','&#x1f3cc;&#xfe0f;&#x200d;&#x2640;&#xfe0f;','&#x1f3cc;&#xfe0f;&#x200d;&#x2642;&#xfe0f;','&#x26f9;&#x1f3fb;&#x200d;&#x2642;&#xfe0f;','&#x26f9;&#x1f3fb;&#x200d;&#x2640;&#xfe0f;','&#x26f9;&#x1f3fe;&#x200d;&#x2642;&#xfe0f;','&#x26f9;&#x1f3ff;&#x200d;&#x2640;&#xfe0f;','&#x26f9;&#x1f3ff;&#x200d;&#x2642;&#xfe0f;','&#x1f575;&#xfe0f;&#x200d;&#x2640;&#xfe0f;','&#x1f575;&#xfe0f;&#x200d;&#x2642;&#xfe0f;','&#x26f9;&#x1f3fd;&#x200d;&#x2640;&#xfe0f;','&#x26f9;&#x1f3fd;&#x200d;&#x2642;&#xfe0f;','&#x26f9;&#x1f3fc;&#x200d;&#x2640;&#xfe0f;','&#x26f9;&#x1f3fc;&#x200d;&#x2642;&#xfe0f;','&#x26f9;&#xfe0f;&#x200d;&#x2640;&#xfe0f;','&#x26f9;&#xfe0f;&#x200d;&#x2642;&#xfe0f;','&#x1f469;&#x1f3fb;&#x200d;&#x1f3a8;','&#x1f468;&#x1f3fb;&#x200d;&#x1f33e;','&#x1f468;&#x1f3fb;&#x200d;&#x1f373;','&#x1f468;&#x1f3fb;&#x200d;&#x1f393;','&#x1f468;&#x1f3fb;&#x200d;&#x1f3a4;','&#x1f468;&#x1f3fb;&#x200d;&#x1f3a8;','&#x1f468;&#x1f3fb;&#x200d;&#x1f3eb;','&#x1f468;&#x1f3fb;&#x200d;&#x1f3ed;','&#x1f468;&#x1f3fb;&#x200d;&#x1f4bb;','&#x1f468;&#x1f3fb;&#x200d;&#x1f4bc;','&#x1f468;&#x1f3fb;&#x200d;&#x1f527;','&#x1f468;&#x1f3fb;&#x200d;&#x1f52c;','&#x1f468;&#x1f3fb;&#x200d;&#x1f680;','&#x1f468;&#x1f3fb;&#x200d;&#x1f692;','&#x1f468;&#x1f3fb;&#x200d;&#x1f9b0;','&#x1f468;&#x1f3fb;&#x200d;&#x1f9b1;','&#x1f468;&#x1f3fb;&#x200d;&#x1f9b2;','&#x1f468;&#x1f3fb;&#x200d;&#x1f9b3;','&#x1f468;&#x1f3fc;&#x200d;&#x1f33e;','&#x1f468;&#x1f3fc;&#x200d;&#x1f373;','&#x1f468;&#x1f3fc;&#x200d;&#x1f393;','&#x1f468;&#x1f3fc;&#x200d;&#x1f3a4;','&#x1f468;&#x1f3fc;&#x200d;&#x1f3a8;','&#x1f468;&#x1f3fc;&#x200d;&#x1f3eb;','&#x1f468;&#x1f3fc;&#x200d;&#x1f3ed;','&#x1f468;&#x1f3fc;&#x200d;&#x1f4bb;','&#x1f468;&#x1f3fc;&#x200d;&#x1f4bc;','&#x1f468;&#x1f3fc;&#x200d;&#x1f527;','&#x1f468;&#x1f3fc;&#x200d;&#x1f52c;','&#x1f468;&#x1f3fc;&#x200d;&#x1f680;','&#x1f468;&#x1f3fc;&#x200d;&#x1f692;','&#x1f468;&#x1f3fc;&#x200d;&#x1f9b0;','&#x1f468;&#x1f3fc;&#x200d;&#x1f9b1;','&#x1f468;&#x1f3fc;&#x200d;&#x1f9b2;','&#x1f468;&#x1f3fc;&#x200d;&#x1f9b3;','&#x1f468;&#x1f3fd;&#x200d;&#x1f33e;','&#x1f468;&#x1f3fd;&#x200d;&#x1f373;','&#x1f468;&#x1f3fd;&#x200d;&#x1f393;','&#x1f468;&#x1f3fd;&#x200d;&#x1f3a4;','&#x1f468;&#x1f3fd;&#x200d;&#x1f3a8;','&#x1f468;&#x1f3fd;&#x200d;&#x1f3eb;','&#x1f468;&#x1f3fd;&#x200d;&#x1f3ed;','&#x1f468;&#x1f3fd;&#x200d;&#x1f4bb;','&#x1f468;&#x1f3fd;&#x200d;&#x1f4bc;','&#x1f468;&#x1f3fd;&#x200d;&#x1f527;','&#x1f468;&#x1f3fd;&#x200d;&#x1f52c;','&#x1f468;&#x1f3fd;&#x200d;&#x1f680;','&#x1f468;&#x1f3fd;&#x200d;&#x1f692;','&#x1f468;&#x1f3fd;&#x200d;&#x1f9b0;','&#x1f468;&#x1f3fd;&#x200d;&#x1f9b1;','&#x1f468;&#x1f3fd;&#x200d;&#x1f9b2;','&#x1f469;&#x1f3ff;&#x200d;&#x1f9b3;','&#x1f469;&#x1f3ff;&#x200d;&#x1f9b2;','&#x1f469;&#x1f3ff;&#x200d;&#x1f9b1;','&#x1f468;&#x1f3fd;&#x200d;&#x1f9b3;','&#x1f468;&#x1f3fe;&#x200d;&#x1f33e;','&#x1f469;&#x1f3ff;&#x200d;&#x1f9b0;','&#x1f469;&#x1f3ff;&#x200d;&#x1f692;','&#x1f469;&#x1f3ff;&#x200d;&#x1f680;','&#x1f469;&#x1f3ff;&#x200d;&#x1f52c;','&#x1f469;&#x1f3ff;&#x200d;&#x1f527;','&#x1f469;&#x1f3ff;&#x200d;&#x1f4bc;','&#x1f469;&#x1f3ff;&#x200d;&#x1f4bb;','&#x1f469;&#x1f3ff;&#x200d;&#x1f3ed;','&#x1f469;&#x1f3ff;&#x200d;&#x1f3eb;','&#x1f469;&#x1f3ff;&#x200d;&#x1f3a8;','&#x1f468;&#x1f3fe;&#x200d;&#x1f373;','&#x1f468;&#x1f3fe;&#x200d;&#x1f393;','&#x1f469;&#x1f3ff;&#x200d;&#x1f3a4;','&#x1f469;&#x1f3ff;&#x200d;&#x1f393;','&#x1f469;&#x1f3ff;&#x200d;&#x1f373;','&#x1f469;&#x1f3ff;&#x200d;&#x1f33e;','&#x1f469;&#x1f3fe;&#x200d;&#x1f9b3;','&#x1f469;&#x1f3fe;&#x200d;&#x1f9b2;','&#x1f469;&#x1f3fe;&#x200d;&#x1f9b1;','&#x1f469;&#x1f3fe;&#x200d;&#x1f9b0;','&#x1f469;&#x1f3fe;&#x200d;&#x1f692;','&#x1f469;&#x1f3fe;&#x200d;&#x1f680;','&#x1f468;&#x1f3fe;&#x200d;&#x1f3a4;','&#x1f468;&#x1f3fe;&#x200d;&#x1f3a8;','&#x1f469;&#x1f3fe;&#x200d;&#x1f52c;','&#x1f469;&#x1f3fe;&#x200d;&#x1f527;','&#x1f469;&#x1f3fe;&#x200d;&#x1f4bc;','&#x1f469;&#x1f3fe;&#x200d;&#x1f4bb;','&#x1f469;&#x1f3fe;&#x200d;&#x1f3ed;','&#x1f469;&#x1f3fe;&#x200d;&#x1f3eb;','&#x1f469;&#x1f3fe;&#x200d;&#x1f3a8;','&#x1f469;&#x1f3fe;&#x200d;&#x1f3a4;','&#x1f469;&#x1f3fe;&#x200d;&#x1f393;','&#x1f469;&#x1f3fe;&#x200d;&#x1f373;','&#x1f468;&#x1f3fe;&#x200d;&#x1f3eb;','&#x1f468;&#x1f3fe;&#x200d;&#x1f3ed;','&#x1f469;&#x1f3fe;&#x200d;&#x1f33e;','&#x1f469;&#x1f3fd;&#x200d;&#x1f9b3;','&#x1f469;&#x1f3fd;&#x200d;&#x1f9b2;','&#x1f469;&#x1f3fd;&#x200d;&#x1f9b1;','&#x1f469;&#x1f3fd;&#x200d;&#x1f9b0;','&#x1f469;&#x1f3fd;&#x200d;&#x1f692;','&#x1f469;&#x1f3fd;&#x200d;&#x1f680;','&#x1f469;&#x1f3fd;&#x200d;&#x1f52c;','&#x1f469;&#x1f3fd;&#x200d;&#x1f527;','&#x1f469;&#x1f3fd;&#x200d;&#x1f4bc;','&#x1f468;&#x1f3fe;&#x200d;&#x1f4bb;','&#x1f468;&#x1f3fe;&#x200d;&#x1f4bc;','&#x1f469;&#x1f3fd;&#x200d;&#x1f4bb;','&#x1f469;&#x1f3fd;&#x200d;&#x1f3ed;','&#x1f469;&#x1f3fd;&#x200d;&#x1f3eb;','&#x1f469;&#x1f3fd;&#x200d;&#x1f3a8;','&#x1f469;&#x1f3fd;&#x200d;&#x1f3a4;','&#x1f469;&#x1f3fd;&#x200d;&#x1f393;','&#x1f469;&#x1f3fd;&#x200d;&#x1f373;','&#x1f469;&#x1f3fd;&#x200d;&#x1f33e;','&#x1f469;&#x1f3fc;&#x200d;&#x1f9b3;','&#x1f469;&#x1f3fc;&#x200d;&#x1f9b2;','&#x1f468;&#x1f3fe;&#x200d;&#x1f527;','&#x1f468;&#x1f3fe;&#x200d;&#x1f52c;','&#x1f469;&#x1f3fc;&#x200d;&#x1f9b1;','&#x1f469;&#x1f3fc;&#x200d;&#x1f9b0;','&#x1f469;&#x1f3fc;&#x200d;&#x1f692;','&#x1f469;&#x1f3fc;&#x200d;&#x1f680;','&#x1f469;&#x1f3fc;&#x200d;&#x1f52c;','&#x1f469;&#x1f3fc;&#x200d;&#x1f527;','&#x1f469;&#x1f3fc;&#x200d;&#x1f4bc;','&#x1f469;&#x1f3fc;&#x200d;&#x1f4bb;','&#x1f469;&#x1f3fc;&#x200d;&#x1f3ed;','&#x1f469;&#x1f3fc;&#x200d;&#x1f3eb;','&#x1f468;&#x1f3fe;&#x200d;&#x1f680;','&#x1f468;&#x1f3fe;&#x200d;&#x1f692;','&#x1f469;&#x1f3fc;&#x200d;&#x1f3a8;','&#x1f469;&#x1f3fc;&#x200d;&#x1f3a4;','&#x1f469;&#x1f3fc;&#x200d;&#x1f393;','&#x1f469;&#x1f3fc;&#x200d;&#x1f373;','&#x1f469;&#x1f3fc;&#x200d;&#x1f33e;','&#x1f469;&#x1f3fb;&#x200d;&#x1f9b3;','&#x1f469;&#x1f3fb;&#x200d;&#x1f9b2;','&#x1f469;&#x1f3fb;&#x200d;&#x1f9b1;','&#x1f469;&#x1f3fb;&#x200d;&#x1f9b0;','&#x1f469;&#x1f3fb;&#x200d;&#x1f692;','&#x1f468;&#x1f3fe;&#x200d;&#x1f9b0;','&#x1f468;&#x1f3fe;&#x200d;&#x1f9b1;','&#x1f468;&#x1f3fe;&#x200d;&#x1f9b2;','&#x1f468;&#x1f3fe;&#x200d;&#x1f9b3;','&#x1f469;&#x1f3fb;&#x200d;&#x1f680;','&#x1f469;&#x1f3fb;&#x200d;&#x1f52c;','&#x1f469;&#x1f3fb;&#x200d;&#x1f527;','&#x1f469;&#x1f3fb;&#x200d;&#x1f4bc;','&#x1f469;&#x1f3fb;&#x200d;&#x1f4bb;','&#x1f469;&#x1f3fb;&#x200d;&#x1f3ed;','&#x1f469;&#x1f3fb;&#x200d;&#x1f3eb;','&#x1f468;&#x1f3ff;&#x200d;&#x1f33e;','&#x1f469;&#x1f3fb;&#x200d;&#x1f3a4;','&#x1f469;&#x1f3fb;&#x200d;&#x1f393;','&#x1f468;&#x1f3ff;&#x200d;&#x1f373;','&#x1f468;&#x1f3ff;&#x200d;&#x1f393;','&#x1f469;&#x1f3fb;&#x200d;&#x1f373;','&#x1f469;&#x1f3fb;&#x200d;&#x1f33e;','&#x1f468;&#x1f3ff;&#x200d;&#x1f3a4;','&#x1f468;&#x1f3ff;&#x200d;&#x1f3a8;','&#x1f468;&#x1f3ff;&#x200d;&#x1f3eb;','&#x1f468;&#x1f3ff;&#x200d;&#x1f3ed;','&#x1f468;&#x1f3ff;&#x200d;&#x1f4bb;','&#x1f468;&#x1f3ff;&#x200d;&#x1f4bc;','&#x1f468;&#x1f3ff;&#x200d;&#x1f527;','&#x1f468;&#x1f3ff;&#x200d;&#x1f52c;','&#x1f468;&#x1f3ff;&#x200d;&#x1f680;','&#x1f468;&#x1f3ff;&#x200d;&#x1f692;','&#x1f468;&#x1f3ff;&#x200d;&#x1f9b0;','&#x1f468;&#x1f3ff;&#x200d;&#x1f9b1;','&#x1f468;&#x1f3ff;&#x200d;&#x1f9b2;','&#x1f468;&#x1f3ff;&#x200d;&#x1f9b3;','&#x1f3f3;&#xfe0f;&#x200d;&#x1f308;','&#x1f469;&#x200d;&#x2696;&#xfe0f;','&#x1f9b8;&#x200d;&#x2642;&#xfe0f;','&#x1f93e;&#x200d;&#x2642;&#xfe0f;','&#x1f93e;&#x200d;&#x2640;&#xfe0f;','&#x1f9b9;&#x200d;&#x2640;&#xfe0f;','&#x1f9b9;&#x200d;&#x2642;&#xfe0f;','&#x1f468;&#x200d;&#x2695;&#xfe0f;','&#x1f468;&#x200d;&#x2696;&#xfe0f;','&#x1f468;&#x200d;&#x2708;&#xfe0f;','&#x1f93d;&#x200d;&#x2642;&#xfe0f;','&#x1f93d;&#x200d;&#x2640;&#xfe0f;','&#x1f9d6;&#x200d;&#x2640;&#xfe0f;','&#x1f9d6;&#x200d;&#x2642;&#xfe0f;','&#x1f647;&#x200d;&#x2640;&#xfe0f;','&#x1f93c;&#x200d;&#x2642;&#xfe0f;','&#x1f93c;&#x200d;&#x2640;&#xfe0f;','&#x1f939;&#x200d;&#x2642;&#xfe0f;','&#x1f939;&#x200d;&#x2640;&#xfe0f;','&#x1f938;&#x200d;&#x2642;&#xfe0f;','&#x1f938;&#x200d;&#x2640;&#xfe0f;','&#x1f937;&#x200d;&#x2642;&#xfe0f;','&#x1f937;&#x200d;&#x2640;&#xfe0f;','&#x1f935;&#x200d;&#x2642;&#xfe0f;','&#x1f9d7;&#x200d;&#x2640;&#xfe0f;','&#x1f9d7;&#x200d;&#x2642;&#xfe0f;','&#x1f935;&#x200d;&#x2640;&#xfe0f;','&#x1f926;&#x200d;&#x2642;&#xfe0f;','&#x1f926;&#x200d;&#x2640;&#xfe0f;','&#x1f6b6;&#x200d;&#x2642;&#xfe0f;','&#x1f6b6;&#x200d;&#x2640;&#xfe0f;','&#x1f6b5;&#x200d;&#x2642;&#xfe0f;','&#x1f6b5;&#x200d;&#x2640;&#xfe0f;','&#x1f6b4;&#x200d;&#x2642;&#xfe0f;','&#x1f6b4;&#x200d;&#x2640;&#xfe0f;','&#x1f9d8;&#x200d;&#x2640;&#xfe0f;','&#x1f9d8;&#x200d;&#x2642;&#xfe0f;','&#x1f6a3;&#x200d;&#x2642;&#xfe0f;','&#x1f6a3;&#x200d;&#x2640;&#xfe0f;','&#x1f9d9;&#x200d;&#x2640;&#xfe0f;','&#x1f9d9;&#x200d;&#x2642;&#xfe0f;','&#x1f64e;&#x200d;&#x2642;&#xfe0f;','&#x1f64e;&#x200d;&#x2640;&#xfe0f;','&#x1f9da;&#x200d;&#x2640;&#xfe0f;','&#x1f9da;&#x200d;&#x2642;&#xfe0f;','&#x1f469;&#x200d;&#x2695;&#xfe0f;','&#x1f9b8;&#x200d;&#x2640;&#xfe0f;','&#x1f469;&#x200d;&#x2708;&#xfe0f;','&#x1f46e;&#x200d;&#x2640;&#xfe0f;','&#x1f46e;&#x200d;&#x2642;&#xfe0f;','&#x1f46f;&#x200d;&#x2640;&#xfe0f;','&#x1f46f;&#x200d;&#x2642;&#xfe0f;','&#x1f471;&#x200d;&#x2640;&#xfe0f;','&#x1f9db;&#x200d;&#x2640;&#xfe0f;','&#x1f9db;&#x200d;&#x2642;&#xfe0f;','&#x1f64d;&#x200d;&#x2642;&#xfe0f;','&#x1f64d;&#x200d;&#x2640;&#xfe0f;','&#x1f471;&#x200d;&#x2642;&#xfe0f;','&#x1f473;&#x200d;&#x2640;&#xfe0f;','&#x1f473;&#x200d;&#x2642;&#xfe0f;','&#x1f477;&#x200d;&#x2640;&#xfe0f;','&#x1f477;&#x200d;&#x2642;&#xfe0f;','&#x1f481;&#x200d;&#x2640;&#xfe0f;','&#x1f481;&#x200d;&#x2642;&#xfe0f;','&#x1f482;&#x200d;&#x2640;&#xfe0f;','&#x1f9dc;&#x200d;&#x2640;&#xfe0f;','&#x1f9dc;&#x200d;&#x2642;&#xfe0f;','&#x1f482;&#x200d;&#x2642;&#xfe0f;','&#x1f486;&#x200d;&#x2640;&#xfe0f;','&#x1f64b;&#x200d;&#x2642;&#xfe0f;','&#x1f64b;&#x200d;&#x2640;&#xfe0f;','&#x1f486;&#x200d;&#x2642;&#xfe0f;','&#x1f487;&#x200d;&#x2640;&#xfe0f;','&#x1f487;&#x200d;&#x2642;&#xfe0f;','&#x1f645;&#x200d;&#x2640;&#xfe0f;','&#x1f645;&#x200d;&#x2642;&#xfe0f;','&#x1f9dd;&#x200d;&#x2640;&#xfe0f;','&#x1f9dd;&#x200d;&#x2642;&#xfe0f;','&#x1f9de;&#x200d;&#x2640;&#xfe0f;','&#x1f9de;&#x200d;&#x2642;&#xfe0f;','&#x1f9df;&#x200d;&#x2640;&#xfe0f;','&#x1f9df;&#x200d;&#x2642;&#xfe0f;','&#x1f3f4;&#x200d;&#x2620;&#xfe0f;','&#x1f647;&#x200d;&#x2642;&#xfe0f;','&#x1f646;&#x200d;&#x2640;&#xfe0f;','&#x1f646;&#x200d;&#x2642;&#xfe0f;','&#x1f3ca;&#x200d;&#x2642;&#xfe0f;','&#x1f3ca;&#x200d;&#x2640;&#xfe0f;','&#x1f3c4;&#x200d;&#x2642;&#xfe0f;','&#x1f3c4;&#x200d;&#x2640;&#xfe0f;','&#x1f3c3;&#x200d;&#x2642;&#xfe0f;','&#x1f3c3;&#x200d;&#x2640;&#xfe0f;','&#x1f468;&#x200d;&#x1f3a8;','&#x1f469;&#x200d;&#x1f373;','&#x1f469;&#x200d;&#x1f393;','&#x1f469;&#x200d;&#x1f3a4;','&#x1f469;&#x200d;&#x1f3a8;','&#x1f469;&#x200d;&#x1f3eb;','&#x1f469;&#x200d;&#x1f3ed;','&#x1f468;&#x200d;&#x1f4bb;','&#x1f468;&#x200d;&#x1f692;','&#x1f469;&#x200d;&#x1f466;','&#x1f468;&#x200d;&#x1f467;','&#x1f468;&#x200d;&#x1f9b0;','&#x1f468;&#x200d;&#x1f9b1;','&#x1f469;&#x200d;&#x1f4bb;','&#x1f469;&#x200d;&#x1f4bc;','&#x1f469;&#x200d;&#x1f527;','&#x1f469;&#x200d;&#x1f52c;','&#x1f469;&#x200d;&#x1f680;','&#x1f469;&#x200d;&#x1f692;','&#x1f469;&#x200d;&#x1f9b0;','&#x1f469;&#x200d;&#x1f9b1;','&#x1f441;&#x200d;&#x1f5e8;','&#x1f468;&#x200d;&#x1f9b2;','&#x1f468;&#x200d;&#x1f9b3;','&#x1f468;&#x200d;&#x1f466;','&#x1f468;&#x200d;&#x1f3a4;','&#x1f469;&#x200d;&#x1f9b2;','&#x1f469;&#x200d;&#x1f9b3;','&#x1f468;&#x200d;&#x1f393;','&#x1f468;&#x200d;&#x1f373;','&#x1f468;&#x200d;&#x1f33e;','&#x1f468;&#x200d;&#x1f4bc;','&#x1f468;&#x200d;&#x1f527;','&#x1f468;&#x200d;&#x1f52c;','&#x1f468;&#x200d;&#x1f680;','&#x1f468;&#x200d;&#x1f3ed;','&#x1f469;&#x200d;&#x1f33e;','&#x1f468;&#x200d;&#x1f3eb;','&#x1f469;&#x200d;&#x1f467;','&#x1f446;&#x1f3ff;','&#x1f447;&#x1f3fb;','&#x1f477;&#x1f3fc;','&#x1f447;&#x1f3fc;','&#x1f447;&#x1f3fd;','&#x1f477;&#x1f3fd;','&#x1f447;&#x1f3fe;','&#x1f447;&#x1f3ff;','&#x1f477;&#x1f3fe;','&#x1f448;&#x1f3fb;','&#x1f448;&#x1f3fc;','&#x1f477;&#x1f3ff;','&#x1f448;&#x1f3fd;','&#x1f448;&#x1f3fe;','&#x1f478;&#x1f3fb;','&#x1f478;&#x1f3fc;','&#x1f478;&#x1f3fd;','&#x1f478;&#x1f3fe;','&#x1f478;&#x1f3ff;','&#x1f47c;&#x1f3fb;','&#x1f47c;&#x1f3fc;','&#x1f47c;&#x1f3fd;','&#x1f47c;&#x1f3fe;','&#x1f47c;&#x1f3ff;','&#x1f448;&#x1f3ff;','&#x1f449;&#x1f3fb;','&#x1f481;&#x1f3fb;','&#x1f449;&#x1f3fc;','&#x1f449;&#x1f3fd;','&#x1f481;&#x1f3fc;','&#x1f449;&#x1f3fe;','&#x1f449;&#x1f3ff;','&#x1f481;&#x1f3fd;','&#x1f44a;&#x1f3fb;','&#x1f44a;&#x1f3fc;','&#x1f481;&#x1f3fe;','&#x1f44a;&#x1f3fd;','&#x1f44a;&#x1f3fe;','&#x1f481;&#x1f3ff;','&#x1f44a;&#x1f3ff;','&#x1f44b;&#x1f3fb;','&#x1f44b;&#x1f3fc;','&#x1f44b;&#x1f3fd;','&#x1f482;&#x1f3fb;','&#x1f44b;&#x1f3fe;','&#x1f44b;&#x1f3ff;','&#x1f482;&#x1f3fc;','&#x1f44c;&#x1f3fb;','&#x1f44c;&#x1f3fc;','&#x1f482;&#x1f3fd;','&#x1f44c;&#x1f3fd;','&#x1f44c;&#x1f3fe;','&#x1f482;&#x1f3fe;','&#x1f44c;&#x1f3ff;','&#x1f44d;&#x1f3fb;','&#x1f482;&#x1f3ff;','&#x1f44d;&#x1f3fc;','&#x1f44d;&#x1f3fd;','&#x1f483;&#x1f3fb;','&#x1f483;&#x1f3fc;','&#x1f483;&#x1f3fd;','&#x1f483;&#x1f3fe;','&#x1f483;&#x1f3ff;','&#x1f485;&#x1f3fb;','&#x1f485;&#x1f3fc;','&#x1f485;&#x1f3fd;','&#x1f485;&#x1f3fe;','&#x1f485;&#x1f3ff;','&#x1f44d;&#x1f3fe;','&#x1f44d;&#x1f3ff;','&#x1f486;&#x1f3fb;','&#x1f44e;&#x1f3fb;','&#x1f44e;&#x1f3fc;','&#x1f486;&#x1f3fc;','&#x1f44e;&#x1f3fd;','&#x1f44e;&#x1f3fe;','&#x1f486;&#x1f3fd;','&#x1f44e;&#x1f3ff;','&#x1f44f;&#x1f3fb;','&#x1f486;&#x1f3fe;','&#x1f44f;&#x1f3fc;','&#x1f44f;&#x1f3fd;','&#x1f486;&#x1f3ff;','&#x1f44f;&#x1f3fe;','&#x1f44f;&#x1f3ff;','&#x1f450;&#x1f3fb;','&#x1f450;&#x1f3fc;','&#x1f487;&#x1f3fb;','&#x1f450;&#x1f3fd;','&#x1f450;&#x1f3fe;','&#x1f487;&#x1f3fc;','&#x1f450;&#x1f3ff;','&#x1f466;&#x1f3fb;','&#x1f487;&#x1f3fd;','&#x1f466;&#x1f3fc;','&#x1f466;&#x1f3fd;','&#x1f487;&#x1f3fe;','&#x1f466;&#x1f3fe;','&#x1f466;&#x1f3ff;','&#x1f487;&#x1f3ff;','&#x1f467;&#x1f3fb;','&#x1f467;&#x1f3fc;','&#x1f4aa;&#x1f3fb;','&#x1f4aa;&#x1f3fc;','&#x1f4aa;&#x1f3fd;','&#x1f4aa;&#x1f3fe;','&#x1f4aa;&#x1f3ff;','&#x1f467;&#x1f3fd;','&#x1f467;&#x1f3fe;','&#x1f574;&#x1f3fb;','&#x1f467;&#x1f3ff;','&#x1f1ea;&#x1f1ea;','&#x1f574;&#x1f3fc;','&#x1f1ea;&#x1f1ec;','&#x1f1ea;&#x1f1ed;','&#x1f574;&#x1f3fd;','&#x1f1ea;&#x1f1f7;','&#x1f1ea;&#x1f1f8;','&#x1f574;&#x1f3fe;','&#x1f1ea;&#x1f1f9;','&#x1f1ea;&#x1f1fa;','&#x1f574;&#x1f3ff;','&#x1f1eb;&#x1f1ee;','&#x1f1eb;&#x1f1ef;','&#x1f1eb;&#x1f1f0;','&#x1f1eb;&#x1f1f2;','&#x1f575;&#x1f3fb;','&#x1f1eb;&#x1f1f4;','&#x1f1eb;&#x1f1f7;','&#x1f575;&#x1f3fc;','&#x1f1ec;&#x1f1e6;','&#x1f1ec;&#x1f1e7;','&#x1f575;&#x1f3fd;','&#x1f1ec;&#x1f1e9;','&#x1f1ec;&#x1f1ea;','&#x1f575;&#x1f3fe;','&#x1f1ec;&#x1f1eb;','&#x1f1ec;&#x1f1ec;','&#x1f575;&#x1f3ff;','&#x1f1ec;&#x1f1ed;','&#x1f468;&#x1f3fb;','&#x1f57a;&#x1f3fb;','&#x1f57a;&#x1f3fc;','&#x1f57a;&#x1f3fd;','&#x1f57a;&#x1f3fe;','&#x1f57a;&#x1f3ff;','&#x1f590;&#x1f3fb;','&#x1f590;&#x1f3fc;','&#x1f590;&#x1f3fd;','&#x1f590;&#x1f3fe;','&#x1f590;&#x1f3ff;','&#x1f595;&#x1f3fb;','&#x1f595;&#x1f3fc;','&#x1f595;&#x1f3fd;','&#x1f595;&#x1f3fe;','&#x1f595;&#x1f3ff;','&#x1f596;&#x1f3fb;','&#x1f596;&#x1f3fc;','&#x1f596;&#x1f3fd;','&#x1f596;&#x1f3fe;','&#x1f596;&#x1f3ff;','&#x1f1ec;&#x1f1ee;','&#x1f1ec;&#x1f1f1;','&#x1f645;&#x1f3fb;','&#x1f1ec;&#x1f1f2;','&#x1f1ec;&#x1f1f3;','&#x1f645;&#x1f3fc;','&#x1f1ec;&#x1f1f5;','&#x1f1ec;&#x1f1f6;','&#x1f645;&#x1f3fd;','&#x1f1ec;&#x1f1f7;','&#x1f1ec;&#x1f1f8;','&#x1f645;&#x1f3fe;','&#x1f1ec;&#x1f1f9;','&#x1f1ec;&#x1f1fa;','&#x1f645;&#x1f3ff;','&#x1f1ec;&#x1f1fc;','&#x1f1ec;&#x1f1fe;','&#x1f1ed;&#x1f1f0;','&#x1f1ed;&#x1f1f2;','&#x1f646;&#x1f3fb;','&#x1f1ed;&#x1f1f3;','&#x1f1ed;&#x1f1f7;','&#x1f646;&#x1f3fc;','&#x1f1ed;&#x1f1f9;','&#x1f1ed;&#x1f1fa;','&#x1f646;&#x1f3fd;','&#x1f1ee;&#x1f1e8;','&#x1f1ee;&#x1f1e9;','&#x1f646;&#x1f3fe;','&#x1f468;&#x1f3fc;','&#x1f1ee;&#x1f1ea;','&#x1f646;&#x1f3ff;','&#x1f1ee;&#x1f1f1;','&#x1f1ee;&#x1f1f2;','&#x1f1ee;&#x1f1f3;','&#x1f1ee;&#x1f1f4;','&#x1f647;&#x1f3fb;','&#x1f1ee;&#x1f1f6;','&#x1f1ee;&#x1f1f7;','&#x1f647;&#x1f3fc;','&#x1f1ee;&#x1f1f8;','&#x1f1ee;&#x1f1f9;','&#x1f647;&#x1f3fd;','&#x1f1ef;&#x1f1ea;','&#x1f1ef;&#x1f1f2;','&#x1f647;&#x1f3fe;','&#x1f1ef;&#x1f1f4;','&#x1f1ef;&#x1f1f5;','&#x1f647;&#x1f3ff;','&#x1f1f0;&#x1f1ea;','&#x1f1f0;&#x1f1ec;','&#x1f1f0;&#x1f1ed;','&#x1f1f0;&#x1f1ee;','&#x1f64b;&#x1f3fb;','&#x1f1f0;&#x1f1f2;','&#x1f1f0;&#x1f1f3;','&#x1f64b;&#x1f3fc;','&#x1f1f0;&#x1f1f5;','&#x1f468;&#x1f3fd;','&#x1f64b;&#x1f3fd;','&#x1f1f0;&#x1f1f7;','&#x1f1f0;&#x1f1fc;','&#x1f64b;&#x1f3fe;','&#x1f1f0;&#x1f1fe;','&#x1f1f0;&#x1f1ff;','&#x1f64b;&#x1f3ff;','&#x1f1f1;&#x1f1e6;','&#x1f1f1;&#x1f1e7;','&#x1f64c;&#x1f3fb;','&#x1f64c;&#x1f3fc;','&#x1f64c;&#x1f3fd;','&#x1f64c;&#x1f3fe;','&#x1f64c;&#x1f3ff;','&#x1f1f1;&#x1f1e8;','&#x1f1f1;&#x1f1ee;','&#x1f64d;&#x1f3fb;','&#x1f1f1;&#x1f1f0;','&#x1f1f1;&#x1f1f7;','&#x1f64d;&#x1f3fc;','&#x1f1f1;&#x1f1f8;','&#x1f1f1;&#x1f1f9;','&#x1f64d;&#x1f3fd;','&#x1f1f1;&#x1f1fa;','&#x1f1f1;&#x1f1fb;','&#x1f64d;&#x1f3fe;','&#x1f1f1;&#x1f1fe;','&#x1f1f2;&#x1f1e6;','&#x1f64d;&#x1f3ff;','&#x1f1f2;&#x1f1e8;','&#x1f1f2;&#x1f1e9;','&#x1f1f2;&#x1f1ea;','&#x1f1f2;&#x1f1eb;','&#x1f64e;&#x1f3fb;','&#x1f468;&#x1f3fe;','&#x1f1f2;&#x1f1ec;','&#x1f64e;&#x1f3fc;','&#x1f1f2;&#x1f1ed;','&#x1f1f2;&#x1f1f0;','&#x1f64e;&#x1f3fd;','&#x1f1f2;&#x1f1f1;','&#x1f1f2;&#x1f1f2;','&#x1f64e;&#x1f3fe;','&#x1f1f2;&#x1f1f3;','&#x1f1f2;&#x1f1f4;','&#x1f64e;&#x1f3ff;','&#x1f1f2;&#x1f1f5;','&#x1f1f2;&#x1f1f6;','&#x1f64f;&#x1f3fb;','&#x1f64f;&#x1f3fc;','&#x1f64f;&#x1f3fd;','&#x1f64f;&#x1f3fe;','&#x1f64f;&#x1f3ff;','&#x1f1f2;&#x1f1f7;','&#x1f1f2;&#x1f1f8;','&#x1f6a3;&#x1f3fb;','&#x1f1f2;&#x1f1f9;','&#x1f1f2;&#x1f1fa;','&#x1f6a3;&#x1f3fc;','&#x1f1f2;&#x1f1fb;','&#x1f1f2;&#x1f1fc;','&#x1f6a3;&#x1f3fd;','&#x1f1f2;&#x1f1fd;','&#x1f1f2;&#x1f1fe;','&#x1f6a3;&#x1f3fe;','&#x1f1f2;&#x1f1ff;','&#x1f1f3;&#x1f1e6;','&#x1f6a3;&#x1f3ff;','&#x1f1f3;&#x1f1e8;','&#x1f468;&#x1f3ff;','&#x1f1f3;&#x1f1ea;','&#x1f1f3;&#x1f1eb;','&#x1f6b4;&#x1f3fb;','&#x1f1f3;&#x1f1ec;','&#x1f1f3;&#x1f1ee;','&#x1f6b4;&#x1f3fc;','&#x1f1f3;&#x1f1f1;','&#x1f1f3;&#x1f1f4;','&#x1f6b4;&#x1f3fd;','&#x1f1f3;&#x1f1f5;','&#x1f1f3;&#x1f1f7;','&#x1f6b4;&#x1f3fe;','&#x1f1f3;&#x1f1fa;','&#x1f1f3;&#x1f1ff;','&#x1f6b4;&#x1f3ff;','&#x1f1f4;&#x1f1f2;','&#x1f1f5;&#x1f1e6;','&#x1f1f5;&#x1f1ea;','&#x1f1f5;&#x1f1eb;','&#x1f6b5;&#x1f3fb;','&#x1f1f5;&#x1f1ec;','&#x1f1f5;&#x1f1ed;','&#x1f6b5;&#x1f3fc;','&#x1f1f5;&#x1f1f0;','&#x1f1f5;&#x1f1f1;','&#x1f6b5;&#x1f3fd;','&#x1f1f5;&#x1f1f2;','&#x1f1f5;&#x1f1f3;','&#x1f6b5;&#x1f3fe;','&#x1f1f5;&#x1f1f7;','&#x1f1f5;&#x1f1f8;','&#x1f6b5;&#x1f3ff;','&#x1f1f5;&#x1f1f9;','&#x1f1f5;&#x1f1fc;','&#x1f1f5;&#x1f1fe;','&#x1f1f6;&#x1f1e6;','&#x1f6b6;&#x1f3fb;','&#x1f1f7;&#x1f1ea;','&#x1f1f7;&#x1f1f4;','&#x1f6b6;&#x1f3fc;','&#x1f1f7;&#x1f1f8;','&#x1f1f7;&#x1f1fa;','&#x1f6b6;&#x1f3fd;','&#x1f1f7;&#x1f1fc;','&#x1f1f8;&#x1f1e6;','&#x1f6b6;&#x1f3fe;','&#x1f1f8;&#x1f1e7;','&#x1f1f8;&#x1f1e8;','&#x1f6b6;&#x1f3ff;','&#x1f1f8;&#x1f1e9;','&#x1f1f8;&#x1f1ea;','&#x1f6c0;&#x1f3fb;','&#x1f6c0;&#x1f3fc;','&#x1f6c0;&#x1f3fd;','&#x1f6c0;&#x1f3fe;','&#x1f6c0;&#x1f3ff;','&#x1f6cc;&#x1f3fb;','&#x1f6cc;&#x1f3fc;','&#x1f6cc;&#x1f3fd;','&#x1f6cc;&#x1f3fe;','&#x1f6cc;&#x1f3ff;','&#x1f918;&#x1f3fb;','&#x1f918;&#x1f3fc;','&#x1f918;&#x1f3fd;','&#x1f918;&#x1f3fe;','&#x1f918;&#x1f3ff;','&#x1f919;&#x1f3fb;','&#x1f919;&#x1f3fc;','&#x1f919;&#x1f3fd;','&#x1f919;&#x1f3fe;','&#x1f919;&#x1f3ff;','&#x1f91a;&#x1f3fb;','&#x1f91a;&#x1f3fc;','&#x1f91a;&#x1f3fd;','&#x1f91a;&#x1f3fe;','&#x1f91a;&#x1f3ff;','&#x1f91b;&#x1f3fb;','&#x1f91b;&#x1f3fc;','&#x1f91b;&#x1f3fd;','&#x1f91b;&#x1f3fe;','&#x1f91b;&#x1f3ff;','&#x1f91c;&#x1f3fb;','&#x1f91c;&#x1f3fc;','&#x1f91c;&#x1f3fd;','&#x1f91c;&#x1f3fe;','&#x1f91c;&#x1f3ff;','&#x1f91e;&#x1f3fb;','&#x1f91e;&#x1f3fc;','&#x1f91e;&#x1f3fd;','&#x1f91e;&#x1f3fe;','&#x1f91e;&#x1f3ff;','&#x1f91f;&#x1f3fb;','&#x1f91f;&#x1f3fc;','&#x1f91f;&#x1f3fd;','&#x1f91f;&#x1f3fe;','&#x1f91f;&#x1f3ff;','&#x1f1f8;&#x1f1ec;','&#x1f1f8;&#x1f1ed;','&#x1f926;&#x1f3fb;','&#x1f1f8;&#x1f1ee;','&#x1f1f8;&#x1f1ef;','&#x1f926;&#x1f3fc;','&#x1f1f8;&#x1f1f0;','&#x1f1e6;&#x1f1e9;','&#x1f926;&#x1f3fd;','&#x1f1f8;&#x1f1f2;','&#x1f1f8;&#x1f1f3;','&#x1f926;&#x1f3fe;','&#x1f1f8;&#x1f1f4;','&#x1f1f8;&#x1f1f7;','&#x1f926;&#x1f3ff;','&#x1f1f8;&#x1f1f8;','&#x1f1f8;&#x1f1f9;','&#x1f930;&#x1f3fb;','&#x1f930;&#x1f3fc;','&#x1f930;&#x1f3fd;','&#x1f930;&#x1f3fe;','&#x1f930;&#x1f3ff;','&#x1f931;&#x1f3fb;','&#x1f931;&#x1f3fc;','&#x1f931;&#x1f3fd;','&#x1f931;&#x1f3fe;','&#x1f931;&#x1f3ff;','&#x1f932;&#x1f3fb;','&#x1f932;&#x1f3fc;','&#x1f932;&#x1f3fd;','&#x1f932;&#x1f3fe;','&#x1f932;&#x1f3ff;','&#x1f933;&#x1f3fb;','&#x1f933;&#x1f3fc;','&#x1f933;&#x1f3fd;','&#x1f933;&#x1f3fe;','&#x1f933;&#x1f3ff;','&#x1f934;&#x1f3fb;','&#x1f934;&#x1f3fc;','&#x1f934;&#x1f3fd;','&#x1f934;&#x1f3fe;','&#x1f934;&#x1f3ff;','&#x1f1f8;&#x1f1fb;','&#x1f1f8;&#x1f1fd;','&#x1f935;&#x1f3fb;','&#x1f1f8;&#x1f1fe;','&#x1f1f8;&#x1f1ff;','&#x1f935;&#x1f3fc;','&#x1f1f9;&#x1f1e6;','&#x1f1f9;&#x1f1e8;','&#x1f935;&#x1f3fd;','&#x1f1f9;&#x1f1e9;','&#x1f1f9;&#x1f1eb;','&#x1f935;&#x1f3fe;','&#x1f1f9;&#x1f1ec;','&#x1f469;&#x1f3fb;','&#x1f935;&#x1f3ff;','&#x1f1f9;&#x1f1ed;','&#x1f1f9;&#x1f1ef;','&#x1f936;&#x1f3fb;','&#x1f936;&#x1f3fc;','&#x1f936;&#x1f3fd;','&#x1f936;&#x1f3fe;','&#x1f936;&#x1f3ff;','&#x1f1f9;&#x1f1f0;','&#x1f1f9;&#x1f1f1;','&#x1f937;&#x1f3fb;','&#x1f1f9;&#x1f1f2;','&#x1f1f9;&#x1f1f3;','&#x1f937;&#x1f3fc;','&#x1f1f9;&#x1f1f4;','&#x1f1f9;&#x1f1f7;','&#x1f937;&#x1f3fd;','&#x1f1f9;&#x1f1f9;','&#x1f1f9;&#x1f1fb;','&#x1f937;&#x1f3fe;','&#x1f1f9;&#x1f1fc;','&#x1f1f9;&#x1f1ff;','&#x1f937;&#x1f3ff;','&#x1f1fa;&#x1f1e6;','&#x1f1fa;&#x1f1ec;','&#x1f1fa;&#x1f1f2;','&#x1f1fa;&#x1f1f3;','&#x1f938;&#x1f3fb;','&#x1f1fa;&#x1f1f8;','&#x1f1fa;&#x1f1fe;','&#x1f938;&#x1f3fc;','&#x1f1fa;&#x1f1ff;','&#x1f1fb;&#x1f1e6;','&#x1f938;&#x1f3fd;','&#x1f469;&#x1f3fc;','&#x1f1fb;&#x1f1e8;','&#x1f938;&#x1f3fe;','&#x1f1fb;&#x1f1ea;','&#x1f1fb;&#x1f1ec;','&#x1f938;&#x1f3ff;','&#x1f1fb;&#x1f1ee;','&#x1f1fb;&#x1f1f3;','&#x1f1fb;&#x1f1fa;','&#x1f1fc;&#x1f1eb;','&#x1f939;&#x1f3fb;','&#x1f1fc;&#x1f1f8;','&#x1f1fd;&#x1f1f0;','&#x1f939;&#x1f3fc;','&#x1f1fe;&#x1f1ea;','&#x1f1fe;&#x1f1f9;','&#x1f939;&#x1f3fd;','&#x1f1ff;&#x1f1e6;','&#x1f1ff;&#x1f1f2;','&#x1f939;&#x1f3fe;','&#x1f1ff;&#x1f1fc;','&#x1f385;&#x1f3fb;','&#x1f939;&#x1f3ff;','&#x1f385;&#x1f3fc;','&#x1f385;&#x1f3fd;','&#x1f385;&#x1f3fe;','&#x1f385;&#x1f3ff;','&#x1f3c2;&#x1f3fb;','&#x1f469;&#x1f3fd;','&#x1f93d;&#x1f3fb;','&#x1f3c2;&#x1f3fc;','&#x1f3c2;&#x1f3fd;','&#x1f93d;&#x1f3fc;','&#x1f3c2;&#x1f3fe;','&#x1f3c2;&#x1f3ff;','&#x1f93d;&#x1f3fd;','&#x1f1e6;&#x1f1e8;','&#x1f1e6;&#x1f1ea;','&#x1f93d;&#x1f3fe;','&#x1f3c3;&#x1f3fb;','&#x1f1e6;&#x1f1eb;','&#x1f93d;&#x1f3ff;','&#x1f1e6;&#x1f1ec;','&#x1f3c3;&#x1f3fc;','&#x1f1e6;&#x1f1ee;','&#x1f1e6;&#x1f1f1;','&#x1f93e;&#x1f3fb;','&#x1f3c3;&#x1f3fd;','&#x1f1e6;&#x1f1f2;','&#x1f93e;&#x1f3fc;','&#x1f1e6;&#x1f1f4;','&#x1f3c3;&#x1f3fe;','&#x1f93e;&#x1f3fd;','&#x1f1e6;&#x1f1f6;','&#x1f1e6;&#x1f1f7;','&#x1f93e;&#x1f3fe;','&#x1f3c3;&#x1f3ff;','&#x1f1e6;&#x1f1f8;','&#x1f93e;&#x1f3ff;','&#x1f469;&#x1f3fe;','&#x1f1e6;&#x1f1f9;','&#x1f9b5;&#x1f3fb;','&#x1f9b5;&#x1f3fc;','&#x1f9b5;&#x1f3fd;','&#x1f9b5;&#x1f3fe;','&#x1f9b5;&#x1f3ff;','&#x1f9b6;&#x1f3fb;','&#x1f9b6;&#x1f3fc;','&#x1f9b6;&#x1f3fd;','&#x1f9b6;&#x1f3fe;','&#x1f9b6;&#x1f3ff;','&#x1f1e6;&#x1f1fa;','&#x1f1e6;&#x1f1fc;','&#x1f9b8;&#x1f3fb;','&#x1f3c4;&#x1f3fb;','&#x1f1e6;&#x1f1fd;','&#x1f9b8;&#x1f3fc;','&#x1f1e6;&#x1f1ff;','&#x1f3c4;&#x1f3fc;','&#x1f9b8;&#x1f3fd;','&#x1f1e7;&#x1f1e6;','&#x1f1e7;&#x1f1e7;','&#x1f9b8;&#x1f3fe;','&#x1f3c4;&#x1f3fd;','&#x1f1e7;&#x1f1e9;','&#x1f9b8;&#x1f3ff;','&#x1f1e7;&#x1f1ea;','&#x1f3c4;&#x1f3fe;','&#x1f1e7;&#x1f1eb;','&#x1f1e7;&#x1f1ec;','&#x1f9b9;&#x1f3fb;','&#x1f3c4;&#x1f3ff;','&#x1f1e7;&#x1f1ed;','&#x1f9b9;&#x1f3fc;','&#x1f1e7;&#x1f1ee;','&#x1f3c7;&#x1f3fb;','&#x1f9b9;&#x1f3fd;','&#x1f3c7;&#x1f3fc;','&#x1f469;&#x1f3ff;','&#x1f9b9;&#x1f3fe;','&#x1f3c7;&#x1f3fd;','&#x1f3c7;&#x1f3fe;','&#x1f9b9;&#x1f3ff;','&#x1f3c7;&#x1f3ff;','&#x1f1e7;&#x1f1ef;','&#x1f9d1;&#x1f3fb;','&#x1f9d1;&#x1f3fc;','&#x1f9d1;&#x1f3fd;','&#x1f9d1;&#x1f3fe;','&#x1f9d1;&#x1f3ff;','&#x1f9d2;&#x1f3fb;','&#x1f9d2;&#x1f3fc;','&#x1f9d2;&#x1f3fd;','&#x1f9d2;&#x1f3fe;','&#x1f9d2;&#x1f3ff;','&#x1f9d3;&#x1f3fb;','&#x1f9d3;&#x1f3fc;','&#x1f9d3;&#x1f3fd;','&#x1f9d3;&#x1f3fe;','&#x1f9d3;&#x1f3ff;','&#x1f9d4;&#x1f3fb;','&#x1f9d4;&#x1f3fc;','&#x1f9d4;&#x1f3fd;','&#x1f9d4;&#x1f3fe;','&#x1f9d4;&#x1f3ff;','&#x1f9d5;&#x1f3fb;','&#x1f9d5;&#x1f3fc;','&#x1f9d5;&#x1f3fd;','&#x1f9d5;&#x1f3fe;','&#x1f9d5;&#x1f3ff;','&#x1f1e7;&#x1f1f1;','&#x1f3ca;&#x1f3fb;','&#x1f9d6;&#x1f3fb;','&#x1f1e7;&#x1f1f2;','&#x1f1e7;&#x1f1f3;','&#x1f9d6;&#x1f3fc;','&#x1f3ca;&#x1f3fc;','&#x1f1e7;&#x1f1f4;','&#x1f9d6;&#x1f3fd;','&#x1f1e7;&#x1f1f6;','&#x1f3ca;&#x1f3fd;','&#x1f9d6;&#x1f3fe;','&#x1f1e7;&#x1f1f7;','&#x1f1e7;&#x1f1f8;','&#x1f9d6;&#x1f3ff;','&#x1f3ca;&#x1f3fe;','&#x1f1e7;&#x1f1f9;','&#x1f1e7;&#x1f1fb;','&#x1f3ca;&#x1f3ff;','&#x1f9d7;&#x1f3fb;','&#x1f1e7;&#x1f1fc;','&#x1f1e7;&#x1f1fe;','&#x1f9d7;&#x1f3fc;','&#x1f1e7;&#x1f1ff;','&#x1f1e8;&#x1f1e6;','&#x1f9d7;&#x1f3fd;','&#x1f3cb;&#x1f3fb;','&#x1f1e8;&#x1f1e8;','&#x1f9d7;&#x1f3fe;','&#x1f1e8;&#x1f1e9;','&#x1f3cb;&#x1f3fc;','&#x1f9d7;&#x1f3ff;','&#x1f1e8;&#x1f1eb;','&#x1f1e8;&#x1f1ec;','&#x1f3cb;&#x1f3fd;','&#x1f1e8;&#x1f1ed;','&#x1f9d8;&#x1f3fb;','&#x1f1e8;&#x1f1ee;','&#x1f3cb;&#x1f3fe;','&#x1f9d8;&#x1f3fc;','&#x1f1e8;&#x1f1f0;','&#x1f1e8;&#x1f1f1;','&#x1f9d8;&#x1f3fd;','&#x1f3cb;&#x1f3ff;','&#x1f1e8;&#x1f1f2;','&#x1f9d8;&#x1f3fe;','&#x1f46e;&#x1f3fb;','&#x1f1e8;&#x1f1f3;','&#x1f9d8;&#x1f3ff;','&#x1f1e8;&#x1f1f4;','&#x1f46e;&#x1f3fc;','&#x1f1e8;&#x1f1f5;','&#x1f3cc;&#x1f3fb;','&#x1f9d9;&#x1f3fb;','&#x1f46e;&#x1f3fd;','&#x1f1e8;&#x1f1f7;','&#x1f9d9;&#x1f3fc;','&#x1f1e8;&#x1f1fa;','&#x1f46e;&#x1f3fe;','&#x1f9d9;&#x1f3fd;','&#x1f3cc;&#x1f3fc;','&#x1f1e8;&#x1f1fb;','&#x1f9d9;&#x1f3fe;','&#x1f46e;&#x1f3ff;','&#x1f1e8;&#x1f1fc;','&#x1f9d9;&#x1f3ff;','&#x1f3cc;&#x1f3fd;','&#x1f1e8;&#x1f1fd;','&#x1f1e8;&#x1f1fe;','&#x1f470;&#x1f3fb;','&#x1f9da;&#x1f3fb;','&#x1f470;&#x1f3fc;','&#x1f470;&#x1f3fd;','&#x1f9da;&#x1f3fc;','&#x1f470;&#x1f3fe;','&#x1f470;&#x1f3ff;','&#x1f9da;&#x1f3fd;','&#x1f3cc;&#x1f3fe;','&#x1f1e8;&#x1f1ff;','&#x1f9da;&#x1f3fe;','&#x1f471;&#x1f3fb;','&#x1f1e9;&#x1f1ea;','&#x1f9da;&#x1f3ff;','&#x1f3cc;&#x1f3ff;','&#x1f471;&#x1f3fc;','&#x1f1e9;&#x1f1ec;','&#x1f1e9;&#x1f1ef;','&#x1f9db;&#x1f3fb;','&#x1f471;&#x1f3fd;','&#x1f1e9;&#x1f1f0;','&#x1f9db;&#x1f3fc;','&#x1f1e9;&#x1f1f2;','&#x1f471;&#x1f3fe;','&#x1f9db;&#x1f3fd;','&#x1f1e9;&#x1f1f4;','&#x1f1e9;&#x1f1ff;','&#x1f9db;&#x1f3fe;','&#x1f471;&#x1f3ff;','&#x1f1ea;&#x1f1e6;','&#x1f9db;&#x1f3ff;','&#x1f1ea;&#x1f1e8;','&#x1f472;&#x1f3fb;','&#x1f472;&#x1f3fc;','&#x1f472;&#x1f3fd;','&#x1f9dc;&#x1f3fb;','&#x1f472;&#x1f3fe;','&#x1f472;&#x1f3ff;','&#x1f9dc;&#x1f3fc;','&#x1f442;&#x1f3fb;','&#x1f442;&#x1f3fc;','&#x1f9dc;&#x1f3fd;','&#x1f473;&#x1f3fb;','&#x1f442;&#x1f3fd;','&#x1f9dc;&#x1f3fe;','&#x1f442;&#x1f3fe;','&#x1f473;&#x1f3fc;','&#x1f9dc;&#x1f3ff;','&#x1f442;&#x1f3ff;','&#x1f443;&#x1f3fb;','&#x1f473;&#x1f3fd;','&#x1f443;&#x1f3fc;','&#x1f9dd;&#x1f3fb;','&#x1f443;&#x1f3fd;','&#x1f473;&#x1f3fe;','&#x1f9dd;&#x1f3fc;','&#x1f443;&#x1f3fe;','&#x1f443;&#x1f3ff;','&#x1f9dd;&#x1f3fd;','&#x1f473;&#x1f3ff;','&#x1f446;&#x1f3fb;','&#x1f9dd;&#x1f3fe;','&#x1f446;&#x1f3fc;','&#x1f474;&#x1f3fb;','&#x1f9dd;&#x1f3ff;','&#x1f474;&#x1f3fc;','&#x1f474;&#x1f3fd;','&#x1f474;&#x1f3fe;','&#x1f474;&#x1f3ff;','&#x1f475;&#x1f3fb;','&#x1f475;&#x1f3fc;','&#x1f475;&#x1f3fd;','&#x1f475;&#x1f3fe;','&#x1f475;&#x1f3ff;','&#x1f476;&#x1f3fb;','&#x1f476;&#x1f3fc;','&#x1f476;&#x1f3fd;','&#x1f476;&#x1f3fe;','&#x1f476;&#x1f3ff;','&#x1f446;&#x1f3fd;','&#x1f446;&#x1f3fe;','&#x1f477;&#x1f3fb;','&#x1f1f8;&#x1f1f1;','&#x270d;&#x1f3ff;','&#x26f9;&#x1f3fb;','&#x270d;&#x1f3fe;','&#x270d;&#x1f3fd;','&#x270d;&#x1f3fc;','&#x270d;&#x1f3fb;','&#x270c;&#x1f3ff;','&#x270c;&#x1f3fe;','&#x270c;&#x1f3fd;','&#x270c;&#x1f3fc;','&#x270c;&#x1f3fb;','&#x270b;&#x1f3ff;','&#x270b;&#x1f3fe;','&#x270b;&#x1f3fd;','&#x270b;&#x1f3fc;','&#x270b;&#x1f3fb;','&#x270a;&#x1f3ff;','&#x270a;&#x1f3fe;','&#x270a;&#x1f3fd;','&#x270a;&#x1f3fc;','&#x270a;&#x1f3fb;','&#x26f7;&#x1f3fd;','&#x26f7;&#x1f3fe;','&#x26f9;&#x1f3ff;','&#x261d;&#x1f3ff;','&#x261d;&#x1f3fe;','&#x26f9;&#x1f3fe;','&#x261d;&#x1f3fd;','&#x261d;&#x1f3fc;','&#x26f9;&#x1f3fd;','&#x261d;&#x1f3fb;','&#x26f7;&#x1f3ff;','&#x26f9;&#x1f3fc;','&#x26f7;&#x1f3fb;','&#x26f7;&#x1f3fc;','&#x34;&#x20e3;','&#x23;&#x20e3;','&#x30;&#x20e3;','&#x31;&#x20e3;','&#x32;&#x20e3;','&#x33;&#x20e3;','&#x2a;&#x20e3;','&#x35;&#x20e3;','&#x36;&#x20e3;','&#x37;&#x20e3;','&#x38;&#x20e3;','&#x39;&#x20e3;','&#x1f0cf;','&#x1f57a;','&#x1f587;','&#x1f58a;','&#x1f58b;','&#x1f58c;','&#x1f58d;','&#x1f004;','&#x1f1fe;','&#x1f1e6;','&#x1f170;','&#x1f171;','&#x1f590;','&#x1f1ff;','&#x1f201;','&#x1f202;','&#x1f3c4;','&#x1f3c5;','&#x1f595;','&#x1f3c6;','&#x1f21a;','&#x1f22f;','&#x1f232;','&#x1f233;','&#x1f596;','&#x1f5a4;','&#x1f5a5;','&#x1f5a8;','&#x1f5b1;','&#x1f5b2;','&#x1f5bc;','&#x1f5c2;','&#x1f5c3;','&#x1f5c4;','&#x1f5d1;','&#x1f5d2;','&#x1f5d3;','&#x1f5dc;','&#x1f5dd;','&#x1f5de;','&#x1f5e1;','&#x1f5e3;','&#x1f5e8;','&#x1f5ef;','&#x1f5f3;','&#x1f5fa;','&#x1f5fb;','&#x1f5fc;','&#x1f5fd;','&#x1f5fe;','&#x1f5ff;','&#x1f600;','&#x1f601;','&#x1f602;','&#x1f603;','&#x1f604;','&#x1f605;','&#x1f606;','&#x1f607;','&#x1f608;','&#x1f609;','&#x1f60a;','&#x1f60b;','&#x1f60c;','&#x1f60d;','&#x1f60e;','&#x1f60f;','&#x1f610;','&#x1f611;','&#x1f612;','&#x1f613;','&#x1f614;','&#x1f615;','&#x1f616;','&#x1f617;','&#x1f618;','&#x1f619;','&#x1f61a;','&#x1f61b;','&#x1f61c;','&#x1f61d;','&#x1f61e;','&#x1f61f;','&#x1f620;','&#x1f621;','&#x1f622;','&#x1f623;','&#x1f624;','&#x1f625;','&#x1f626;','&#x1f627;','&#x1f628;','&#x1f629;','&#x1f62a;','&#x1f62b;','&#x1f62c;','&#x1f62d;','&#x1f62e;','&#x1f62f;','&#x1f630;','&#x1f631;','&#x1f632;','&#x1f633;','&#x1f634;','&#x1f635;','&#x1f636;','&#x1f637;','&#x1f638;','&#x1f639;','&#x1f63a;','&#x1f63b;','&#x1f63c;','&#x1f63d;','&#x1f63e;','&#x1f63f;','&#x1f640;','&#x1f641;','&#x1f642;','&#x1f643;','&#x1f644;','&#x1f234;','&#x1f3c7;','&#x1f3c8;','&#x1f3c9;','&#x1f235;','&#x1f236;','&#x1f237;','&#x1f238;','&#x1f239;','&#x1f23a;','&#x1f250;','&#x1f251;','&#x1f300;','&#x1f301;','&#x1f302;','&#x1f303;','&#x1f304;','&#x1f645;','&#x1f305;','&#x1f306;','&#x1f307;','&#x1f308;','&#x1f3ca;','&#x1f309;','&#x1f30a;','&#x1f30b;','&#x1f30c;','&#x1f468;','&#x1f30d;','&#x1f30e;','&#x1f30f;','&#x1f310;','&#x1f311;','&#x1f312;','&#x1f313;','&#x1f646;','&#x1f314;','&#x1f315;','&#x1f316;','&#x1f317;','&#x1f318;','&#x1f319;','&#x1f3cb;','&#x1f31a;','&#x1f31b;','&#x1f31c;','&#x1f31d;','&#x1f31e;','&#x1f31f;','&#x1f320;','&#x1f321;','&#x1f324;','&#x1f325;','&#x1f647;','&#x1f648;','&#x1f649;','&#x1f64a;','&#x1f326;','&#x1f327;','&#x1f328;','&#x1f329;','&#x1f32a;','&#x1f32b;','&#x1f32c;','&#x1f3cc;','&#x1f3cd;','&#x1f3ce;','&#x1f3cf;','&#x1f3d0;','&#x1f3d1;','&#x1f3d2;','&#x1f3d3;','&#x1f3d4;','&#x1f3d5;','&#x1f64b;','&#x1f3d6;','&#x1f3d7;','&#x1f3d8;','&#x1f3d9;','&#x1f3da;','&#x1f64c;','&#x1f3db;','&#x1f3dc;','&#x1f3dd;','&#x1f3de;','&#x1f3df;','&#x1f3e0;','&#x1f3e1;','&#x1f3e2;','&#x1f3e3;','&#x1f3e4;','&#x1f3e5;','&#x1f3e6;','&#x1f3e7;','&#x1f3e8;','&#x1f3e9;','&#x1f3ea;','&#x1f3eb;','&#x1f64d;','&#x1f3ec;','&#x1f3ed;','&#x1f3ee;','&#x1f3ef;','&#x1f3f0;','&#x1f32d;','&#x1f3f3;','&#x1f32e;','&#x1f32f;','&#x1f330;','&#x1f331;','&#x1f3f4;','&#x1f3f5;','&#x1f3f7;','&#x1f3f8;','&#x1f3f9;','&#x1f3fa;','&#x1f64e;','&#x1f3fb;','&#x1f3fc;','&#x1f3fd;','&#x1f3fe;','&#x1f3ff;','&#x1f64f;','&#x1f680;','&#x1f681;','&#x1f682;','&#x1f683;','&#x1f684;','&#x1f685;','&#x1f686;','&#x1f687;','&#x1f688;','&#x1f689;','&#x1f68a;','&#x1f68b;','&#x1f68c;','&#x1f68d;','&#x1f68e;','&#x1f68f;','&#x1f690;','&#x1f691;','&#x1f692;','&#x1f693;','&#x1f694;','&#x1f695;','&#x1f696;','&#x1f697;','&#x1f698;','&#x1f699;','&#x1f69a;','&#x1f69b;','&#x1f69c;','&#x1f69d;','&#x1f69e;','&#x1f69f;','&#x1f6a0;','&#x1f6a1;','&#x1f6a2;','&#x1f400;','&#x1f401;','&#x1f402;','&#x1f403;','&#x1f404;','&#x1f405;','&#x1f406;','&#x1f407;','&#x1f408;','&#x1f409;','&#x1f40a;','&#x1f40b;','&#x1f40c;','&#x1f40d;','&#x1f40e;','&#x1f40f;','&#x1f410;','&#x1f6a3;','&#x1f6a4;','&#x1f6a5;','&#x1f6a6;','&#x1f6a7;','&#x1f6a8;','&#x1f6a9;','&#x1f6aa;','&#x1f6ab;','&#x1f6ac;','&#x1f6ad;','&#x1f6ae;','&#x1f6af;','&#x1f6b0;','&#x1f6b1;','&#x1f6b2;','&#x1f6b3;','&#x1f411;','&#x1f412;','&#x1f413;','&#x1f414;','&#x1f415;','&#x1f416;','&#x1f417;','&#x1f418;','&#x1f419;','&#x1f41a;','&#x1f41b;','&#x1f41c;','&#x1f41d;','&#x1f41e;','&#x1f41f;','&#x1f420;','&#x1f421;','&#x1f6b4;','&#x1f422;','&#x1f423;','&#x1f424;','&#x1f425;','&#x1f426;','&#x1f427;','&#x1f428;','&#x1f429;','&#x1f42a;','&#x1f42b;','&#x1f42c;','&#x1f42d;','&#x1f42e;','&#x1f42f;','&#x1f430;','&#x1f431;','&#x1f432;','&#x1f6b5;','&#x1f433;','&#x1f434;','&#x1f435;','&#x1f469;','&#x1f46a;','&#x1f46b;','&#x1f46c;','&#x1f46d;','&#x1f436;','&#x1f437;','&#x1f438;','&#x1f439;','&#x1f43a;','&#x1f43b;','&#x1f43c;','&#x1f43d;','&#x1f43e;','&#x1f6b6;','&#x1f6b7;','&#x1f6b8;','&#x1f6b9;','&#x1f6ba;','&#x1f6bb;','&#x1f6bc;','&#x1f6bd;','&#x1f6be;','&#x1f6bf;','&#x1f43f;','&#x1f440;','&#x1f332;','&#x1f441;','&#x1f333;','&#x1f6c0;','&#x1f6c1;','&#x1f6c2;','&#x1f6c3;','&#x1f6c4;','&#x1f6c5;','&#x1f6cb;','&#x1f334;','&#x1f335;','&#x1f336;','&#x1f46e;','&#x1f337;','&#x1f6cc;','&#x1f6cd;','&#x1f6ce;','&#x1f6cf;','&#x1f6d0;','&#x1f6d1;','&#x1f6d2;','&#x1f6e0;','&#x1f6e1;','&#x1f6e2;','&#x1f6e3;','&#x1f6e4;','&#x1f6e5;','&#x1f6e9;','&#x1f6eb;','&#x1f6ec;','&#x1f6f0;','&#x1f6f3;','&#x1f6f4;','&#x1f6f5;','&#x1f6f6;','&#x1f6f7;','&#x1f6f8;','&#x1f6f9;','&#x1f910;','&#x1f911;','&#x1f912;','&#x1f913;','&#x1f914;','&#x1f915;','&#x1f916;','&#x1f917;','&#x1f442;','&#x1f46f;','&#x1f338;','&#x1f339;','&#x1f33a;','&#x1f918;','&#x1f33b;','&#x1f33c;','&#x1f470;','&#x1f443;','&#x1f444;','&#x1f919;','&#x1f445;','&#x1f33d;','&#x1f33e;','&#x1f33f;','&#x1f340;','&#x1f91a;','&#x1f341;','&#x1f446;','&#x1f342;','&#x1f343;','&#x1f344;','&#x1f91b;','&#x1f345;','&#x1f346;','&#x1f447;','&#x1f347;','&#x1f348;','&#x1f91c;','&#x1f91d;','&#x1f471;','&#x1f349;','&#x1f34a;','&#x1f34b;','&#x1f448;','&#x1f91e;','&#x1f34c;','&#x1f472;','&#x1f34d;','&#x1f34e;','&#x1f34f;','&#x1f91f;','&#x1f920;','&#x1f921;','&#x1f922;','&#x1f923;','&#x1f924;','&#x1f925;','&#x1f350;','&#x1f449;','&#x1f351;','&#x1f352;','&#x1f353;','&#x1f354;','&#x1f355;','&#x1f44a;','&#x1f356;','&#x1f357;','&#x1f358;','&#x1f359;','&#x1f35a;','&#x1f44b;','&#x1f473;','&#x1f35b;','&#x1f35c;','&#x1f926;','&#x1f927;','&#x1f928;','&#x1f929;','&#x1f92a;','&#x1f92b;','&#x1f92c;','&#x1f92d;','&#x1f92e;','&#x1f92f;','&#x1f35d;','&#x1f35e;','&#x1f35f;','&#x1f474;','&#x1f44c;','&#x1f930;','&#x1f360;','&#x1f361;','&#x1f362;','&#x1f363;','&#x1f475;','&#x1f931;','&#x1f364;','&#x1f44d;','&#x1f365;','&#x1f366;','&#x1f367;','&#x1f932;','&#x1f476;','&#x1f368;','&#x1f369;','&#x1f44e;','&#x1f36a;','&#x1f933;','&#x1f36b;','&#x1f36c;','&#x1f36d;','&#x1f36e;','&#x1f44f;','&#x1f934;','&#x1f36f;','&#x1f370;','&#x1f371;','&#x1f372;','&#x1f373;','&#x1f450;','&#x1f451;','&#x1f452;','&#x1f477;','&#x1f453;','&#x1f454;','&#x1f455;','&#x1f456;','&#x1f457;','&#x1f478;','&#x1f479;','&#x1f47a;','&#x1f935;','&#x1f47b;','&#x1f458;','&#x1f459;','&#x1f45a;','&#x1f45b;','&#x1f936;','&#x1f45c;','&#x1f47c;','&#x1f47d;','&#x1f47e;','&#x1f47f;','&#x1f480;','&#x1f45d;','&#x1f45e;','&#x1f45f;','&#x1f460;','&#x1f461;','&#x1f462;','&#x1f463;','&#x1f464;','&#x1f465;','&#x1f374;','&#x1f375;','&#x1f937;','&#x1f376;','&#x1f377;','&#x1f378;','&#x1f466;','&#x1f379;','&#x1f37a;','&#x1f481;','&#x1f37b;','&#x1f37c;','&#x1f37d;','&#x1f467;','&#x1f37e;','&#x1f37f;','&#x1f380;','&#x1f381;','&#x1f382;','&#x1f383;','&#x1f938;','&#x1f384;','&#x1f1f5;','&#x1f17e;','&#x1f1f6;','&#x1f1f2;','&#x1f17f;','&#x1f385;','&#x1f482;','&#x1f386;','&#x1f387;','&#x1f388;','&#x1f389;','&#x1f38a;','&#x1f483;','&#x1f484;','&#x1f38b;','&#x1f38c;','&#x1f939;','&#x1f93a;','&#x1f38d;','&#x1f38e;','&#x1f93c;','&#x1f38f;','&#x1f485;','&#x1f390;','&#x1f391;','&#x1f392;','&#x1f393;','&#x1f396;','&#x1f397;','&#x1f399;','&#x1f39a;','&#x1f39b;','&#x1f39e;','&#x1f39f;','&#x1f3a0;','&#x1f3a1;','&#x1f3a2;','&#x1f3a3;','&#x1f93d;','&#x1f3a4;','&#x1f3a5;','&#x1f486;','&#x1f3a6;','&#x1f3a7;','&#x1f3a8;','&#x1f3a9;','&#x1f3aa;','&#x1f3ab;','&#x1f3ac;','&#x1f3ad;','&#x1f3ae;','&#x1f3af;','&#x1f3b0;','&#x1f3b1;','&#x1f3b2;','&#x1f3b3;','&#x1f93e;','&#x1f940;','&#x1f941;','&#x1f942;','&#x1f943;','&#x1f944;','&#x1f945;','&#x1f947;','&#x1f948;','&#x1f949;','&#x1f94a;','&#x1f94b;','&#x1f94c;','&#x1f94d;','&#x1f94e;','&#x1f94f;','&#x1f950;','&#x1f951;','&#x1f952;','&#x1f953;','&#x1f954;','&#x1f955;','&#x1f956;','&#x1f957;','&#x1f958;','&#x1f959;','&#x1f95a;','&#x1f95b;','&#x1f95c;','&#x1f95d;','&#x1f95e;','&#x1f95f;','&#x1f960;','&#x1f961;','&#x1f962;','&#x1f963;','&#x1f964;','&#x1f965;','&#x1f966;','&#x1f967;','&#x1f968;','&#x1f969;','&#x1f96a;','&#x1f96b;','&#x1f96c;','&#x1f96d;','&#x1f96e;','&#x1f96f;','&#x1f970;','&#x1f973;','&#x1f974;','&#x1f975;','&#x1f976;','&#x1f97a;','&#x1f97c;','&#x1f97d;','&#x1f97e;','&#x1f97f;','&#x1f980;','&#x1f981;','&#x1f982;','&#x1f983;','&#x1f984;','&#x1f985;','&#x1f986;','&#x1f987;','&#x1f988;','&#x1f989;','&#x1f98a;','&#x1f98b;','&#x1f98c;','&#x1f98d;','&#x1f98e;','&#x1f98f;','&#x1f990;','&#x1f991;','&#x1f992;','&#x1f993;','&#x1f994;','&#x1f995;','&#x1f996;','&#x1f997;','&#x1f998;','&#x1f999;','&#x1f99a;','&#x1f99b;','&#x1f99c;','&#x1f99d;','&#x1f99e;','&#x1f99f;','&#x1f9a0;','&#x1f9a1;','&#x1f9a2;','&#x1f9b4;','&#x1f3b4;','&#x1f3b5;','&#x1f3b6;','&#x1f487;','&#x1f488;','&#x1f9b5;','&#x1f489;','&#x1f48a;','&#x1f48b;','&#x1f48c;','&#x1f48d;','&#x1f9b6;','&#x1f9b7;','&#x1f48e;','&#x1f48f;','&#x1f490;','&#x1f491;','&#x1f492;','&#x1f493;','&#x1f494;','&#x1f495;','&#x1f496;','&#x1f497;','&#x1f498;','&#x1f499;','&#x1f49a;','&#x1f49b;','&#x1f49c;','&#x1f49d;','&#x1f49e;','&#x1f9b8;','&#x1f49f;','&#x1f4a0;','&#x1f4a1;','&#x1f4a2;','&#x1f4a3;','&#x1f4a4;','&#x1f4a5;','&#x1f4a6;','&#x1f4a7;','&#x1f4a8;','&#x1f4a9;','&#x1f3b7;','&#x1f3b8;','&#x1f3b9;','&#x1f3ba;','&#x1f3bb;','&#x1f4aa;','&#x1f9b9;','&#x1f9c0;','&#x1f9c1;','&#x1f9c2;','&#x1f9d0;','&#x1f4ab;','&#x1f4ac;','&#x1f4ad;','&#x1f4ae;','&#x1f4af;','&#x1f9d1;','&#x1f4b0;','&#x1f4b1;','&#x1f4b2;','&#x1f4b3;','&#x1f4b4;','&#x1f9d2;','&#x1f4b5;','&#x1f4b6;','&#x1f4b7;','&#x1f4b8;','&#x1f4b9;','&#x1f9d3;','&#x1f4ba;','&#x1f4bb;','&#x1f4bc;','&#x1f4bd;','&#x1f4be;','&#x1f9d4;','&#x1f4bf;','&#x1f4c0;','&#x1f4c1;','&#x1f4c2;','&#x1f4c3;','&#x1f9d5;','&#x1f4c4;','&#x1f4c5;','&#x1f4c6;','&#x1f4c7;','&#x1f4c8;','&#x1f4c9;','&#x1f4ca;','&#x1f4cb;','&#x1f4cc;','&#x1f4cd;','&#x1f4ce;','&#x1f4cf;','&#x1f4d0;','&#x1f4d1;','&#x1f4d2;','&#x1f4d3;','&#x1f4d4;','&#x1f9d6;','&#x1f4d5;','&#x1f4d6;','&#x1f4d7;','&#x1f4d8;','&#x1f4d9;','&#x1f4da;','&#x1f4db;','&#x1f4dc;','&#x1f4dd;','&#x1f4de;','&#x1f4df;','&#x1f4e0;','&#x1f4e1;','&#x1f4e2;','&#x1f4e3;','&#x1f4e4;','&#x1f4e5;','&#x1f9d7;','&#x1f4e6;','&#x1f4e7;','&#x1f4e8;','&#x1f4e9;','&#x1f4ea;','&#x1f4eb;','&#x1f4ec;','&#x1f4ed;','&#x1f4ee;','&#x1f4ef;','&#x1f4f0;','&#x1f4f1;','&#x1f4f2;','&#x1f4f3;','&#x1f4f4;','&#x1f4f5;','&#x1f4f6;','&#x1f9d8;','&#x1f4f7;','&#x1f4f8;','&#x1f4f9;','&#x1f4fa;','&#x1f4fb;','&#x1f4fc;','&#x1f4fd;','&#x1f4ff;','&#x1f500;','&#x1f501;','&#x1f502;','&#x1f503;','&#x1f504;','&#x1f505;','&#x1f506;','&#x1f507;','&#x1f508;','&#x1f9d9;','&#x1f509;','&#x1f50a;','&#x1f50b;','&#x1f50c;','&#x1f50d;','&#x1f50e;','&#x1f50f;','&#x1f510;','&#x1f511;','&#x1f512;','&#x1f513;','&#x1f514;','&#x1f515;','&#x1f516;','&#x1f517;','&#x1f518;','&#x1f519;','&#x1f9da;','&#x1f51a;','&#x1f51b;','&#x1f51c;','&#x1f51d;','&#x1f51e;','&#x1f51f;','&#x1f520;','&#x1f521;','&#x1f522;','&#x1f523;','&#x1f524;','&#x1f525;','&#x1f526;','&#x1f527;','&#x1f528;','&#x1f529;','&#x1f52a;','&#x1f9db;','&#x1f52b;','&#x1f52c;','&#x1f52d;','&#x1f52e;','&#x1f52f;','&#x1f530;','&#x1f531;','&#x1f532;','&#x1f533;','&#x1f534;','&#x1f535;','&#x1f536;','&#x1f537;','&#x1f538;','&#x1f539;','&#x1f53a;','&#x1f53b;','&#x1f9dc;','&#x1f53c;','&#x1f53d;','&#x1f549;','&#x1f54a;','&#x1f54b;','&#x1f54c;','&#x1f54d;','&#x1f54e;','&#x1f550;','&#x1f551;','&#x1f552;','&#x1f553;','&#x1f554;','&#x1f555;','&#x1f556;','&#x1f557;','&#x1f558;','&#x1f9dd;','&#x1f559;','&#x1f55a;','&#x1f9de;','&#x1f55b;','&#x1f55c;','&#x1f9df;','&#x1f9e0;','&#x1f9e1;','&#x1f9e2;','&#x1f9e3;','&#x1f9e4;','&#x1f9e5;','&#x1f9e6;','&#x1f9e7;','&#x1f9e8;','&#x1f9e9;','&#x1f9ea;','&#x1f9eb;','&#x1f9ec;','&#x1f9ed;','&#x1f9ee;','&#x1f9ef;','&#x1f9f0;','&#x1f9f1;','&#x1f9f2;','&#x1f9f3;','&#x1f9f4;','&#x1f9f5;','&#x1f9f6;','&#x1f9f7;','&#x1f9f8;','&#x1f9f9;','&#x1f9fa;','&#x1f9fb;','&#x1f9fc;','&#x1f9fd;','&#x1f9fe;','&#x1f9ff;','&#x1f55d;','&#x1f55e;','&#x1f55f;','&#x1f560;','&#x1f561;','&#x1f562;','&#x1f563;','&#x1f564;','&#x1f565;','&#x1f566;','&#x1f567;','&#x1f56f;','&#x1f570;','&#x1f573;','&#x1f3bc;','&#x1f3bd;','&#x1f3be;','&#x1f3bf;','&#x1f3c0;','&#x1f3c1;','&#x1f1e7;','&#x1f1ee;','&#x1f1ea;','&#x1f1f7;','&#x1f1f1;','&#x1f3c2;','&#x1f18e;','&#x1f191;','&#x1f1e8;','&#x1f1f9;','&#x1f1ef;','&#x1f574;','&#x1f192;','&#x1f1ec;','&#x1f193;','&#x1f1f3;','&#x1f194;','&#x1f1f4;','&#x1f1fa;','&#x1f1eb;','&#x1f195;','&#x1f196;','&#x1f197;','&#x1f1ed;','&#x1f3c3;','&#x1f198;','&#x1f1e9;','&#x1f1fb;','&#x1f1f0;','&#x1f575;','&#x1f576;','&#x1f577;','&#x1f578;','&#x1f579;','&#x1f199;','&#x1f1fc;','&#x1f19a;','&#x1f1fd;','&#x1f1f8;','&#x25ab;','&#x2626;','&#x262e;','&#x262f;','&#x2638;','&#x2639;','&#x263a;','&#x2640;','&#x2642;','&#x2648;','&#x2649;','&#x264a;','&#x264b;','&#x264c;','&#x264d;','&#x264e;','&#x264f;','&#x2650;','&#x2651;','&#x2652;','&#x2653;','&#x265f;','&#x2660;','&#x2663;','&#x2665;','&#x2666;','&#x2668;','&#x267b;','&#x267e;','&#x267f;','&#x2692;','&#x2693;','&#x2694;','&#x2695;','&#x2696;','&#x2697;','&#x2699;','&#x269b;','&#x269c;','&#x26a0;','&#x26a1;','&#x26aa;','&#x26ab;','&#x26b0;','&#x26b1;','&#x26bd;','&#x26be;','&#x26c4;','&#x26c5;','&#x26c8;','&#x26ce;','&#x26cf;','&#x26d1;','&#x26d3;','&#x26d4;','&#x26e9;','&#x26ea;','&#x26f0;','&#x26f1;','&#x26f2;','&#x26f3;','&#x26f4;','&#x26f5;','&#x2623;','&#x2622;','&#x2620;','&#x261d;','&#x2618;','&#x26f7;','&#x26f8;','&#x2615;','&#x2614;','&#x2611;','&#x260e;','&#x2604;','&#x2603;','&#x2602;','&#x2601;','&#x2600;','&#x25fe;','&#x25fd;','&#x25fc;','&#x25fb;','&#x25c0;','&#x25b6;','&#x262a;','&#x25aa;','&#x26f9;','&#x26fa;','&#x26fd;','&#x2702;','&#x2705;','&#x2708;','&#x2709;','&#x24c2;','&#x23fa;','&#x23f9;','&#x23f8;','&#x23f3;','&#x270a;','&#x23f2;','&#x23f1;','&#x23f0;','&#x23ef;','&#x23ee;','&#x270b;','&#x23ed;','&#x23ec;','&#x23eb;','&#x23ea;','&#x23e9;','&#x270c;','&#x23cf;','&#x2328;','&#x231b;','&#x231a;','&#x21aa;','&#x270d;','&#x270f;','&#x2712;','&#x2714;','&#x2716;','&#x271d;','&#x2721;','&#x2728;','&#x2733;','&#x2734;','&#x2744;','&#x2747;','&#x274c;','&#x274e;','&#x2753;','&#x2754;','&#x2755;','&#x2757;','&#x2763;','&#x2764;','&#x2795;','&#x2796;','&#x2797;','&#x27a1;','&#x27b0;','&#x27bf;','&#x2934;','&#x2935;','&#x21a9;','&#x2b05;','&#x2b06;','&#x2b07;','&#x2b1b;','&#x2b1c;','&#x2b50;','&#x2b55;','&#x2199;','&#x3030;','&#x303d;','&#x2198;','&#x2197;','&#x3297;','&#x3299;','&#x2196;','&#x2195;','&#x2194;','&#x2139;','&#x2122;','&#x2049;','&#x203c;','&#xe50a;');
+	$partials = array('&#x1f004;','&#x1f0cf;','&#x1f170;','&#x1f171;','&#x1f17e;','&#x1f17f;','&#x1f18e;','&#x1f191;','&#x1f192;','&#x1f193;','&#x1f194;','&#x1f195;','&#x1f196;','&#x1f197;','&#x1f198;','&#x1f199;','&#x1f19a;','&#x1f1e6;','&#x1f1e8;','&#x1f1e9;','&#x1f1ea;','&#x1f1eb;','&#x1f1ec;','&#x1f1ee;','&#x1f1f1;','&#x1f1f2;','&#x1f1f4;','&#x1f1f6;','&#x1f1f7;','&#x1f1f8;','&#x1f1f9;','&#x1f1fa;','&#x1f1fc;','&#x1f1fd;','&#x1f1ff;','&#x1f1e7;','&#x1f1ed;','&#x1f1ef;','&#x1f1f3;','&#x1f1fb;','&#x1f1fe;','&#x1f1f0;','&#x1f1f5;','&#x1f201;','&#x1f202;','&#x1f21a;','&#x1f22f;','&#x1f232;','&#x1f233;','&#x1f234;','&#x1f235;','&#x1f236;','&#x1f237;','&#x1f238;','&#x1f239;','&#x1f23a;','&#x1f250;','&#x1f251;','&#x1f300;','&#x1f301;','&#x1f302;','&#x1f303;','&#x1f304;','&#x1f305;','&#x1f306;','&#x1f307;','&#x1f308;','&#x1f309;','&#x1f30a;','&#x1f30b;','&#x1f30c;','&#x1f30d;','&#x1f30e;','&#x1f30f;','&#x1f310;','&#x1f311;','&#x1f312;','&#x1f313;','&#x1f314;','&#x1f315;','&#x1f316;','&#x1f317;','&#x1f318;','&#x1f319;','&#x1f31a;','&#x1f31b;','&#x1f31c;','&#x1f31d;','&#x1f31e;','&#x1f31f;','&#x1f320;','&#x1f321;','&#x1f324;','&#x1f325;','&#x1f326;','&#x1f327;','&#x1f328;','&#x1f329;','&#x1f32a;','&#x1f32b;','&#x1f32c;','&#x1f32d;','&#x1f32e;','&#x1f32f;','&#x1f330;','&#x1f331;','&#x1f332;','&#x1f333;','&#x1f334;','&#x1f335;','&#x1f336;','&#x1f337;','&#x1f338;','&#x1f339;','&#x1f33a;','&#x1f33b;','&#x1f33c;','&#x1f33d;','&#x1f33e;','&#x1f33f;','&#x1f340;','&#x1f341;','&#x1f342;','&#x1f343;','&#x1f344;','&#x1f345;','&#x1f346;','&#x1f347;','&#x1f348;','&#x1f349;','&#x1f34a;','&#x1f34b;','&#x1f34c;','&#x1f34d;','&#x1f34e;','&#x1f34f;','&#x1f350;','&#x1f351;','&#x1f352;','&#x1f353;','&#x1f354;','&#x1f355;','&#x1f356;','&#x1f357;','&#x1f358;','&#x1f359;','&#x1f35a;','&#x1f35b;','&#x1f35c;','&#x1f35d;','&#x1f35e;','&#x1f35f;','&#x1f360;','&#x1f361;','&#x1f362;','&#x1f363;','&#x1f364;','&#x1f365;','&#x1f366;','&#x1f367;','&#x1f368;','&#x1f369;','&#x1f36a;','&#x1f36b;','&#x1f36c;','&#x1f36d;','&#x1f36e;','&#x1f36f;','&#x1f370;','&#x1f371;','&#x1f372;','&#x1f373;','&#x1f374;','&#x1f375;','&#x1f376;','&#x1f377;','&#x1f378;','&#x1f379;','&#x1f37a;','&#x1f37b;','&#x1f37c;','&#x1f37d;','&#x1f37e;','&#x1f37f;','&#x1f380;','&#x1f381;','&#x1f382;','&#x1f383;','&#x1f384;','&#x1f385;','&#x1f3fb;','&#x1f3fc;','&#x1f3fd;','&#x1f3fe;','&#x1f3ff;','&#x1f386;','&#x1f387;','&#x1f388;','&#x1f389;','&#x1f38a;','&#x1f38b;','&#x1f38c;','&#x1f38d;','&#x1f38e;','&#x1f38f;','&#x1f390;','&#x1f391;','&#x1f392;','&#x1f393;','&#x1f396;','&#x1f397;','&#x1f399;','&#x1f39a;','&#x1f39b;','&#x1f39e;','&#x1f39f;','&#x1f3a0;','&#x1f3a1;','&#x1f3a2;','&#x1f3a3;','&#x1f3a4;','&#x1f3a5;','&#x1f3a6;','&#x1f3a7;','&#x1f3a8;','&#x1f3a9;','&#x1f3aa;','&#x1f3ab;','&#x1f3ac;','&#x1f3ad;','&#x1f3ae;','&#x1f3af;','&#x1f3b0;','&#x1f3b1;','&#x1f3b2;','&#x1f3b3;','&#x1f3b4;','&#x1f3b5;','&#x1f3b6;','&#x1f3b7;','&#x1f3b8;','&#x1f3b9;','&#x1f3ba;','&#x1f3bb;','&#x1f3bc;','&#x1f3bd;','&#x1f3be;','&#x1f3bf;','&#x1f3c0;','&#x1f3c1;','&#x1f3c2;','&#x1f3c3;','&#x200d;','&#x2640;','&#xfe0f;','&#x2642;','&#x1f3c4;','&#x1f3c5;','&#x1f3c6;','&#x1f3c7;','&#x1f3c8;','&#x1f3c9;','&#x1f3ca;','&#x1f3cb;','&#x1f3cc;','&#x1f3cd;','&#x1f3ce;','&#x1f3cf;','&#x1f3d0;','&#x1f3d1;','&#x1f3d2;','&#x1f3d3;','&#x1f3d4;','&#x1f3d5;','&#x1f3d6;','&#x1f3d7;','&#x1f3d8;','&#x1f3d9;','&#x1f3da;','&#x1f3db;','&#x1f3dc;','&#x1f3dd;','&#x1f3de;','&#x1f3df;','&#x1f3e0;','&#x1f3e1;','&#x1f3e2;','&#x1f3e3;','&#x1f3e4;','&#x1f3e5;','&#x1f3e6;','&#x1f3e7;','&#x1f3e8;','&#x1f3e9;','&#x1f3ea;','&#x1f3eb;','&#x1f3ec;','&#x1f3ed;','&#x1f3ee;','&#x1f3ef;','&#x1f3f0;','&#x1f3f3;','&#x1f3f4;','&#x2620;','&#xe0067;','&#xe0062;','&#xe0065;','&#xe006e;','&#xe007f;','&#xe0073;','&#xe0063;','&#xe0074;','&#xe0077;','&#xe006c;','&#x1f3f5;','&#x1f3f7;','&#x1f3f8;','&#x1f3f9;','&#x1f3fa;','&#x1f400;','&#x1f401;','&#x1f402;','&#x1f403;','&#x1f404;','&#x1f405;','&#x1f406;','&#x1f407;','&#x1f408;','&#x1f409;','&#x1f40a;','&#x1f40b;','&#x1f40c;','&#x1f40d;','&#x1f40e;','&#x1f40f;','&#x1f410;','&#x1f411;','&#x1f412;','&#x1f413;','&#x1f414;','&#x1f415;','&#x1f416;','&#x1f417;','&#x1f418;','&#x1f419;','&#x1f41a;','&#x1f41b;','&#x1f41c;','&#x1f41d;','&#x1f41e;','&#x1f41f;','&#x1f420;','&#x1f421;','&#x1f422;','&#x1f423;','&#x1f424;','&#x1f425;','&#x1f426;','&#x1f427;','&#x1f428;','&#x1f429;','&#x1f42a;','&#x1f42b;','&#x1f42c;','&#x1f42d;','&#x1f42e;','&#x1f42f;','&#x1f430;','&#x1f431;','&#x1f432;','&#x1f433;','&#x1f434;','&#x1f435;','&#x1f436;','&#x1f437;','&#x1f438;','&#x1f439;','&#x1f43a;','&#x1f43b;','&#x1f43c;','&#x1f43d;','&#x1f43e;','&#x1f43f;','&#x1f440;','&#x1f441;','&#x1f5e8;','&#x1f442;','&#x1f443;','&#x1f444;','&#x1f445;','&#x1f446;','&#x1f447;','&#x1f448;','&#x1f449;','&#x1f44a;','&#x1f44b;','&#x1f44c;','&#x1f44d;','&#x1f44e;','&#x1f44f;','&#x1f450;','&#x1f451;','&#x1f452;','&#x1f453;','&#x1f454;','&#x1f455;','&#x1f456;','&#x1f457;','&#x1f458;','&#x1f459;','&#x1f45a;','&#x1f45b;','&#x1f45c;','&#x1f45d;','&#x1f45e;','&#x1f45f;','&#x1f460;','&#x1f461;','&#x1f462;','&#x1f463;','&#x1f464;','&#x1f465;','&#x1f466;','&#x1f467;','&#x1f468;','&#x1f4bb;','&#x1f4bc;','&#x1f527;','&#x1f52c;','&#x1f680;','&#x1f692;','&#x1f9b0;','&#x1f9b1;','&#x1f9b2;','&#x1f9b3;','&#x2695;','&#x2696;','&#x2708;','&#x1f469;','&#x2764;','&#x1f48b;','&#x1f46a;','&#x1f46b;','&#x1f46c;','&#x1f46d;','&#x1f46e;','&#x1f46f;','&#x1f470;','&#x1f471;','&#x1f472;','&#x1f473;','&#x1f474;','&#x1f475;','&#x1f476;','&#x1f477;','&#x1f478;','&#x1f479;','&#x1f47a;','&#x1f47b;','&#x1f47c;','&#x1f47d;','&#x1f47e;','&#x1f47f;','&#x1f480;','&#x1f481;','&#x1f482;','&#x1f483;','&#x1f484;','&#x1f485;','&#x1f486;','&#x1f487;','&#x1f488;','&#x1f489;','&#x1f48a;','&#x1f48c;','&#x1f48d;','&#x1f48e;','&#x1f48f;','&#x1f490;','&#x1f491;','&#x1f492;','&#x1f493;','&#x1f494;','&#x1f495;','&#x1f496;','&#x1f497;','&#x1f498;','&#x1f499;','&#x1f49a;','&#x1f49b;','&#x1f49c;','&#x1f49d;','&#x1f49e;','&#x1f49f;','&#x1f4a0;','&#x1f4a1;','&#x1f4a2;','&#x1f4a3;','&#x1f4a4;','&#x1f4a5;','&#x1f4a6;','&#x1f4a7;','&#x1f4a8;','&#x1f4a9;','&#x1f4aa;','&#x1f4ab;','&#x1f4ac;','&#x1f4ad;','&#x1f4ae;','&#x1f4af;','&#x1f4b0;','&#x1f4b1;','&#x1f4b2;','&#x1f4b3;','&#x1f4b4;','&#x1f4b5;','&#x1f4b6;','&#x1f4b7;','&#x1f4b8;','&#x1f4b9;','&#x1f4ba;','&#x1f4bd;','&#x1f4be;','&#x1f4bf;','&#x1f4c0;','&#x1f4c1;','&#x1f4c2;','&#x1f4c3;','&#x1f4c4;','&#x1f4c5;','&#x1f4c6;','&#x1f4c7;','&#x1f4c8;','&#x1f4c9;','&#x1f4ca;','&#x1f4cb;','&#x1f4cc;','&#x1f4cd;','&#x1f4ce;','&#x1f4cf;','&#x1f4d0;','&#x1f4d1;','&#x1f4d2;','&#x1f4d3;','&#x1f4d4;','&#x1f4d5;','&#x1f4d6;','&#x1f4d7;','&#x1f4d8;','&#x1f4d9;','&#x1f4da;','&#x1f4db;','&#x1f4dc;','&#x1f4dd;','&#x1f4de;','&#x1f4df;','&#x1f4e0;','&#x1f4e1;','&#x1f4e2;','&#x1f4e3;','&#x1f4e4;','&#x1f4e5;','&#x1f4e6;','&#x1f4e7;','&#x1f4e8;','&#x1f4e9;','&#x1f4ea;','&#x1f4eb;','&#x1f4ec;','&#x1f4ed;','&#x1f4ee;','&#x1f4ef;','&#x1f4f0;','&#x1f4f1;','&#x1f4f2;','&#x1f4f3;','&#x1f4f4;','&#x1f4f5;','&#x1f4f6;','&#x1f4f7;','&#x1f4f8;','&#x1f4f9;','&#x1f4fa;','&#x1f4fb;','&#x1f4fc;','&#x1f4fd;','&#x1f4ff;','&#x1f500;','&#x1f501;','&#x1f502;','&#x1f503;','&#x1f504;','&#x1f505;','&#x1f506;','&#x1f507;','&#x1f508;','&#x1f509;','&#x1f50a;','&#x1f50b;','&#x1f50c;','&#x1f50d;','&#x1f50e;','&#x1f50f;','&#x1f510;','&#x1f511;','&#x1f512;','&#x1f513;','&#x1f514;','&#x1f515;','&#x1f516;','&#x1f517;','&#x1f518;','&#x1f519;','&#x1f51a;','&#x1f51b;','&#x1f51c;','&#x1f51d;','&#x1f51e;','&#x1f51f;','&#x1f520;','&#x1f521;','&#x1f522;','&#x1f523;','&#x1f524;','&#x1f525;','&#x1f526;','&#x1f528;','&#x1f529;','&#x1f52a;','&#x1f52b;','&#x1f52d;','&#x1f52e;','&#x1f52f;','&#x1f530;','&#x1f531;','&#x1f532;','&#x1f533;','&#x1f534;','&#x1f535;','&#x1f536;','&#x1f537;','&#x1f538;','&#x1f539;','&#x1f53a;','&#x1f53b;','&#x1f53c;','&#x1f53d;','&#x1f549;','&#x1f54a;','&#x1f54b;','&#x1f54c;','&#x1f54d;','&#x1f54e;','&#x1f550;','&#x1f551;','&#x1f552;','&#x1f553;','&#x1f554;','&#x1f555;','&#x1f556;','&#x1f557;','&#x1f558;','&#x1f559;','&#x1f55a;','&#x1f55b;','&#x1f55c;','&#x1f55d;','&#x1f55e;','&#x1f55f;','&#x1f560;','&#x1f561;','&#x1f562;','&#x1f563;','&#x1f564;','&#x1f565;','&#x1f566;','&#x1f567;','&#x1f56f;','&#x1f570;','&#x1f573;','&#x1f574;','&#x1f575;','&#x1f576;','&#x1f577;','&#x1f578;','&#x1f579;','&#x1f57a;','&#x1f587;','&#x1f58a;','&#x1f58b;','&#x1f58c;','&#x1f58d;','&#x1f590;','&#x1f595;','&#x1f596;','&#x1f5a4;','&#x1f5a5;','&#x1f5a8;','&#x1f5b1;','&#x1f5b2;','&#x1f5bc;','&#x1f5c2;','&#x1f5c3;','&#x1f5c4;','&#x1f5d1;','&#x1f5d2;','&#x1f5d3;','&#x1f5dc;','&#x1f5dd;','&#x1f5de;','&#x1f5e1;','&#x1f5e3;','&#x1f5ef;','&#x1f5f3;','&#x1f5fa;','&#x1f5fb;','&#x1f5fc;','&#x1f5fd;','&#x1f5fe;','&#x1f5ff;','&#x1f600;','&#x1f601;','&#x1f602;','&#x1f603;','&#x1f604;','&#x1f605;','&#x1f606;','&#x1f607;','&#x1f608;','&#x1f609;','&#x1f60a;','&#x1f60b;','&#x1f60c;','&#x1f60d;','&#x1f60e;','&#x1f60f;','&#x1f610;','&#x1f611;','&#x1f612;','&#x1f613;','&#x1f614;','&#x1f615;','&#x1f616;','&#x1f617;','&#x1f618;','&#x1f619;','&#x1f61a;','&#x1f61b;','&#x1f61c;','&#x1f61d;','&#x1f61e;','&#x1f61f;','&#x1f620;','&#x1f621;','&#x1f622;','&#x1f623;','&#x1f624;','&#x1f625;','&#x1f626;','&#x1f627;','&#x1f628;','&#x1f629;','&#x1f62a;','&#x1f62b;','&#x1f62c;','&#x1f62d;','&#x1f62e;','&#x1f62f;','&#x1f630;','&#x1f631;','&#x1f632;','&#x1f633;','&#x1f634;','&#x1f635;','&#x1f636;','&#x1f637;','&#x1f638;','&#x1f639;','&#x1f63a;','&#x1f63b;','&#x1f63c;','&#x1f63d;','&#x1f63e;','&#x1f63f;','&#x1f640;','&#x1f641;','&#x1f642;','&#x1f643;','&#x1f644;','&#x1f645;','&#x1f646;','&#x1f647;','&#x1f648;','&#x1f649;','&#x1f64a;','&#x1f64b;','&#x1f64c;','&#x1f64d;','&#x1f64e;','&#x1f64f;','&#x1f681;','&#x1f682;','&#x1f683;','&#x1f684;','&#x1f685;','&#x1f686;','&#x1f687;','&#x1f688;','&#x1f689;','&#x1f68a;','&#x1f68b;','&#x1f68c;','&#x1f68d;','&#x1f68e;','&#x1f68f;','&#x1f690;','&#x1f691;','&#x1f693;','&#x1f694;','&#x1f695;','&#x1f696;','&#x1f697;','&#x1f698;','&#x1f699;','&#x1f69a;','&#x1f69b;','&#x1f69c;','&#x1f69d;','&#x1f69e;','&#x1f69f;','&#x1f6a0;','&#x1f6a1;','&#x1f6a2;','&#x1f6a3;','&#x1f6a4;','&#x1f6a5;','&#x1f6a6;','&#x1f6a7;','&#x1f6a8;','&#x1f6a9;','&#x1f6aa;','&#x1f6ab;','&#x1f6ac;','&#x1f6ad;','&#x1f6ae;','&#x1f6af;','&#x1f6b0;','&#x1f6b1;','&#x1f6b2;','&#x1f6b3;','&#x1f6b4;','&#x1f6b5;','&#x1f6b6;','&#x1f6b7;','&#x1f6b8;','&#x1f6b9;','&#x1f6ba;','&#x1f6bb;','&#x1f6bc;','&#x1f6bd;','&#x1f6be;','&#x1f6bf;','&#x1f6c0;','&#x1f6c1;','&#x1f6c2;','&#x1f6c3;','&#x1f6c4;','&#x1f6c5;','&#x1f6cb;','&#x1f6cc;','&#x1f6cd;','&#x1f6ce;','&#x1f6cf;','&#x1f6d0;','&#x1f6d1;','&#x1f6d2;','&#x1f6e0;','&#x1f6e1;','&#x1f6e2;','&#x1f6e3;','&#x1f6e4;','&#x1f6e5;','&#x1f6e9;','&#x1f6eb;','&#x1f6ec;','&#x1f6f0;','&#x1f6f3;','&#x1f6f4;','&#x1f6f5;','&#x1f6f6;','&#x1f6f7;','&#x1f6f8;','&#x1f6f9;','&#x1f910;','&#x1f911;','&#x1f912;','&#x1f913;','&#x1f914;','&#x1f915;','&#x1f916;','&#x1f917;','&#x1f918;','&#x1f919;','&#x1f91a;','&#x1f91b;','&#x1f91c;','&#x1f91d;','&#x1f91e;','&#x1f91f;','&#x1f920;','&#x1f921;','&#x1f922;','&#x1f923;','&#x1f924;','&#x1f925;','&#x1f926;','&#x1f927;','&#x1f928;','&#x1f929;','&#x1f92a;','&#x1f92b;','&#x1f92c;','&#x1f92d;','&#x1f92e;','&#x1f92f;','&#x1f930;','&#x1f931;','&#x1f932;','&#x1f933;','&#x1f934;','&#x1f935;','&#x1f936;','&#x1f937;','&#x1f938;','&#x1f939;','&#x1f93a;','&#x1f93c;','&#x1f93d;','&#x1f93e;','&#x1f940;','&#x1f941;','&#x1f942;','&#x1f943;','&#x1f944;','&#x1f945;','&#x1f947;','&#x1f948;','&#x1f949;','&#x1f94a;','&#x1f94b;','&#x1f94c;','&#x1f94d;','&#x1f94e;','&#x1f94f;','&#x1f950;','&#x1f951;','&#x1f952;','&#x1f953;','&#x1f954;','&#x1f955;','&#x1f956;','&#x1f957;','&#x1f958;','&#x1f959;','&#x1f95a;','&#x1f95b;','&#x1f95c;','&#x1f95d;','&#x1f95e;','&#x1f95f;','&#x1f960;','&#x1f961;','&#x1f962;','&#x1f963;','&#x1f964;','&#x1f965;','&#x1f966;','&#x1f967;','&#x1f968;','&#x1f969;','&#x1f96a;','&#x1f96b;','&#x1f96c;','&#x1f96d;','&#x1f96e;','&#x1f96f;','&#x1f970;','&#x1f973;','&#x1f974;','&#x1f975;','&#x1f976;','&#x1f97a;','&#x1f97c;','&#x1f97d;','&#x1f97e;','&#x1f97f;','&#x1f980;','&#x1f981;','&#x1f982;','&#x1f983;','&#x1f984;','&#x1f985;','&#x1f986;','&#x1f987;','&#x1f988;','&#x1f989;','&#x1f98a;','&#x1f98b;','&#x1f98c;','&#x1f98d;','&#x1f98e;','&#x1f98f;','&#x1f990;','&#x1f991;','&#x1f992;','&#x1f993;','&#x1f994;','&#x1f995;','&#x1f996;','&#x1f997;','&#x1f998;','&#x1f999;','&#x1f99a;','&#x1f99b;','&#x1f99c;','&#x1f99d;','&#x1f99e;','&#x1f99f;','&#x1f9a0;','&#x1f9a1;','&#x1f9a2;','&#x1f9b4;','&#x1f9b5;','&#x1f9b6;','&#x1f9b7;','&#x1f9b8;','&#x1f9b9;','&#x1f9c0;','&#x1f9c1;','&#x1f9c2;','&#x1f9d0;','&#x1f9d1;','&#x1f9d2;','&#x1f9d3;','&#x1f9d4;','&#x1f9d5;','&#x1f9d6;','&#x1f9d7;','&#x1f9d8;','&#x1f9d9;','&#x1f9da;','&#x1f9db;','&#x1f9dc;','&#x1f9dd;','&#x1f9de;','&#x1f9df;','&#x1f9e0;','&#x1f9e1;','&#x1f9e2;','&#x1f9e3;','&#x1f9e4;','&#x1f9e5;','&#x1f9e6;','&#x1f9e7;','&#x1f9e8;','&#x1f9e9;','&#x1f9ea;','&#x1f9eb;','&#x1f9ec;','&#x1f9ed;','&#x1f9ee;','&#x1f9ef;','&#x1f9f0;','&#x1f9f1;','&#x1f9f2;','&#x1f9f3;','&#x1f9f4;','&#x1f9f5;','&#x1f9f6;','&#x1f9f7;','&#x1f9f8;','&#x1f9f9;','&#x1f9fa;','&#x1f9fb;','&#x1f9fc;','&#x1f9fd;','&#x1f9fe;','&#x1f9ff;','&#x203c;','&#x2049;','&#x2122;','&#x2139;','&#x2194;','&#x2195;','&#x2196;','&#x2197;','&#x2198;','&#x2199;','&#x21a9;','&#x21aa;','&#x20e3;','&#x231a;','&#x231b;','&#x2328;','&#x23cf;','&#x23e9;','&#x23ea;','&#x23eb;','&#x23ec;','&#x23ed;','&#x23ee;','&#x23ef;','&#x23f0;','&#x23f1;','&#x23f2;','&#x23f3;','&#x23f8;','&#x23f9;','&#x23fa;','&#x24c2;','&#x25aa;','&#x25ab;','&#x25b6;','&#x25c0;','&#x25fb;','&#x25fc;','&#x25fd;','&#x25fe;','&#x2600;','&#x2601;','&#x2602;','&#x2603;','&#x2604;','&#x260e;','&#x2611;','&#x2614;','&#x2615;','&#x2618;','&#x261d;','&#x2622;','&#x2623;','&#x2626;','&#x262a;','&#x262e;','&#x262f;','&#x2638;','&#x2639;','&#x263a;','&#x2648;','&#x2649;','&#x264a;','&#x264b;','&#x264c;','&#x264d;','&#x264e;','&#x264f;','&#x2650;','&#x2651;','&#x2652;','&#x2653;','&#x265f;','&#x2660;','&#x2663;','&#x2665;','&#x2666;','&#x2668;','&#x267b;','&#x267e;','&#x267f;','&#x2692;','&#x2693;','&#x2694;','&#x2697;','&#x2699;','&#x269b;','&#x269c;','&#x26a0;','&#x26a1;','&#x26aa;','&#x26ab;','&#x26b0;','&#x26b1;','&#x26bd;','&#x26be;','&#x26c4;','&#x26c5;','&#x26c8;','&#x26ce;','&#x26cf;','&#x26d1;','&#x26d3;','&#x26d4;','&#x26e9;','&#x26ea;','&#x26f0;','&#x26f1;','&#x26f2;','&#x26f3;','&#x26f4;','&#x26f5;','&#x26f7;','&#x26f8;','&#x26f9;','&#x26fa;','&#x26fd;','&#x2702;','&#x2705;','&#x2709;','&#x270a;','&#x270b;','&#x270c;','&#x270d;','&#x270f;','&#x2712;','&#x2714;','&#x2716;','&#x271d;','&#x2721;','&#x2728;','&#x2733;','&#x2734;','&#x2744;','&#x2747;','&#x274c;','&#x274e;','&#x2753;','&#x2754;','&#x2755;','&#x2757;','&#x2763;','&#x2795;','&#x2796;','&#x2797;','&#x27a1;','&#x27b0;','&#x27bf;','&#x2934;','&#x2935;','&#x2b05;','&#x2b06;','&#x2b07;','&#x2b1b;','&#x2b1c;','&#x2b50;','&#x2b55;','&#x3030;','&#x303d;','&#x3297;','&#x3299;','&#xe50a;');
 	// END: emoji arrays
 
 	if ( 'entities' === $type ) {
@@ -5327,8 +5327,8 @@ function _wp_emoji_list( $type = 'entities' ) {
 /**
  * Shorten a URL, to be used as link text.
  *
- * @since 1.2.0
- * @since 4.4.0 Moved to wp-includes/formatting.php from wp-admin/includes/misc.php and added $length param.
+ * @since WP-1.2.0
+ * @since WP-4.4.0 Moved to wp-includes/formatting.php from wp-admin/includes/misc.php and added $length param.
  *
  * @param string $url    URL to shorten.
  * @param int    $length Optional. Maximum length of the shortened URL. Default 35 characters.
@@ -5350,7 +5350,7 @@ function url_shorten( $url, $length = 35 ) {
  * Returns either '', a 3 or 6 digit hex color (with #), or nothing.
  * For sanitizing values without a #, see sanitize_hex_color_no_hash().
  *
- * @since 3.4.0
+ * @since WP-3.4.0
  *
  * @param string $color
  * @return string|void
@@ -5375,7 +5375,7 @@ function sanitize_hex_color( $color ) {
  *
  * Returns either '', a 3 or 6 digit hex color (without a #), or null.
  *
- * @since 3.4.0
+ * @since WP-3.4.0
  *
  * @param string $color
  * @return string|null
@@ -5396,7 +5396,7 @@ function sanitize_hex_color_no_hash( $color ) {
  *
  * This method should only be necessary if using sanitize_hex_color_no_hash().
  *
- * @since 3.4.0
+ * @since WP-3.4.0
  *
  * @param string $color
  * @return string

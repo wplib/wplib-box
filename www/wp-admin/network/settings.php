@@ -2,15 +2,15 @@
 /**
  * Multisite network settings administration panel.
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Multisite
- * @since 3.0.0
+ * @since WP-3.0.0
  */
 
-/** Load WordPress Administration Bootstrap */
+/** Load ClassicPress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
-/** WordPress Translation Installation API */
+/** ClassicPress Translation Installation API */
 require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
 
 if ( ! current_user_can( 'manage_network_options' ) )
@@ -100,7 +100,7 @@ if ( $_POST ) {
 	/**
 	 * Fires after the network options are updated.
 	 *
-	 * @since MU (3.0.0)
+	 * @since WP-MU (3.0.0)
 	 */
 	do_action( 'update_wpmu_options' );
 
@@ -410,7 +410,7 @@ if ( isset( $_GET['updated'] ) ) {
 			 * default option, 'plugins' is enabled, site administrators are granted access to the Plugins
 			 * screen in their individual sites' dashboards.
 			 *
-			 * @since MU (3.0.0)
+			 * @since WP-MU (3.0.0)
 			 *
 			 * @param array $admin_menus The menu items available.
 			 */
@@ -433,7 +433,7 @@ if ( isset( $_GET['updated'] ) ) {
 		/**
 		 * Fires at the end of the Network Settings form, before the submit button.
 		 *
-		 * @since MU (3.0.0)
+		 * @since WP-MU (3.0.0)
 		 */
 		do_action( 'wpmu_options' ); ?>
 		<?php submit_button(); ?>

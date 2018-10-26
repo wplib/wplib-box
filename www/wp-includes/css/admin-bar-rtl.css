@@ -476,48 +476,29 @@ html:lang(he-il) .rtl #wpadminbar *  {
 }
 
 /**
- * WP Logo
+ * ClassicPress Logo
  */
-#wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon {
-	width: 15px;
-	height: 20px;
-	margin-left: 0;
-	padding: 6px 0 5px;
+#wpadminbar #wp-admin-bar-wp-logo > .ab-item .cp-logo {
+	width: 18px;
+	height: 18px;
+	margin: 7px 1px 6px 2px;
+	vertical-align: top;
 }
 
 #wpadminbar #wp-admin-bar-wp-logo > .ab-item {
 	padding: 0 7px;
 }
 
-#wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon:before {
-	content: "\f120";
-	top: 2px;
-}
-
 /*
  * My Sites & Site Title
  */
-#wpadminbar .quicklinks li .blavatar {
-	float: right;
-	font: normal 16px/1 dashicons !important;
-	speak: none;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	color: #eee;
-}
-
-#wpadminbar .quicklinks li a:hover .blavatar,
-#wpadminbar .quicklinks li a:focus .blavatar,
-#wpadminbar .quicklinks .ab-sub-wrapper .menupop.hover > a .blavatar {
-	color: #00b9eb;
-}
-
-#wpadminbar .quicklinks li .blavatar:before {
-	content: "\f120";
-	height: 16px;
-	width: 16px;
-	display: inline-block;
-	margin: 6px -2px 0 8px;
+#wp-admin-bar-my-sites-list .ab-item img.cp-logo {
+    width: 18px;
+    height: 18px;
+    margin-left: 6px;
+    vertical-align: top;
+    padding-top: 4px;
+    margin-right: -2px;
 }
 
 #wpadminbar #wp-admin-bar-appearance {
@@ -856,22 +837,11 @@ html:lang(he-il) .rtl #wpadminbar *  {
 		display: none;
 	}
 
-	/* WP logo */
-	#wpadminbar #wp-admin-bar-wp-logo > .ab-item {
-		padding: 0;
-	}
-
-	#wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon {
-		padding: 0;
-		width: 52px;
-		height: 46px;
-		text-align: center;
-		vertical-align: top;
-	}
-
-	#wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon:before {
-		font: 28px/1 dashicons !important;
-		top: -3px;
+	/* ClassicPress logo */
+	#wpadminbar #wp-admin-bar-wp-logo > .ab-item .cp-logo {
+		padding: 3px 5px 3px 4px;
+		width: 26px;
+		height: 26px;
 	}
 
 	#wpadminbar .ab-icon,

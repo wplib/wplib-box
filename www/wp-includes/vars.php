@@ -1,18 +1,18 @@
 <?php
 /**
- * Creates common globals for the rest of WordPress
+ * Creates common globals for the rest of ClassicPress
  *
  * Sets $pagenow global which is the current page. Checks
  * for the browser to set which one is currently being used.
  *
- * Detects which user environment WordPress is being used on.
+ * Detects which user environment ClassicPress is being used on.
  * Only attempts to check for Apache, Nginx and IIS -- three web
  * servers with known pretty permalink capability.
  *
- * Note: Though Nginx is detected, WordPress does not currently
+ * Note: Though Nginx is detected, ClassicPress does not currently
  * generate rewrite rules for it. See https://codex.wordpress.org/Nginx
  *
- * @package WordPress
+ * @package ClassicPress
  */
 
 global $pagenow,
@@ -61,7 +61,7 @@ if ( isset($_SERVER['HTTP_USER_AGENT']) ) {
 			/**
 			 * Filters whether Google Chrome Frame should be used, if available.
 			 *
-			 * @since 3.2.0
+			 * @since WP-3.2.0
 			 *
 			 * @param bool $is_admin Whether to use the Google Chrome Frame. Default is the value of is_admin().
 			 */
@@ -120,7 +120,7 @@ $is_iis7 = $is_IIS && intval( substr( $_SERVER['SERVER_SOFTWARE'], strpos( $_SER
 /**
  * Test if the current browser runs on a mobile device (smart phone, tablet, etc.)
  *
- * @since 3.4.0
+ * @since WP-3.4.0
  * 
  * @return bool
  */
@@ -142,7 +142,7 @@ function wp_is_mobile() {
 	/**
 	 * Filters whether the request should be treated as coming from a mobile device or not.
 	 *
-	 * @since 4.9.0
+	 * @since WP-4.9.0
 	 *
 	 * @param bool $is_mobile Whether the request is from a mobile device or not.
 	 */

@@ -2,12 +2,12 @@
 /**
  * Edit Site Settings Administration Screen
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Multisite
- * @since 3.1.0
+ * @since WP-3.1.0
  */
 
-/** Load WordPress Administration Bootstrap */
+/** Load ClassicPress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! current_user_can( 'manage_sites' ) )
@@ -48,8 +48,8 @@ if ( isset($_REQUEST['action']) && 'update-site' == $_REQUEST['action'] && is_ar
 	/**
 	 * Fires after the site options are updated.
 	 *
-	 * @since 3.0.0
-	 * @since 4.4.0 Added `$id` parameter.
+	 * @since WP-3.0.0
+	 * @since WP-4.4.0 Added `$id` parameter.
 	 *
 	 * @param int $id The ID of the site being updated.
 	 */
@@ -142,7 +142,7 @@ if ( ! empty( $messages ) ) {
 		/**
 		 * Fires at the end of the Edit Site form, before the submit button.
 		 *
-		 * @since 3.0.0
+		 * @since WP-3.0.0
 		 *
 		 * @param int $id Site ID.
 		 */

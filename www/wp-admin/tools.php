@@ -2,11 +2,11 @@
 /**
  * Tools Administration Screen.
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
  */
 
-/** WordPress Administration Bootstrap */
+/** ClassicPress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 $is_privacy_guide = ( isset( $_GET['wp-privacy-policy-guide'] ) && current_user_can( 'manage_privacy_options' ) );
@@ -66,7 +66,7 @@ if ( $is_privacy_guide ) {
 	/**
 	 * Fires at the end of the Tools Administration screen.
 	 *
-	 * @since 2.8.0
+	 * @since WP-2.8.0
 	 */
 	do_action( 'tool_box' );
 }

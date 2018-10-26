@@ -2,9 +2,9 @@
 /**
  * Widget API: WP_Widget_Meta class
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Widgets
- * @since 4.4.0
+ * @since WP-4.4.0
  */
 
 /**
@@ -12,7 +12,7 @@
  *
  * Displays log in/out, RSS feed links, etc.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @see WP_Widget
  */
@@ -21,12 +21,12 @@ class WP_Widget_Meta extends WP_Widget {
 	/**
 	 * Sets up a new Meta widget instance.
 	 *
-	 * @since 2.8.0
+	 * @since WP-2.8.0
 	 */
 	public function __construct() {
 		$widget_ops = array(
 			'classname' => 'widget_meta',
-			'description' => __( 'Login, RSS, &amp; WordPress.org links.' ),
+			'description' => __( 'Login, RSS, &amp; ClassicPress.net links.' ),
 			'customize_selective_refresh' => true,
 		);
 		parent::__construct( 'meta', __( 'Meta' ), $widget_ops );
@@ -35,7 +35,7 @@ class WP_Widget_Meta extends WP_Widget {
 	/**
 	 * Outputs the content for the current Meta widget instance.
 	 *
-	 * @since 2.8.0
+	 * @since WP-2.8.0
 	 *
 	 * @param array $args     Display arguments including 'before_title', 'after_title',
 	 *                        'before_widget', and 'after_widget'.
@@ -60,18 +60,18 @@ class WP_Widget_Meta extends WP_Widget {
 			<li><a href="<?php echo esc_url( get_bloginfo( 'comments_rss2_url' ) ); ?>"><?php _e('Comments <abbr title="Really Simple Syndication">RSS</abbr>'); ?></a></li>
 			<?php
 			/**
-			 * Filters the "Powered by WordPress" text in the Meta widget.
+			 * Filters the "Powered by ClassicPress" text in the Meta widget.
 			 *
-			 * @since 3.6.0
-			 * @since 4.9.0 Added the `$instance` parameter.
+			 * @since WP-3.6.0
+			 * @since WP-4.9.0 Added the `$instance` parameter.
 			 *
-			 * @param string $title_text Default title text for the WordPress.org link.
+			 * @param string $title_text Default title text for the ClassicPress.net link.
 			 * @param array  $instance   Array of settings for the current widget.
 			 */
 			echo apply_filters( 'widget_meta_poweredby', sprintf( '<li><a href="%s" title="%s">%s</a></li>',
-				esc_url( __( 'https://wordpress.org/' ) ),
-				esc_attr__( 'Powered by WordPress, state-of-the-art semantic personal publishing platform.' ),
-				_x( 'WordPress.org', 'meta widget link text' )
+				esc_url( __( 'https://www.classicpress.net/' ) ),
+				esc_attr__( 'Powered by ClassicPress, state-of-the-art semantic personal publishing platform.' ),
+				_x( 'ClassicPress.net', 'meta widget link text' )
 			), $instance );
 
 			wp_meta();
@@ -85,7 +85,7 @@ class WP_Widget_Meta extends WP_Widget {
 	/**
 	 * Handles updating settings for the current Meta widget instance.
 	 *
-	 * @since 2.8.0
+	 * @since WP-2.8.0
 	 *
 	 * @param array $new_instance New settings for this instance as input by the user via
 	 *                            WP_Widget::form().
@@ -102,7 +102,7 @@ class WP_Widget_Meta extends WP_Widget {
 	/**
 	 * Outputs the settings form for the Meta widget.
 	 *
-	 * @since 2.8.0
+	 * @since WP-2.8.0
 	 *
 	 * @param array $instance Current settings.
 	 */

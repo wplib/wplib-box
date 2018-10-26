@@ -1,15 +1,15 @@
 <?php
 /**
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Theme_Compat
- * @deprecated 3.0.0
+ * @deprecated WP-3.0.0
  *
  * This file is here for backward compatibility with old themes and will be removed in a future version
  */
 _deprecated_file(
 	/* translators: %s: template name */
 	sprintf( __( 'Theme without %s' ), basename( __FILE__ ) ),
-	'3.0.0',
+	'WP-3.0.0',
 	null,
 	/* translators: %s: template name */
 	sprintf( __( 'Please include a %s template in your theme.' ), basename( __FILE__ ) )
@@ -18,14 +18,14 @@ _deprecated_file(
 
 <hr />
 <div id="footer" role="contentinfo">
-<!-- If you'd like to support WordPress, having the "powered by" link somewhere on your blog is the best way; it's our only promotion or advertising. -->
+<!-- Having the "powered by" link on your site is a great way to support ClassicPress. -->
 	<p>
 		<?php
 		printf(
-			/* translators: 1: blog name, 2: WordPress */
+			/* translators: 1: blog name, 2: ClassicPress */
 			__( '%1$s is proudly powered by %2$s' ),
 			get_bloginfo('name'),
-			'<a href="https://wordpress.org/">WordPress</a>'
+			'<a href="https://www.classicpress.net/">ClassicPress</a>'
 		);
 		?>
 	</p>

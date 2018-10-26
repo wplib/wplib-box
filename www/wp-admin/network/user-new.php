@@ -2,12 +2,12 @@
 /**
  * Add New User network administration panel.
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Multisite
- * @since 3.1.0
+ * @since WP-3.1.0
  */
 
-/** Load WordPress Administration Bootstrap */
+/** Load ClassicPress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! current_user_can('create_users') )
@@ -51,7 +51,7 @@ if ( isset($_REQUEST['action']) && 'add-user' == $_REQUEST['action'] ) {
 			/**
 			  * Fires after a new user has been created via the network user-new.php page.
 			  *
-			  * @since 4.4.0
+			  * @since WP-4.4.0
 			  *
 			  * @param int $user_id ID of the newly created user.
 			  */
@@ -121,7 +121,7 @@ if ( isset( $add_user_errors ) && is_wp_error( $add_user_errors ) ) { ?>
 	/**
 	 * Fires at the end of the new user form in network admin.
 	 *
-	 * @since 4.5.0
+	 * @since WP-4.5.0
 	 */
 	do_action( 'network_user_new_form' );
 

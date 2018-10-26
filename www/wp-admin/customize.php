@@ -2,14 +2,14 @@
 /**
  * Theme Customize Screen.
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Customize
- * @since 3.4.0
+ * @since WP-3.4.0
  */
 
 define( 'IFRAME_REQUEST', true );
 
-/** Load WordPress Administration Bootstrap */
+/** Load ClassicPress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! current_user_can( 'customize' ) ) {
@@ -107,7 +107,7 @@ add_action( 'customize_controls_print_styles',         'print_admin_styles', 20 
 /**
  * Fires when Customizer controls are initialized, before scripts are enqueued.
  *
- * @since 3.4.0
+ * @since WP-3.4.0
  */
 do_action( 'customize_controls_init' );
 
@@ -118,7 +118,7 @@ wp_enqueue_style( 'customize-controls' );
 /**
  * Enqueue Customizer control scripts.
  *
- * @since 3.4.0
+ * @since WP-3.4.0
  */
 do_action( 'customize_controls_enqueue_scripts' );
 
@@ -158,14 +158,14 @@ var ajaxurl = <?php echo wp_json_encode( admin_url( 'admin-ajax.php', 'relative'
 /**
  * Fires when Customizer control styles are printed.
  *
- * @since 3.4.0
+ * @since WP-3.4.0
  */
 do_action( 'customize_controls_print_styles' );
 
 /**
  * Fires when Customizer control scripts are printed.
  *
- * @since 3.4.0
+ * @since WP-3.4.0
  */
 do_action( 'customize_controls_print_scripts' );
 ?>
@@ -253,7 +253,7 @@ do_action( 'customize_controls_print_scripts' );
 	/**
 	 * Prints templates, control scripts, and settings in the footer.
 	 *
-	 * @since 3.4.0
+	 * @since WP-3.4.0
 	 */
 	do_action( 'customize_controls_print_footer_scripts' );
 	?>

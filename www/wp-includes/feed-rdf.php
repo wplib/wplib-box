@@ -2,7 +2,7 @@
 /**
  * RSS 1 RDF Feed Template for displaying RSS 1 Posts feed.
  *
- * @package WordPress
+ * @package ClassicPress
  */
 
 header('Content-Type: ' . feed_content_type('rdf') . '; charset=' . get_option('blog_charset'), true);
@@ -24,7 +24,7 @@ do_action( 'rss_tag_pre', 'rdf' );
 	/**
 	 * Fires at the end of the feed root to add namespaces.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 */
 	do_action( 'rdf_ns' );
 	?>
@@ -50,7 +50,7 @@ do_action( 'rss_tag_pre', 'rdf' );
 	/**
 	 * Fires at the end of the RDF feed header.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 */
 	do_action( 'rdf_header' );
 	?>
@@ -79,7 +79,7 @@ do_action( 'rss_tag_pre', 'rdf' );
 	/**
 	 * Fires at the end of each RDF feed item.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 */
 	do_action( 'rdf_item' );
 	?>

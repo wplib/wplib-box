@@ -11,11 +11,11 @@
  * that use the Settings API. In this case it saves the new option values
  * and returns the user to their page of origin.
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
  */
 
-/** WordPress Administration Bootstrap */
+/** ClassicPress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 $title = __('Settings');
@@ -37,7 +37,7 @@ if ( empty($option_page) ) {
 	 * By default, the options groups for all registered settings require the manage_options capability.
 	 * This filter is required to change the capability required for a certain options page.
 	 *
-	 * @since 3.2.0
+	 * @since WP-3.2.0
 	 *
 	 * @param string $capability The capability used for the page, which is manage_options by default.
 	 */
@@ -81,11 +81,70 @@ if ( is_multisite() && ! current_user_can( 'manage_network_options' ) && 'update
 }
 
 $whitelist_options = array(
-	'general' => array( 'blogname', 'blogdescription', 'gmt_offset', 'date_format', 'time_format', 'start_of_week', 'timezone_string', 'WPLANG', 'new_admin_email' ),
-	'discussion' => array( 'default_pingback_flag', 'default_ping_status', 'default_comment_status', 'comments_notify', 'moderation_notify', 'comment_moderation', 'require_name_email', 'comment_whitelist', 'comment_max_links', 'moderation_keys', 'blacklist_keys', 'show_avatars', 'avatar_rating', 'avatar_default', 'close_comments_for_old_posts', 'close_comments_days_old', 'thread_comments', 'thread_comments_depth', 'page_comments', 'comments_per_page', 'default_comments_page', 'comment_order', 'comment_registration' ),
-	'media' => array( 'thumbnail_size_w', 'thumbnail_size_h', 'thumbnail_crop', 'medium_size_w', 'medium_size_h', 'large_size_w', 'large_size_h', 'image_default_size', 'image_default_align', 'image_default_link_type' ),
-	'reading' => array( 'posts_per_page', 'posts_per_rss', 'rss_use_excerpt', 'show_on_front', 'page_on_front', 'page_for_posts', 'blog_public' ),
-	'writing' => array( 'default_category', 'default_email_category', 'default_link_category', 'default_post_format' )
+	'general' => array(
+		'blogname',
+		'blogdescription',
+		'gmt_offset',
+		'date_format',
+		'time_format',
+		'start_of_week',
+		'timezone_string',
+		'WPLANG',
+		'new_admin_email',
+	),
+	'discussion' => array(
+		'default_pingback_flag',
+		'default_ping_status',
+		'default_comment_status',
+		'comments_notify',
+		'moderation_notify',
+		'comment_moderation',
+		'require_name_email',
+		'comment_whitelist',
+		'comment_max_links',
+		'moderation_keys',
+		'blacklist_keys',
+		'show_avatars',
+		'avatar_rating',
+		'avatar_default',
+		'close_comments_for_old_posts',
+		'close_comments_days_old',
+		'thread_comments',
+		'thread_comments_depth',
+		'page_comments',
+		'comments_per_page',
+		'default_comments_page',
+		'comment_order',
+		'comment_registration',
+		'show_comments_cookies_opt_in',
+	),
+	'media' => array(
+		'thumbnail_size_w',
+		'thumbnail_size_h',
+		'thumbnail_crop',
+		'medium_size_w',
+		'medium_size_h',
+		'large_size_w',
+		'large_size_h',
+		'image_default_size',
+		'image_default_align',
+		'image_default_link_type',
+	),
+	'reading' => array(
+		'posts_per_page',
+		'posts_per_rss',
+		'rss_use_excerpt',
+		'show_on_front',
+		'page_on_front',
+		'page_for_posts',
+		'blog_public',
+	),
+	'writing' => array(
+		'default_category',
+		'default_email_category',
+		'default_link_category',
+		'default_post_format',
+	),
 );
 $whitelist_options['misc'] = $whitelist_options['options'] = $whitelist_options['privacy'] = array();
 
@@ -122,7 +181,7 @@ if ( !is_multisite() ) {
 	/**
 	 * Filters whether the post-by-email functionality is enabled.
 	 *
-	 * @since 3.0.0
+	 * @since WP-3.0.0
 	 *
 	 * @param bool $enabled Whether post-by-email configuration is enabled. Default true.
 	 */
@@ -133,7 +192,7 @@ if ( !is_multisite() ) {
 /**
  * Filters the options white list.
  *
- * @since 2.7.0
+ * @since WP-2.7.0
  *
  * @param array $whitelist_options White list options.
  */
@@ -194,7 +253,7 @@ if ( 'update' == $action ) {
 
 		foreach ( $options as $option ) {
 			if ( $unregistered ) {
-				_deprecated_argument( 'options.php', '2.7.0',
+				_deprecated_argument( 'options.php', 'WP-2.7.0',
 					sprintf(
 						/* translators: %s: the option/setting */
 						__( 'The %s setting is unregistered. Unregistered settings are deprecated. See https://codex.wordpress.org/Settings_API' ),

@@ -7,10 +7,10 @@
  *
  * Not all of the Multisite default hooks are found in ms-default-filters.php
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Multisite
  * @see default-filters.php
- * @since 3.0.0
+ * @since WP-3.0.0
  */
 
 add_action( 'init', 'ms_subdomain_constants' );

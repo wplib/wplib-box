@@ -2,9 +2,9 @@
 /**
  * Toolbar API: Top-level Toolbar functionality
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Toolbar
- * @since 3.1.0
+ * @since WP-3.1.0
  */
 
 /**
@@ -13,7 +13,7 @@
  * UNHOOKING THIS FUNCTION WILL NOT PROPERLY REMOVE THE ADMIN BAR.
  * For that, use show_admin_bar(false) or the {@see 'show_admin_bar'} filter.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  * @access private
  *
  * @global WP_Admin_Bar $wp_admin_bar
@@ -34,7 +34,7 @@ function _wp_admin_bar_init() {
 	/**
 	 * Filters the admin bar class to instantiate.
 	 *
-	 * @since 3.1.0
+	 * @since WP-3.1.0
 	 *
 	 * @param string $wp_admin_bar_class Admin bar class to use. Default 'WP_Admin_Bar'.
 	 */
@@ -61,7 +61,7 @@ function _wp_admin_bar_init() {
  * optimal point, right before the admin bar is rendered. This also gives you access to
  * the `$post` global, among others.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  *
  * @global WP_Admin_Bar $wp_admin_bar
  */
@@ -76,7 +76,7 @@ function wp_admin_bar_render() {
 	 *
 	 * This is the hook used to add, remove, or manipulate admin bar items.
 	 *
-	 * @since 3.1.0
+	 * @since WP-3.1.0
 	 *
 	 * @param WP_Admin_Bar $wp_admin_bar WP_Admin_Bar instance, passed by reference
 	 */
@@ -85,7 +85,7 @@ function wp_admin_bar_render() {
 	/**
 	 * Fires before the admin bar is rendered.
 	 *
-	 * @since 3.1.0
+	 * @since WP-3.1.0
 	 */
 	do_action( 'wp_before_admin_bar_render' );
 
@@ -94,15 +94,15 @@ function wp_admin_bar_render() {
 	/**
 	 * Fires after the admin bar is rendered.
 	 *
-	 * @since 3.1.0
+	 * @since WP-3.1.0
 	 */
 	do_action( 'wp_after_admin_bar_render' );
 }
 
 /**
- * Add the WordPress logo menu.
+ * Add the ClassicPress logo menu.
  *
- * @since 3.3.0
+ * @since WP-3.3.0
  *
  * @param WP_Admin_Bar $wp_admin_bar
  */
@@ -115,9 +115,13 @@ function wp_admin_bar_wp_menu( $wp_admin_bar ) {
 		$about_url = false;
 	}
 
+	$cp_logo_src = includes_url( 'images/classicpress-logo-dashicon-style.svg' );
 	$wp_logo_menu_args = array(
 		'id'    => 'wp-logo',
-		'title' => '<span class="ab-icon"></span><span class="screen-reader-text">' . __( 'About WordPress' ) . '</span>',
+		'title' => (
+			'<img class="cp-logo" src="' . $cp_logo_src . '" />'
+			. '<span class="screen-reader-text">' . __( 'About ClassicPress' ) . '</span>'
+		),
 		'href'  => $about_url,
 	);
 
@@ -131,21 +135,21 @@ function wp_admin_bar_wp_menu( $wp_admin_bar ) {
 	$wp_admin_bar->add_menu( $wp_logo_menu_args );
 
 	if ( $about_url ) {
-		// Add "About WordPress" link
+		// Add "About ClassicPress" link
 		$wp_admin_bar->add_menu( array(
 			'parent' => 'wp-logo',
 			'id'     => 'about',
-			'title'  => __('About WordPress'),
+			'title'  => __('About ClassicPress'),
 			'href'   => $about_url,
 		) );
 	}
 
-	// Add WordPress.org link
+	// Add ClassicPress.net link
 	$wp_admin_bar->add_menu( array(
 		'parent'    => 'wp-logo-external',
 		'id'        => 'wporg',
-		'title'     => __('WordPress.org'),
-		'href'      => __('https://wordpress.org/'),
+		'title'     => __('ClassicPress.net'),
+		'href'      => __('https://www.classicpress.net'),
 	) );
 
 	// Add codex link
@@ -176,7 +180,7 @@ function wp_admin_bar_wp_menu( $wp_admin_bar ) {
 /**
  * Add the sidebar toggle button.
  *
- * @since 3.8.0
+ * @since WP-3.8.0
  *
  * @param WP_Admin_Bar $wp_admin_bar
  */
@@ -193,7 +197,7 @@ function wp_admin_bar_sidebar_toggle( $wp_admin_bar ) {
 /**
  * Add the "My Account" item.
  *
- * @since 3.3.0
+ * @since WP-3.3.0
  *
  * @param WP_Admin_Bar $wp_admin_bar
  */
@@ -213,14 +217,13 @@ function wp_admin_bar_my_account_item( $wp_admin_bar ) {
 	}
 
 	$avatar = get_avatar( $user_id, 26 );
-	/* translators: %s: current user's display name */
-	$howdy  = sprintf( __( 'Howdy, %s' ), '<span class="display-name">' . $current_user->display_name . '</span>' );
+	$display_name  = '<span class="display-name">' . $current_user->display_name . '</span>';
 	$class  = empty( $avatar ) ? '' : 'with-avatar';
 
 	$wp_admin_bar->add_menu( array(
 		'id'        => 'my-account',
 		'parent'    => 'top-secondary',
-		'title'     => $howdy . $avatar,
+		'title'     => $display_name . $avatar,
 		'href'      => $profile_url,
 		'meta'      => array(
 			'class'     => $class,
@@ -231,7 +234,7 @@ function wp_admin_bar_my_account_item( $wp_admin_bar ) {
 /**
  * Add the "My Account" submenu items.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  *
  * @param WP_Admin_Bar $wp_admin_bar
  */
@@ -291,7 +294,7 @@ function wp_admin_bar_my_account_menu( $wp_admin_bar ) {
 /**
  * Add the "Site Name" menu.
  *
- * @since 3.3.0
+ * @since WP-3.3.0
  *
  * @param WP_Admin_Bar $wp_admin_bar
  */
@@ -364,7 +367,7 @@ function wp_admin_bar_site_menu( $wp_admin_bar ) {
 /**
  * Adds the "Customize" link to the Toolbar.
  *
- * @since 4.3.0
+ * @since WP-4.3.0
  *
  * @param WP_Admin_Bar $wp_admin_bar WP_Admin_Bar instance.
  * @global WP_Customize_Manager $wp_customize
@@ -406,7 +409,7 @@ function wp_admin_bar_customize_menu( $wp_admin_bar ) {
 /**
  * Add the "My Sites/[Site Name]" menu and all submenus.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  *
  * @param WP_Admin_Bar $wp_admin_bar
  */
@@ -510,7 +513,9 @@ function wp_admin_bar_my_sites_menu( $wp_admin_bar ) {
 	foreach ( (array) $wp_admin_bar->user->blogs as $blog ) {
 		switch_to_blog( $blog->userblog_id );
 
-		$blavatar = '<div class="blavatar"></div>';
+		$cp_logo_src = includes_url( 'images/classicpress-logo-dashicon-style.svg' );
+
+		$cplogo = '<img class="cp-logo" src="' . $cp_logo_src . '" />';
 
 		$blogname = $blog->blogname;
 
@@ -524,7 +529,7 @@ function wp_admin_bar_my_sites_menu( $wp_admin_bar ) {
 			$wp_admin_bar->add_menu( array(
 				'parent'    => 'my-sites-list',
 				'id'        => $menu_id,
-				'title'     => $blavatar . $blogname,
+				'title'     => $cplogo . $blogname,
 				'href'      => admin_url(),
 			) );
 
@@ -575,7 +580,7 @@ function wp_admin_bar_my_sites_menu( $wp_admin_bar ) {
 /**
  * Provide a shortlink.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  *
  * @param WP_Admin_Bar $wp_admin_bar
  */
@@ -599,7 +604,7 @@ function wp_admin_bar_shortlink_menu( $wp_admin_bar ) {
 /**
  * Provide an edit link for posts and terms.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  *
  * @global WP_Term  $tag
  * @global WP_Query $wp_the_query
@@ -712,7 +717,7 @@ function wp_admin_bar_edit_menu( $wp_admin_bar ) {
 /**
  * Add "Add New" menu.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  *
  * @param WP_Admin_Bar $wp_admin_bar
  */
@@ -777,7 +782,7 @@ function wp_admin_bar_new_content_menu( $wp_admin_bar ) {
 /**
  * Add edit comments link with awaiting moderation count bubble.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  *
  * @param WP_Admin_Bar $wp_admin_bar
  */
@@ -803,7 +808,7 @@ function wp_admin_bar_comments_menu( $wp_admin_bar ) {
 /**
  * Add appearance submenu items to the "Site Name" menu.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  *
  * @param WP_Admin_Bar $wp_admin_bar
  */
@@ -864,7 +869,7 @@ function wp_admin_bar_appearance_menu( $wp_admin_bar ) {
 /**
  * Provide an update link if theme/plugin/core updates are available.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  *
  * @param WP_Admin_Bar $wp_admin_bar
  */
@@ -891,7 +896,7 @@ function wp_admin_bar_updates_menu( $wp_admin_bar ) {
 /**
  * Add search form.
  *
- * @since 3.3.0
+ * @since WP-3.3.0
  *
  * @param WP_Admin_Bar $wp_admin_bar
  */
@@ -919,7 +924,7 @@ function wp_admin_bar_search_menu( $wp_admin_bar ) {
 /**
  * Add secondary menus.
  *
- * @since 3.3.0
+ * @since WP-3.3.0
  *
  * @param WP_Admin_Bar $wp_admin_bar
  */
@@ -943,7 +948,7 @@ function wp_admin_bar_add_secondary_groups( $wp_admin_bar ) {
 /**
  * Style and scripts for the admin bar.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  */
 function wp_admin_bar_header() { ?>
 <style type="text/css" media="print">#wpadminbar { display:none; }</style>
@@ -953,7 +958,7 @@ function wp_admin_bar_header() { ?>
 /**
  * Default admin bar callback.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  */
 function _admin_bar_bump_cb() { ?>
 <style type="text/css" media="screen">
@@ -973,7 +978,7 @@ function _admin_bar_bump_cb() { ?>
  * This can be called immediately upon plugin load. It does not need to be called
  * from a function hooked to the {@see 'init'} action.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  *
  * @global bool $show_admin_bar
  *
@@ -987,7 +992,7 @@ function show_admin_bar( $show ) {
 /**
  * Determine whether the admin bar should be showing.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  *
  * @global bool   $show_admin_bar
  * @global string $pagenow
@@ -1023,7 +1028,7 @@ function is_admin_bar_showing() {
 	 * Returning false to this hook is the recommended way to hide the admin bar.
 	 * The user's display preference is used for logged in users.
 	 *
-	 * @since 3.1.0
+	 * @since WP-3.1.0
 	 *
 	 * @param bool $show_admin_bar Whether the admin bar should be shown. Default false.
 	 */
@@ -1035,7 +1040,7 @@ function is_admin_bar_showing() {
 /**
  * Retrieve the admin bar display preference of a user.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  * @access private
  *
  * @param string $context Context of this preference check. Defaults to 'front'. The 'admin'

@@ -36,12 +36,32 @@
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -58,6 +78,7 @@
 /******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
+/******/
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 0);
@@ -77,7 +98,7 @@ var media = wp.media,
  *
  * @mixin
  *
- * @since 4.2.0
+ * @since WP-4.2.0
  */
 wp.media.mixin = {
 	mejsSettings: baseSettings,
@@ -85,7 +106,7 @@ wp.media.mixin = {
 	/**
 	 * @summary Pauses and removes all players.
 	 *
-	 * @since 4.2.0
+	 * @since WP-4.2.0
 	 *
 	 * @return {void}
 	 */
@@ -107,7 +128,7 @@ wp.media.mixin = {
 	 * MediaElement tries to pull the audio/video tag out of
 	 * its container and re-add it to the DOM.
 	 *
-	 * @since 4.2.0
+	 * @since WP-4.2.0
 	 *
 	 * @return {void}
 	 */
@@ -154,7 +175,7 @@ wp.media.mixin = {
 	 *
 	 * Examples: modal closes, shortcode properties are removed, etc.
 	 *
-	 * @since 4.2.0
+	 * @since WP-4.2.0
 	 */
 	unsetPlayers : function() {
 		if ( this.players && this.players.length ) {
@@ -170,7 +191,7 @@ wp.media.mixin = {
 /**
  * @summary Shortcode modeling for playlists.
  *
- * @since 4.2.0
+ * @since WP-4.2.0
  */
 wp.media.playlist = new wp.media.collection({
 	tag: 'playlist',
@@ -194,7 +215,7 @@ wp.media.playlist = new wp.media.collection({
  *
  * @namespace
  *
- * @since 4.2.0
+ * @since WP-4.2.0
  */
 wp.media.audio = {
 	coerce : wp.media.coerce,
@@ -211,7 +232,7 @@ wp.media.audio = {
 	/**
 	 * @summary Instantiates a new media object with the next matching shortcode.
 	 *
-	 * @since 4.2.0
+	 * @since WP-4.2.0
 	 *
 	 * @param {string} data The text to apply the shortcode on.
 	 * @returns {wp.media} The media object.
@@ -231,7 +252,7 @@ wp.media.audio = {
 	/**
 	 * @summary Generates an audio shortcode.
 	 *
-	 * @since 4.2.0
+	 * @since WP-4.2.0
 	 *
 	 * @param {Array} model Array with attributes for the shortcode.
 	 * @returns {wp.shortcode} The audio shortcode object.
@@ -264,7 +285,7 @@ wp.media.audio = {
  *  `edit()` prepares the shortcode for the media modal.
  *  `shortcode()` builds the new shortcode after update.
  *
- * @since 4.2.0
+ * @since WP-4.2.0
  *
  * @namespace
  */
@@ -286,7 +307,7 @@ wp.media.video = {
 	/**
 	 * @summary Instantiates a new media object with the next matching shortcode.
 	 *
-	 * @since 4.2.0
+	 * @since WP-4.2.0
 	 *
 	 * @param {string} data The text to apply the shortcode on.
 	 * @returns {wp.media} The media object.
@@ -311,7 +332,7 @@ wp.media.video = {
 	/**
 	 * @summary Generates an video shortcode.
 	 *
-	 * @since 4.2.0
+	 * @since WP-4.2.0
 	 *
 	 * @param {Array} model Array with attributes for the shortcode.
 	 * @returns {wp.shortcode} The video shortcode object.

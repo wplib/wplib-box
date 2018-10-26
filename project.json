@@ -4,7 +4,7 @@
 		"Find available components by typing 'vagrant ssh' in terminal followed by 'box component available'.",
 		"You can delete this `readme` section assuming it is still valid JSON after deletion."
 	],
-	"hostname": "wplib.box",
+	"hostname": "classicpress.local",
 	"aliases": [
 		"docs.{hostname}",
 		"www.{hostname}",

@@ -2,11 +2,11 @@
 /**
  * Reading settings administration panel.
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
  */
 
-/** WordPress Administration Bootstrap */
+/** ClassicPress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
 if ( ! current_user_can( 'manage_options' ) )
@@ -128,7 +128,7 @@ else :
 	 * Hooking to this action also converts the 'Search Engine Visibility' heading to the more
 	 * open-ended 'Site Visibility' heading.
 	 *
-	 * @since 2.1.0
+	 * @since WP-2.1.0
 	 */
 	do_action( 'blog_privacy_selector' );
 	?>

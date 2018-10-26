@@ -4,15 +4,14 @@
  *
  * @package WordPress
  * @subpackage Twenty_Seventeen
- * @since 1.0
+ * @since WP-1.0
  * @version 1.0
  */
 
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'twentyseventeen-panel ' ); ?> >
 
-	<?php
-	if ( has_post_thumbnail() ) :
+	<?php if ( has_post_thumbnail() ) :
 		$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'twentyseventeen-featured-image' );
 
 		// Calculate aspect ratio: h / w * 100%.
@@ -37,12 +36,10 @@
 			<div class="entry-content">
 				<?php
 					/* translators: %s: Name of current post */
-					the_content(
-						sprintf(
-							__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'twentyseventeen' ),
-							get_the_title()
-						)
-					);
+					the_content( sprintf(
+						__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'twentyseventeen' ),
+						get_the_title()
+					) );
 				?>
 			</div><!-- .entry-content -->
 
