@@ -1,4 +1,4 @@
-![Latest Testing Version](https://img.shields.io/badge/testing-classicpress-red.svg)
+![WPLib Box for ClassicPress](https://img.shields.io/badge/WPLib%20Box%20for%20ClassicPress-beta-yellow.svg)
 
 # ![WPLib-Box](https://github.com/wplib/wplib.github.io/raw/master/WPLib-Box-100x.png)
 
