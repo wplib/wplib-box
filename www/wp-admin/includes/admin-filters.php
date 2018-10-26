@@ -2,9 +2,9 @@
 /**
  * Administration API: Default admin hooks
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
- * @since 4.3.0
+ * @since WP-4.3.0
  */
 
 // Bookmark hooks.
@@ -47,6 +47,8 @@ add_action( 'admin_head', '_ipad_meta'               );
 
 // Privacy tools
 add_action( 'admin_menu', '_wp_privacy_hook_requests_page' );
+add_action( 'load-tools_page_export_personal_data', '_wp_privacy_requests_screen_options' );
+add_action( 'load-tools_page_remove_personal_data', '_wp_privacy_requests_screen_options' );
 
 // Prerendering.
 if ( ! is_customize_preview() ) {
@@ -144,9 +146,11 @@ add_action( 'admin_init', array( 'WP_Privacy_Policy_Content', 'text_change_check
 // Show a "postbox" with the text suggestions for a privacy policy.
 add_action( 'edit_form_after_title', array( 'WP_Privacy_Policy_Content', 'notice' ) );
 
-// Add the suggested policy text from WordPress.
+// Add the suggested policy text from ClassicPress.
 add_action( 'admin_init', array( 'WP_Privacy_Policy_Content', 'add_suggested_content' ), 1 );
 
 // Update the cached policy info when the policy page is updated.
 add_action( 'post_updated', array( 'WP_Privacy_Policy_Content', '_policy_page_updated' ) );
 
+// Append '(Draft)' to draft page titles in the privacy page dropdown.
+add_filter( 'list_pages', '_wp_privacy_settings_filter_draft_page_titles', 10, 2 );

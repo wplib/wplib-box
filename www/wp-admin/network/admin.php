@@ -1,15 +1,15 @@
 <?php
 /**
- * WordPress Network Administration Bootstrap
+ * ClassicPress Network Administration Bootstrap
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Multisite
- * @since 3.1.0
+ * @since WP-3.1.0
  */
 
 define( 'WP_NETWORK_ADMIN', true );
 
-/** Load WordPress Administration Bootstrap */
+/** Load ClassicPress Administration Bootstrap */
 require_once( dirname( dirname( __FILE__ ) ) . '/admin.php' );
 
 // Do not remove this check. It is required by individual network admin pages.
@@ -22,7 +22,7 @@ $redirect_network_admin_request = 0 !== strcasecmp( $current_blog->domain, $curr
 /**
  * Filters whether to redirect the request to the Network Admin.
  *
- * @since 3.2.0
+ * @since WP-3.2.0
  *
  * @param bool $redirect_network_admin_request Whether the request should be redirected.
  */

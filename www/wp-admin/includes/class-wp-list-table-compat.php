@@ -2,15 +2,15 @@
 /**
  * Helper functions for displaying a list of items in an ajaxified HTML table.
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage List_Table
- * @since 4.7.0
+ * @since WP-4.7.0
  */
 
 /**
  * Helper class to be used only by back compat functions
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  */
 class _WP_List_Table_Compat extends WP_List_Table {
 	public $_screen;

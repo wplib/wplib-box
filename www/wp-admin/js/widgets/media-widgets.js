@@ -87,7 +87,7 @@ wp.mediaWidgets = ( function( $ ) {
 		/**
 		 * Initialize.
 		 *
-		 * @since 4.9.0
+		 * @since WP-4.9.0
 		 *
 		 * @param {object} options - Options.
 		 * @returns {void}
@@ -159,7 +159,7 @@ wp.mediaWidgets = ( function( $ ) {
 					/**
 					 * Update oEmbed.
 					 *
-					 * @since 4.9.0
+					 * @since WP-4.9.0
 					 *
 					 * @returns {void}
 					 */
@@ -1264,7 +1264,7 @@ wp.mediaWidgets = ( function( $ ) {
 	 * Initialize functionality.
 	 *
 	 * This function exists to prevent the JS file from having to boot itself.
-	 * When WordPress enqueues this script, it should have an inline script
+	 * When ClassicPress enqueues this script, it should have an inline script
 	 * attached which calls wp.mediaWidgets.init().
 	 *
 	 * @returns {void}

@@ -2,16 +2,16 @@
 /**
  * Upgrader API: Bulk_Upgrader_Skin class
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Upgrader
- * @since 4.6.0
+ * @since WP-4.6.0
  */
 
 /**
- * Generic Bulk Upgrader Skin for WordPress Upgrades.
+ * Generic Bulk Upgrader Skin for ClassicPress Upgrades.
  *
- * @since 3.0.0
- * @since 4.6.0 Moved to its own file from wp-admin/includes/class-wp-upgrader-skins.php.
+ * @since WP-3.0.0
+ * @since WP-4.6.0 Moved to its own file from wp-admin/includes/class-wp-upgrader-skins.php.
  *
  * @see WP_Upgrader_Skin
  */

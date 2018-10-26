@@ -2,9 +2,9 @@
 /**
  * Administration: Community Events class.
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
- * @since 4.8.0
+ * @since WP-4.8.0
  */
 
 /**
@@ -12,13 +12,13 @@
  *
  * A client for api.wordpress.org/events.
  *
- * @since 4.8.0
+ * @since WP-4.8.0
  */
 class WP_Community_Events {
 	/**
-	 * ID for a WordPress user account.
+	 * ID for a ClassicPress user account.
 	 *
-	 * @since 4.8.0
+	 * @since WP-4.8.0
 	 *
 	 * @var int
 	 */
@@ -27,7 +27,7 @@ class WP_Community_Events {
 	/**
 	 * Stores location data for the user.
 	 *
-	 * @since 4.8.0
+	 * @since WP-4.8.0
 	 *
 	 * @var bool|array
 	 */
@@ -36,7 +36,7 @@ class WP_Community_Events {
 	/**
 	 * Constructor for WP_Community_Events.
 	 *
-	 * @since 4.8.0
+	 * @since WP-4.8.0
 	 *
 	 * @param int        $user_id       WP user ID.
 	 * @param bool|array $user_location Stored location data for the user.
@@ -76,7 +76,7 @@ class WP_Community_Events {
 	 * the opportunity to anonymize the IP before sending it to w.org, which
 	 * mitigates possible privacy concerns.
 	 *
-	 * @since 4.8.0
+	 * @since WP-4.8.0
 	 *
 	 * @param string $location_search Optional. City name to help determine the location.
 	 *                                e.g., "Seattle". Default empty string.
@@ -97,7 +97,7 @@ class WP_Community_Events {
 
 		$api_url      = 'http://api.wordpress.org/events/1.0/';
 		$request_args = $this->get_request_args( $location_search, $timezone );
-		$request_args['user-agent'] = 'WordPress/' . $wp_version . '; ' . home_url( '/' );
+		$request_args['user-agent'] = 'ClassicPress/' . $wp_version . '; ' . home_url( '/' );
 
 		if ( wp_http_supports( array( 'ssl' ) ) ) {
 			$api_url = set_url_scheme( $api_url, 'https' );
@@ -170,7 +170,7 @@ class WP_Community_Events {
 	/**
 	 * Builds an array of args to use in an HTTP request to the w.org Events API.
 	 *
-	 * @since 4.8.0
+	 * @since WP-4.8.0
 	 *
 	 * @param string $search   Optional. City search string. Default empty string.
 	 * @param string $timezone Optional. Timezone string. Default empty string.
@@ -227,7 +227,7 @@ class WP_Community_Events {
 	 * _NOT_ guarantee that the returned address is valid or accurate, and it can
 	 * be easily spoofed.
 	 *
-	 * @since 4.8.0
+	 * @since WP-4.8.0
 	 *
 	 * @return false|string The anonymized address on success; the given address
 	 *                      or false on failure.
@@ -276,7 +276,7 @@ class WP_Community_Events {
 	/**
 	 * Test if two pairs of latitude/longitude coordinates match each other.
 	 *
-	 * @since 4.8.0
+	 * @since WP-4.8.0
 	 *
 	 * @param array $a The first pair, with indexes 'latitude' and 'longitude'.
 	 * @param array $b The second pair, with indexes 'latitude' and 'longitude'.
@@ -298,7 +298,7 @@ class WP_Community_Events {
 	 * functions, and having it abstracted keeps the logic consistent and DRY,
 	 * which is less prone to errors.
 	 *
-	 * @since 4.8.0
+	 * @since WP-4.8.0
 	 *
 	 * @param  array $location Should contain 'latitude' and 'longitude' indexes.
 	 * @return bool|string false on failure, or a string on success.
@@ -318,7 +318,7 @@ class WP_Community_Events {
 	/**
 	 * Caches an array of events data from the Events API.
 	 *
-	 * @since 4.8.0
+	 * @since WP-4.8.0
 	 *
 	 * @param array    $events     Response body from the API request.
 	 * @param int|bool $expiration Optional. Amount of time to cache the events. Defaults to false.
@@ -339,7 +339,7 @@ class WP_Community_Events {
 	/**
 	 * Gets cached events.
 	 *
-	 * @since 4.8.0
+	 * @since WP-4.8.0
 	 *
 	 * @return false|array false on failure; an array containing `location`
 	 *                     and `events` items on success.
@@ -359,7 +359,7 @@ class WP_Community_Events {
 	 * the cache, then all users would see the events in the localized data/time
 	 * of the user who triggered the cache refresh, rather than their own.
 	 *
-	 * @since 4.8.0
+	 * @since WP-4.8.0
 	 *
 	 * @param  array $response_body The response which contains the events.
 	 * @return array The response with dates and times formatted.
@@ -385,20 +385,33 @@ class WP_Community_Events {
 	}
 
 	/**
-	 * Discards expired events, and reduces the remaining list.
+	 * Prepares the event list for presentation.
 	 *
-	 * @since 4.8.0
+	 * Discards expired events, and makes WordCamps "sticky." Attendees need more
+	 * advanced notice about WordCamps than they do for meetups, so camps should
+	 * appear in the list sooner. If a WordCamp is coming up, the API will "stick"
+	 * it in the response, even if it wouldn't otherwise appear. When that happens,
+	 * the event will be at the end of the list, and will need to be moved into a
+	 * higher position, so that it doesn't get trimmed off.
+	 *
+	 * @since WP-4.8.0
+	 * @since WP-4.9.7 Stick a WordCamp to the final list.
 	 *
 	 * @param  array $response_body The response body which contains the events.
 	 * @return array The response body with events trimmed.
 	 */
 	protected function trim_events( $response_body ) {
 		if ( isset( $response_body['events'] ) ) {
+			$wordcamps         = array();
 			$current_timestamp = current_time( 'timestamp' );
 
 			foreach ( $response_body['events'] as $key => $event ) {
-				// Skip WordCamps, because they might be multi-day events.
-				if ( 'meetup' !== $event['type'] ) {
+				/*
+				 * Skip WordCamps, because they might be multi-day events.
+				 * Save a copy so they can be pinned later.
+				 */
+				if ( 'wordcamp' === $event['type'] ) {
+					$wordcamps[] = $event;
 					continue;
 				}
 
@@ -410,6 +423,13 @@ class WP_Community_Events {
 			}
 
 			$response_body['events'] = array_slice( $response_body['events'], 0, 3 );
+			$trimmed_event_types     = wp_list_pluck( $response_body['events'], 'type' );
+
+			// Make sure the soonest upcoming WordCamps is pinned in the list.
+			if ( ! in_array( 'wordcamp', $trimmed_event_types ) && $wordcamps ) {
+				array_pop( $response_body['events'] );
+				array_push( $response_body['events'], $wordcamps[0] );
+			}
 		}
 
 		return $response_body;
@@ -418,15 +438,15 @@ class WP_Community_Events {
 	/**
 	 * Logs responses to Events API requests.
 	 *
-	 * @since 4.8.0
-	 * @deprecated 4.9.0 Use a plugin instead. See #41217 for an example.
+	 * @since WP-4.8.0
+	 * @deprecated WP-4.9.0 Use a plugin instead. See #41217 for an example.
 	 *
 	 * @param string $message A description of what occurred.
 	 * @param array  $details Details that provide more context for the
 	 *                        log entry.
 	 */
 	protected function maybe_log_events_response( $message, $details ) {
-		_deprecated_function( __METHOD__, '4.9.0' );
+		_deprecated_function( __METHOD__, 'WP-4.9.0' );
 
 		if ( ! WP_DEBUG_LOG ) {
 			return;

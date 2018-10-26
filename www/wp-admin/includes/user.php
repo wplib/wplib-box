@@ -1,15 +1,15 @@
 <?php
 /**
- * WordPress user administration API.
+ * ClassicPress user administration API.
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
  */
 
 /**
  * Creates a new user from the "Users" form using $_POST information.
  *
- * @since 2.0.0
+ * @since WP-2.0.0
  *
  * @return int|WP_Error WP_Error or User ID.
  */
@@ -22,7 +22,7 @@ function add_user() {
  *
  * Used on user-edit.php and profile.php to manage and process user options, passwords etc.
  *
- * @since 2.0.0
+ * @since WP-2.0.0
  *
  * @param int $user_id Optional. User ID.
  * @return int|WP_Error user id of the updated user
@@ -131,7 +131,7 @@ function edit_user( $user_id = 0 ) {
 	/**
 	 * Fires before the password and confirm password fields are checked for congruity.
 	 *
-	 * @since 1.5.1
+	 * @since WP-1.5.1
 	 *
 	 * @param string $user_login The username.
 	 * @param string $pass1     The password (passed by reference).
@@ -182,7 +182,7 @@ function edit_user( $user_id = 0 ) {
 	/**
 	 * Fires before user profile update errors are returned.
 	 *
-	 * @since 2.8.0
+	 * @since WP-2.8.0
 	 *
 	 * @param WP_Error $errors WP_Error object (passed by reference).
 	 * @param bool     $update  Whether this is a user update.
@@ -202,7 +202,7 @@ function edit_user( $user_id = 0 ) {
 		/**
 		  * Fires after a new user has been created.
 		  *
-		  * @since 4.4.0
+		  * @since WP-4.4.0
 		  *
 		  * @param int    $user_id ID of the newly created user.
 		  * @param string $notify  Type of notification that should happen. See wp_send_new_user_notifications()
@@ -225,7 +225,7 @@ function edit_user( $user_id = 0 ) {
  * only editors or authors. This filter allows admins to delegate
  * user management.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @return array
  */
@@ -235,7 +235,7 @@ function get_editable_roles() {
 	/**
 	 * Filters the list of editable roles.
 	 *
-	 * @since 2.8.0
+	 * @since WP-2.8.0
 	 *
 	 * @param array $all_roles List of roles.
 	 */
@@ -247,7 +247,7 @@ function get_editable_roles() {
 /**
  * Retrieve user data and filter it.
  *
- * @since 2.0.5
+ * @since WP-2.0.5
  *
  * @param int $user_id User ID.
  * @return WP_User|bool WP_User object on success, false on failure.
@@ -264,9 +264,9 @@ function get_user_to_edit( $user_id ) {
 /**
  * Retrieve the user's drafts.
  *
- * @since 2.0.0
+ * @since WP-2.0.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb ClassicPress database abstraction object.
  *
  * @param int $user_id User ID.
  * @return array
@@ -278,7 +278,7 @@ function get_users_drafts( $user_id ) {
 	/**
 	 * Filters the user's drafts query string.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 *
 	 * @param string $query The user's drafts query string.
 	 */
@@ -294,9 +294,9 @@ function get_users_drafts( $user_id ) {
  * being deleted will be run after the posts are either reassigned or deleted.
  * The user meta will also be deleted that are for that User ID.
  *
- * @since 2.0.0
+ * @since WP-2.0.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb ClassicPress database abstraction object.
  *
  * @param int $id User ID.
  * @param int $reassign Optional. Reassign posts and links to new User ID.
@@ -325,7 +325,7 @@ function wp_delete_user( $id, $reassign = null ) {
 	/**
 	 * Fires immediately before a user is deleted from the database.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 *
 	 * @param int      $id       ID of the user to delete.
 	 * @param int|null $reassign ID of the user to reassign posts and links to.
@@ -346,7 +346,7 @@ function wp_delete_user( $id, $reassign = null ) {
 		/**
 		 * Filters the list of post types to delete with a user.
 		 *
-		 * @since 3.4.0
+		 * @since WP-3.4.0
 		 *
 		 * @param array $post_types_to_delete Post types to delete.
 		 * @param int   $id                   User ID.
@@ -397,7 +397,7 @@ function wp_delete_user( $id, $reassign = null ) {
 	/**
 	 * Fires immediately after a user is deleted from the database.
 	 *
-	 * @since 2.9.0
+	 * @since WP-2.9.0
 	 *
 	 * @param int      $id       ID of the deleted user.
 	 * @param int|null $reassign ID of the user to reassign posts and links to.
@@ -411,7 +411,7 @@ function wp_delete_user( $id, $reassign = null ) {
 /**
  * Remove all capabilities from user.
  *
- * @since 2.1.0
+ * @since WP-2.1.0
  *
  * @param int $id User ID.
  */
@@ -423,7 +423,7 @@ function wp_revoke_user($id) {
 }
 
 /**
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @global int $user_ID
  *
@@ -443,7 +443,7 @@ function default_password_nag_handler($errors = false) {
 }
 
 /**
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @param int    $user_ID
  * @param object $old_data
@@ -463,7 +463,7 @@ function default_password_nag_edit_user($user_ID, $old_data) {
 }
 
 /**
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @global string $pagenow
  */
@@ -484,7 +484,7 @@ function default_password_nag() {
 }
 
 /**
- * @since 3.5.0
+ * @since WP-3.5.0
  * @access private
  */
 function delete_users_add_js() { ?>
@@ -507,7 +507,7 @@ jQuery(document).ready( function($) {
  *
  * See the {@see 'personal_options'} action.
  *
- * @since 2.7.0
+ * @since WP-2.7.0
  *
  * @param object $user User data object
  */
@@ -542,7 +542,7 @@ Please click the following link to activate your user account:
 /**
  * Resend an existing request and return the result.
  *
- * @since 4.9.6
+ * @since WP-4.9.6
  * @access private
  *
  * @param int $request_id Request ID.
@@ -570,7 +570,7 @@ function _wp_privacy_resend_request( $request_id ) {
 /**
  * Marks a request as completed by the admin and logs the current timestamp.
  *
- * @since 4.9.6
+ * @since WP-4.9.6
  * @access private
  *
  * @param  int          $request_id Request ID.
@@ -597,14 +597,14 @@ function _wp_privacy_completed_request( $request_id ) {
 /**
  * Handle list table actions.
  *
- * @since 4.9.6
+ * @since WP-4.9.6
  * @access private
  */
 function _wp_personal_data_handle_actions() {
-	if ( isset( $_POST['privacy_action_email_retry'] ) ) { // WPCS: input var ok.
+	if ( isset( $_POST['privacy_action_email_retry'] ) ) {
 		check_admin_referer( 'bulk-privacy_requests' );
 
-		$request_id = absint( current( array_keys( (array) wp_unslash( $_POST['privacy_action_email_retry'] ) ) ) ); // WPCS: input var ok, sanitization ok.
+		$request_id = absint( current( array_keys( (array) wp_unslash( $_POST['privacy_action_email_retry'] ) ) ) );
 		$result     = _wp_privacy_resend_request( $request_id );
 
 		if ( is_wp_error( $result ) ) {
@@ -623,14 +623,14 @@ function _wp_personal_data_handle_actions() {
 			);
 		}
 	} elseif ( isset( $_POST['action'] ) ) {
-		$action = isset( $_POST['action'] ) ? sanitize_key( wp_unslash( $_POST['action'] ) ) : ''; // WPCS: input var ok, CSRF ok.
+		$action = isset( $_POST['action'] ) ? sanitize_key( wp_unslash( $_POST['action'] ) ) : '';
 
 		switch ( $action ) {
 			case 'add_export_personal_data_request':
 			case 'add_remove_personal_data_request':
 				check_admin_referer( 'personal-data-request' );
 
-				if ( ! isset( $_POST['type_of_action'], $_POST['username_or_email_to_export'] ) ) { // WPCS: input var ok.
+				if ( ! isset( $_POST['type_of_action'], $_POST['username_or_email_for_privacy_request'] ) ) {
 					add_settings_error(
 						'action_type',
 						'action_type',
@@ -638,8 +638,8 @@ function _wp_personal_data_handle_actions() {
 						'error'
 					);
 				}
-				$action_type               = sanitize_text_field( wp_unslash( $_POST['type_of_action'] ) ); // WPCS: input var ok.
-				$username_or_email_address = sanitize_text_field( wp_unslash( $_POST['username_or_email_to_export'] ) ); // WPCS: input var ok.
+				$action_type               = sanitize_text_field( wp_unslash( $_POST['type_of_action'] ) );
+				$username_or_email_address = sanitize_text_field( wp_unslash( $_POST['username_or_email_for_privacy_request'] ) );
 				$email_address             = '';
 
 				if ( ! in_array( $action_type, _wp_privacy_action_request_types(), true ) ) {
@@ -655,8 +655,8 @@ function _wp_personal_data_handle_actions() {
 					$user = get_user_by( 'login', $username_or_email_address );
 					if ( ! $user instanceof WP_User ) {
 						add_settings_error(
-							'username_or_email_to_export',
-							'username_or_email_to_export',
+							'username_or_email_for_privacy_request',
+							'username_or_email_for_privacy_request',
 							__( 'Unable to add this request. A valid email address or username must be supplied.' ),
 							'error'
 						);
@@ -675,16 +675,16 @@ function _wp_personal_data_handle_actions() {
 
 				if ( is_wp_error( $request_id ) ) {
 					add_settings_error(
-						'username_or_email_to_export',
-						'username_or_email_to_export',
+						'username_or_email_for_privacy_request',
+						'username_or_email_for_privacy_request',
 						$request_id->get_error_message(),
 						'error'
 					);
 					break;
 				} elseif ( ! $request_id ) {
 					add_settings_error(
-						'username_or_email_to_export',
-						'username_or_email_to_export',
+						'username_or_email_for_privacy_request',
+						'username_or_email_for_privacy_request',
 						__( 'Unable to initiate confirmation request.' ),
 						'error'
 					);
@@ -694,8 +694,8 @@ function _wp_personal_data_handle_actions() {
 				wp_send_user_request( $request_id );
 
 				add_settings_error(
-					'username_or_email_to_export',
-					'username_or_email_to_export',
+					'username_or_email_for_privacy_request',
+					'username_or_email_for_privacy_request',
 					__( 'Confirmation request initiated successfully.' ),
 					'updated'
 				);
@@ -707,7 +707,7 @@ function _wp_personal_data_handle_actions() {
 /**
  * Cleans up failed and expired requests before displaying the list table.
  *
- * @since 4.9.6
+ * @since WP-4.9.6
  * @access private
  */
 function _wp_personal_data_cleanup_requests() {
@@ -741,7 +741,7 @@ function _wp_personal_data_cleanup_requests() {
 /**
  * Personal data export.
  *
- * @since 4.9.6
+ * @since WP-4.9.6
  * @access private
  */
 function _wp_personal_data_export_page() {
@@ -773,8 +773,8 @@ function _wp_personal_data_export_page() {
 			<p><?php esc_html_e( 'An email will be sent to the user at this email address asking them to verify the request.' ); ?></p>
 
 			<div class="wp-privacy-request-form-field">
-				<label for="username_or_email_to_export"><?php esc_html_e( 'Username or email address' ); ?></label>
-				<input type="text" required class="regular-text" id="username_or_email_to_export" name="username_or_email_to_export" />
+				<label for="username_or_email_for_privacy_request"><?php esc_html_e( 'Username or email address' ); ?></label>
+				<input type="text" required class="regular-text" id="username_or_email_for_privacy_request" name="username_or_email_for_privacy_request" />
 				<?php submit_button( __( 'Send Request' ), 'secondary', 'submit', false ); ?>
 			</div>
 			<?php wp_nonce_field( 'personal-data-request' ); ?>
@@ -806,7 +806,7 @@ function _wp_personal_data_export_page() {
 /**
  * Personal data anonymization.
  *
- * @since 4.9.6
+ * @since WP-4.9.6
  * @access private
  */
 function _wp_personal_data_removal_page() {
@@ -846,8 +846,8 @@ function _wp_personal_data_removal_page() {
 			<p><?php esc_html_e( 'An email will be sent to the user at this email address asking them to verify the request.' ); ?></p>
 
 			<div class="wp-privacy-request-form-field">
-				<label for="username_or_email_to_export"><?php esc_html_e( 'Username or email address' ); ?></label>
-				<input type="text" required class="regular-text" id="username_or_email_to_export" name="username_or_email_to_export" />
+				<label for="username_or_email_for_privacy_request"><?php esc_html_e( 'Username or email address' ); ?></label>
+				<input type="text" required class="regular-text" id="username_or_email_for_privacy_request" name="username_or_email_for_privacy_request" />
 				<?php submit_button( __( 'Send Request' ), 'secondary', 'submit', false ); ?>
 			</div>
 			<?php wp_nonce_field( 'personal-data-request' ); ?>
@@ -883,7 +883,7 @@ function _wp_personal_data_removal_page() {
  * monitors the status of a request. Once all of the processing has finished, the
  * request is marked as completed.
  *
- * @since 4.9.6
+ * @since WP-4.9.6
  *
  * @see wp_privacy_personal_data_erasure_page
  *
@@ -944,7 +944,7 @@ function wp_privacy_process_personal_data_erasure_page( $response, $eraser_index
 	/**
 	 * Fires immediately after a personal data erasure request has been marked completed.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @param int $request_id The privacy request post ID associated with this request.
 	 */
@@ -956,12 +956,25 @@ function wp_privacy_process_personal_data_erasure_page( $response, $eraser_index
 /**
  * Add requests pages.
  *
- * @since 4.9.6
+ * @since WP-4.9.6
  * @access private
  */
 function _wp_privacy_hook_requests_page() {
 	add_submenu_page( 'tools.php', __( 'Export Personal Data' ), __( 'Export Personal Data' ), 'export_others_personal_data', 'export_personal_data', '_wp_personal_data_export_page' );
 	add_submenu_page( 'tools.php', __( 'Erase Personal Data' ), __( 'Erase Personal Data' ), 'erase_others_personal_data', 'remove_personal_data', '_wp_personal_data_removal_page' );
+}
+
+/**
+ * Add options for the privacy requests screens.
+ *
+ * @since WP-4.9.8
+ * @access private
+ */
+function _wp_privacy_requests_screen_options() {
+	$args = array(
+		'option'  => str_replace( 'tools_page_', '', get_current_screen()->id ) . '_requests_per_page',
+	);
+	add_screen_option( 'per_page', $args );
 }
 
 // TODO: move the following classes in new files.
@@ -972,7 +985,7 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 /**
  * WP_Privacy_Requests_Table class.
  *
- * @since 4.9.6
+ * @since WP-4.9.6
  */
 abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 
@@ -982,7 +995,7 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 	 *
 	 * Example: 'export_personal_data'.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @var string $request_type Name of action.
 	 */
@@ -991,7 +1004,7 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 	/**
 	 * Post type to be used.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @var string $post_type The post type.
 	 */
@@ -1000,7 +1013,7 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 	/**
 	 * Get columns to show in the list table.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @return array Array of columns.
 	 */
@@ -1018,7 +1031,7 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 	/**
 	 * Get a list of sortable columns.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @return array Default sortable columns.
 	 */
@@ -1029,7 +1042,7 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 	/**
 	 * Default primary column.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @return string Default primary column name.
 	 */
@@ -1040,7 +1053,7 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 	/**
 	 * Count number of requests for each status.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @return object Number of posts for each status.
 	 */
@@ -1077,7 +1090,7 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 	/**
 	 * Get an associative array ( id => link ) with the list of views available on this table.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @return array Associative array of views in the format of $view_name => $view_markup.
 	 */
@@ -1102,7 +1115,7 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 	/**
 	 * Get bulk actions.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @return array List of bulk actions.
 	 */
@@ -1116,11 +1129,12 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 	/**
 	 * Process bulk actions.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 */
 	public function process_bulk_action() {
 		$action      = $this->current_action();
-		$request_ids = isset( $_REQUEST['request_id'] ) ? wp_parse_id_list( wp_unslash( $_REQUEST['request_id'] ) ) : array(); // WPCS: input var ok, CSRF ok.
+		$request_ids = isset( $_REQUEST['request_id'] ) ? wp_parse_id_list( wp_unslash( $_REQUEST['request_id'] ) ) : array();
+		
 		$count       = 0;
 
 		if ( $request_ids ) {
@@ -1166,7 +1180,7 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 	/**
 	 * Prepare items to output.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 */
 	public function prepare_items() {
 		global $wpdb;
@@ -1180,7 +1194,7 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 		);
 
 		$this->items    = array();
-		$posts_per_page = 20;
+		$posts_per_page = $this->get_items_per_page( $this->request_type . '_requests_per_page' );
 		$args           = array(
 			'post_type'      => $this->post_type,
 			'post_name__in'  => array( $this->request_type ),
@@ -1215,7 +1229,7 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 	/**
 	 * Checkbox column.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @param WP_User_Request $item Item being shown.
 	 * @return string Checkbox column markup.
@@ -1227,7 +1241,7 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 	/**
 	 * Status column.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @param WP_User_Request $item Item being shown.
 	 * @return string Status column markup.
@@ -1264,7 +1278,7 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 	/**
 	 * Convert timestamp for display.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @param int $timestamp Event timestamp.
 	 * @return string Human readable date.
@@ -1287,7 +1301,7 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 	/**
 	 * Default column handler.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @param WP_User_Request $item        Item being shown.
 	 * @param string          $column_name Name of column being shown.
@@ -1306,7 +1320,7 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 	/**
 	 * Actions column. Overridden by children.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @param WP_User_Request $item Item being shown.
 	 * @return string Email column markup.
@@ -1318,7 +1332,7 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 	/**
 	 * Next steps column. Overridden by children.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @param WP_User_Request $item Item being shown.
 	 */
@@ -1327,7 +1341,7 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 	/**
 	 * Generates content for a single row of the table,
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @param WP_User_Request $item The current item.
 	 */
@@ -1342,7 +1356,7 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 	/**
 	 * Embed scripts used to perform actions. Overridden by children.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 */
 	public function embed_scripts() {}
 }
@@ -1350,13 +1364,13 @@ abstract class WP_Privacy_Requests_Table extends WP_List_Table {
 /**
  * WP_Privacy_Data_Export_Requests_Table class.
  *
- * @since 4.9.6
+ * @since WP-4.9.6
  */
 class WP_Privacy_Data_Export_Requests_Table extends WP_Privacy_Requests_Table {
 	/**
 	 * Action name for the requests this table will work with.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @var string $request_type Name of action.
 	 */
@@ -1365,7 +1379,7 @@ class WP_Privacy_Data_Export_Requests_Table extends WP_Privacy_Requests_Table {
 	/**
 	 * Post type for the requests.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @var string $post_type The post type.
 	 */
@@ -1374,12 +1388,13 @@ class WP_Privacy_Data_Export_Requests_Table extends WP_Privacy_Requests_Table {
 	/**
 	 * Actions column.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @param WP_User_Request $item Item being shown.
 	 * @return string Email column markup.
 	 */
 	public function column_email( $item ) {
+		/** This filter is documented in wp-admin/includes/ajax-actions.php */
 		$exporters       = apply_filters( 'wp_privacy_personal_data_exporters', array() );
 		$exporters_count = count( $exporters );
 		$request_id      = $item->ID;
@@ -1408,7 +1423,7 @@ class WP_Privacy_Data_Export_Requests_Table extends WP_Privacy_Requests_Table {
 	/**
 	 * Displays the next steps column.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @param WP_User_Request $item Item being shown.
 	 */
@@ -1420,6 +1435,7 @@ class WP_Privacy_Data_Export_Requests_Table extends WP_Privacy_Requests_Table {
 				esc_html_e( 'Waiting for confirmation' );
 				break;
 			case 'request-confirmed':
+				/** This filter is documented in wp-admin/includes/ajax-actions.php */
 				$exporters       = apply_filters( 'wp_privacy_personal_data_exporters', array() );
 				$exporters_count = count( $exporters );
 				$request_id      = $item->ID;
@@ -1457,13 +1473,13 @@ class WP_Privacy_Data_Export_Requests_Table extends WP_Privacy_Requests_Table {
 /**
  * WP_Privacy_Data_Removal_Requests_Table class.
  *
- * @since 4.9.6
+ * @since WP-4.9.6
  */
 class WP_Privacy_Data_Removal_Requests_Table extends WP_Privacy_Requests_Table {
 	/**
 	 * Action name for the requests this table will work with.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @var string $request_type Name of action.
 	 */
@@ -1472,7 +1488,7 @@ class WP_Privacy_Data_Removal_Requests_Table extends WP_Privacy_Requests_Table {
 	/**
 	 * Post type for the requests.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @var string $post_type The post type.
 	 */
@@ -1481,7 +1497,7 @@ class WP_Privacy_Data_Removal_Requests_Table extends WP_Privacy_Requests_Table {
 	/**
 	 * Actions column.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @param WP_User_Request $item Item being shown.
 	 * @return string Email column markup.
@@ -1492,6 +1508,7 @@ class WP_Privacy_Data_Removal_Requests_Table extends WP_Privacy_Requests_Table {
 		// Allow the administrator to "force remove" the personal data even if confirmation has not yet been received.
 		$status = $item->status;
 		if ( 'request-confirmed' !== $status ) {
+			/** This filter is documented in wp-admin/includes/ajax-actions.php */
 			$erasers       = apply_filters( 'wp_privacy_personal_data_erasers', array() );
 			$erasers_count = count( $erasers );
 			$request_id    = $item->ID;
@@ -1520,7 +1537,7 @@ class WP_Privacy_Data_Removal_Requests_Table extends WP_Privacy_Requests_Table {
 	/**
 	 * Next steps column.
 	 *
-	 * @since 4.9.6
+	 * @since WP-4.9.6
 	 *
 	 * @param WP_User_Request $item Item being shown.
 	 */
@@ -1532,6 +1549,7 @@ class WP_Privacy_Data_Removal_Requests_Table extends WP_Privacy_Requests_Table {
 				esc_html_e( 'Waiting for confirmation' );
 				break;
 			case 'request-confirmed':
+				/** This filter is documented in wp-admin/includes/ajax-actions.php */
 				$erasers       = apply_filters( 'wp_privacy_personal_data_erasers', array() );
 				$erasers_count = count( $erasers );
 				$request_id    = $item->ID;

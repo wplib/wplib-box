@@ -2,15 +2,15 @@
 /**
  * List Table API: WP_Theme_Install_List_Table class
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
- * @since 3.1.0
+ * @since WP-3.1.0
  */
 
 /**
  * Core class used to implement displaying themes to install in a list table.
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  * @access private
  *
  * @see WP_Themes_List_Table
@@ -74,7 +74,7 @@ class WP_Theme_Install_List_Table extends WP_Themes_List_Table {
 		/**
 		 * Filters tabs not associated with a menu item on the Install Themes screen.
 		 *
-		 * @since 2.8.0
+		 * @since WP-2.8.0
 		 *
 		 * @param array $nonmenu_tabs The tabs that don't have a menu item on
 		 *                            the Install Themes screen.
@@ -130,7 +130,7 @@ class WP_Theme_Install_List_Table extends WP_Themes_List_Table {
 		 * tabs. Default tabs are 'dashboard', 'search', 'upload', 'featured',
 		 * 'new', and 'updated'.
 		 *
-		 * @since 3.7.0
+		 * @since WP-3.7.0
 		 *
 		 * @param array $args An array of themes API arguments.
 		 */
@@ -189,7 +189,7 @@ class WP_Theme_Install_List_Table extends WP_Themes_List_Table {
 				/**
 				 * Fires in the Install Themes list table header.
 				 *
-				 * @since 2.8.0
+				 * @since WP-2.8.0
 				 */
 				do_action( 'install_themes_table_header' );
 				?>
@@ -221,14 +221,14 @@ class WP_Theme_Install_List_Table extends WP_Themes_List_Table {
 	}
 
 	/**
-	 * Prints a theme from the WordPress.org API.
+	 * Prints a theme from the ClassicPress.net API.
 	 *
-	 * @since 3.1.0
+	 * @since WP-3.1.0
 	 *
 	 * @global array $themes_allowedtags
 	 *
 	 * @param object $theme {
-	 *     An object that contains theme data returned by the WordPress.org API.
+	 *     An object that contains theme data returned by the ClassicPress.net API.
 	 *
 	 *     @type string $name           Theme name, e.g. 'Twenty Seventeen'.
 	 *     @type string $slug           Theme slug, e.g. 'twentyseventeen'.
@@ -291,7 +291,7 @@ class WP_Theme_Install_List_Table extends WP_Themes_List_Table {
 		/**
 		 * Filters the install action links for a theme in the Install Themes list table.
 		 *
-		 * @since 3.4.0
+		 * @since WP-3.4.0
 		 *
 		 * @param array    $actions An array of theme action hyperlinks. Defaults are
 		 *                          links to Install Now, Preview, and Details.
@@ -350,7 +350,7 @@ class WP_Theme_Install_List_Table extends WP_Themes_List_Table {
 	 * Prints the wrapper for the theme installer with a provided theme's data.
 	 * Used to make the theme installer work for no-js.
 	 *
-	 * @param object $theme - A WordPress.org Theme API object.
+	 * @param object $theme - A ClassicPress.net Theme API object.
 	 */
 	public function theme_installer_single( $theme ) {
 		?>
@@ -370,7 +370,7 @@ class WP_Theme_Install_List_Table extends WP_Themes_List_Table {
 	 *
 	 * @global array $themes_allowedtags
 	 *
-	 * @param object $theme - A WordPress.org Theme API object.
+	 * @param object $theme - A ClassicPress.net Theme API object.
 	 */
 	public function install_theme_info( $theme ) {
 		global $themes_allowedtags;
@@ -431,7 +431,7 @@ class WP_Theme_Install_List_Table extends WP_Themes_List_Table {
 	/**
 	 * Send required variables to JavaScript land
 	 *
-	 * @since 3.4.0
+	 * @since WP-3.4.0
 	 *
 	 * @global string $tab  Current tab within Themes->Install screen
 	 * @global string $type Type of search.
@@ -446,9 +446,9 @@ class WP_Theme_Install_List_Table extends WP_Themes_List_Table {
 	/**
 	 * Check to see if the theme is already installed.
 	 *
-	 * @since 3.4.0
+	 * @since WP-3.4.0
 	 *
-	 * @param object $theme - A WordPress.org Theme API object.
+	 * @param object $theme - A ClassicPress.net Theme API object.
 	 * @return string Theme status.
 	 */
 	private function _get_theme_status( $theme ) {

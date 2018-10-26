@@ -1,16 +1,16 @@
 <?php
 /**
- * WordPress Translation Installation Administration API
+ * ClassicPress Translation Installation Administration API
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
  */
 
 
 /**
- * Retrieve translations from WordPress Translation API.
+ * Retrieve translations from ClassicPress Translation API.
  *
- * @since 4.0.0
+ * @since WP-4.0.0
  *
  * @param string       $type Type of translations. Accepts 'plugins', 'themes', 'core'.
  * @param array|object $args Translation API arguments. Optional.
@@ -24,9 +24,9 @@ function translations_api( $type, $args = null ) {
 	}
 
 	/**
-	 * Allows a plugin to override the WordPress.org Translation Installation API entirely.
+	 * Allows a plugin to override the ClassicPress.net Translation Installation API entirely.
 	 *
-	 * @since 4.0.0
+	 * @since WP-4.0.0
 	 *
 	 * @param bool|array  $result The result object. Default false.
 	 * @param string      $type   The type of translations being requested.
@@ -59,9 +59,9 @@ function translations_api( $type, $args = null ) {
 			trigger_error(
 				sprintf(
 					/* translators: %s: support forums URL */
-					__( 'An unexpected error occurred. Something may be wrong with WordPress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
+					__( 'An unexpected error occurred. Something may be wrong with ClassicPress.net or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
 					__( 'https://wordpress.org/support/' )
-				) . ' ' . __( '(WordPress could not establish a secure connection to WordPress.org. Please contact your server administrator.)' ),
+				) . ' ' . __( '(ClassicPress could not establish a secure connection to ClassicPress.net. Please contact your server administrator.)' ),
 				headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
 			);
 
@@ -72,7 +72,7 @@ function translations_api( $type, $args = null ) {
 			$res = new WP_Error( 'translations_api_failed',
 				sprintf(
 					/* translators: %s: support forums URL */
-					__( 'An unexpected error occurred. Something may be wrong with WordPress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
+					__( 'An unexpected error occurred. Something may be wrong with ClassicPress.net or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
 					__( 'https://wordpress.org/support/' )
 				),
 				$request->get_error_message()
@@ -83,7 +83,7 @@ function translations_api( $type, $args = null ) {
 				$res = new WP_Error( 'translations_api_failed',
 					sprintf(
 						/* translators: %s: support forums URL */
-						__( 'An unexpected error occurred. Something may be wrong with WordPress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
+						__( 'An unexpected error occurred. Something may be wrong with ClassicPress.net or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
 						__( 'https://wordpress.org/support/' )
 					),
 					wp_remote_retrieve_body( $request )
@@ -95,7 +95,7 @@ function translations_api( $type, $args = null ) {
 	/**
 	 * Filters the Translation Installation API response results.
 	 *
-	 * @since 4.0.0
+	 * @since WP-4.0.0
 	 *
 	 * @param object|WP_Error $res  Response object or WP_Error.
 	 * @param string          $type The type of translations being requested.
@@ -105,9 +105,9 @@ function translations_api( $type, $args = null ) {
 }
 
 /**
- * Get available translations from the WordPress.org API.
+ * Get available translations from the ClassicPress.net API.
  *
- * @since 4.0.0
+ * @since WP-4.0.0
  *
  * @see translations_api()
  *
@@ -143,7 +143,7 @@ function wp_get_available_translations() {
 /**
  * Output the select form for the language selection on the installation screen.
  *
- * @since 4.0.0
+ * @since WP-4.0.0
  *
  * @global string $wp_local_package
  *
@@ -188,7 +188,7 @@ function wp_install_language_form( $languages ) {
 /**
  * Download a language pack.
  *
- * @since 4.0.0
+ * @since WP-4.0.0
  *
  * @see wp_get_available_translations()
  *
@@ -237,10 +237,10 @@ function wp_download_language_pack( $download ) {
 }
 
 /**
- * Check if WordPress has access to the filesystem without asking for
+ * Check if ClassicPress has access to the filesystem without asking for
  * credentials.
  *
- * @since 4.0.0
+ * @since WP-4.0.0
  *
  * @return bool Returns true on success, false on failure.
  */

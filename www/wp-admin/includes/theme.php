@@ -1,15 +1,15 @@
 <?php
 /**
- * WordPress Theme Administration API
+ * ClassicPress Theme Administration API
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
  */
 
 /**
  * Remove a theme
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @global WP_Filesystem_Base $wp_filesystem Subclass
  *
@@ -64,7 +64,7 @@ function delete_theme($stylesheet, $redirect = '') {
 	// Get the base plugin folder.
 	$themes_dir = $wp_filesystem->wp_themes_dir();
 	if ( empty( $themes_dir ) ) {
-		return new WP_Error( 'fs_no_themes_dir', __( 'Unable to locate WordPress theme directory.' ) );
+		return new WP_Error( 'fs_no_themes_dir', __( 'Unable to locate ClassicPress theme directory.' ) );
 	}
 
 	$themes_dir = trailingslashit( $themes_dir );
@@ -101,8 +101,8 @@ function delete_theme($stylesheet, $redirect = '') {
 /**
  * Get the Page Templates available in this theme
  *
- * @since 1.5.0
- * @since 4.7.0 Added the `$post_type` parameter.
+ * @since WP-1.5.0
+ * @since WP-4.7.0 Added the `$post_type` parameter.
  *
  * @param WP_Post|null $post      Optional. The post being edited, provided for context.
  * @param string       $post_type Optional. Post type to get the templates for. Default 'page'.
@@ -115,7 +115,7 @@ function get_page_templates( $post = null, $post_type = 'page' ) {
 /**
  * Tidies a filename for url display by the theme editor.
  *
- * @since 2.9.0
+ * @since WP-2.9.0
  * @access private
  *
  * @param string $fullpath Full path to the theme file
@@ -131,7 +131,7 @@ function _get_template_edit_filename($fullpath, $containingfolder) {
  *
  * Will display link, if there is an update available.
  *
- * @since 2.7.0
+ * @since WP-2.7.0
  * @see get_theme_update_available()
  *
  * @param WP_Theme $theme Theme data object.
@@ -145,7 +145,7 @@ function theme_update_available( $theme ) {
  *
  * Will return a link if there is an update available.
  *
- * @since 3.8.0
+ * @since WP-3.8.0
  *
  * @staticvar object $themes_update
  *
@@ -223,11 +223,11 @@ function get_theme_update_available( $theme ) {
 }
 
 /**
- * Retrieve list of WordPress theme features (aka theme tags)
+ * Retrieve list of ClassicPress theme features (aka theme tags)
  *
- * @since 3.1.0
+ * @since WP-3.1.0
  *
- * @param bool $api Optional. Whether try to fetch tags from the WordPress.org API. Defaults to true.
+ * @param bool $api Optional. Whether try to fetch tags from the ClassicPress.net API. Defaults to true.
  * @return array Array of features keyed by category with translations keyed by slug.
  */
 function get_theme_feature_list( $api = true ) {
@@ -316,7 +316,7 @@ function get_theme_feature_list( $api = true ) {
 }
 
 /**
- * Retrieves theme installer pages from the WordPress.org Themes API.
+ * Retrieves theme installer pages from the ClassicPress.net Themes API.
  *
  * It is possible for a theme to override the Themes API result with three
  * filters. Assume this is for themes, which can extend on the Theme Info to
@@ -327,7 +327,7 @@ function get_theme_feature_list( $api = true ) {
  * as the second parameter. The hook for {@see 'themes_api_args'} must ensure that
  * an object is returned.
  *
- * The second filter, {@see 'themes_api'}, allows a plugin to override the WordPress.org
+ * The second filter, {@see 'themes_api'}, allows a plugin to override the ClassicPress.net
  * Theme API entirely. If `$action` is 'query_themes', 'theme_information', or 'feature_list',
  * an object MUST be passed. If `$action` is 'hot_tags', an array should be passed.
  *
@@ -350,7 +350,7 @@ function get_theme_feature_list( $api = true ) {
  * | `$locale`          | Yes            |  Yes                | No         | No               |
  * | `$fields`          | Yes            |  Yes                | No         | No               |
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @param string       $action API action to perform: 'query_themes', 'theme_information',
  *                             'hot_tags' or 'feature_list'.
@@ -411,29 +411,29 @@ function themes_api( $action, $args = array() ) {
 	}
 
 	/**
-	 * Filters arguments used to query for installer pages from the WordPress.org Themes API.
+	 * Filters arguments used to query for installer pages from the ClassicPress.net Themes API.
 	 *
 	 * Important: An object MUST be returned to this filter.
 	 *
-	 * @since 2.8.0
+	 * @since WP-2.8.0
 	 *
-	 * @param object $args   Arguments used to query for installer pages from the WordPress.org Themes API.
+	 * @param object $args   Arguments used to query for installer pages from the ClassicPress.net Themes API.
 	 * @param string $action Requested action. Likely values are 'theme_information',
 	 *                       'feature_list', or 'query_themes'.
 	 */
 	$args = apply_filters( 'themes_api_args', $args, $action );
 
 	/**
-	 * Filters whether to override the WordPress.org Themes API.
+	 * Filters whether to override the ClassicPress.net Themes API.
 	 *
-	 * Passing a non-false value will effectively short-circuit the WordPress.org API request.
+	 * Passing a non-false value will effectively short-circuit the ClassicPress.net API request.
 	 *
 	 * If `$action` is 'query_themes', 'theme_information', or 'feature_list', an object MUST
 	 * be passed. If `$action` is 'hot_tags', an array should be passed.
 	 *
-	 * @since 2.8.0
+	 * @since WP-2.8.0
 	 *
-	 * @param false|object|array $override Whether to override the WordPress.org Themes API. Default false.
+	 * @param false|object|array $override Whether to override the ClassicPress.net Themes API. Default false.
 	 * @param string             $action   Requested action. Likely values are 'theme_information',
 	 *                                    'feature_list', or 'query_themes'.
 	 * @param object             $args     Arguments used to query for installer pages from the Themes API.
@@ -449,7 +449,7 @@ function themes_api( $action, $args = array() ) {
 			$url = set_url_scheme( $url, 'https' );
 
 		$http_args = array(
-			'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url( '/' ),
+			'user-agent' => 'ClassicPress/' . $wp_version . '; ' . home_url( '/' ),
 			'body' => array(
 				'action' => $action,
 				'request' => serialize( $args )
@@ -462,9 +462,9 @@ function themes_api( $action, $args = array() ) {
 				trigger_error(
 					sprintf(
 						/* translators: %s: support forums URL */
-						__( 'An unexpected error occurred. Something may be wrong with WordPress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
+						__( 'An unexpected error occurred. Something may be wrong with ClassicPress.net or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
 						__( 'https://wordpress.org/support/' )
-					) . ' ' . __( '(WordPress could not establish a secure connection to WordPress.org. Please contact your server administrator.)' ),
+					) . ' ' . __( '(ClassicPress could not establish a secure connection to ClassicPress.net. Please contact your server administrator.)' ),
 					headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
 				);
 			}
@@ -475,7 +475,7 @@ function themes_api( $action, $args = array() ) {
 			$res = new WP_Error( 'themes_api_failed',
 				sprintf(
 					/* translators: %s: support forums URL */
-					__( 'An unexpected error occurred. Something may be wrong with WordPress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
+					__( 'An unexpected error occurred. Something may be wrong with ClassicPress.net or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
 					__( 'https://wordpress.org/support/' )
 				),
 				$request->get_error_message()
@@ -486,7 +486,7 @@ function themes_api( $action, $args = array() ) {
 				$res = new WP_Error( 'themes_api_failed',
 					sprintf(
 						/* translators: %s: support forums URL */
-						__( 'An unexpected error occurred. Something may be wrong with WordPress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
+						__( 'An unexpected error occurred. Something may be wrong with ClassicPress.net or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
 						__( 'https://wordpress.org/support/' )
 					),
 					wp_remote_retrieve_body( $request )
@@ -496,14 +496,14 @@ function themes_api( $action, $args = array() ) {
 	}
 
 	/**
-	 * Filters the returned WordPress.org Themes API response.
+	 * Filters the returned ClassicPress.net Themes API response.
 	 *
-	 * @since 2.8.0
+	 * @since WP-2.8.0
 	 *
-	 * @param array|object|WP_Error $res    WordPress.org Themes API response.
+	 * @param array|object|WP_Error $res    ClassicPress.net Themes API response.
 	 * @param string                $action Requested action. Likely values are 'theme_information',
 	 *                                      'feature_list', or 'query_themes'.
-	 * @param object                $args   Arguments used to query for installer pages from the WordPress.org Themes API.
+	 * @param object                $args   Arguments used to query for installer pages from the ClassicPress.net Themes API.
 	 */
 	return apply_filters( 'themes_api_result', $res, $action, $args );
 }
@@ -511,7 +511,7 @@ function themes_api( $action, $args = array() ) {
 /**
  * Prepare themes for JavaScript.
  *
- * @since 3.8.0
+ * @since WP-3.8.0
  *
  * @param array $themes Optional. Array of WP_Theme objects to prepare.
  *                      Defaults to all allowed themes.
@@ -527,7 +527,7 @@ function wp_prepare_themes_for_js( $themes = null ) {
 	 * Passing a non-empty array will result in wp_prepare_themes_for_js() returning
 	 * early with that value instead.
 	 *
-	 * @since 4.2.0
+	 * @since WP-4.2.0
 	 *
 	 * @param array      $prepared_themes An associative array of theme data. Default empty array.
 	 * @param null|array $themes          An array of WP_Theme objects to prepare, if any.
@@ -614,7 +614,7 @@ function wp_prepare_themes_for_js( $themes = null ) {
 	 *
 	 * Could be useful for changing the order, which is by name by default.
 	 *
-	 * @since 3.8.0
+	 * @since WP-3.8.0
 	 *
 	 * @param array $prepared_themes Array of themes.
 	 */
@@ -626,7 +626,7 @@ function wp_prepare_themes_for_js( $themes = null ) {
 /**
  * Print JS templates for the theme-browsing UI in the Customizer.
  *
- * @since 4.2.0
+ * @since WP-4.2.0
  */
 function customize_themes_print_templates() {
 	?>

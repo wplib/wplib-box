@@ -1,8 +1,8 @@
 <?php
 /**
- * WordPress Theme Installation Administration API
+ * ClassicPress Theme Installation Administration API
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
  */
 
@@ -20,16 +20,16 @@ $theme_field_defaults = array( 'description' => true, 'sections' => false, 'test
 );
 
 /**
- * Retrieve list of WordPress theme features (aka theme tags)
+ * Retrieve list of ClassicPress theme features (aka theme tags)
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @deprecated since 3.1.0 Use get_theme_feature_list() instead.
  *
  * @return array
  */
 function install_themes_feature_list() {
-	_deprecated_function( __FUNCTION__, '3.1.0', 'get_theme_feature_list()' );
+	_deprecated_function( __FUNCTION__, 'WP-3.1.0', 'get_theme_feature_list()' );
 
 	if ( !$cache = get_transient( 'wporg_theme_feature_list' ) )
 		set_transient( 'wporg_theme_feature_list', array(), 3 * HOUR_IN_SECONDS );
@@ -49,7 +49,7 @@ function install_themes_feature_list() {
 /**
  * Display search form for searching themes.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @param bool $type_selector
  */
@@ -93,7 +93,7 @@ function install_theme_search_form( $type_selector = true ) {
 /**
  * Display tags filter for themes.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  */
 function install_themes_dashboard() {
 	install_theme_search_form( false );
@@ -136,7 +136,7 @@ function install_themes_dashboard() {
 }
 
 /**
- * @since 2.8.0
+ * @since WP-2.8.0
  */
 function install_themes_upload() {
 ?>
@@ -153,14 +153,14 @@ function install_themes_upload() {
 /**
  * Prints a theme on the Install Themes pages.
  *
- * @deprecated 3.4.0
+ * @deprecated WP-3.4.0
  *
  * @global WP_Theme_Install_List_Table $wp_list_table
  *
  * @param object $theme
  */
 function display_theme( $theme ) {
-	_deprecated_function( __FUNCTION__, '3.4.0' );
+	_deprecated_function( __FUNCTION__, 'WP-3.4.0' );
 	global $wp_list_table;
 	if ( ! isset( $wp_list_table ) ) {
 		$wp_list_table = _get_list_table('WP_Theme_Install_List_Table');
@@ -172,7 +172,7 @@ function display_theme( $theme ) {
 /**
  * Display theme content based on theme list.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @global WP_Theme_Install_List_Table $wp_list_table
  */
@@ -190,7 +190,7 @@ function display_themes() {
 /**
  * Display theme information in dialog box form.
  *
- * @since 2.8.0
+ * @since WP-2.8.0
  *
  * @global WP_Theme_Install_List_Table $wp_list_table
  */

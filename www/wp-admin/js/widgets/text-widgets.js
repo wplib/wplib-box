@@ -96,7 +96,7 @@ wp.textWidgets = ( function( $ ) {
 		/**
 		 * Dismiss pointers for Custom HTML widget.
 		 *
-		 * @since 4.8.1
+		 * @since WP-4.8.1
 		 *
 		 * @param {Array} pointers Pointer IDs to dismiss.
 		 * @returns {void}
@@ -113,7 +113,7 @@ wp.textWidgets = ( function( $ ) {
 		/**
 		 * Open available widgets panel.
 		 *
-		 * @since 4.8.1
+		 * @since WP-4.8.1
 		 * @returns {void}
 		 */
 		openAvailableWidgetsPanel: function openAvailableWidgetsPanel() {
@@ -493,7 +493,7 @@ wp.textWidgets = ( function( $ ) {
 	 * Initialize functionality.
 	 *
 	 * This function exists to prevent the JS file from having to boot itself.
-	 * When WordPress enqueues this script, it should have an inline script
+	 * When ClassicPress enqueues this script, it should have an inline script
 	 * attached which calls wp.textWidgets.init().
 	 *
 	 * @returns {void}

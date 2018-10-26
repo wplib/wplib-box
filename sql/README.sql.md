@@ -10,7 +10,7 @@ To backup simply SSH into the box and then run the `box database import` command
     vagrant ssh
     box database backup
 
-This will create a `backup.sql` file in `/path/to/your/project/sql`.  If one already exists it will append a number to the end, e.g. `backup1.sql`, `backup2.sql`, etc. 
+This will create a `provision.sql` file in `/path/to/your/project/sql`.  If one already exists it will append a number to the end, e.g. `backup1.sql`, `backup2.sql`, etc. 
 
 ## Importing a .SQL file into your MySQL database
 

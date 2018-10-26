@@ -1,8 +1,8 @@
 <?php
 /**
- * WordPress Administration Update API
+ * ClassicPress Administration Update API
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
  */
 
@@ -61,11 +61,11 @@ function get_core_updates( $options = array() ) {
 }
 
 /**
- * Gets the best available (and enabled) Auto-Update for WordPress Core.
+ * Gets the best available (and enabled) Auto-Update for ClassicPress Core.
  *
  * If there's 1.2.3 and 1.3 on offer, it'll choose 1.3 if the installation allows it, else, 1.2.3
  *
- * @since 3.7.0
+ * @since WP-3.7.0
  *
  * @return array|false False on failure, otherwise the core update offering.
  */
@@ -92,9 +92,9 @@ function find_core_auto_update() {
 }
 
 /**
- * Gets and caches the checksums for the given version of WordPress.
+ * Gets and caches the checksums for the given version of ClassicPress.
  *
- * @since 3.7.0
+ * @since WP-3.7.0
  *
  * @param string $version Version string to query.
  * @param string $locale  Locale to query.
@@ -115,9 +115,9 @@ function get_core_checksums( $version, $locale ) {
 		trigger_error(
 			sprintf(
 				/* translators: %s: support forums URL */
-				__( 'An unexpected error occurred. Something may be wrong with WordPress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
+				__( 'An unexpected error occurred. Something may be wrong with ClassicPress.net or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
 				__( 'https://wordpress.org/support/' )
-			) . ' ' . __( '(WordPress could not establish a secure connection to WordPress.org. Please contact your server administrator.)' ),
+			) . ' ' . __( '(ClassicPress could not establish a secure connection to ClassicPress.net. Please contact your server administrator.)' ),
 			headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
 		);
 		$response = wp_remote_get( $http_url, $options );
@@ -190,7 +190,7 @@ function find_core_update( $version, $locale ) {
  */
 function core_update_footer( $msg = '' ) {
 	if ( !current_user_can('update_core') )
-		return sprintf( __( 'Version %s' ), get_bloginfo( 'version', 'display' ) );
+		return sprintf( __( 'Version %s' ), classicpress_version() );
 
 	$cur = get_preferred_from_update_core();
 	if ( ! is_object( $cur ) )
@@ -207,15 +207,15 @@ function core_update_footer( $msg = '' ) {
 
 	switch ( $cur->response ) {
 	case 'development' :
-		/* translators: 1: WordPress version number, 2: WordPress updates admin screen URL */
-		return sprintf( __( 'You are using a development version (%1$s). Cool! Please <a href="%2$s">stay updated</a>.' ), get_bloginfo( 'version', 'display' ), network_admin_url( 'update-core.php' ) );
+		/* translators: 1: ClassicPress version number, 2: ClassicPress updates admin screen URL */
+		return sprintf( __( 'You are using a development version (%1$s). Cool! Please <a href="%2$s">stay updated</a>.' ), classicpress_version(), network_admin_url( 'update-core.php' ) );
 
 	case 'upgrade' :
 		return '<strong><a href="' . network_admin_url( 'update-core.php' ) . '">' . sprintf( __( 'Get Version %s' ), $cur->current ) . '</a></strong>';
 
 	case 'latest' :
 	default :
-		return sprintf( __( 'Version %s' ), get_bloginfo( 'version', 'display' ) );
+		return sprintf( __( 'Version %s' ), classicpress_version() );
 	}
 }
 
@@ -240,23 +240,23 @@ function update_nag() {
 
 	if ( current_user_can( 'update_core' ) ) {
 		$msg = sprintf(
-			/* translators: 1: Codex URL to release notes, 2: new WordPress version, 3: URL to network admin, 4: accessibility text */
-			__( '<a href="%1$s">WordPress %2$s</a> is available! <a href="%3$s" aria-label="%4$s">Please update now</a>.' ),
+			/* translators: 1: Codex URL to release notes, 2: new ClassicPress version, 3: URL to network admin, 4: accessibility text */
+			__( '<a href="%1$s">ClassicPress %2$s</a> is available! <a href="%3$s" aria-label="%4$s">Please update now</a>.' ),
 			sprintf(
-				/* translators: %s: WordPress version */
+				/* translators: %s: ClassicPress version */
 				esc_url( __( 'https://codex.wordpress.org/Version_%s' ) ),
 				$cur->current
 			),
 			$cur->current,
 			network_admin_url( 'update-core.php' ),
-			esc_attr__( 'Please update WordPress now' )
+			esc_attr__( 'Please update ClassicPress now' )
 		);
 	} else {
 		$msg = sprintf(
-			/* translators: 1: Codex URL to release notes, 2: new WordPress version */
-			__( '<a href="%1$s">WordPress %2$s</a> is available! Please notify the site administrator.' ),
+			/* translators: 1: Codex URL to release notes, 2: new ClassicPress version */
+			__( '<a href="%1$s">ClassicPress %2$s</a> is available! Please notify the site administrator.' ),
 			sprintf(
-				/* translators: %s: WordPress version */
+				/* translators: %s: ClassicPress version */
 				esc_url( __( 'https://codex.wordpress.org/Version_%s' ) ),
 				$cur->current
 			),
@@ -283,26 +283,26 @@ function update_right_now_message() {
 	}
 
 	/* translators: 1: version number, 2: theme name */
-	$content = __( 'WordPress %1$s running %2$s theme.' );
+	$content = __( 'ClassicPress %1$s running %2$s theme.' );
 
 	/**
 	 * Filters the text displayed in the 'At a Glance' dashboard widget.
 	 *
 	 * Prior to 3.8.0, the widget was named 'Right Now'.
 	 *
-	 * @since 4.4.0
+	 * @since WP-4.4.0
 	 *
 	 * @param string $content Default text.
 	 */
 	$content = apply_filters( 'update_right_now_text', $content );
 
-	$msg .= sprintf( '<span id="wp-version">' . $content . '</span>', get_bloginfo( 'version', 'display' ), $theme_name );
+	$msg .= sprintf( '<span id="wp-version">' . $content . '</span>', classicpress_version(), $theme_name );
 
 	echo "<p id='wp-version-message'>$msg</p>";
 }
 
 /**
- * @since 2.9.0
+ * @since WP-2.9.0
  *
  * @return array
  */
@@ -321,7 +321,7 @@ function get_plugin_updates() {
 }
 
 /**
- * @since 2.9.0
+ * @since WP-2.9.0
  */
 function wp_plugin_update_rows() {
 	if ( !current_user_can('update_plugins' ) )
@@ -422,7 +422,7 @@ function wp_plugin_update_row( $file, $plugin_data ) {
 		 * The dynamic portion of the hook name, `$file`, refers to the path
 		 * of the plugin's primary file relative to the plugins directory.
 		 *
-		 * @since 2.8.0
+		 * @since WP-2.8.0
 		 *
 		 * @param array $plugin_data {
 		 *     An array of plugin metadata.
@@ -476,7 +476,7 @@ function get_theme_updates() {
 }
 
 /**
- * @since 3.1.0
+ * @since WP-3.1.0
  */
 function wp_theme_update_rows() {
 	if ( !current_user_can('update_themes' ) )
@@ -565,9 +565,9 @@ function wp_theme_update_row( $theme_key, $theme ) {
 	 * row of the themes list table.
 	 *
 	 * The dynamic portion of the hook name, `$theme_key`, refers to
-	 * the theme slug as found in the WordPress.org themes repository.
+	 * the theme slug as found in the ClassicPress.net themes repository.
 	 *
-	 * @since 3.1.0
+	 * @since WP-3.1.0
 	 *
 	 * @param WP_Theme $theme    The WP_Theme object.
 	 * @param array    $response {
@@ -613,9 +613,9 @@ function maintenance_nag() {
 		return false;
 
 	if ( current_user_can('update_core') )
-		$msg = sprintf( __('An automated WordPress update has failed to complete - <a href="%s">please attempt the update again now</a>.'), 'update-core.php' );
+		$msg = sprintf( __('An automated ClassicPress update has failed to complete - <a href="%s">please attempt the update again now</a>.'), 'update-core.php' );
 	else
-		$msg = __('An automated WordPress update has failed to complete! Please notify the site administrator.');
+		$msg = __('An automated ClassicPress update has failed to complete! Please notify the site administrator.');
 
 	echo "<div class='update-nag'>$msg</div>";
 }
@@ -634,7 +634,7 @@ function maintenance_nag() {
  *         @type string type      The type of update the notice is for. Either 'plugin' or 'theme'.
  *     }
  *
- * @since 4.6.0
+ * @since WP-4.6.0
  */
 function wp_print_admin_notice_templates() {
 	?>
@@ -726,7 +726,7 @@ function wp_print_admin_notice_templates() {
  *         @type string colspan The number of table columns this row spans.
  *     }
  *
- * @since 4.6.0
+ * @since WP-4.6.0
  */
 function wp_print_update_row_templates() {
 	?>

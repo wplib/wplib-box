@@ -1,13 +1,13 @@
 <?php
 /**
- * WordPress Plugin Install Administration API
+ * ClassicPress Plugin Install Administration API
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
  */
 
 /**
- * Retrieves plugin installer pages from the WordPress.org Plugins API.
+ * Retrieves plugin installer pages from the ClassicPress.net Plugins API.
  *
  * It is possible for a plugin to override the Plugin API result with three
  * filters. Assume this is for plugins, which can extend on the Plugin Info to
@@ -18,7 +18,7 @@
  * as the second parameter. The hook for {@see 'plugins_api_args'} must ensure that
  * an object is returned.
  *
- * The second filter, {@see 'plugins_api'}, allows a plugin to override the WordPress.org
+ * The second filter, {@see 'plugins_api'}, allows a plugin to override the ClassicPress.net
  * Plugin Installation API entirely. If `$action` is 'query_plugins' or 'plugin_information',
  * an object MUST be passed. If `$action` is 'hot_tags' or 'hot_categories', an array MUST
  * be passed.
@@ -44,7 +44,7 @@
  * | `$is_ssl`            | Yes           |  Yes               | No       | No             |
  * | `$fields`            | Yes           |  Yes               | No       | No             |
  *
- * @since 2.7.0
+ * @since WP-2.7.0
  *
  * @param string       $action API action to perform: 'query_plugins', 'plugin_information',
  *                             'hot_tags' or 'hot_categories'.
@@ -72,7 +72,7 @@
  *         @type bool $sections          Whether to return the plugin readme sections: description, installation,
  *                                       FAQ, screenshots, other notes, and changelog. Default false.
  *         @type bool $tested            Whether to return the 'Compatible up to' value. Default true.
- *         @type bool $requires          Whether to return the required WordPress version. Default true.
+ *         @type bool $requires          Whether to return the required ClassicPress version. Default true.
  *         @type bool $rating            Whether to return the rating in percent and total number of ratings.
  *                                       Default true.
  *         @type bool $ratings           Whether to return the number of rating for each star (1-5). Default true.
@@ -82,7 +82,7 @@
  *         @type bool $added             Whether to return the date when the plugin was added to the wordpress.org
  *                                       repository. Default true.
  *         @type bool $tags              Whether to return the assigned tags. Default true.
- *         @type bool $compatibility     Whether to return the WordPress compatibility list. Default true.
+ *         @type bool $compatibility     Whether to return the ClassicPress compatibility list. Default true.
  *         @type bool $homepage          Whether to return the plugin homepage link. Default true.
  *         @type bool $versions          Whether to return the list of all available versions. Default false.
  *         @type bool $donate_link       Whether to return the donation link. Default true.
@@ -113,11 +113,11 @@ function plugins_api( $action, $args = array() ) {
 	}
 
 	/**
-	 * Filters the WordPress.org Plugin Installation API arguments.
+	 * Filters the ClassicPress.net Plugin Installation API arguments.
 	 *
 	 * Important: An object MUST be returned to this filter.
 	 *
-	 * @since 2.7.0
+	 * @since WP-2.7.0
 	 *
 	 * @param object $args   Plugin API arguments.
 	 * @param string $action The type of information being requested from the Plugin Installation API.
@@ -125,14 +125,14 @@ function plugins_api( $action, $args = array() ) {
 	$args = apply_filters( 'plugins_api_args', $args, $action );
 
 	/**
-	 * Filters the response for the current WordPress.org Plugin Installation API request.
+	 * Filters the response for the current ClassicPress.net Plugin Installation API request.
 	 *
-	 * Passing a non-false value will effectively short-circuit the WordPress.org API request.
+	 * Passing a non-false value will effectively short-circuit the ClassicPress.net API request.
 	 *
 	 * If `$action` is 'query_plugins' or 'plugin_information', an object MUST be passed.
 	 * If `$action` is 'hot_tags' or 'hot_categories', an array should be passed.
 	 *
-	 * @since 2.7.0
+	 * @since WP-2.7.0
 	 *
 	 * @param false|object|array $result The result object or array. Default false.
 	 * @param string             $action The type of information being requested from the Plugin Installation API.
@@ -150,7 +150,7 @@ function plugins_api( $action, $args = array() ) {
 
 		$http_args = array(
 			'timeout' => 15,
-			'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url( '/' ),
+			'user-agent' => 'ClassicPress/' . $wp_version . '; ' . home_url( '/' ),
 			'body' => array(
 				'action' => $action,
 				'request' => serialize( $args )
@@ -162,9 +162,9 @@ function plugins_api( $action, $args = array() ) {
 			trigger_error(
 				sprintf(
 					/* translators: %s: support forums URL */
-					__( 'An unexpected error occurred. Something may be wrong with WordPress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
+					__( 'An unexpected error occurred. Something may be wrong with ClassicPress.net or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
 					__( 'https://wordpress.org/support/' )
-				) . ' ' . __( '(WordPress could not establish a secure connection to WordPress.org. Please contact your server administrator.)' ),
+				) . ' ' . __( '(ClassicPress could not establish a secure connection to ClassicPress.net. Please contact your server administrator.)' ),
 				headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
 			);
 			$request = wp_remote_post( $http_url, $http_args );
@@ -174,7 +174,7 @@ function plugins_api( $action, $args = array() ) {
 			$res = new WP_Error( 'plugins_api_failed',
 				sprintf(
 					/* translators: %s: support forums URL */
-					__( 'An unexpected error occurred. Something may be wrong with WordPress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
+					__( 'An unexpected error occurred. Something may be wrong with ClassicPress.net or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
 					__( 'https://wordpress.org/support/' )
 				),
 				$request->get_error_message()
@@ -185,7 +185,7 @@ function plugins_api( $action, $args = array() ) {
 				$res = new WP_Error( 'plugins_api_failed',
 					sprintf(
 						/* translators: %s: support forums URL */
-						__( 'An unexpected error occurred. Something may be wrong with WordPress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
+						__( 'An unexpected error occurred. Something may be wrong with ClassicPress.net or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
 						__( 'https://wordpress.org/support/' )
 					),
 					wp_remote_retrieve_body( $request )
@@ -199,7 +199,7 @@ function plugins_api( $action, $args = array() ) {
 	/**
 	 * Filters the Plugin Installation API response results.
 	 *
-	 * @since 2.7.0
+	 * @since WP-2.7.0
 	 *
 	 * @param object|WP_Error $res    Response object or WP_Error.
 	 * @param string          $action The type of information being requested from the Plugin Installation API.
@@ -209,9 +209,9 @@ function plugins_api( $action, $args = array() ) {
 }
 
 /**
- * Retrieve popular WordPress plugin tags.
+ * Retrieve popular ClassicPress plugin tags.
  *
- * @since 2.7.0
+ * @since WP-2.7.0
  *
  * @param array $args
  * @return array
@@ -232,11 +232,11 @@ function install_popular_tags( $args = array() ) {
 }
 
 /**
- * @since 2.7.0
+ * @since WP-2.7.0
  */
 function install_dashboard() {
 	?>
-	<p><?php printf( __( 'Plugins extend and expand the functionality of WordPress. You may automatically install plugins from the <a href="%1$s">WordPress Plugin Directory</a> or upload a plugin in .zip format by clicking the button at the top of this page.' ), __( 'https://wordpress.org/plugins/' ) ); ?></p>
+	<p><?php printf( __( 'Plugins extend and expand the functionality of ClassicPress. You may automatically install plugins from the <a href="%1$s">ClassicPress Plugin Directory</a> or upload a plugin in .zip format by clicking the button at the top of this page.' ), __( 'https://wordpress.org/plugins/' ) ); ?></p>
 
 	<?php display_plugins_table(); ?>
 
@@ -272,8 +272,8 @@ function install_dashboard() {
 /**
  * Displays a search form for searching plugins.
  *
- * @since 2.7.0
- * @since 4.6.0 The `$type_selector` parameter was deprecated.
+ * @since WP-2.7.0
+ * @since WP-4.6.0 The `$type_selector` parameter was deprecated.
  *
  * @param bool $deprecated Not used.
  */
@@ -297,7 +297,7 @@ function install_search_form( $deprecated = true ) {
 
 /**
  * Upload from zip
- * @since 2.8.0
+ * @since WP-2.8.0
  */
 function install_plugins_upload() {
 ?>
@@ -315,7 +315,7 @@ function install_plugins_upload() {
 
 /**
  * Show a username form for the favorites page
- * @since 3.5.0
+ * @since WP-3.5.0
  *
  */
 function install_plugins_favorites_form() {
@@ -338,7 +338,7 @@ function install_plugins_favorites_form() {
 /**
  * Display plugin content based on plugin list.
  *
- * @since 2.7.0
+ * @since WP-2.7.0
  *
  * @global WP_List_Table $wp_list_table
  */
@@ -356,7 +356,7 @@ function display_plugins_table() {
 			break;
 		case 'install_plugins_beta' :
 			printf(
-				'<p>' . __( 'You are using a development version of WordPress. These feature plugins are also under development. <a href="%s">Learn more</a>.' ) . '</p>',
+				'<p>' . __( 'You are using a development version of ClassicPress. These feature plugins are also under development. <a href="%s">Learn more</a>.' ) . '</p>',
 				'https://make.wordpress.org/core/handbook/about/release-cycle/features-as-plugins/'
 			);
 			break;
@@ -372,7 +372,7 @@ function display_plugins_table() {
 /**
  * Determine the status we can perform on a plugin.
  *
- * @since 3.0.0
+ * @since WP-3.0.0
  *
  * @param  array|object $api  Data about the plugin retrieved from the API.
  * @param  bool         $loop Optional. Disable further loops. Default false.
@@ -453,7 +453,7 @@ function install_plugin_install_status($api, $loop = false) {
 /**
  * Display plugin information in dialog box form.
  *
- * @since 2.7.0
+ * @since WP-2.7.0
  *
  * @global string $tab
  */
@@ -582,7 +582,7 @@ function install_plugin_information() {
 				</li>
 			<?php } if ( ! empty( $api->requires ) ) { ?>
 				<li>
-					<strong><?php _e( 'Requires WordPress Version:' ); ?></strong>
+					<strong><?php _e( 'Requires ClassicPress Version:' ); ?></strong>
 					<?php
 					/* translators: %s: version number */
 					printf( __( '%s or higher' ), $api->requires );
@@ -676,9 +676,9 @@ function install_plugin_information() {
 	$wp_version = get_bloginfo( 'version' );
 
 	if ( ! empty( $api->tested ) && version_compare( substr( $wp_version, 0, strlen( $api->tested ) ), $api->tested, '>' ) ) {
-		echo '<div class="notice notice-warning notice-alt"><p>' . __( '<strong>Warning:</strong> This plugin has <strong>not been tested</strong> with your current version of WordPress.' ) . '</p></div>';
+		echo '<div class="notice notice-warning notice-alt"><p>' . __( '<strong>Warning:</strong> This plugin has <strong>not been tested</strong> with your current version of ClassicPress.' ) . '</p></div>';
 	} elseif ( ! empty( $api->requires ) && version_compare( substr( $wp_version, 0, strlen( $api->requires ) ), $api->requires, '<' ) ) {
-		echo '<div class="notice notice-warning notice-alt"><p>' . __( '<strong>Warning:</strong> This plugin has <strong>not been marked as compatible</strong> with your version of WordPress.' ) . '</p></div>';
+		echo '<div class="notice notice-warning notice-alt"><p>' . __( '<strong>Warning:</strong> This plugin has <strong>not been marked as compatible</strong> with your version of ClassicPress.' ) . '</p></div>';
 	}
 
 	foreach ( (array) $api->sections as $section_name => $content ) {

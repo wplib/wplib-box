@@ -1,10 +1,10 @@
 <?php
 /**
- * WordPress Comment Administration API.
+ * ClassicPress Comment Administration API.
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
- * @since 2.3.0
+ * @since WP-2.3.0
  */
 
 /**
@@ -13,10 +13,10 @@
  * For best performance, use `$timezone = 'gmt'`, which queries a field that is properly indexed. The default value
  * for `$timezone` is 'blog' for legacy reasons.
  *
- * @since 2.0.0
- * @since 4.4.0 Added the `$timezone` parameter.
+ * @since WP-2.0.0
+ * @since WP-4.4.0 Added the `$timezone` parameter.
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb ClassicPress database abstraction object.
  *
  * @param string $comment_author Author of the comment.
  * @param string $comment_date   Date of the comment.
@@ -42,7 +42,7 @@ function comment_exists( $comment_author, $comment_date, $timezone = 'blog' ) {
 /**
  * Update a comment with values provided in $_POST.
  *
- * @since 2.0.0
+ * @since WP-2.0.0
  */
 function edit_comment() {
 	if ( ! current_user_can( 'edit_comment', (int) $_POST['comment_ID'] ) )
@@ -88,7 +88,7 @@ function edit_comment() {
 /**
  * Returns a WP_Comment object based on comment ID.
  *
- * @since 2.0.0
+ * @since WP-2.0.0
  *
  * @param int $id ID of comment to retrieve.
  * @return WP_Comment|false Comment if found. False on failure.
@@ -104,7 +104,7 @@ function get_comment_to_edit( $id ) {
 	/**
 	 * Filters the comment content before editing.
 	 *
-	 * @since 2.0.0
+	 * @since WP-2.0.0
 	 *
 	 * @param string $comment->comment_content Comment content.
 	 */
@@ -121,9 +121,9 @@ function get_comment_to_edit( $id ) {
 /**
  * Get the number of pending comments on a post or posts
  *
- * @since 2.3.0
+ * @since WP-2.3.0
  *
- * @global wpdb $wpdb WordPress database abstraction object.
+ * @global wpdb $wpdb ClassicPress database abstraction object.
  *
  * @param int|array $post_id Either a single Post ID or an array of Post IDs
  * @return int|array Either a single Posts pending comments as an int or an array of ints keyed on the Post IDs
@@ -166,7 +166,7 @@ function get_pending_comments_num( $post_id ) {
 /**
  * Add avatars to relevant places in admin, or try to.
  *
- * @since 2.5.0
+ * @since WP-2.5.0
  *
  * @param string $name User name.
  * @return string Avatar with Admin name.
@@ -177,7 +177,7 @@ function floated_admin_avatar( $name ) {
 }
 
 /**
- * @since 2.7.0
+ * @since WP-2.7.0
  */
 function enqueue_comment_hotkeys_js() {
 	if ( 'true' == get_user_option( 'comment_shortcuts' ) )

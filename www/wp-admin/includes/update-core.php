@@ -1,16 +1,16 @@
 <?php
 /**
- * WordPress core upgrade functionality.
+ * ClassicPress core upgrade functionality.
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
- * @since 2.7.0
+ * @since WP-2.7.0
  */
 
 /**
  * Stores files to be deleted.
  *
- * @since 2.7.0
+ * @since WP-2.7.0
  * @global array $_old_files
  * @var array
  * @name $_old_files
@@ -785,7 +785,7 @@ $_old_files = array(
  * Stores new files in wp-content to copy
  *
  * The contents of this array indicate any new bundled plugins/themes which
- * should be installed with the WordPress Upgrade. These items will not be
+ * should be installed with the ClassicPress Upgrade. These items will not be
  * re-installed in future upgrades, this behaviour is controlled by the
  * introduced version present here being older than the current installed version.
  *
@@ -793,8 +793,8 @@ $_old_files = array(
  * Filename (relative to wp-content) => Introduced version
  * Directories should be noted by suffixing it with a trailing slash (/)
  *
- * @since 3.2.0
- * @since 4.7.0 New themes were not automatically installed for 4.4-4.6 on
+ * @since WP-3.2.0
+ * @since WP-4.7.0 New themes were not automatically installed for 4.4-4.6 on
  *              upgrade. New themes are now installed again. To disable new
  *              themes from being installed on upgrade, explicitly define
  *              CORE_UPGRADE_SKIP_NEW_BUNDLED as false.
@@ -817,9 +817,9 @@ $_new_bundled_files = array(
 );
 
 /**
- * Upgrades the core of WordPress.
+ * Upgrades the core of ClassicPress.
  *
- * This will create a .maintenance file at the base of the WordPress directory
+ * This will create a .maintenance file at the base of the ClassicPress directory
  * to ensure that people can not access the web site, when the files are being
  * copied to their locations.
  *
@@ -832,13 +832,13 @@ $_new_bundled_files = array(
  * The steps for the upgrader for after the new release is downloaded and
  * unzipped is:
  *   1. Test unzipped location for select files to ensure that unzipped worked.
- *   2. Create the .maintenance file in current WordPress base.
- *   3. Copy new WordPress directory over old WordPress files.
- *   4. Upgrade WordPress to new version.
+ *   2. Create the .maintenance file in current ClassicPress base.
+ *   3. Copy new ClassicPress directory over old ClassicPress files.
+ *   4. Upgrade ClassicPress to new version.
  *     4.1. Copy all files/folders other than wp-content
  *     4.2. Copy any language files to WP_LANG_DIR (which may differ from WP_CONTENT_DIR
  *     4.3. Copy any new bundled themes/plugins to their respective locations
- *   5. Delete new WordPress directory path.
+ *   5. Delete new ClassicPress directory path.
  *   6. Delete .maintenance file.
  *   7. Remove old files.
  *   8. Delete 'update_core' option.
@@ -849,14 +849,14 @@ $_new_bundled_files = array(
  * automatically remove old files and remove the 'update_core' option. This
  * isn't that bad.
  *
- * If the copy of the new WordPress over the old fails, then the worse is that
- * the new WordPress directory will remain.
+ * If the copy of the new ClassicPress over the old fails, then the worse is that
+ * the new ClassicPress directory will remain.
  *
  * If it is assumed that every file will be copied over, including plugins and
  * themes, then if you edit the default theme, you should rename it, so that
  * your changes remain.
  *
- * @since 2.7.0
+ * @since WP-2.7.0
  *
  * @global WP_Filesystem_Base $wp_filesystem
  * @global array              $_old_files
@@ -867,7 +867,7 @@ $_new_bundled_files = array(
  * @global string             $required_mysql_version
  *
  * @param string $from New release unzipped path.
- * @param string $to   Path to old WordPress installation.
+ * @param string $to   Path to old ClassicPress installation.
  * @return WP_Error|null WP_Error on failure, null on success.
  */
 function update_core($from, $to) {
@@ -882,32 +882,41 @@ function update_core($from, $to) {
 	 * has been downloaded and unzipped. It is evaluated five more times during
 	 * the process:
 	 *
-	 * 1. Before WordPress begins the core upgrade process.
+	 * 1. Before ClassicPress begins the core upgrade process.
 	 * 2. Before Maintenance Mode is enabled.
-	 * 3. Before WordPress begins copying over the necessary files.
+	 * 3. Before ClassicPress begins copying over the necessary files.
 	 * 4. Before Maintenance Mode is disabled.
 	 * 5. Before the database is upgraded.
 	 *
-	 * @since 2.5.0
+	 * @since WP-2.5.0
 	 *
 	 * @param string $feedback The core update feedback messages.
 	 */
 	apply_filters( 'update_feedback', __( 'Verifying the unpacked files&#8230;' ) );
 
 	// Sanity check the unzipped distribution.
-	$distro = '';
-	$roots = array( '/wordpress/', '/wordpress-mu/' );
-	foreach ( $roots as $root ) {
-		if ( $wp_filesystem->exists( $from . $root . 'readme.html' ) && $wp_filesystem->exists( $from . $root . 'wp-includes/version.php' ) ) {
-			$distro = $root;
-			break;
+	$distro = null;
+	$entries = array_values( $wp_filesystem->dirlist( $from ) );
+	if (
+		count( $entries ) === 1 &&
+		(
+			substr( $entries[0]['name'], 0, 13 ) === 'ClassicPress-' ||
+			$entries[0]['name'] === 'wordpress' // migration build
+		) &&
+		$entries[0]['type'] === 'd'
+	) {
+		$distro = '/' . $entries[0]['name'] . '/';
+		if (
+			! $wp_filesystem->exists( $from . $distro . 'readme.html' ) ||
+			! $wp_filesystem->exists( $from . $distro . 'wp-includes/version.php' )
+		) {
+			$distro = null;
 		}
 	}
 	if ( ! $distro ) {
 		$wp_filesystem->delete( $from, true );
 		return new WP_Error( 'insane_distro', __('The update could not be unpacked') );
 	}
-
 
 	/*
 	 * Import $wp_version, $required_php_version, and $required_mysql_version from the new version.
@@ -927,7 +936,7 @@ function update_core($from, $to) {
 
 	$php_version    = phpversion();
 	$mysql_version  = $wpdb->db_version();
-	$old_wp_version = $GLOBALS['wp_version']; // The version of WordPress we're updating from
+	$old_wp_version = $GLOBALS['wp_version']; // The version of ClassicPress or WordPress we're updating from
 	$development_build = ( false !== strpos( $old_wp_version . $wp_version, '-' )  ); // a dash in the version indicates a Development release
 	$php_compat     = version_compare( $php_version, $required_php_version, '>=' );
 	if ( file_exists( WP_CONTENT_DIR . '/db.php' ) && empty( $wpdb->is_mysql ) )
@@ -939,11 +948,11 @@ function update_core($from, $to) {
 		$wp_filesystem->delete($from, true);
 
 	if ( !$mysql_compat && !$php_compat )
-		return new WP_Error( 'php_mysql_not_compatible', sprintf( __('The update cannot be installed because WordPress %1$s requires PHP version %2$s or higher and MySQL version %3$s or higher. You are running PHP version %4$s and MySQL version %5$s.'), $wp_version, $required_php_version, $required_mysql_version, $php_version, $mysql_version ) );
+		return new WP_Error( 'php_mysql_not_compatible', sprintf( __('The update cannot be installed because ClassicPress %1$s requires PHP version %2$s or higher and MySQL version %3$s or higher. You are running PHP version %4$s and MySQL version %5$s.'), $wp_version, $required_php_version, $required_mysql_version, $php_version, $mysql_version ) );
 	elseif ( !$php_compat )
-		return new WP_Error( 'php_not_compatible', sprintf( __('The update cannot be installed because WordPress %1$s requires PHP version %2$s or higher. You are running version %3$s.'), $wp_version, $required_php_version, $php_version ) );
+		return new WP_Error( 'php_not_compatible', sprintf( __('The update cannot be installed because ClassicPress %1$s requires PHP version %2$s or higher. You are running version %3$s.'), $wp_version, $required_php_version, $php_version ) );
 	elseif ( !$mysql_compat )
-		return new WP_Error( 'mysql_not_compatible', sprintf( __('The update cannot be installed because WordPress %1$s requires MySQL version %2$s or higher. You are running version %3$s.'), $wp_version, $required_mysql_version, $mysql_version ) );
+		return new WP_Error( 'mysql_not_compatible', sprintf( __('The update cannot be installed because ClassicPress %1$s requires MySQL version %2$s or higher. You are running version %3$s.'), $wp_version, $required_mysql_version, $mysql_version ) );
 
 	/** This filter is documented in wp-admin/includes/update-core.php */
 	apply_filters( 'update_feedback', __( 'Preparing to install the latest version&#8230;' ) );
@@ -1099,7 +1108,7 @@ function update_core($from, $to) {
 	}
 
 	// Copy New bundled plugins & themes
-	// This gives us the ability to install new plugins & themes bundled with future versions of WordPress whilst avoiding the re-install upon upgrade issue.
+	// This gives us the ability to install new plugins & themes bundled with future versions of ClassicPress whilst avoiding the re-install upon upgrade issue.
 	// $development_build controls us overwriting bundled themes and plugins when a non-stable release is being updated
 	if ( !is_wp_error($result) && ( ! defined('CORE_UPGRADE_SKIP_NEW_BUNDLED') || ! CORE_UPGRADE_SKIP_NEW_BUNDLED ) ) {
 		foreach ( (array) $_new_bundled_files as $file => $introduced_version ) {
@@ -1188,9 +1197,9 @@ function update_core($from, $to) {
 		delete_option('update_core');
 
 	/**
-	 * Fires after WordPress core has been successfully updated.
+	 * Fires after ClassicPress core has been successfully updated.
 	 *
-	 * @since 3.3.0
+	 * @since WP-3.3.0
 	 *
 	 * @param string $wp_version The current WordPress version.
 	 */
@@ -1204,15 +1213,15 @@ function update_core($from, $to) {
 }
 
 /**
- * Copies a directory from one location to another via the WordPress Filesystem Abstraction.
+ * Copies a directory from one location to another via the ClassicPress Filesystem Abstraction.
  * Assumes that WP_Filesystem() has already been called and setup.
  *
  * This is a temporary function for the 3.1 -> 3.2 upgrade, as well as for those upgrading to
  * 3.7+
  *
  * @ignore
- * @since 3.2.0
- * @since 3.7.0 Updated not to use a regular expression for the skip list
+ * @since WP-3.2.0
+ * @since WP-3.7.0 Updated not to use a regular expression for the skip list
  * @see copy_dir()
  *
  * @global WP_Filesystem_Base $wp_filesystem
@@ -1266,11 +1275,11 @@ function _copy_dir($from, $to, $skip_list = array() ) {
 }
 
 /**
- * Redirect to the About WordPress page after a successful upgrade.
+ * Redirect to the About ClassicPress page after a successful upgrade.
  *
  * This function is only needed when the existing installation is older than 3.4.0.
  *
- * @since 3.3.0
+ * @since WP-3.3.0
  *
  * @global string $wp_version
  * @global string $pagenow
@@ -1295,11 +1304,11 @@ function _redirect_to_about_wordpress( $new_version ) {
 	load_default_textdomain();
 
 	// See do_core_upgrade()
-	show_message( __('WordPress updated successfully') );
+	show_message( __('ClassicPress updated successfully') );
 
 	// self_admin_url() won't exist when upgrading from <= 3.0, so relative URLs are intentional.
-	show_message( '<span class="hide-if-no-js">' . sprintf( __( 'Welcome to WordPress %1$s. You will be redirected to the About WordPress screen. If not, click <a href="%2$s">here</a>.' ), $new_version, 'about.php?updated' ) . '</span>' );
-	show_message( '<span class="hide-if-js">' . sprintf( __( 'Welcome to WordPress %1$s. <a href="%2$s">Learn more</a>.' ), $new_version, 'about.php?updated' ) . '</span>' );
+	show_message( '<span class="hide-if-no-js">' . sprintf( __( 'Welcome to ClassicPress %1$s. You will be redirected to the About ClassicPress screen. If not, click <a href="%2$s">here</a>.' ), $new_version, 'about.php?updated' ) . '</span>' );
+	show_message( '<span class="hide-if-js">' . sprintf( __( 'Welcome to ClassicPress %1$s. <a href="%2$s">Learn more</a>.' ), $new_version, 'about.php?updated' ) . '</span>' );
 	echo '</div>';
 	?>
 <script type="text/javascript">
@@ -1315,7 +1324,7 @@ window.location = 'about.php?updated';
 /**
  * Cleans up Genericons example files.
  *
- * @since 4.2.2
+ * @since WP-4.2.2
  *
  * @global array              $wp_theme_directories
  * @global WP_Filesystem_Base $wp_filesystem
@@ -1359,7 +1368,7 @@ function _upgrade_422_remove_genericons() {
  * Recursively find Genericons example files in a given folder.
  *
  * @ignore
- * @since 4.2.2
+ * @since WP-4.2.2
  *
  * @param string $directory Directory path. Expects trailingslashed.
  * @return array
@@ -1384,7 +1393,7 @@ function _upgrade_422_find_genericons_files_in_folder( $directory ) {
 
 /**
  * @ignore
- * @since 4.4.0
+ * @since WP-4.4.0
  */
 function _upgrade_440_force_deactivate_incompatible_plugins() {
 	if ( defined( 'REST_API_VERSION' ) && version_compare( REST_API_VERSION, '2.0-beta4', '<=' ) ) {

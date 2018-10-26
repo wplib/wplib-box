@@ -1,6 +1,6 @@
 <?php
 /**
- * WordPress Filesystem Class for implementing SSH2
+ * ClassicPress Filesystem Class for implementing SSH2
  *
  * To use this class you must follow these steps for PHP 5.2.6+
  *
@@ -28,9 +28,9 @@
  *
  * Note: as of WordPress 2.8, This utilises the PHP5+ function 'stream_get_contents'
  *
- * @since 2.7.0
+ * @since WP-2.7.0
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Filesystem
  */
 class WP_Filesystem_SSH2 extends WP_Filesystem_Base {
@@ -171,7 +171,7 @@ class WP_Filesystem_SSH2 extends WP_Filesystem_Base {
 	 * See https://bugs.php.net/bug.php?id=64169 for more details.
 	 *
 	 *
-	 * @since 4.4.0
+	 * @since WP-4.4.0
 	 *
 	 * @param string $path The File/Directory path on the remote server to return
 	 * @return string The ssh2.sftp:// wrapped path to use.

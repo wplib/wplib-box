@@ -1,15 +1,15 @@
 <?php
 /**
- * WordPress Administration Importer API.
+ * ClassicPress Administration Importer API.
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Administration
  */
 
 /**
  * Retrieve list of importers.
  *
- * @since 2.0.0
+ * @since WP-2.0.0
  *
  * @global array $wp_importers
  * @return array
@@ -27,7 +27,7 @@ function get_importers() {
  *
  * Used by uasort() as a callback, should not be used directly.
  *
- * @since 2.9.0
+ * @since WP-2.9.0
  * @access private
  *
  * @param array $a
@@ -39,9 +39,9 @@ function _usort_by_first_member( $a, $b ) {
 }
 
 /**
- * Register importer for WordPress.
+ * Register importer for ClassicPress.
  *
- * @since 2.0.0
+ * @since WP-2.0.0
  *
  * @global array $wp_importers
  *
@@ -63,7 +63,7 @@ function register_importer( $id, $name, $description, $callback ) {
  *
  * Removes attachment based on ID.
  *
- * @since 2.0.0
+ * @since WP-2.0.0
  *
  * @param string $id Importer ID.
  */
@@ -74,7 +74,7 @@ function wp_import_cleanup( $id ) {
 /**
  * Handle importer uploading and add attachment.
  *
- * @since 2.0.0
+ * @since WP-2.0.0
  *
  * @return array Uploaded file's details on success, error message on failure
  */
@@ -116,9 +116,9 @@ function wp_import_handle_upload() {
 }
 
 /**
- * Returns a list from WordPress.org of popular importer plugins.
+ * Returns a list from ClassicPress.net of popular importer plugins.
  *
- * @since 3.5.0
+ * @since WP-3.5.0
  *
  * @return array Importers with metadata for each.
  */
@@ -134,7 +134,7 @@ function wp_get_popular_importers() {
 			'locale'  => $locale,
 			'version' => $wp_version,
 		), 'http://api.wordpress.org/core/importers/1.1/' );
-		$options = array( 'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url( '/' ) );
+		$options = array( 'user-agent' => 'ClassicPress/' . $wp_version . '; ' . home_url( '/' ) );
 
 		if ( wp_http_supports( array( 'ssl' ) ) ) {
 			$url = set_url_scheme( $url, 'https' );
@@ -157,7 +157,7 @@ function wp_get_popular_importers() {
 
 		foreach ( $popular_importers['importers'] as &$importer ) {
 			$importer['description'] = translate( $importer['description'] );
-			if ( $importer['name'] != 'WordPress' )
+			if ( $importer['name'] != 'ClassicPress' )
 				$importer['name'] = translate( $importer['name'] );
 		}
 		return $popular_importers['importers'];
@@ -208,8 +208,8 @@ function wp_get_popular_importers() {
 			'importer-id' => 'tumblr',
 		),
 		'wordpress' => array(
-			'name' => 'WordPress',
-			'description' => __( 'Import posts, pages, comments, custom fields, categories, and tags from a WordPress export file.' ),
+			'name' => 'ClassicPress',
+			'description' => __( 'Import posts, pages, comments, custom fields, categories, and tags from a ClassicPress export file.' ),
 			'plugin-slug' => 'wordpress-importer',
 			'importer-id' => 'wordpress',
 		),

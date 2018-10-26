@@ -1,15 +1,15 @@
 <?php
 /**
- * WordPress FTP Filesystem.
+ * ClassicPress FTP Filesystem.
  *
- * @package WordPress
+ * @package ClassicPress
  * @subpackage Filesystem
  */
 
 /**
- * WordPress Filesystem Class for implementing FTP.
+ * ClassicPress Filesystem Class for implementing FTP.
  *
- * @since 2.5.0
+ * @since WP-2.5.0
  *
  * @see WP_Filesystem_Base
  */
@@ -102,7 +102,7 @@ class WP_Filesystem_FTPext extends WP_Filesystem_Base {
 	/**
 	 * Retrieves the file contents.
 	 *
-	 * @since 2.5.0
+	 * @since WP-2.5.0
 	 *
 	 * @param string $file Filename.
 	 * @return string|false File contents on success, false if no temp file could be opened,
