@@ -1,7 +1,7 @@
 <?php
 
 
-if ( getcwd()=='/var/www' && isset( $_SERVER[ 'HTTP_HOST' ] ) ) {
+if ( preg_match( '#^/var/www#', getcwd() ) && isset( $_SERVER[ 'HTTP_HOST' ] ) ) {
 	$hostname = $_SERVER[ 'HTTP_HOST' ];
 } else if ( is_file( __DIR__ . '/../HOSTNAME' ) ) {
 	$hostname = file_get_contents( __DIR__ . '/../HOSTNAME' );
