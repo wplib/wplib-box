@@ -69,7 +69,7 @@ if ( 'standard' === BOX_DIRECTORY_LAYOUT ) {
 
 } else if ( 'skeleton' === BOX_DIRECTORY_LAYOUT ) {
 	define( 'WP_SITEURL', BOX_URL_SCHEME . '://' . SITE_DOMAIN . '/wp' );
-	define( 'WP_CONTENT_DIR', dirname( __FILE__ ) . '/content' );
+	define( 'WP_CONTENT_DIR', dirname( dirname( __FILE__ ) ) . '/content' );
 	define( 'WP_CONTENT_URL', BOX_URL_SCHEME . '://' . SITE_DOMAIN . '/content' );
 }
 
